@@ -7,7 +7,7 @@ Android SDK to use [goSell API][1].
 [![SDK Version](https://img.shields.io/badge/minSdkVersion-16-blue.svg)](https://stuff.mit.edu/afs/sipb/project/android/docs/reference/packages.html)
 [![SDK Version](https://img.shields.io/badge/targetSdkVersion-28-informational.svg)](https://stuff.mit.edu/afs/sipb/project/android/docs/reference/packages.html)
 
-A library that fully covers payment/authorization/card saving process inside your Android application
+AndroidX compatible version of goSellSDK library that fully covers payment/authorization/card saving process inside your Android application.
 
 # Table of Contents
 ---
@@ -55,8 +55,9 @@ A library that fully covers payment/authorization/card saving process inside you
 To use the SDK the following requirements must be met:
 
 1. **Android Studio 3.3** or newer
-2. **Android SDK Tools 26.1.1** or newer
+2. **Android SDK Tools 28.0.3** or newer
 3. **Android Platform Version: API 28: Android 9.0 (Pie) revision 6** or later
+4. **Android targetSdkVersion: 28
 
 <a name="installation"></a>
 # Installation
@@ -94,7 +95,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-Android:2.3.0'
+	        implementation 'com.github.Tap-Payments:goSellSDK-Android:3.0.0'
 	}
 ```
 
