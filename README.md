@@ -95,7 +95,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-Android:3.0.0'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.0.0'
 	}
 ```
 
