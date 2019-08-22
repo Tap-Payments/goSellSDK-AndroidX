@@ -469,10 +469,6 @@ final class PaymentProcessManager {
       boolean canUserSaveCard= saveCard;
       @Override
       public void onSuccess(int responseCode, Token serializedResponse) {
-//        Log.d("PaymentProcessManager","startPaymentProcessWithCard >> serializedResponse: " + responseCode);
-//        Log.d("PaymentProcessManager","startPaymentProcessWithCard >> transaction mode: " +
-//                PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode());
-
         // stop alerting user with card saved before and make it save = false.
         if(PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.SAVE_CARD
                 || saveCard) {
@@ -513,11 +509,6 @@ final class PaymentProcessManager {
 
       @Override
       public void onSuccess(int responseCode, Token serializedResponse) {
-//        Log.d("PaymentProcessManager","callCardTokenizationTokenAPI >> responseCode: " + responseCode);
-//        Log.d("PaymentProcessManager","callCardTokenizationTokenAPI >> serializedResponse: " + serializedResponse);
-//        Log.d("PaymentProcessManager","callCardTokenizationTokenAPI >> transaction mode: " +
-//          PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode());
-
         fireCardTokenizationProcessCompleted(serializedResponse);
 
       }

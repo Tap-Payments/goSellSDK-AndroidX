@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Tap-Payments:TapDimensionsKit-Android:1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-TapDimensionsKit-Android-1.0.aar/babdc44efb92cf688259c3b274dfe53f/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-TapDimensionsKit-Android-1.0.aar/babdc44efb92cf688259c3b274dfe53f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-TapDimensionsKit-Android-1.0.aar/31233c684ebc44f05c27796ed5f7848e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-TapDimensionsKit-Android-1.0.aar/31233c684ebc44f05c27796ed5f7848e/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
