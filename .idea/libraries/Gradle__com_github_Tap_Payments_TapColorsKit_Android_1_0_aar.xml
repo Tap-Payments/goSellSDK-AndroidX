@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Tap-Payments:TapColorsKit-Android:1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TapColorsKit-Android-1.0.aar/8dd2fdc5808efb3cb5be9e295fe890ea/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TapColorsKit-Android-1.0.aar/8dd2fdc5808efb3cb5be9e295fe890ea/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01b8f90db39cf277367aae014d14c497/TapColorsKit-Android-1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01b8f90db39cf277367aae014d14c497/TapColorsKit-Android-1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
