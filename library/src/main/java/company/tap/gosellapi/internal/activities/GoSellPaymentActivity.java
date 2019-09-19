@@ -229,9 +229,18 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 
         } else {
-            String logoPath = PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getLogo();
-            Glide.with(this).load(logoPath).apply(RequestOptions.circleCropTransform()).into(businessIcon);
-            header_title = PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getName();
+            String logoPath = "";
+            if (    PaymentDataManager.getInstance().getSDKSettings() != null &&
+                    PaymentDataManager.getInstance().getSDKSettings().getData() != null &&
+                    PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant() != null
+            ) {
+
+                logoPath = PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getLogo();
+
+                if(!logoPath.equalsIgnoreCase("") && logoPath!=null)  Glide.with(this).load(logoPath).apply(RequestOptions.circleCropTransform()).into(businessIcon);
+
+                header_title = PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getName();
+            }
         }
         businessName.setText(header_title);
 

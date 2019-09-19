@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: cn.aigestudio.wheelpicker:WheelPicker:1.1.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/WheelPicker-1.1.2.aar/b475a28ec5a864306e972f358f4d145a/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/WheelPicker-1.1.2.aar/b475a28ec5a864306e972f358f4d145a/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66d3689b8dbe74e10bd02b579017e107/WheelPicker-1.1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66d3689b8dbe74e10bd02b579017e107/WheelPicker-1.1.2/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.aigestudio.wheelpicker/WheelPicker/1.1.2/e3260c57e865e2ed36d31b1fbd525fd5c2256596/WheelPicker-1.1.2-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.aigestudio.wheelpicker/WheelPicker/1.1.2/1a349bbe8b02e337ce9282db8e82409b2e4cd753/WheelPicker-1.1.2-sources.jar!/" />
     </SOURCES>
