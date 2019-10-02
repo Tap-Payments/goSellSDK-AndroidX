@@ -7,16 +7,23 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum SourceObject {
 
-    /**
-     * Card source object.
-     */
-    @SerializedName("CARD")     CARD,
-    /**
-     * Token source object.
-     */
-    @SerializedName("TOKEN")    TOKEN,
-    /**
-     * Source source object.
-     */
-    @SerializedName("SOURCE")   SOURCE
+    @SerializedName("CARD")
+    card("CARD"),
+
+    @SerializedName("TOKEN")
+    token("TOKEN"),
+
+    @SerializedName("SOURCE")
+    source("SOURCE");
+
+
+    private String rawValue;
+
+    private SourceObject(String rawValue) {
+        this.rawValue = rawValue;
+    }
+
+    public String getRawValue() {
+        return this.rawValue;
+    }
 }
