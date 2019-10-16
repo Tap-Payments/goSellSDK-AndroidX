@@ -97,22 +97,25 @@ public class CurrenciesActivity extends BaseActionBarActivity implements Currenc
         MenuItem searchItem = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) searchItem.getActionView();
 // hide it for now
-        mSearchView.setVisibility(View.INVISIBLE);
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-                // see https://code.google.com/p/android/issues/detail?id=24599
-                mSearchView.clearFocus();
-                return true;
-            }
+        if(mSearchView!=null){
+            mSearchView.setVisibility(View.INVISIBLE);
+            mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+                    // see https://code.google.com/p/android/issues/detail?id=24599
+                    mSearchView.clearFocus();
+                    return true;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.filter(newText.toLowerCase());
-                return true;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.filter(newText.toLowerCase());
+                    return true;
+                }
+            });
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
