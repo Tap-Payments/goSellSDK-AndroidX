@@ -142,5 +142,8 @@
     <orderEntry type="library" name="Gradle: com.github.Tap-Payments:TapColorsKit-Android:1.0@aar" level="project" />
     <orderEntry type="module" module-name="library" />
     <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="library" />
   </component>
 </module>

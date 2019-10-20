@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp(){
         GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample");  // to be replaced by merchant
+
     }
     /**
      * Configure SDK Theme
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(40));  //** Required **
+        sdkSession.setAmount(new BigDecimal(1));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -624,6 +625,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         return new Customer.CustomerBuilder("cus_s4H13120191115x0R12606480").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(),phoneNumber.getNumber()))
                 .middleName("middlename").build();
+
+
     }
 
     private void showDialog(String chargeID, String msg,int icon)
