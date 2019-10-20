@@ -19,6 +19,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.CookieManager;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -906,6 +909,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         w.setWebViewClient(new CardPaymentWebViewClient());
         WebSettings settings = w.getSettings();
         settings.setJavaScriptEnabled(true);
+
+
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
+
         popup_window.addView(w);
         setContentView(popup_window);
         w.loadUrl(url);
@@ -946,6 +954,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance()
                     .decisionForWebPaymentURL(url);
 
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+
             boolean shouldOverride = !decision.shouldLoad();
 //            Log.d("GoSellPaymentActivity"," shouldOverrideUrlLoading : decision : " + shouldOverride);
             if (shouldOverride) { // if decision is true and response has TAP_ID
@@ -959,6 +970,18 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
 //            Log.d("GoSellPaymentActivity","onPageFinished :" + url);
+        }
+
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            System.out.println("on receive error.....");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && error!=null) {
+                Log.d("GoSellPaymentActivity"," onReceivedError : error  : " + error.getErrorCode());
+                Log.d("GoSellPaymentActivity"," onReceivedError : desc  : " + error.getDescription());
+            }
+
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
