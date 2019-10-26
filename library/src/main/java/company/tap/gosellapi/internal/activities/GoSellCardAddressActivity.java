@@ -2,6 +2,7 @@ package company.tap.gosellapi.internal.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,13 @@ public class GoSellCardAddressActivity extends BaseActionBarActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /**
+         * Fix for web view
+         * Force it to portrait to fix resend request each time configurations change "Portrait to Landscape"
+         */
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.gosellapi_activity_card_address);
 
         Bundle extras = getIntent().getExtras();
@@ -55,6 +63,17 @@ public class GoSellCardAddressActivity extends BaseActionBarActivity implements 
         });
 
         setTitle(getString(R.string.actionbar_title_address_on_card));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /**
+         * Fix for web view
+         * Force it to portrait to fix resend request each time configurations change "Portrait to Landscape"
+         */
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     private void getAddressOnCardFormat() {
