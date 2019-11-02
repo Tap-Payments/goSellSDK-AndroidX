@@ -146,6 +146,29 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport {
         return brand;
     }
 
+
+    /**
+     *  Gets Brand name as string
+     * @return
+     */
+    @NonNull public String getBrandName() {
+        if(brand!=null && brand.name()!=null)
+            return brand.name();
+        return "UNKNOWN";
+    }
+
+    /**
+     *Gets Brand raw value as string
+     * @return
+     */
+    @NonNull public String getBrandRawValue() {
+        if(brand!=null && brand.getRawValue()!=null)
+            return brand.getRawValue();
+        return "UNKNOWN";
+    }
+
+
+
     /**
      * Gets cardholder name.
      *
