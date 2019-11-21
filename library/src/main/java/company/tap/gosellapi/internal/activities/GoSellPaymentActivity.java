@@ -165,7 +165,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         payButton = findViewById(R.id.payButtonId);
         payButton.setEnabled(false);
-        payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
+            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
         payButton.setOnClickListener(v -> {
             payButton.setEnabled(false);
@@ -259,9 +260,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void setupPayButton() {
-        payButton.getPayButton().setTextSize(ThemeObject.getInstance().getPayButtonTextSize());
-        payButton.getSecurityIconView().setVisibility(ThemeObject.getInstance().isPayButtSecurityIconVisible()?View.VISIBLE:View.INVISIBLE);
-        payButton.getLoadingView().setVisibility(ThemeObject.getInstance().isPayButtLoaderVisible()?View.VISIBLE:View.INVISIBLE);
+        if(ThemeObject.getInstance().getPayButtonTextSize()!=0)
+            payButton.getPayButton().setTextSize(ThemeObject.getInstance().getPayButtonTextSize());
+        if(ThemeObject.getInstance().isPayButtSecurityIconVisible())
+            payButton.getSecurityIconView().setVisibility(ThemeObject.getInstance().isPayButtSecurityIconVisible()?View.VISIBLE:View.INVISIBLE);
+        if(ThemeObject.getInstance().isPayButtLoaderVisible())
+            payButton.getLoadingView().setVisibility(ThemeObject.getInstance().isPayButtLoaderVisible()?View.VISIBLE:View.INVISIBLE);
 
         if (isTransactionModeSaveCard()) {
             setupSaveCardMode();
@@ -271,12 +275,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void setupChargeOrAuthorizeMode() {
-        payButton.setBackgroundSelector(ThemeObject.getInstance().getPayButtonResourceId());
+        if (ThemeObject.getInstance().getPayButtonResourceId() != 0)
+            payButton.setBackgroundSelector(ThemeObject.getInstance().getPayButtonResourceId());
 
         if(ThemeObject.getInstance().getPayButtonFont()!=null)
         payButton.getPayButton().setTypeface(ThemeObject.getInstance().getPayButtonFont());
-
-        payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
+            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
         payButton.getPayButton().setText(String
                 .format("%s %s %s", getResources().getString(R.string.pay),
@@ -285,7 +290,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void setupSaveCardMode() {
-        payButton.setBackgroundSelector(ThemeObject.getInstance().getPayButtonResourceId());
+        if (ThemeObject.getInstance().getPayButtonResourceId() != 0)
+            payButton.setBackgroundSelector(ThemeObject.getInstance().getPayButtonResourceId());
 
         if(ThemeObject.getInstance().getPayButtonFont()!=null)
            payButton.getPayButton().setTypeface(ThemeObject.getInstance().getPayButtonFont());
@@ -399,7 +405,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if(PaymentDataManager.getInstance().getExternalDataSource().getCustomer()==null)
             return;
         payButton.setEnabled(false);
-        payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
+            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
         LoadingScreenManager.getInstance().showLoadingScreen(this);
          PaymentDataManager.getInstance().deleteCard(
@@ -411,7 +418,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     public void disablePayButton() {
       payButton.setEnabled(false);
-      payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
+            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
     }
 
 
@@ -437,7 +445,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (recentItem != null) {
             payButton.setEnabled(true);
-            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonEnabledTitleColor());
+            if (ThemeObject.getInstance().getPayButtonEnabledTitleColor() != 0)
+                payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonEnabledTitleColor());
             PaymentOption paymentOption = PaymentDataManager.getInstance()
                     .findSavedCardPaymentOption(recentItem);
 
@@ -480,8 +489,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         }
 
         if(isFilled)
-            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonEnabledTitleColor());
+            if (ThemeObject.getInstance().getPayButtonEnabledTitleColor() != 0)
+                payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonEnabledTitleColor());
         else
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
             payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
         payButton.setEnabled(isFilled);
