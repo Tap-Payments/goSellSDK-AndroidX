@@ -67,3 +67,7 @@
 /.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml
 /.idea/libraries/Gradle__io_fabric_sdk_android_fabric_1_4_2_aar.xml
 /.idea/libraries/Gradle__jp_wasabeef_blurry_2_1_1_aar.xml
+/AndroidXSDK.iml
+/local.properties
+/.idea/modules.xml
+/goSellSDK-AndroidX.iml
