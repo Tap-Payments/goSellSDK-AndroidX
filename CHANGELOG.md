@@ -1,7 +1,7 @@
 # CHANGELOG
 ## [3.2.6] - 2019-11-21
 ### Minor version release to validate ThemeObject:
-- If Merchant doesnot configure ThemeObject then it will take default.
+- If Merchant does not configure ThemeObject then it will take default.
 - SDK will validate for customized Theme Object.
 
 ### Impact on existing integrations:

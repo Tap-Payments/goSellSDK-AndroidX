@@ -71,3 +71,6 @@
 /local.properties
 /.idea/modules.xml
 /goSellSDK-AndroidX.iml
+/.idea/misc.xml
+/goSellSDKSample/goSellSDKSample.iml
+/library/library.iml
