@@ -3,6 +3,7 @@ package company.tap.gosellapi.internal.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -136,7 +137,14 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
   private class WebPaymentWebViewClient extends WebViewClient {
 
     @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+      super.onPageStarted(view, url, favicon);
+      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageStarted");
+    }
+
+    @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr");
       Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : " + url);
       PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance().decisionForWebPaymentURL(url);
 
@@ -151,6 +159,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
     @Override
     public void onPageFinished(WebView view, String url) {
+      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageFinished");
       super.onPageFinished(view, url);
       LoadingScreenManager.getInstance().closeLoadingScreen();
     }
@@ -158,6 +167,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
       super.onReceivedError(view, request, error);
+      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> error ");
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && error!=null) {
         Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : error  : " + error.getDescription());
       }
