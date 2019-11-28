@@ -139,12 +139,12 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
       super.onPageStarted(view, url, favicon);
-      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageStarted");
+       Log.d("onPageStarted","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageStarted");
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr");
+//       Log.d("shouldOverrideUrlLoad",("rrrrrrrrrrrrrrrrrrrrrrrrr");
       Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : " + url);
       PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance().decisionForWebPaymentURL(url);
 
@@ -159,7 +159,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
     @Override
     public void onPageFinished(WebView view, String url) {
-      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageFinished");
+       Log.d("onPageFinished","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageFinished");
       super.onPageFinished(view, url);
       LoadingScreenManager.getInstance().closeLoadingScreen();
     }
@@ -167,9 +167,9 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
       super.onReceivedError(view, request, error);
-      System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr  >>> error ");
+       Log.d("onReceivedError","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> error ");
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && error!=null) {
-        Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : error  : " + error.getDescription());
+        Log.d("onReceivedError"," shouldOverrideUrlLoading : error  : " + error.getDescription());
       }
       view.stopLoading();
       view.loadUrl("about:blank");
@@ -185,7 +185,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
   @Override
   public void didReceiveCharge(Charge charge) {
     if (charge != null) {
-      Log.d("WebPaymentActivity"," web payment activity* * * " + charge.getStatus());
+      Log.d("didReceiveCharge"," web payment activity* * * " + charge.getStatus());
       switch (charge.getStatus()) {
         case INITIATED:
           break;
@@ -278,8 +278,8 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     }
 
     String url = chargeOrAuthorize.getTransaction().getUrl();
-//    Log.d("WebPaymentActivity","WebPaymentActivity >> Transaction().getUrl() :" + url);
-//    Log.d("WebPaymentActivity","WebPaymentActivity >> chargeOrAuthorize :" + chargeOrAuthorize.getId());
+    Log.d("WebPaymentActivity","WebPaymentActivity >> Transaction().getUrl() :" + url);
+    Log.d("WebPaymentActivity","WebPaymentActivity >> chargeOrAuthorize :" + chargeOrAuthorize.getId());
 
 
     if (url != null) {

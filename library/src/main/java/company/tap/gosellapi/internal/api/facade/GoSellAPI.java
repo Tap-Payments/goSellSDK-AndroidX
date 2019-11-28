@@ -1,5 +1,7 @@
 package company.tap.gosellapi.internal.api.facade;
 
+import android.util.Log;
+
 import androidx.annotation.RestrictTo;
 
 import company.tap.gosellapi.internal.api.api_service.APIService;
@@ -102,7 +104,7 @@ public final class GoSellAPI {
      * @param requestCallback the request callback
      */
     public void retrieveSaveCard(final String saveCardId,final APIRequestCallback<SaveCard> requestCallback){
-//        System.out.println("#################### saveCardId :"+saveCardId);
+       Log.d("retrieveSaveCard","#################### saveCardId :"+saveCardId);
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.retrieveSaveCard(saveCardId),requestCallback),false);
     }
 
