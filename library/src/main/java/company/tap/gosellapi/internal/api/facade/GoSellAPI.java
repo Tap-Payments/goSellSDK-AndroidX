@@ -104,7 +104,7 @@ public final class GoSellAPI {
      * @param requestCallback the request callback
      */
     public void retrieveSaveCard(final String saveCardId,final APIRequestCallback<SaveCard> requestCallback){
-       Log.d("retrieveSaveCard","#################### saveCardId :"+saveCardId);
+//       Log.d("retrieveSaveCard","#################### saveCardId :"+saveCardId);
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.retrieveSaveCard(saveCardId),requestCallback),false);
     }
 

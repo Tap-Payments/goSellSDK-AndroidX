@@ -388,7 +388,7 @@ public final class PaymentDataManager {
      * @param listener the listener
      */
     public void initiatePayment(PaymentOptionViewModel model, IPaymentProcessListener listener) {
-       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
+//       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
     getProcessListener().addListener(listener);
     getPaymentProcessManager().startPaymentProcess(model);
   }

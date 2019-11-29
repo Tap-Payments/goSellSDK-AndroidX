@@ -81,7 +81,7 @@ class RequestManager {
 
     private void runDelayedRequests() {
         for (DelayedRequest delayedRequest : delayedRequests) {
-            Log.d("runDelayedRequests","delayedRequest.toString() : " + delayedRequest.getRequest().request());
+//            Log.d("runDelayedRequests","delayedRequest.toString() : " + delayedRequest.getRequest().request());
           try {
             final Buffer buffer = new Buffer();
             if(delayedRequest.getRequest().request().body()!=null ) {
