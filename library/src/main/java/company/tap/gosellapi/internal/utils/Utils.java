@@ -164,7 +164,7 @@ public class Utils {
      */
     public static String getFormattedCurrency(AmountedCurrency amountedCurrency){
 
-        Locale locale = new Locale(AppInfo.getLocaleString());
+        Locale locale = new Locale("en"); // display amount and currency in english
 
         Currency currency;
         try {
@@ -174,15 +174,15 @@ public class Utils {
         }
         String symbol = getOptionallyHardcodedSymbol(currency.getSymbol(locale));
 
-        NumberFormat currencyFormat = NumberFormat.getIntegerInstance();
+        NumberFormat currencyFormat = NumberFormat.getIntegerInstance(new Locale("en", "US"));
         currencyFormat.setMinimumFractionDigits(currency.getDefaultFractionDigits());
         currencyFormat.setMaximumFractionDigits(currency.getDefaultFractionDigits());
-
         return String.format("%s %s", symbol, currencyFormat.format(amountedCurrency.getAmount()));
     }
 
     private static String getOptionallyHardcodedSymbol(String symbol) {
         if (symbol.equals("KWD")) {
+
             return "KD";
         }
 

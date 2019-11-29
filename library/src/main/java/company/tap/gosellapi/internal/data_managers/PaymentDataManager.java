@@ -626,41 +626,65 @@ public final class PaymentDataManager {
 
     @Override
     public void didReceiveCharge(Charge charge) {
+      Log.d("PaymentDataManager","didReceiveCharge started................");
+      if(getListeners()!=null)
+        Log.d("PaymentDataManager","come to didReceiveCharge................"+getListeners().size());
+
       for (Iterator i = getListeners().iterator(); i.hasNext();) {
         try{
+                 Log.d("PaymentdataManager","try to cast listener......  ");
                 IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+                 Log.d("PaymentdataManager","listener : ["+listener+"]");
                 listener.didReceiveCharge(charge);
+
         }catch (Exception e){
+          Log.d("PaymentDataManager","didReceiveCharge exception : ["+e.getLocalizedMessage()+"]");
+          Log.d("PaymentDataManager","didReceiveCharge exception : ["+e.getMessage()+"]");
+          Log.d("PaymentDataManager","didReceiveCharge exception : ["+e.getCause()+"]");
           Log.d("PaymentDataManager","didReceiveCharge :: exception while looping over listeners");
-          break;
+          continue;
         }
       }
     }
 
     @Override
     public void didReceiveAuthorize(Authorize authorize) {
-
+        Log.d("PaymentDataManager","didReceiveAuthorize started................");
+        if(getListeners()!=null)
+            Log.d("PaymentDataManager","come to didReceiveAuthorize................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
+              Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+              Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didReceiveAuthorize(authorize);
           }catch (Exception e){
+              Log.d("PaymentDataManager","didReceiveAuthorize exception : ["+e.getLocalizedMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveAuthorize exception : ["+e.getMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveAuthorize exception : ["+e.getCause()+"]");
             Log.d("PaymentDataManager","didReceiveAuthorize :: exception while looping over listeners");
-            break;
+            continue;
           }
         }
     }
 
     @Override
     public void didReceiveSaveCard(SaveCard saveCard) {
-
+        Log.d("PaymentDataManager","didReceiveSaveCard started................");
+        if(getListeners()!=null)
+            Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
+              Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+              Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didReceiveSaveCard(saveCard);
           }catch (Exception e){
+              Log.d("PaymentDataManager","didReceiveSaveCard exception : ["+e.getLocalizedMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveSaveCard exception : ["+e.getMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveSaveCard exception : ["+e.getCause()+"]");
             Log.d("PaymentDataManager","didReceiveSaveCard :: exception while looping over listeners");
-            break;
+            continue;
           }
         }
 
@@ -668,14 +692,21 @@ public final class PaymentDataManager {
 
     @Override
     public void didReceiveError(GoSellError error) {
-
+        Log.d("PaymentDataManager","didReceiveError started................");
+        if(getListeners()!=null)
+            Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
+              Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+              Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didReceiveError(error);
           }catch (Exception e){
+              Log.d("PaymentDataManager","didReceiveError exception : ["+e.getLocalizedMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveError exception : ["+e.getMessage()+"]");
+              Log.d("PaymentDataManager","didReceiveError exception : ["+e.getCause()+"]");
             Log.d("PaymentDataManager","didReceiveError :: exception while looping over listeners");
-            break;
+            continue;
           }
         }
     }
@@ -683,14 +714,21 @@ public final class PaymentDataManager {
 
     @Override
     public void didCardSavedBefore() {
-
+        Log.d("PaymentDataManager","didCardSavedBefore started................");
+        if(getListeners()!=null)
+            Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
            try{
+               Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+               Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didCardSavedBefore();
            }catch (Exception e){
+               Log.d("PaymentDataManager","didCardSavedBefore exception : ["+e.getLocalizedMessage()+"]");
+               Log.d("PaymentDataManager","didCardSavedBefore exception : ["+e.getMessage()+"]");
+               Log.d("PaymentDataManager","didCardSavedBefore exception : ["+e.getCause()+"]");
              Log.d("PaymentDataManager","didCardSavedBefore :: exception while looping over listeners");
-             break;
+             continue;
            }
         }
 
@@ -698,14 +736,21 @@ public final class PaymentDataManager {
 
     @Override
     public void fireCardTokenizationProcessCompleted(Token token) {
-
+        Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted started................");
+        if(getListeners()!=null)
+            Log.d("PaymentDataManager","come to fireCardTokenizationProcessCompleted................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
+              Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
+              Log.d("PaymentDataManager","listener : ["+listener+"]");
             listener.fireCardTokenizationProcessCompleted(token);
           }catch (Exception e){
+              Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted exception : ["+e.getLocalizedMessage()+"]");
+              Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted exception : ["+e.getMessage()+"]");
+              Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted exception : ["+e.getCause()+"]");
             Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted:: exception while looping over listeners");
-            break;
+            continue;
           }
         }
     }
