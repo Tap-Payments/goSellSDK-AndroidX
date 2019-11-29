@@ -226,14 +226,14 @@
         android:background="@color/transparent"
         android:hint="@string/edittext_hint_name_on_card"
         android:inputType="textCapCharacters"
-        android:paddingRight="4dp"
+        android:paddingRight="6dp"
         app:backgroundTint="@color/separator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry"
-        android:paddingLeft="4dp" />
+        android:paddingLeft="6dp" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
