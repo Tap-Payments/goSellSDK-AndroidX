@@ -395,7 +395,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void initCardTokenization(){
-            PaymentDataManager.getInstance().initCardTokenizationPayment(cardCredentialsViewModel,GoSellPaymentActivity.this);
+            PaymentDataManager.getInstance().initCardTokenizationPayment(cardCredentialsViewModel,this);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////

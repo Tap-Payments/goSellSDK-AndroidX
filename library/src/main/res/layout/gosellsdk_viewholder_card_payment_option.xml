@@ -34,7 +34,7 @@
   <!--  PAYMENT OPTIONS -->
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/paymentOptionIconsContainer"
-      android:layout_width="70dp"
+      android:layout_width="68dp"
       android:layout_height="0dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardSystemsRecyclerView"
-        android:layout_width="80dp"
+        android:layout_width="68dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -114,8 +114,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ContentDescription" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,8 +170,8 @@
         android:id="@+id/cvvFieldContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintStart_toEndOf="@id/expirationDateContainer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -185,14 +185,15 @@
       <company.tap.gosellapi.internal.custom_views.CvvEditText
           style="@style/bt_card_form_field"
           android:id="@+id/cvvField"
-          android:paddingEnd="20dp"
-          android:paddingStart="20dp"
+          android:paddingEnd="6dp"
+          android:paddingStart="6dp"
           android:layout_marginEnd="@dimen/edit_text_default_padding"
           android:layout_marginRight="@dimen/edit_text_default_padding"
-          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintStart_toStartOf="@+id/cardScannerButton"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
+
 
           android:backgroundTint="@color/separator"
 
@@ -217,24 +218,22 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/cardholderNameField"
+        style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/edit_text_default_padding"
-
-        android:layout_marginEnd="@dimen/edit_text_default_padding"
-        android:paddingStart="4dp"
-        android:paddingLeft="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:inputType="textCapCharacters"
-        android:hint="@string/edittext_hint_name_on_card"
-        style="@style/EditText"
-        app:backgroundTint="@color/separator"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         android:background="@color/transparent"
+        android:hint="@string/edittext_hint_name_on_card"
+        android:inputType="textCapCharacters"
+        android:paddingRight="4dp"
+        app:backgroundTint="@color/separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry"
-        />
+        android:paddingLeft="4dp" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
