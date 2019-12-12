@@ -9,6 +9,7 @@ import company.tap.gosellapi.internal.viewholders.WebPaymentViewHolder;
  * The type Web payment view model.
  */
 public class WebPaymentViewModel extends PaymentOptionViewModel<PaymentOption, WebPaymentViewHolder, WebPaymentViewModel> {
+    WebPaymentViewHolder webPaymentViewHolder;
 
     /**
      * Instantiates a new Web payment view model.
@@ -25,5 +26,20 @@ public class WebPaymentViewModel extends PaymentOptionViewModel<PaymentOption, W
      */
     public void itemClicked() {
         parentDataManager.webPaymentSystemViewHolderClicked(this, position);
+    }
+
+    public void disableWebView(){
+
+        if(this.webPaymentViewHolder!=null)
+            this.webPaymentViewHolder.disableWebClick();
+    }
+
+    public void setWebViewHolder(WebPaymentViewHolder webPaymentViewHolder){
+        this.webPaymentViewHolder = webPaymentViewHolder;
+    }
+    public void enableWebView(){
+
+        if(this.webPaymentViewHolder!=null)
+            this.webPaymentViewHolder.enableWebClick();
     }
 }

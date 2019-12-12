@@ -3,12 +3,13 @@ package company.tap.gosellapi.internal.data_managers.payment_options.view_models
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.viewholders.GroupViewHolder;
 import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
+import company.tap.gosellapi.internal.viewholders.RecentSectionViewHolder;
 
 /**
  * The type Group view model.
  */
 public class GroupViewModel extends PaymentOptionViewModel<String, GroupViewHolder, GroupViewModel> {
-
+    private GroupViewHolder groupViewHolder;
     /**
      * Instantiates a new Group view model.
      *
@@ -26,5 +27,10 @@ public class GroupViewModel extends PaymentOptionViewModel<String, GroupViewHold
 
     public void cancelItemClicked(){
         parentDataManager.cancelItemClicked();
+    }
+
+
+    public void setGroupViewHolder(GroupViewHolder groupViewHolder){
+        this.groupViewHolder = groupViewHolder;
     }
 }

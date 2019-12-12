@@ -53,6 +53,7 @@ import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.Authenticate;
 import company.tap.gosellapi.internal.api.models.Authorize;
+
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
@@ -66,6 +67,7 @@ import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
 import company.tap.gosellapi.internal.fragments.GoSellPaymentOptionsFragment;
@@ -110,6 +112,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private boolean keyboardVisible=false;
     private boolean startPaymentFlag=false;
+
+    private GroupViewModel groupViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +160,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         saveCardChecked = false;
         setKeyboardVisibilityListener();
+
+        if(recentSectionViewModel!=null)recentSectionViewModel.EnableRecentView();
+        if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+        if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
     }
 
     private void initViews() {
@@ -198,6 +207,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     public void onBackPressed() {
         SDKSession.getListener().sessionCancelled();
+        if(recentSectionViewModel!=null)recentSectionViewModel.EnableRecentView();
+        if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+        if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
         super.onBackPressed();
     }
 
@@ -289,6 +302,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
             payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
+      if( dataSource.getSelectedCurrency()!=null)
         payButton.getPayButton().setText(String
                 .format("%s %s %s", getResources().getString(R.string.pay),
                         dataSource.getSelectedCurrency().getSymbol(),
@@ -372,6 +386,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void startSavedCardPaymentProcess() {
+
 //        Log.d("GoSellPaymentActivity"," getSavedCard().getPaymentOptionIdentifier() : " + getSavedCard().getPaymentOptionIdentifier());
         PaymentDataManager.getInstance().checkSavedCardPaymentExtraFees(getSavedCard(), this);
 
@@ -379,26 +394,64 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private void startCardPaymentProcess(CardCredentialsViewModel paymentOptionViewModel) {
 //        Log.d("startCardPaymentProcess"," step 1 : check extra fees : in class "+ "["+this.getClass().getName()+"]");
+        if(cardCredentialsViewModel!=null) cardCredentialsViewModel.disableCardScanView();
+        if(webPaymentViewModel !=null)webPaymentViewModel.disableWebView();
+        if(recentSectionViewModel!=null)recentSectionViewModel.disableRecentView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
         if(PaymentDataManager.getInstance().getExternalDataSource().getTransactionMode()==TransactionMode.TOKENIZE_CARD)
             initCardTokenization();
         else
         PaymentDataManager.getInstance().checkCardPaymentExtraFees(paymentOptionViewModel, this);
     }
+///////////////////////////////////////////////////  start function that initiate payment by creating charge --------------------------
+    private void getVisibleViewModels(){
+        for(int i=0;i< PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize();i++){
+            if(PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof  RecentSectionViewModel) {
+                recentSectionViewModel = (RecentSectionViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
+            }
+            else if(PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof  GroupViewModel){
+                groupViewModel =(GroupViewModel)PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+
+            }
+            else if(PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof  WebPaymentViewModel){
+                webPaymentViewModel =(WebPaymentViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+
+            }else if(PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof  CardCredentialsViewModel){
+                cardCredentialsViewModel =(CardCredentialsViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+
+            }
+        }
+    }
     private void initSavedCardPaymentProcess() {
+        getVisibleViewModels();
+
+        if(cardCredentialsViewModel!=null) cardCredentialsViewModel.disableCardScanView();
+        if(webPaymentViewModel !=null)webPaymentViewModel.disableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
         PaymentDataManager.getInstance()
                 .initiateSavedCardPayment(getSavedCard(), recentSectionViewModel, this);
     }
 
     private void initCardPaymentProcess() {
+     getVisibleViewModels();
+
+       if(recentSectionViewModel!=null) recentSectionViewModel.disableRecentView();
+       if(cardCredentialsViewModel!=null) cardCredentialsViewModel.disableCardScanView();
+       if(webPaymentViewModel !=null)webPaymentViewModel.disableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
         PaymentDataManager.getInstance().initiatePayment(cardCredentialsViewModel, this);
     }
 
     private void initCardTokenization(){
-            PaymentDataManager.getInstance().initCardTokenizationPayment(cardCredentialsViewModel,this);
+        getVisibleViewModels();
+
+        if(cardCredentialsViewModel!=null) cardCredentialsViewModel.disableCardScanView();
+        PaymentDataManager.getInstance().initCardTokenizationPayment(cardCredentialsViewModel,this);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////  end of function that initiate payment by creating charge --------------------------
+
     @Override
     public void updatePayButtonWithExtraFees(PaymentOption paymentOption) {
 
@@ -448,6 +501,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void updatePayButtonWithSavedCardExtraFees(SavedCard recentItem,
                                                       RecentSectionViewModel _recentSectionViewModel) {
         this.recentSectionViewModel = _recentSectionViewModel;
+        getVisibleViewModels();
+
+
         setSelectedCard(recentItem);
 
         if (recentItem != null) {
@@ -1169,6 +1225,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     protected void onResume() {
         super.onResume();
         setupPayButton();
+        if(recentSectionViewModel!=null)recentSectionViewModel.EnableRecentView();
+        if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+        if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
     }
 
 
@@ -1176,12 +1236,20 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     protected void onRestart() {
         super.onRestart();
         setupPayButton();
+        if(recentSectionViewModel!=null)recentSectionViewModel.EnableRecentView();
+        if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+        if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
     }
 
 
     private void closeActivity() {
         clearPaymentProcessListeners();
         setResult(RESULT_OK);
+        if(recentSectionViewModel!=null)recentSectionViewModel.EnableRecentView();
+        if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
+        PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+        if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
         finish();
     }
 

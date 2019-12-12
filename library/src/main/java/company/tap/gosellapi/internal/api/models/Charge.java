@@ -38,6 +38,16 @@ public class Charge implements BaseResponse, Serializable {
     @Expose
     private String currency;
 
+
+    @SerializedName("selected_amount")
+    @Expose
+    private double selectedAmount;
+
+    @SerializedName("selected_currency")
+    @Expose
+    private String selectedCurrency;
+
+
     @SerializedName("customer")
     @Expose
     private Customer customer;
@@ -151,6 +161,24 @@ public class Charge implements BaseResponse, Serializable {
      */
     public Merchant getMerchant() {
         return merchant;
+    }
+
+    /**
+     * Gets user selected amount.
+     *
+     * @return Charge user selected amount.
+     */
+    public double getSelectedAmount() {
+        return selectedAmount;
+    }
+
+    /**
+     * Gets user selected currency.
+     *
+     * @return user selected  currency.
+     */
+    public String getSelectedCurrency() {
+        return selectedCurrency;
     }
 
     /**

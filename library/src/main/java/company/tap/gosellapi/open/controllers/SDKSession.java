@@ -118,6 +118,15 @@ public class SDKSession implements View.OnClickListener{
     paymentDataSource.setAmount(amount);
   }
 
+
+  /**
+   * set setPaymentType
+   */
+  public void setPaymentType(String paymentType){
+    System.out.println("paymentType ... "+paymentType);
+    paymentDataSource.setPaymentType(paymentType);
+  }
+
   /**
    * set transaction currency
    *
@@ -369,9 +378,10 @@ public class SDKSession implements View.OnClickListener{
             this.paymentDataSource.getItems(),
             this.paymentDataSource.getShipping(),
             this.paymentDataSource.getTaxes(),
-            this.paymentDataSource.getCurrency().getIsoCode(),
-            this.paymentDataSource.getCustomer().getIdentifier(),
-            (this.paymentDataSource.getMerchant()!=null)?this.paymentDataSource.getMerchant().getId():null
+            (this.paymentDataSource.getCurrency()!=null)?this.paymentDataSource.getCurrency().getIsoCode():"KWD",
+            ( this.paymentDataSource.getCustomer()!=null)?this.paymentDataSource.getCustomer().getIdentifier():null,
+            (this.paymentDataSource.getMerchant()!=null)?this.paymentDataSource.getMerchant().getId():null,
+            this.paymentDataSource.getPaymentDataType()
     );
 
 

@@ -49,6 +49,8 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     private @Nullable
     String paymentDescription;
     private @Nullable
+    String paymentType;
+    private @Nullable
     HashMap<String, String> paymentMetadata;
     private @Nullable
     Reference paymentReference;
@@ -217,6 +219,14 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
         this.allowUserToSaveCard = saveCardStatus;
     }
 
+  /**
+     * choose paymentType
+     * @param paymentType
+     */
+    public void setPaymentType(String paymentType){
+        this.paymentType = paymentType;
+    }
+
     /**
      * Is requires 3 d secure.
      *
@@ -367,6 +377,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public Merchant getMerchant() {
         return merchant;
+    }
+
+    @Nullable
+    @Override
+    public String getPaymentDataType() {
+        return paymentType;
     }
 
 }

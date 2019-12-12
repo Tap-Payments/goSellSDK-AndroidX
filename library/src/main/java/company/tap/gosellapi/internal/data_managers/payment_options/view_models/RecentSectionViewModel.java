@@ -31,6 +31,7 @@ public class RecentSectionViewModel extends PaymentOptionViewModel<ArrayList<Sav
     super(parentDataManager, data, PaymentOptionsBaseViewHolder.ViewHolderType.SAVED_CARDS);
   }
 
+
     /**
      * Recent item clicked.
      *
@@ -67,4 +68,15 @@ public class RecentSectionViewModel extends PaymentOptionViewModel<ArrayList<Sav
   public void disablePayButton(){
         parentDataManager.disablePayButton();
   }
+    public void disableRecentView(){
+        if(this.recentSectionViewHolder!=null)
+            this.recentSectionViewHolder.disableRecentView();
+
+
+    }
+    public void EnableRecentView(){
+        if(this.recentSectionViewHolder!=null)
+            this.recentSectionViewHolder.enableRecentView();
+
+    }
 }

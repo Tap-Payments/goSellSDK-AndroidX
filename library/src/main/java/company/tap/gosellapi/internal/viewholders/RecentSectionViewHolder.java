@@ -4,7 +4,11 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.ArrayList;
 
@@ -91,5 +95,34 @@ public class RecentSectionViewHolder
         adapter.stopShakingAllCards();
     }
 
+    public void disableRecentView() {
 
+        if(recentPaymentsRecyclerView!=null) {
+            int childCount = recentPaymentsRecyclerView.getChildCount();
+            for (int i = 0; i < childCount; ++i) {
+                if (recentPaymentsRecyclerView.getChildAt(i) != null) {
+                    recentPaymentsRecyclerView.getChildAt(i).setClickable(false);
+                    recentPaymentsRecyclerView.getChildAt(i).setEnabled(false);
+                    recentPaymentsRecyclerView.getChildAt(i).setFocusable(false);
+                }
+            }
+
+            Log.d("RecentSectionViewHolder", "disabled recyler...");
+        }
+
+    }
+    public void enableRecentView() {
+        if(recentPaymentsRecyclerView!=null) {
+            int childCount = recentPaymentsRecyclerView.getChildCount();
+            for (int i = 0; i < childCount; ++i) {
+                if (recentPaymentsRecyclerView.getChildAt(i) != null) {
+                    recentPaymentsRecyclerView.getChildAt(i).setClickable(true);
+                    recentPaymentsRecyclerView.getChildAt(i).setEnabled(true);
+                    recentPaymentsRecyclerView.getChildAt(i).setFocusable(true);
+                }
+            }
+
+
+        }
+    }
 }
