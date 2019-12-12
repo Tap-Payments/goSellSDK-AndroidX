@@ -52,6 +52,7 @@ public final class PaymentDataManager {
   @NonNull private IPaymentDataProvider dataProvider = new PaymentDataProvider();
   @NonNull private PaymentProcessListener processListener = new PaymentProcessListener();
   @NonNull private CardDeleteListener cardDeletListener = new CardDeleteListener();
+  private boolean paymentSessionActive=false;
 
   @NonNull private PaymentProcessManager paymentProcessManager = new PaymentProcessManager(
       getPaymentDataProvider(),
@@ -183,6 +184,15 @@ public final class PaymentDataManager {
 
   public void fireCardTokenizationProcessCompleted(Token token){
     getProcessListener().fireCardTokenizationProcessCompleted(token);
+  }
+  /**
+   * Set flag to enable disable edit click action
+   */
+ public  void setCardPaymentProcessStatus(boolean flag){
+    paymentSessionActive = flag;
+  }
+  public boolean isCardPaymentProcessStarted() {
+    return paymentSessionActive;
   }
 
   /////////////////////////////////////////    ########### Start of Singleton section ##################
@@ -500,6 +510,13 @@ public final class PaymentDataManager {
   }
 
   private class PaymentDataProvider implements IPaymentDataProvider {
+
+
+      @Nullable
+      @Override
+      public AmountedCurrency getTransactionCurrency(){
+        return new AmountedCurrency( getExternalDataSource().getCurrency().getIsoCode(),getExternalDataSource().getAmount());
+      }
 
     @NonNull
     @Override
