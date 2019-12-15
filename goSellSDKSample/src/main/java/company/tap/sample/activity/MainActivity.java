@@ -51,6 +51,7 @@ import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Receipt;
+import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
@@ -199,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
-       // sdkSession.setCustomer(getCustomer());    //** Required **
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
 
 
-    //   sdkSession.setPaymentType("WEB");   //** Merchant can pass paymentType
+//       sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType
 
         // Set Taxes array list
         sdkSession.setTaxes(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setPaymentStatementDescriptor(""); // ** Optional **
 
         // Enable or Disable Saving Card
-        sdkSession.isUserAllowedToSaveCard(false); //  ** Required ** you can pass boolean
+        sdkSession.isUserAllowedToSaveCard(true); //  ** Required ** you can pass boolean
 
         // Enable or Disable 3DSecure
         sdkSession.isRequires3DSecure(true);

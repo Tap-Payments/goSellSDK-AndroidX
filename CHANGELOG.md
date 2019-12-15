@@ -1,9 +1,10 @@
 # CHANGELOG
-## [3.2.8] - 2019-12-
+## [3.2.8] - 2019-12-15
 ### Version release to fix minor Bugs:
 - Allow hosting app to pass language to SDK through setting up SDK Session.
 - Disable SDK UI click actions if user clicks pay button
 - Send device information along with request header to track devices that has issues with our SDK UI and functionality
+- Considers Supported currency if transaction currency is not supported
 
 ### Impact on existing integrations:
 - The new update will not affect current integration.
