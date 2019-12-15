@@ -171,7 +171,7 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
         }
 
         private void bind(String currencyCode) {
-            System.out.println("getCurrencySelectionString(currencyCode) :   "+ getCurrencySelectionString(currencyCode));
+
             tvCurrencyName.setText(getCurrencySelectionString(currencyCode));
 
             if (currencyCode.equals(selectedCurrency)) {
@@ -182,6 +182,9 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
             }
         }
 
+
+
+
         @Override
         public void onClick(View view) {
 
@@ -191,7 +194,7 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
 
             AmountedCurrency selectedCurrency = getFilteredCurrencies()!=null ? getFilteredCurrencies().get(position).getCurrency()
                                                 : getAllCurrencies().get(position).getCurrency();
-            System.out.println("get user selected currency : " + selectedCurrency.getCurrency());
+           // System.out.println("get user selected currency : " + selectedCurrency.getCurrency());
             callback.itemSelected(selectedCurrency);
         }
 
