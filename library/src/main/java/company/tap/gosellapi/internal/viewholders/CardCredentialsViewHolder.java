@@ -794,7 +794,7 @@ public class CardCredentialsViewHolder
     }
 
     public void disableCardScanView() {
-        System.out.println("cardscaniscalled");
+       // System.out.println("cardscaniscalled");
         cardScannerButton.setEnabled(false);
         cardScannerButton.setFocusableInTouchMode(false);
         cardScannerButton.setClickable(false);
