@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.2.10] - 2020-01-12
+### Version release to fix minor Bugs:
+- Fix for date field formatting
+
+### Impact on existing integrations:
+- The new update will not affect current integration.
+
+### Required changes for existing integrations before updating:
+- Not req
 ## [3.2.9] - 2020-01-05
 ### Version release to fix minor Bugs:
 - SDK serialization handling

@@ -885,9 +885,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void didReceiveSaveCard(SaveCard saveCard) {
-        Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * " + saveCard);
+       // Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * " + saveCard);
         if (saveCard == null) return;
-        Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * status :" + saveCard.getStatus());
+     //   Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * status :" + saveCard.getStatus());
 
         switch (saveCard.getStatus()) {
             case INITIATED:
