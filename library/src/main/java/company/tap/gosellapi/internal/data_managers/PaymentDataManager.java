@@ -666,14 +666,14 @@ public final class PaymentDataManager {
 
     @Override
     public void didReceiveAuthorize(Authorize authorize) {
-        Log.d("PaymentDataManager","didReceiveAuthorize started................");
+      //  Log.d("PaymentDataManager","didReceiveAuthorize started................");
         if(getListeners()!=null)
-            Log.d("PaymentDataManager","come to didReceiveAuthorize................"+getListeners().size());
+          //  Log.d("PaymentDataManager","come to didReceiveAuthorize................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
-              Log.d("PaymentDataManager","try to cast listener......  ");
+            //  Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
-              Log.d("PaymentdataManager","listener : ["+listener+"]");
+            //  Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didReceiveAuthorize(authorize);
           }catch (Exception e){
               Log.d("PaymentDataManager","didReceiveAuthorize exception : ["+e.getLocalizedMessage()+"]");
@@ -687,14 +687,14 @@ public final class PaymentDataManager {
 
     @Override
     public void didReceiveSaveCard(SaveCard saveCard) {
-        Log.d("PaymentDataManager","didReceiveSaveCard started................");
+      //  Log.d("PaymentDataManager","didReceiveSaveCard started................");
         if(getListeners()!=null)
-            Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
+          //  Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
-              Log.d("PaymentDataManager","try to cast listener......  ");
+            //  Log.d("PaymentDataManager","try to cast listener......  ");
             IPaymentProcessListener listener = (IPaymentProcessListener) i.next();
-              Log.d("PaymentdataManager","listener : ["+listener+"]");
+           //   Log.d("PaymentdataManager","listener : ["+listener+"]");
             listener.didReceiveSaveCard(saveCard);
           }catch (Exception e){
               Log.d("PaymentDataManager","didReceiveSaveCard exception : ["+e.getLocalizedMessage()+"]");

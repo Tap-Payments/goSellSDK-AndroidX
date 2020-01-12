@@ -478,16 +478,15 @@ public class CardCredentialsViewHolder
         }
 
         if (!viewModel.getExpirationMonth().isEmpty() && !viewModel.getExpirationYear().isEmpty()) {
-            String expirationDate = viewModel.getExpirationMonth() + "/" + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
+           // String expirationDate = viewModel.getExpirationMonth() + "/" + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
+            String expirationDate = viewModel.getExpirationMonth() + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
             expirationDateField.setText(expirationDate);
         }
 
         if (!viewModel.getNameOnCard().isEmpty()) {
             nameOnCardField.setText(viewModel.getNameOnCard());
         }
-
-
-      saveCardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        saveCardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
           viewModel.saveCardSwitchClicked(isChecked);
@@ -526,15 +525,17 @@ public class CardCredentialsViewHolder
 
 
   private boolean validateCardFields() {
-
         boolean status=false;
-      if( cardNumberField.getText()!= null
+      if(
+
+          cardNumberField.getText()!= null
           && !"".equalsIgnoreCase(cardNumberField.getText().toString().trim())
           && expirationDateField.getText()!=null
-          && cvvField.getText()!=null && nameOnCardField.getText()!=null) {
+          && cvvField.getText()!=null && nameOnCardField.getText()!=null)
 
-              if(validateCardNumber(cardNumberField.getText().toString())
-                .getValidationState() == CardValidationState.valid
+
+      { if(validateCardNumber(cardNumberField.getText().toString())
+              .getValidationState() == CardValidationState.valid
                 &&
                 validateCVV()
                 &&
@@ -542,6 +543,7 @@ public class CardCredentialsViewHolder
                 &&
                 validateCardHolderName()){
                 status= true;
+
                 viewModel.setCardNumber(cardNumberField.getText().toString());
                 viewModel.setExpirationMonth(expirationDateField.getMonth());
                 viewModel.setExpirationYear(expirationDateField.getYear());

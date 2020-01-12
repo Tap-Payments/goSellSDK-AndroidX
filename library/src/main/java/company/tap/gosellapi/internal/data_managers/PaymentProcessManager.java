@@ -713,10 +713,10 @@ final class PaymentProcessManager {
             case AUTHORIZE_CAPTURE:
 
                 AuthorizeAction authorizeAction = provider.getAuthorizeAction();
-                System.out.println(">>> ["+transactionCurrency.getAmount()+"]");
+               /* System.out.println(">>> ["+transactionCurrency.getAmount()+"]");
                 System.out.println(">>> ["+transactionCurrency.getCurrency()+"]");
                 System.out.println(">>> ["+amountedCurrency.getAmount()+"]");
-                System.out.println(">>> ["+amountedCurrency.getCurrency()+"]");
+                System.out.println(">>> ["+amountedCurrency.getCurrency()+"]");*/
                 CreateAuthorizeRequest authorizeRequest = new CreateAuthorizeRequest(
                         merchant,
                         transactionCurrency.getAmount() ,
