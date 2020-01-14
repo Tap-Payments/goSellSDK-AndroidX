@@ -89,13 +89,17 @@ public final class CurrencyFormatter {
      * @param locale       the locale
      * @return the localized currency symbol
      */
-    @NonNull public static String getLocalizedCurrencySymbol(String currencyCode, Locale locale) {
+    @NonNull public static String getLocalizedCurrencySymbol(String currencyCode,Locale locale) {
 
-        Currency currency = Currency.getInstance(currencyCode);
-        String symbol = currency.getSymbol(locale);
-        symbol = optionallyHardcodedCurrencySymbol(symbol);
+        if (currencyCode == null||currencyCode.isEmpty()) {
+            return currencyCode;
+        } else {
+            Currency currency = Currency.getInstance(currencyCode);
+            String symbol = currency.getSymbol(locale);
+            symbol = optionallyHardcodedCurrencySymbol(symbol);
 
-        return symbol;
+            return symbol;
+        }
     }
 
     /**
