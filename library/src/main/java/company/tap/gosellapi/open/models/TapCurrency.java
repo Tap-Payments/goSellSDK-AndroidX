@@ -1,5 +1,8 @@
 package company.tap.gosellapi.open.models;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import company.tap.gosellapi.internal.utils.LocaleCurrencies;
@@ -20,13 +23,16 @@ public class TapCurrency {
      * @throws CurrencyException the currency exception
      */
     public TapCurrency(@NonNull String isoCode) throws CurrencyException {
-    String code = isoCode.toLowerCase();
-    if(!LocaleCurrencies.checkUserCurrency(code)) {
-      throw CurrencyException.getUnknown(code);
-    }
-    this.isoCode = code;
+        if(isoCode==null||isoCode.isEmpty()){
+            this.isoCode= isoCode;
+        }else {
+            String code = isoCode.toLowerCase();
+            if (!LocaleCurrencies.checkUserCurrency(code)) {
+                throw CurrencyException.getUnknown(code);
+            }
+            this.isoCode = code;
+        }
   }
-
 
     /**
      * Gets iso code.
