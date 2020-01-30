@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.2.13] - 2020-01-30
+### Version release to add interceptor:
+- Added sdk version number in request interceptors internally
+
+### Impact on existing integrations:
+- The new update will not affect current integration.
+
+### Required changes for existing integrations before updating:
+- Not req
 ## [3.2.12] - 2020-01-22
 ### Version release to fix minor Bugs:
 - Fix for multiple looping issue
