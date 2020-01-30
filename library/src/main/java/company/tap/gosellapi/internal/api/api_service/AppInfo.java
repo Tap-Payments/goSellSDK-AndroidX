@@ -77,6 +77,7 @@ public class AppInfo {
         applicationInfo.put("requirer_device_name",deviceName);
         applicationInfo.put("requirer_device_type",Build.BRAND);
         applicationInfo.put("requirer_device_model",Build.MODEL);
+        applicationInfo.put("sdk_version","3.2.13");
         if(manager!=null) {
             applicationInfo.put("requirer_sim_network_name", manager.getSimOperatorName());
             applicationInfo.put("requirer_sim_country_iso", manager.getSimCountryIso());
