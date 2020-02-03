@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.3.0] - 2020-02-03
+### Version release for supporting additional languages:
+- Sdk release to support new languages German and Turkish
+
+### Impact on existing integrations:
+- The new update will not affect current integration.
+
+### Required changes for existing integrations before updating:
+- Not req
 ## [3.2.13] - 2020-01-30
 ### Version release to add interceptor:
 - Added sdk version number in request interceptors internally
