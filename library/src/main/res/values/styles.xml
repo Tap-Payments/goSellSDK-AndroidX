@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="GoSellSDKAppTheme" parent="Theme.AppCompat.Light">
+    <style name="GoSellSDKAppTheme" parent="Theme.MaterialComponents.Light">
         <item name="actionBarStyle">@style/GoSellSDKActionBar</item>
     </style>
     <style name="GoSellSDKAppTheme.NoActionBar">
@@ -18,7 +18,7 @@
 
 
 
-    <style name="TransparentCompat" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="TransparentCompat" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
