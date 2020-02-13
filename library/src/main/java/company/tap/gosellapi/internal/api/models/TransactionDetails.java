@@ -28,6 +28,16 @@ public final class TransactionDetails implements Serializable {
     @SerializedName("url")
     @Expose
     @Nullable private String url;
+    @SerializedName("order")
+    @Expose
+    @Nullable private Order order;
+    @SerializedName("expiry")
+    @Expose
+    @Nullable private Expiry expiry;
+    @SerializedName("asynchronous")
+    @Expose
+    @Nullable private boolean asynchronous;
+
 
     /**
      * Gets created.
@@ -65,5 +75,32 @@ public final class TransactionDetails implements Serializable {
     @Nullable
     public String getUrl() {
         return url;
+    }
+    /**
+     * Gets created.
+     *
+     * @return Order order.
+     */
+    @Nullable
+    public Order getOrder() {
+        return order;
+    }
+    /**
+     * Gets created.
+     *
+     * @return Expiry expiry.
+     */
+    @Nullable
+    public Expiry getExpiry() {
+        return expiry;
+    }
+    /**
+     * Gets created.
+     *
+     * @return boolean asynchronous.
+     */
+    @Nullable
+    public boolean getAsynchronous() {
+        return asynchronous;
     }
 }

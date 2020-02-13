@@ -1,7 +1,9 @@
 package company.tap.gosellapi.internal.viewholders;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -48,6 +51,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models_
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.CardType;
 import company.tap.gosellapi.open.controllers.ThemeObject;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.tapcardvalidator_android.CardBrand;
 import company.tap.tapcardvalidator_android.CardValidationState;
@@ -610,36 +614,50 @@ public class CardCredentialsViewHolder
 
         // get preferred card brands from payment option
         ArrayList<CardBrand> paymentOptionsCardBrands = PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands();
-        DefinedCardBrand brand = CardValidator.validate(cardNumber,paymentOptionsCardBrands);
+        DefinedCardBrand brand = CardValidator.validate(cardNumber, paymentOptionsCardBrands);
 
         // update CCVEditText CardType: to set CCV Length according to CardType
         updateCCVEditTextCardType(brand.getCardBrand());
         // update card types
-       BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
-       updateCardSystemsRecyclerView(brand.getCardBrand(),binLookupResponse==null?null:binLookupResponse.getScheme());
+        BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
+        updateCardSystemsRecyclerView(brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
+       // {
+            if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null)
+            if (!PaymentDataSource.getInstance().getCardType().equals(binLookupResponse.getCardType())) {
+                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0) {
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                }
 
-        if (brand.getValidationState().equals(CardValidationState.invalid)) {
-            saveCardSwitch.setChecked(false);
-            viewModel.saveCardSwitchClicked(false);
-            if(ThemeObject.getInstance().getCardInputInvalidTextColor()!=0) {
-                cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
-            }
-        } else {
-            if (PaymentDataManager.getInstance().getExternalDataSource() != null
-                && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
-                saveCardSwitch.setChecked(true);
-                viewModel.saveCardSwitchClicked(true);
-            } else {
+                showDialog("Alert", "You cannot use this card");
+
+
+            }else{
+
+
+      //  }
+            if (brand.getValidationState().equals(CardValidationState.invalid)) {
                 saveCardSwitch.setChecked(false);
                 viewModel.saveCardSwitchClicked(false);
+                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0) {
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                }
+            } else {
+                if (PaymentDataManager.getInstance().getExternalDataSource() != null
+                        && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
+                    saveCardSwitch.setChecked(true);
+                    viewModel.saveCardSwitchClicked(true);
+                } else {
+                    saveCardSwitch.setChecked(false);
+                    viewModel.saveCardSwitchClicked(false);
+                }
+                if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+                }
             }
-            if(ThemeObject.getInstance().getCardInputTextColor()!=0){
-                cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-            }
+
         }
         return brand;
     }
-
     /**
      * Update ccv edit text card type.
      *
@@ -806,4 +824,31 @@ public class CardCredentialsViewHolder
         cardScannerButton.setClickable(true);
         cardScannerButton.setFocusableInTouchMode(true);
     }
+
+    private void showDialog(String title,String message){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(itemView.getContext());
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setMessage(message);
+        dialogBuilder.setCancelable(false);
+
+
+        dialogBuilder.setPositiveButton(itemView.getContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PaymentDataManager.getInstance().setBinLookupResponse(null);
+                cardNumberField.setText(null);
+                cardNumberField.setTextColor(itemView.getContext().getColor(R.color.greyish_brown));
+                dialog.dismiss();
+
+        }
+
+        });
+
+        PaymentDataManager.getInstance().setBinLookupResponse(null);
+        cardNumberField.setText(null);
+        dialogBuilder.show();
+
+    }
+
+
 }

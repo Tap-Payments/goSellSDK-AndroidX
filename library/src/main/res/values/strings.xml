@@ -26,7 +26,7 @@
   <string name="edittext_hint_phone_number">Phone number</string>
   <string name="edittext_hint_email">Email</string>
   <string name="edittext_hint_address_on_card">Address on Card</string>
-<string name="business_icon_description">Business icon</string>
+  <string name="business_icon_description">Business icon</string>
   <string name="textview_title_address_on_card">Address on Card</string>
   <string name="textview_title_country">Country</string>
   <string name="textview_title_recent">Recent</string>
@@ -83,7 +83,7 @@
   <string name="key_sdk_appearance_mode">key_sdk_appearance_mode</string>
   <string name="save_card">Save Card</string>
   <string name="card_saved_before">Your card has been saved before, you can not save it twice!</string>
-    <string name="textview_disclaimer_save_card_header_title">Enter Card Details</string>
+  <string name="textview_disclaimer_save_card_header_title">Enter Card Details</string>
 
 
 
@@ -112,5 +112,13 @@
   <string name="error_deleting_card_title">Sorry</string>
   <string name="error_deleting_card_msg">The card can not be deleted right now. Please try it later.</string>
 
-
+  <string name="ok" translatable="false">OK</string>
+  <string name="payment_in_progress" translatable="false">Payment in Progress</string>
+  <string name="with_your_fawry_pay_reference" translatable="false">with your Fawry Pay Reference.</string>
+  <string name="order_code" translatable="false">Order Code</string>
+  <string name="email_sent"  translatable="false">An email has been sent to</string>
+  <string name="sms_sent"  translatable="false">An sms has been sent to</string>
+  <string name="email_sms__sent" translatable="false">An SMS and email has been sent " </string>
+  <string name="fawry_cash_location" translatable="false">Please visit a Fawry Cash Location \n using the link below to complete your payment</string>
+  <string name="code_expires_on" translatable="false">Code Expires on</string>
 </resources>

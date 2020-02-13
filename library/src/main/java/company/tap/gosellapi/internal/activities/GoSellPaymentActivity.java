@@ -1,5 +1,6 @@
 package company.tap.gosellapi.internal.activities;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,21 +10,18 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.os.Handler;
 import android.os.Message;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+
+import android.view.animation.TranslateAnimation;
 import android.webkit.ClientCertRequest;
-import android.webkit.CookieManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -35,7 +33,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -53,7 +58,6 @@ import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.Authenticate;
 import company.tap.gosellapi.internal.api.models.Authorize;
-
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
@@ -92,6 +96,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private static final int SCAN_REQUEST_CODE = 123;
     private static final int CURRENCIES_REQUEST_CODE = 124;
     private static final int WEB_PAYMENT_REQUEST_CODE = 125;
+    private static final int ASYNCHRONOUS_REQUEST_CODE = 126;
 
     private PaymentOptionsDataManager dataSource;
     private FragmentManager fragmentManager;
@@ -115,6 +120,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private GroupViewModel groupViewModel;
 
+    private  boolean selectedCurrencyAsynchronous = false;
+
+    private ScrollView main_windowed_scrollview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -126,6 +135,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
             setContentView(R.layout.gosellapi_activity_main_windowed);
+            main_windowed_scrollview = findViewById(R.id.main_windowed_scrollview);
         } else {
             setContentView(R.layout.gosellapi_activity_main);
         }
@@ -212,6 +222,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
         super.onBackPressed();
+
     }
 
     private void setupHeader() {
@@ -307,6 +318,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 .format("%s %s %s", getResources().getString(R.string.pay),
                         dataSource.getSelectedCurrency().getSymbol(),
                         dataSource.getSelectedCurrency().getAmount()));
+
     }
 
     private void setupSaveCardMode() {
@@ -360,16 +372,29 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void startWebPayment(WebPaymentViewModel model) {
+
         this.webPaymentViewModel = model;
+        if(model.getData().getAsynchronous()){
+            selectedCurrencyAsynchronous=model.getData().getAsynchronous();
+        }
         PaymentDataManager.getInstance().checkWebPaymentExtraFees(model, this);
     }
 
     private void startWebPaymentProcess1() {
-        Intent intent = new Intent(this, WebPaymentActivity.class);
-        ActivityDataExchanger.getInstance().setWebPaymentViewModel(webPaymentViewModel);
-        startActivityForResult(intent, WEB_PAYMENT_REQUEST_CODE);
-    }
+        if (selectedCurrencyAsynchronous) {
+            // ActivityDataExchanger.getInstance().setWebPaymentViewModel(webPaymentViewModel);
+            PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this);
+            payButton.setEnabled(true);
+            payButton.getLoadingView().start();
 
+        } else {
+                Intent intent = new Intent(this, WebPaymentActivity.class);
+                ActivityDataExchanger.getInstance().setWebPaymentViewModel(webPaymentViewModel);
+                startActivityForResult(intent, WEB_PAYMENT_REQUEST_CODE);
+            }
+        if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
+
+    }
     @Override
     public void startScanCard() {
         Intent scanCard = new Intent(this, CardIOActivity.class);
@@ -746,6 +771,19 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     }
                 }
                 break;
+            case ASYNCHRONOUS_REQUEST_CODE:
+                stopPayButtonLoadingView();
+                payButton.setEnabled(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       // selectedCurrencyAsynchronous=false;
+                        finish();
+
+                    }
+                }, 1000);
+
+                break;
 
         }
     }
@@ -779,6 +817,24 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     Log.d("GoSellPaymentActivity"," Error while calling fireWebPaymentCallBack >>> method paymentFailed(charge)");
                     closePaymentActivity();
                 }
+                break;
+            case IN_PROGRESS:
+                if(charge.getTransaction().getAsynchronous())
+                    payButton.setEnabled(true);
+               payButton.getLoadingView().start();
+
+
+                PaymentDataManager.getInstance().setChargeOrAuthorize(charge);
+                clearPaymentProcessListeners();
+                selectedCurrencyAsynchronous=false;
+                if(webPaymentViewModel !=null)webPaymentViewModel.enableWebView();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        openAsyncActivity();
+
+                    }
+                }, 2500);
                 break;
         }
     }
@@ -814,8 +870,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
+        overridePendingTransition(0, R.anim.slide_out_bottom);
+
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -877,10 +935,42 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     closePaymentActivity();
                 }
                 break;
+           case IN_PROGRESS:
+            if(charge.getTransaction().getAsynchronous())
+              //  payButton.setEnabled(true);
+              // payButton.getLoadingView().start();
+               if (main_windowed_scrollview != null) {
+                   RelativeLayout.LayoutParams layoutParams =
+                           new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                   main_windowed_scrollview.setLayoutParams(layoutParams);
+                   TranslateAnimation animate = new TranslateAnimation(0, 0, main_windowed_scrollview.getHeight(), 0);
+                   animate.setDuration(2000);
+                   main_windowed_scrollview.startAnimation(animate);
+
+               }
+                PaymentDataManager.getInstance().setChargeOrAuthorize(charge);
+                clearPaymentProcessListeners();
+                selectedCurrencyAsynchronous=false;
+               if(webPaymentViewModel !=null)webPaymentViewModel.enableWebView();
+               new Handler().postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       openAsyncActivity();
+                   }
+               }, 2500);
+          break;
         }
         obtainPaymentURLFromChargeOrAuthorizeOrSaveCard(charge);
 
     }
+
+    private void openAsyncActivity(){
+        payButton.setEnabled(false);
+        stopPayButtonLoadingView();
+        Intent intent= new Intent(this, AsynchronousPaymentActivity.class);
+        startActivityForResult(intent,ASYNCHRONOUS_REQUEST_CODE);
+        overridePendingTransition(R.anim.slide_in_top,0);
+}
 
 
     @Override
@@ -1229,6 +1319,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if(webPaymentViewModel!=null)webPaymentViewModel.enableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if(cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
+
     }
 
 

@@ -54,6 +54,10 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @Expose
     private int orderBy;
 
+    @SerializedName("asynchronous")
+    @Expose
+    private boolean asynchronous;
+
     /**
      * Gets id.
      *
@@ -140,5 +144,9 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @Override
     public int compareTo(@NonNull PaymentOption o) {
         return orderBy - o.orderBy;
+    }
+
+    public boolean getAsynchronous() {
+        return asynchronous;
     }
 }

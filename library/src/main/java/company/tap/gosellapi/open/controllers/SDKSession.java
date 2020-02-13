@@ -286,6 +286,14 @@ public class SDKSession implements View.OnClickListener{
       paymentDataSource.setMerchant(null);
   }
 
+  /**
+   * set setCardType
+   */
+  public void setCardType(String cardType){
+    System.out.println("cardType ... "+cardType);
+    paymentDataSource.setcardType(cardType);
+  }
+
 
   /**
    * Handle pay button click event

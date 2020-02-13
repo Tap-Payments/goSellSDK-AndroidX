@@ -117,4 +117,9 @@ public interface PaymentDataSource {
     Merchant     getMerchant();
     @Nullable
      String getPaymentDataType();
+    /**
+     *  Defines if user wants all cards or specific card types.
+     */
+    @Nullable
+    String getCardType();
 }
