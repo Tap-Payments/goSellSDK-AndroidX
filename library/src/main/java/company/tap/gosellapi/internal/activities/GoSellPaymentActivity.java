@@ -373,16 +373,18 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     public void startWebPayment(WebPaymentViewModel model) {
 
+        if (model == null)return;
+
         this.webPaymentViewModel = model;
-        if(model.getData().getAsynchronous()){
-            selectedCurrencyAsynchronous=model.getData().getAsynchronous();
-        }
+
+        if(model.getData()!=null)
+            selectedCurrencyAsynchronous = model.getData().isAsynchronous();
+
         PaymentDataManager.getInstance().checkWebPaymentExtraFees(model, this);
     }
 
     private void startWebPaymentProcess1() {
         if (selectedCurrencyAsynchronous) {
-            // ActivityDataExchanger.getInstance().setWebPaymentViewModel(webPaymentViewModel);
             PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this);
             payButton.setEnabled(true);
             payButton.getLoadingView().start();
@@ -412,13 +414,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private void startSavedCardPaymentProcess() {
 
-//        Log.d("GoSellPaymentActivity"," getSavedCard().getPaymentOptionIdentifier() : " + getSavedCard().getPaymentOptionIdentifier());
         PaymentDataManager.getInstance().checkSavedCardPaymentExtraFees(getSavedCard(), this);
 
     }
 
     private void startCardPaymentProcess(CardCredentialsViewModel paymentOptionViewModel) {
-//        Log.d("startCardPaymentProcess"," step 1 : check extra fees : in class "+ "["+this.getClass().getName()+"]");
         if(cardCredentialsViewModel!=null) cardCredentialsViewModel.disableCardScanView();
         if(webPaymentViewModel !=null)webPaymentViewModel.disableWebView();
         if(recentSectionViewModel!=null)recentSectionViewModel.disableRecentView();
@@ -512,8 +512,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         BigDecimal feesAmount = PaymentDataManager.getInstance()
                 .calculateCardExtraFees(paymentOption);
-
-//        Log.d("GoSellPaymentActivity"," update pay button with : fees : " + feesAmount);
 
         if (!isTransactionModeSaveCard())
             payButton.getPayButton().setText(
@@ -641,7 +639,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void fireCardPaymentExtraFeesUserDecision(ExtraFeesStatus userChoice) {
-//       Log.d("fireCardPaymentExtra", "step 2 : fire extra fees : in class "+ "["+this.getClass().getName()+"] +  userChoice=["+userChoice.name()+"] ");
         if(payButton!=null && payButton.getLoadingView()!=null)payButton.getLoadingView().setForceStop(true);
         switch (userChoice) {
             case ACCEPT_EXTRA_FEES:
@@ -673,7 +670,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void openOTPScreen(Charge charge) {
-//        Log.d("GoSellPaymentActivity","openOTPScreen called .........");
         stopPayButtonLoadingView();
         if (charge.getAuthenticate() != null) {
             String phoneNumber = charge.getAuthenticate().getValue();
@@ -818,24 +814,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     closePaymentActivity();
                 }
                 break;
-            case IN_PROGRESS:
-                if(charge.getTransaction().getAsynchronous())
-                    payButton.setEnabled(true);
-               payButton.getLoadingView().start();
 
-
-                PaymentDataManager.getInstance().setChargeOrAuthorize(charge);
-                clearPaymentProcessListeners();
-                selectedCurrencyAsynchronous=false;
-                if(webPaymentViewModel !=null)webPaymentViewModel.enableWebView();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        openAsyncActivity();
-
-                    }
-                }, 2500);
-                break;
         }
     }
 
@@ -843,7 +822,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
      * @param amountedCurrency this method will be called after user changes currency
      */
     private void updateDisplayedCards(AmountedCurrency amountedCurrency) {
-//        Log.d("GoSellPaymentActivity","new currency ... " + amountedCurrency.getCurrency());
         // filter views
         dataSource.currencySelectedByUser(amountedCurrency);
         // refresh layout [ filter view models according to new currency - reload views ]
@@ -879,20 +857,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void didReceiveCharge(Charge charge) {
-//        Log.d("didReceiveCharge", " step 6 : didReceiveCharge  >>> success : in class "+ "["+this.getClass().getName()+"]   ");
 
-//        Log.d("GoSellPaymentActivity"," Cards >> didReceiveCharge * * * " + charge);
         if (charge == null) return;
-//        Log.d("GoSellPaymentActivity"," Cards >> didReceiveCharge * * * " + charge.getStatus());
-
         switch (charge.getStatus()) {
             case INITIATED:
                 Authenticate authenticate = charge.getAuthenticate();
-//                Log.d("GoSellPaymentActivity","authenticate >>> "+ authenticate);
                 if (authenticate != null && authenticate.getStatus() == AuthenticationStatus.INITIATED) {
-//                    Log.d("didReceiveCharge"," step 5 : didReceiveCharge  >>> success : in class "+ "["+this.getClass().getName()+"]  authenticate.getStatus() > ["+ authenticate.getStatus() +"]  ");
-//                    Log.d("didReceiveCharge"," step 5 : didReceiveCharge  >>> success : in class "+ "["+this.getClass().getName()+"]  authenticate.getType() > ["+ authenticate.getType() +"]  ");
-
                     switch (authenticate.getType()) {
                         case BIOMETRICS:
 
@@ -936,15 +906,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 }
                 break;
            case IN_PROGRESS:
-            if(charge.getTransaction().getAsynchronous())
-              //  payButton.setEnabled(true);
-              // payButton.getLoadingView().start();
+            if(charge.getTransaction() !=null && charge.getTransaction().isAsynchronous())
                if (main_windowed_scrollview != null) {
                    RelativeLayout.LayoutParams layoutParams =
                            new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                    main_windowed_scrollview.setLayoutParams(layoutParams);
                    TranslateAnimation animate = new TranslateAnimation(0, 0, main_windowed_scrollview.getHeight(), 0);
-                   animate.setDuration(2000);
+                   animate.setDuration(500);
                    main_windowed_scrollview.startAnimation(animate);
 
                }
@@ -957,7 +925,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                    public void run() {
                        openAsyncActivity();
                    }
-               }, 2500);
+               }, 800);
           break;
         }
         obtainPaymentURLFromChargeOrAuthorizeOrSaveCard(charge);
@@ -1042,28 +1010,19 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 
     private void obtainPaymentURLFromChargeOrAuthorizeOrSaveCard(Charge chargeOrAuthorizeOrSaveCard) {
-//        Log.d("GoSellPaymentActivity","GoSellPaymentActivity..chargeOrAuthorizeOrSaveCard :" + chargeOrAuthorizeOrSaveCard.getStatus());
-//        Log.d("obtainPaymentURLFromCh"," step 6 : obtainPaymentURLFromChargeOrAuthorizeOrSaveCard   : in class "+ "["+this.getClass().getName()+"]    ");
         if (chargeOrAuthorizeOrSaveCard.getStatus() != ChargeStatus.INITIATED) {
             return;
         }
 
         Authenticate authentication = chargeOrAuthorizeOrSaveCard.getAuthenticate();
-//        Log.d("obtainPaymentURLFromCh"," step 6 : obtainPaymentURLFromChargeOrAuthorizeOrSaveCard   : in class "+ "["+this.getClass().getName()+"]   authentication=["+authentication+"] ");
         if (authentication != null)
-//            Log.d("GoSellPaymentActivity"," GoSellPaymentActivity>authentication : " + authentication.getStatus());
         if (authentication != null && authentication.getStatus() == AuthenticationStatus.INITIATED) {
-//            Log.d("obtainPaymentURLFromCh"," step 6 : obtainPaymentURLFromChargeOrAuthorizeOrSaveCard   : in class "+ "["+this.getClass().getName()+"]   authentication != null && authentication.getStatus() == AuthenticationStatus.INITIATED) ");
             return;
         }
 
         String url = chargeOrAuthorizeOrSaveCard.getTransaction().getUrl();
-//        Log.d("GoSellPaymentActivity","GoSellPaymentActivity >> Transaction().getUrl() :" + url);
-//        Log.d("GoSellPaymentActivity","GoSellPaymentActivity >> chargeOrAuthorize :" + chargeOrAuthorizeOrSaveCard.getId());
-
 
         if (url != null) {
-            // save charge id
             setChargeOrAuthorizeOrSaveCard(chargeOrAuthorizeOrSaveCard);
             LoadingScreenManager.getInstance().closeLoadingScreen();
             showWebView(chargeOrAuthorizeOrSaveCard.getTransaction().getUrl());
@@ -1071,7 +1030,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void showWebView(String url) {
-//        Log.d("showWebView"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  showWebView called ");
         RelativeLayout popup_window = new RelativeLayout(this);
         FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT,
                 FrameLayout.LayoutParams.FILL_PARENT);
@@ -1080,15 +1038,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         w.setScrollContainer(false);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
-        //params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         w.setLayoutParams(params);
         w.setWebViewClient(new CardPaymentWebViewClient());
         WebSettings settings = w.getSettings();
         settings.setJavaScriptEnabled(true);
-
-
-//        settings.setAllowFileAccessFromFileURLs(true);
-//        settings.setAllowUniversalAccessFromFileURLs(true);
 
         popup_window.addView(w);
         setContentView(popup_window);
@@ -1114,7 +1067,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
 
-//    boolean pageFinishedloading;
 
 
     /**
@@ -1124,7 +1076,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//            Log.d("CardPaymentWebViewClien"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  webview page started with url : ["+url+"]  ");
             super.onPageStarted(view, url, favicon);
 
 
@@ -1132,18 +1083,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            Log.d("shouldOverrideUrlLoad"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  shouldOverrideUrlLoading  started with url : ["+url+"]");
             PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance()
                     .decisionForWebPaymentURL(url);
-//            Log.d("shouldOverrideUrlLoad"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  shouldOverrideUrlLoading  decision: ["+decision+"]");
-//            CookieManager cookieManager = CookieManager.getInstance();
-//            cookieManager.setAcceptCookie(true);
 
             boolean shouldOverride = !decision.shouldLoad();
-//            Log.d("shouldOverrideUrlLoad"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  shouldOverride  : ["+shouldOverride+"]");
             if (shouldOverride) { // if decision is true and response has TAP_ID
-//                Log.d("shouldOverrideUrlLoad"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]   call backend to get charge response >> based of charge object type [Authorize - Charge] call retrieveCharge / retrieveAuthorize");
-                // call backend to get charge response >> based of charge object type [Authorize - Charge] call retrieveCharge / retrieveAuthorize
                 PaymentDataManager.getInstance().retrieveChargeOrAuthorizeOrSaveCardAPI(getChargeOrAuthorize());
             }
             return shouldOverride;
@@ -1151,20 +1095,16 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         @Override
         public void onPageFinished(WebView view, String url) {
-//            Log.d("onPageFinished"," step 7 : showWebView   : in class "+ "["+this.getClass().getName()+"]  onPageFinished  with url : ["+url+"]  ");
             super.onPageFinished(view, url);
-//            Log.d("GoSellPaymentActivity","onPageFinished :" + url);
         }
 
 
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-//            Log.d("onReceivedError","web view ........ loading on receive error.....");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && error!=null) {
-//                Log.d("GoSellPaymentActivity"," onReceivedError : error  : " + error.getErrorCode());
-//                Log.d("GoSellPaymentActivity"," onReceivedError : desc  : " + error.getDescription());
-//                view.loadDataWithBaseURL("", error.getDescription().toString(), "text/html", "utf-8", null);
+                Log.d("GoSellPaymentActivity"," onReceivedError : error  : " + error.getErrorCode());
+                Log.d("GoSellPaymentActivity"," onReceivedError : desc  : " + error.getDescription());
             }
 
         }
@@ -1172,27 +1112,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         @Override
         public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
             super.onReceivedHttpError(view, request, errorResponse);
-//             Log.d("onReceivedHttpError","web view ........ onReceivedHttpError.....");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                  Log.d("onReceivedHttpError","web view ........ lonReceivedHttpError ....."+errorResponse.getReasonPhrase());
-
             }
-
         }
 
-        @Override
-        public void onUnhandledKeyEvent(WebView view, KeyEvent event) {
-            super.onUnhandledKeyEvent(view, event);
-//             Log.d("onUnhandledKeyEvent","web view ........ onUnhandledKeyEvent ....."+event.getAction());
-//             Log.d("onUnhandledKeyEvent","web view ........ onUnhandledKeyEvent ....."+event.getKeyCode());
-        }
 
-        @Override
-        public void onFormResubmission(WebView view, Message dontResend, Message resend) {
-            super.onFormResubmission(view, dontResend, resend);
-//             Log.d("onFormResubmission","web view ........ onFormResubmission ....."+dontResend.getData());
-//             Log.d("onFormResubmission","web view ........ onFormResubmission ....."+resend.getData());
-        }
 
         @Override
         public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
@@ -1200,16 +1125,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
              Log.d("onReceivedClientCertReq","web view ........ onReceivedClientCertRequest .....");
         }
 
-        @Override
-        public void onLoadResource(WebView view, String url) {
-            super.onLoadResource(view, url);
-//             Log.d("onLoadResource","web view ........ onLoadResource ..... >> url["+url+"]");
-        }
 
         @Override
         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             super.onReceivedSslError(view, handler, error);
-//             Log.d("onLoadResource","web view ........ onReceivedSslError ..... >> url["+error.getUrl()+"]");
+            String err = (error!=null)?error.getUrl():"";
+            Log.d("onLoadResource","web view ........ onReceivedSslError ..... >> url["+err+"]");
         }
 
         @Override
@@ -1217,7 +1138,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             super.onReceivedError(view, errorCode, description, failingUrl);
              Log.d("onReceivedError","web view ........ onReceivedError ..... >> errorCode["+errorCode+"]");
              Log.d("onReceivedError","web view ........ onReceivedError ..... >> description["+description+"]");
-//             Log.d("onReceivedError","web view ........ onReceivedError ..... >> failingUrl["+failingUrl+"]");
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////

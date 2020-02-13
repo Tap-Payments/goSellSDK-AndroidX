@@ -146,7 +146,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
         return orderBy - o.orderBy;
     }
 
-    public boolean getAsynchronous() {
+    public boolean isAsynchronous() {
         return asynchronous;
     }
 }

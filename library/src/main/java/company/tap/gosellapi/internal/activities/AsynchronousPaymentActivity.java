@@ -157,7 +157,7 @@ public class AsynchronousPaymentActivity extends BaseActivity implements View.On
         businessName.setLayoutParams(ll);
         businessIconNameContainer.addView(businessIcon);
         businessIconNameContainer.addView(businessName);
-        if (PaymentDataManager.getInstance().getChargeOrAuthorize().getTransaction().getAsynchronous())
+        if (PaymentDataManager.getInstance().getChargeOrAuthorize().getTransaction().isAsynchronous())
             System.out.println("paymnet array" + PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getPaymentOptions().size());
         payymentName = PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getPaymentOptions().get(3).getName();
         imageURL = PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getPaymentOptions().get(3).getImage();
