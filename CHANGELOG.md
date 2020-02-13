@@ -1,4 +1,14 @@
 # CHANGELOG
+## [3.4.0] - 2020-02-
+### Version release for with new Feature:
+- Sdk release to support Fawry payment
+
+### Impact on existing integrations:
+- The new update will not affect current integration.
+
+### Required changes for existing integrations before updating:
+- If the existing inetgration requires to use Fawry payment
+  then sdk used must be integrated with the latest release.
 ## [3.3.0] - 2020-02-03
 ### Version release for supporting additional languages:
 - Sdk release to support new languages German and Turkish

@@ -165,11 +165,11 @@ public class SettingsManager {
                     middleName("MiddleName").
                     lastName("Surname").
                     email("hello@tap.company").
-                    phone(new PhoneNumber("965", "65562630")).
+                    phone(new PhoneNumber("965", "69045932")).
                     metadata("meta").
                     build();
         }
-
+      //  65562630
         return customer;
     }
 

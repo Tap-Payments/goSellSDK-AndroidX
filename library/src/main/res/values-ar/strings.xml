@@ -109,5 +109,13 @@
   <string name="close">إغلاق</string>
   <string name="error_deleting_card_title">عذراً</string>
   <string name="error_deleting_card_msg">لا يمكن حذف البطاقة في الوقت الحالي. يرجى المحاولة لاحقا.</string>
-
+  <string name="payment_in_progress">عملية الدفع قيد التنفيذ</string>
+  <string name="with_your_fawry_pay_reference">تتضمن معلومات عن عملية الدفع بواسطة فوري.</string>
+  <string name="order_code">كودالطلب</string>
+  <string name="ok"> حسنا</string>
+  <string name="fawry_cash_location">ب موقع لفوري
+باستخدام الرابط التالي لإستكمال عملية الدفع
+  </string>
+  <string name="email_sent" translatable="false">تم إرسال رسالة بريد إلكتروني لـ</string>
+  <string name="code_expires_on" translatable="false">تنتهي صلاحية الكود في</string>
 </resources>

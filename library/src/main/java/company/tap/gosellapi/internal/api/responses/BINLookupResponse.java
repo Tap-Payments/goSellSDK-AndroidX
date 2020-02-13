@@ -40,6 +40,9 @@ public final class BINLookupResponse implements BaseResponse {
     @SerializedName("country")
     @Expose
     private String country;
+    @SerializedName("card_type")
+    @Expose
+    private String cardType;
 
     /**
      * Defines if a card with the given bin_number requires address fields to be passed to
@@ -101,5 +104,14 @@ public final class BINLookupResponse implements BaseResponse {
      */
     public String getCountry() {
         return country;
+    }
+
+    /**
+     * Gets cardType.
+     *
+     * @return cardType.
+     */
+    public String getCardType() {
+        return cardType;
     }
 }

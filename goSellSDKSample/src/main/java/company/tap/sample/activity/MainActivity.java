@@ -147,36 +147,36 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     private void configureSDKThemeObject() {
 
         ThemeObject.getInstance()
-        .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
-        .setSdkLanguage("en")
+                .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
+                .setSdkLanguage("en")
 
-        .setHeaderFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
-        .setHeaderTextColor(getResources().getColor(R.color.black1))
-        .setHeaderTextSize(17)
-        .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))
-
-
-        .setCardInputFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
-        .setCardInputTextColor(getResources().getColor(R.color.black))
-        .setCardInputInvalidTextColor(getResources().getColor(R.color.red))
-        .setCardInputPlaceholderTextColor(getResources().getColor(R.color.gray))
+                .setHeaderFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
+                .setHeaderTextColor(getResources().getColor(R.color.black1))
+                .setHeaderTextSize(17)
+                .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))
 
 
-        .setSaveCardSwitchOffThumbTint(getResources().getColor(R.color.french_gray_new))
-        .setSaveCardSwitchOnThumbTint(getResources().getColor(R.color.vibrant_green))
-        .setSaveCardSwitchOffTrackTint(getResources().getColor(R.color.french_gray))
-        .setSaveCardSwitchOnTrackTint(getResources().getColor(R.color.vibrant_green_pressed))
+                .setCardInputFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
+                .setCardInputTextColor(getResources().getColor(R.color.black))
+                .setCardInputInvalidTextColor(getResources().getColor(R.color.red))
+                .setCardInputPlaceholderTextColor(getResources().getColor(R.color.gray))
 
-        .setScanIconDrawable(getResources().getDrawable(R.drawable.btn_card_scanner_normal))
 
-        .setPayButtonResourceId(R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
-        .setPayButtonFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
+                .setSaveCardSwitchOffThumbTint(getResources().getColor(R.color.french_gray_new))
+                .setSaveCardSwitchOnThumbTint(getResources().getColor(R.color.vibrant_green))
+                .setSaveCardSwitchOffTrackTint(getResources().getColor(R.color.french_gray))
+                .setSaveCardSwitchOnTrackTint(getResources().getColor(R.color.vibrant_green_pressed))
 
-        .setPayButtonDisabledTitleColor(getResources().getColor(R.color.white))
-        .setPayButtonEnabledTitleColor(getResources().getColor(R.color.white))
-        .setPayButtonTextSize(14)
-        .setPayButtonLoaderVisible(true)
-        .setPayButtonSecurityIconVisible(true)
+                .setScanIconDrawable(getResources().getDrawable(R.drawable.btn_card_scanner_normal))
+
+                .setPayButtonResourceId(R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
+                .setPayButtonFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))
+
+                .setPayButtonDisabledTitleColor(getResources().getColor(R.color.white))
+                .setPayButtonEnabledTitleColor(getResources().getColor(R.color.white))
+                .setPayButtonTextSize(14)
+                .setPayButtonLoaderVisible(true)
+                .setPayButtonSecurityIconVisible(true)
         ;
 
     }
@@ -248,6 +248,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
+     //   sdkSession.setCardType("CREDIT"); // ** Optional ** you can pass which cardType you want  or null
+
     }
 
 
@@ -291,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void startSDKWithUI(){
         if(sdkSession!=null){
-           TransactionMode trx_mode =(settingsManager!=null)? settingsManager.getTransactionsMode("key_sdk_transaction_mode"): TransactionMode.PURCHASE;
+            TransactionMode trx_mode =(settingsManager!=null)? settingsManager.getTransactionsMode("key_sdk_transaction_mode"): TransactionMode.PURCHASE;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
             sdkSession.setTransactionMode(trx_mode);    //** Required **
             // if you are not using tap button then start SDK using the following call
@@ -311,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             // pass card info to SDK
             sdkSession.setCardInfo("5123450000000008","05","21","100","Haitham Elsheshtawy",null); //** Required **
             // if you are not using tap button then start SDK using the following call
-           // sdkSession.start(this);
+            // sdkSession.start(this);
         }
     }
 
@@ -341,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             payButtonView.setupFontTypeFace(ThemeObject.getInstance().getPayButtonFont());
         if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0 && ThemeObject.getInstance().getPayButtonEnabledTitleColor() != 0)
             payButtonView.setupTextColor(ThemeObject.getInstance().getPayButtonEnabledTitleColor(),
-                ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+                    ThemeObject.getInstance().getPayButtonDisabledTitleColor());
         if(ThemeObject.getInstance().getPayButtonTextSize()!=0)
             payButtonView.getPayButton().setTextSize(ThemeObject.getInstance().getPayButtonTextSize());
 //
@@ -638,7 +640,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber   phoneNumber = customer!=null ? customer.getPhone(): new PhoneNumber("965","65562630");
 
-        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(),phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
