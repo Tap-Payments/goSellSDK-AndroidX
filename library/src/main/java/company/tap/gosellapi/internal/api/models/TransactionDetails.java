@@ -100,7 +100,7 @@ public final class TransactionDetails implements Serializable {
      * @return boolean asynchronous.
      */
     @Nullable
-    public boolean getAsynchronous() {
+    public boolean isAsynchronous() {
         return asynchronous;
     }
 }
