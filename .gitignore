@@ -74,3 +74,5 @@
 /.idea/misc.xml
 /goSellSDKSample/goSellSDKSample.iml
 /library/library.iml
+.gradle
+.idea
