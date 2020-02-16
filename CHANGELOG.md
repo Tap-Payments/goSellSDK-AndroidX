@@ -2,6 +2,8 @@
 ## [3.4.0] - 2020-02-
 ### Version release for with new Feature:
 - Sdk release to support Fawry payment
+- sdk will allow merchant to select cardtypes.
+- sdk allows theming of dialog alert.
 
 ### Impact on existing integrations:
 - The new update will not affect current integration.

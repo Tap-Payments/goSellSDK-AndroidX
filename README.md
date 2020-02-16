@@ -326,6 +326,10 @@ Don't forget to import the class at the beginning of the file:
           // show/hide pay button security icon
           .setPayButtonSecurityIconVisible(true) // **Optional**
 
+           // setup dialog textcolor and textsize
+           .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
+           .setDialogTextSize(17)                // **Optional**
+           .setDialogbuttonColor(getResources().getColor(R.color.french_gray));    // **Optional**
            ;
 
           }
@@ -527,7 +531,9 @@ Don't forget to import the class at the beginning of the file:
             
             sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
-             sdkSession.setPaymentType("WEB");   //** Merchant can customize payment options [WEB/CARD] for each transaction or it will show all payment options granted to him.
+             sdkSession.setPaymentType("WEB");   //** Optional ** ** Merchant can customize payment options [WEB/CARD] for each transaction or By default it will show all payment options granted to him.
+
+              sdkSession.setCardType("CREDIT"); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
             /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,20 +16,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import company.tap.gosellapi.R;
-import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
-import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.ThemeObject;
 import company.tap.gosellapi.open.enums.AppearanceMode;
-import company.tap.gosellapi.open.enums.TransactionMode;
 
 public class AsynchronousPaymentActivity extends BaseActivity implements View.OnClickListener {
     TextView textView_emailPhone_sent;

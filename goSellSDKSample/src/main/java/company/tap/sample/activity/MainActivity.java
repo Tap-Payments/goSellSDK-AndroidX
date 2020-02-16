@@ -177,6 +177,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
+
+                .setDialogTextColor(getResources().getColor(R.color.black1))
+                .setDialogTextSize(17)
+                .setDialogbuttonColor(getResources().getColor(R.color.french_gray));
         ;
 
     }
@@ -248,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
-     //   sdkSession.setCardType("CREDIT"); // ** Optional ** you can pass which cardType you want  or null
+        sdkSession.setCardType("CREDIT"); // ** Optional ** you can pass which cardType you want  or null
 
     }
 
