@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,6 +27,7 @@ import android.text.TextWatcher;
 import android.text.style.ReplacementSpan;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -831,13 +833,14 @@ public class CardCredentialsViewHolder
         dialogBuilder.setMessage(message);
         dialogBuilder.setCancelable(false);
 
-
         dialogBuilder.setPositiveButton(itemView.getContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 PaymentDataManager.getInstance().setBinLookupResponse(null);
                 cardNumberField.setText(null);
-                cardNumberField.setTextColor(itemView.getContext().getColor(R.color.greyish_brown));
+                if (SDK_INT >= Build.VERSION_CODES.M) {
+                    cardNumberField.setTextColor(itemView.getContext().getColor(R.color.greyish_brown));
+                }
                 dialog.dismiss();
 
         }
@@ -846,7 +849,35 @@ public class CardCredentialsViewHolder
 
         PaymentDataManager.getInstance().setBinLookupResponse(null);
         cardNumberField.setText(null);
-        dialogBuilder.show();
+        AlertDialog dialog = dialogBuilder.create();
+
+        // Finally, display the alert dialog
+        dialog.show();
+
+        // Get the alert dialog buttons reference
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        if(positiveButton!=null){
+            if(ThemeObject.getInstance().getDialogbuttonColor()!=0)
+                positiveButton.setBackgroundColor(ThemeObject.getInstance().getDialogbuttonColor()); // change button color
+            if(ThemeObject.getInstance().getDialogTextColor()!=0)
+                positiveButton.setTextColor(ThemeObject.getInstance().getDialogTextColor());
+            if(ThemeObject.getInstance().getDialogTextSize()!=0)
+                positiveButton.setTextSize(ThemeObject.getInstance().getDialogTextSize());
+            try {
+                Resources resources = dialog.getContext().getResources();
+                int alertTitleId = resources.getIdentifier("alertTitle", "id", "android");
+                TextView alertTitle = (TextView) dialog.getWindow().getDecorView().findViewById(alertTitleId);
+                if(ThemeObject.getInstance().getDialogTextColor()!=0)
+                alertTitle.setTextColor(ThemeObject.getInstance().getDialogTextColor()); // change title text color
+                TextView alertMessage = (TextView) dialog.getWindow().getDecorView().findViewById(android.R.id.message);
+                if(ThemeObject.getInstance().getDialogTextColor()!=0)
+                    alertMessage.setTextColor(ThemeObject.getInstance().getDialogTextColor()); // change title text color
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
 
     }
 

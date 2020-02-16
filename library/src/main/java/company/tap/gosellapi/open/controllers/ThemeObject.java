@@ -67,6 +67,14 @@ public class ThemeObject {
         private boolean                 payButtLoaderVisible=true;
         private int                     payButtonTextSize;
 
+        /**
+         * Dialog Appearance
+         */
+
+        private int                     dialogTextColor;
+        private int                     dialogTextSize;
+        private int                     dialogBackgroundColor;
+        private int                     dialogbuttonColor;
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -321,6 +329,41 @@ public class ThemeObject {
                 return this;
         }
 
+        /**
+         * dialogTextColor
+         * @param dialogTextColor
+         */
+
+        public ThemeObject setDialogTextColor(int dialogTextColor) {
+                this.dialogTextColor = dialogTextColor;
+                return this;
+        }
+        /**
+         * dialog  TextSize
+         * @param dialogTextSize
+         */
+        public ThemeObject setDialogTextSize(int dialogTextSize) {
+                this.dialogTextSize = dialogTextSize;
+                return this;
+        }
+        /**
+         * dialog backgroundColor
+         * @param dialogBackgroundColor
+         */
+        public ThemeObject setDialogBackgroundColor(int dialogBackgroundColor) {
+                this.dialogBackgroundColor = dialogBackgroundColor;
+                return this;
+        }
+        /**
+         * dialog buttonColor
+         * @param dialogbuttonColor
+         */
+        public void setDialogbuttonColor(int dialogbuttonColor) {
+                this.dialogbuttonColor = dialogbuttonColor;
+        }
+
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         /**
@@ -528,7 +571,36 @@ public class ThemeObject {
 
                 return 14;
         }
+        /**
+         *
+         * @return Dialog  TextColor
+         */
+        public int getDialogTextColor() {
+                return dialogTextColor;
+        }
+        /**
+         *
+         * @return Dialog TextSize
+         */
 
+        public int getDialogTextSize() {
+                return dialogTextSize;
+        }
+        /**
+         *
+         * @return Dialog BackgroundColour
+         */
+
+        public int getDialogBackgroundColor() {
+                return dialogBackgroundColor;
+        }
+        /**
+         *
+         * @return DialogbuttonColor
+         */
+        public int getDialogbuttonColor() {
+                return dialogbuttonColor;
+        }
 
         //////////////////////////////////////////  Single Instance ////////////////////////
 
@@ -539,6 +611,7 @@ public class ThemeObject {
         public static ThemeObject getInstance(){
                 return  SingleInstanceAdmin.instance;
         }
+
 
         private static class SingleInstanceAdmin{
                 /**

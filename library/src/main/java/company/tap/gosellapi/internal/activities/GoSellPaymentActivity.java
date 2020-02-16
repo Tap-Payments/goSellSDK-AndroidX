@@ -920,12 +920,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 clearPaymentProcessListeners();
                 selectedCurrencyAsynchronous=false;
                if(webPaymentViewModel !=null)webPaymentViewModel.enableWebView();
-               new Handler().postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       openAsyncActivity();
-                   }
-               }, 800);
+               new Handler().postDelayed(() -> openAsyncActivity(), 800);
           break;
         }
         obtainPaymentURLFromChargeOrAuthorizeOrSaveCard(charge);
