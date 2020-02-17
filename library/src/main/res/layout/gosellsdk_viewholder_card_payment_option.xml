@@ -81,6 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_vertical"
+        style="@style/Widget.Design.TextInputLayout"
         app:hintTextAppearance="@style/TextInputLayout.Hint"
         >
 
@@ -133,6 +134,7 @@
 
     <!-- Expiration date -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Design.TextInputLayout"
         android:id="@+id/expirationDateContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -167,6 +169,7 @@
 
     <!--  CVV -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Design.TextInputLayout"
         android:id="@+id/cvvFieldContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -207,6 +210,7 @@
 
   <!-- NAME ON CARD-->
   <com.google.android.material.textfield.TextInputLayout
+      style="@style/Widget.Design.TextInputLayout"
       android:id="@+id/cardholderNameContainer"
       android:layout_width="0dp"
       android:layout_height="50dp"

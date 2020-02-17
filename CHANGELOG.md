@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.3.1] - 2020-02-17
+### Hot fixes :
+- [#Issue:6](https://github.com/Tap-Payments/goSellSDK-AndroidX/issues/6) version released for updating from Appcompat to MaterialComponents theme.
 ## [3.3.0] - 2020-02-03
 ### Version release for supporting additional languages:
 - Sdk release to support new languages German and Turkish
