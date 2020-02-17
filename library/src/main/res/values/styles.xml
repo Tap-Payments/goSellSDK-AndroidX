@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="GoSellSDKAppTheme" parent="Theme.AppCompat.Light">
+    <style name="GoSellSDKAppTheme" parent="Theme.MaterialComponents.Light.Bridge">
         <item name="actionBarStyle">@style/GoSellSDKActionBar</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/french_gray</item>
     </style>
     <style name="GoSellSDKAppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -18,12 +19,13 @@
 
 
 
-    <style name="TransparentCompat" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="TransparentCompat" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/french_gray</item>
     </style>
 
 
@@ -175,6 +177,7 @@
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_11sp</item>
         <item name="android:textStyle">normal</item>
+
     </style>
 
     <style name="SwitchPrimary" >
