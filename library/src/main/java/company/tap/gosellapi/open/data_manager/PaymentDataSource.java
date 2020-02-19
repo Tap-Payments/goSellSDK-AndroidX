@@ -69,6 +69,8 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     private @Nullable
     Merchant merchant;
 
+    private @Nullable
+    String cardType;
     private @NonNull
     Context context;
 
@@ -236,6 +238,13 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
      this.requires3DSecure = requires3DSecure;
    }
 
+    /**
+     * choose cardType
+     * @param cardType
+     */
+    public void setcardType(String cardType){
+        this.cardType = cardType;
+    }
 
 
     /**
@@ -384,5 +393,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public String getPaymentDataType() {
         return paymentType;
     }
+
+    @Override
+    @Nullable
+    public String getCardType() {
+        return cardType;
+    }
+
 
 }
