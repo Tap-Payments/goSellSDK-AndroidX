@@ -620,20 +620,22 @@ public class CardCredentialsViewHolder
         // update CCVEditText CardType: to set CCV Length according to CardType
         updateCCVEditTextCardType(brand.getCardBrand());
         // update card types
-       BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
-       updateCardSystemsRecyclerView(brand.getCardBrand(),binLookupResponse==null?null:binLookupResponse.getScheme());
-
+        BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
+        updateCardSystemsRecyclerView(brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
+        // {
         if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null)
             if (!PaymentDataSource.getInstance().getCardType().equals(binLookupResponse.getCardType())) {
                 if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0) {
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
                 }
 
-                showDialog("Alert", itemView.getResources().getString(R.string.cardnotsupported));
+                showDialog("Alert", "You cannot use this card");
 
 
-            }else {
+            }else{
 
+
+                //  }
                 if (brand.getValidationState().equals(CardValidationState.invalid)) {
                     saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
@@ -653,9 +655,12 @@ public class CardCredentialsViewHolder
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
                     }
                 }
+
+
             }
         return brand;
     }
+
 
     /**
      * Update ccv edit text card type.
