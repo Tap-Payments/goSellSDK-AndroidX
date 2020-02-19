@@ -307,8 +307,8 @@ public class SDKSession implements View.OnClickListener{
     if (i == payButtonView.getLayoutId() || i == R.id.pay_button_id) {
       System.out.println(" sessionActive : "+sessionActive);
       sessionActive = true;
-      getPaymentOptions();
 
+          getPaymentOptions();
     }
   }
 
@@ -323,6 +323,7 @@ public class SDKSession implements View.OnClickListener{
 
     this.context = context;
     getPaymentOptions();
+
   }
 
 
@@ -361,7 +362,9 @@ public class SDKSession implements View.OnClickListener{
           showDialog("Connection Error", "Internet connection is not available");
         break;
       case INTERNET_AVAILABLE:
-        startPayment();
+
+            startPayment();
+
     }
   }
 
@@ -371,14 +374,7 @@ public class SDKSession implements View.OnClickListener{
       payButtonView.getLoadingView().start();
 
     System.out.println(" this.paymentDataSource.getTransactionMode() : "+ this.paymentDataSource.getTransactionMode());
-    /**
-     * Checking added based on the param @Verified_application to check if application
-     * package id is registered or not
-     * @returns boolean value.
-     */
-    if(PaymentDataManager.getInstance().getSDKSettings().getData()!=null)
-    if(PaymentDataManager.getInstance().getSDKSettings().getData().isVerified_application()) {
-      PaymentOptionsRequest request = new PaymentOptionsRequest(
+    PaymentOptionsRequest request = new PaymentOptionsRequest(
 
               this.paymentDataSource.getTransactionMode(),
               this.paymentDataSource.getAmount(),
@@ -392,6 +388,7 @@ public class SDKSession implements View.OnClickListener{
       );
 
 
+
       GoSellAPI.getInstance().getPaymentOptions(request,
               new APIRequestCallback<PaymentOptionsResponse>() {
 
@@ -403,8 +400,11 @@ public class SDKSession implements View.OnClickListener{
                               .setForceStop(true, () -> startSDK());
                     else
                       startSDK();
+
                   } else {
-                    startSDK();
+                        startSDK();
+
+
                   }
 
                 }
@@ -426,7 +426,7 @@ public class SDKSession implements View.OnClickListener{
                 }
               });
     }
-  }
+
 
 
   private void startSDK(){
