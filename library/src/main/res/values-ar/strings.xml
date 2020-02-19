@@ -109,5 +109,5 @@
   <string name="close">إغلاق</string>
   <string name="error_deleting_card_title">عذراً</string>
   <string name="error_deleting_card_msg">لا يمكن حذف البطاقة في الوقت الحالي. يرجى المحاولة لاحقا.</string>
-
+  <string name="ok">حسنا</string>
 </resources>

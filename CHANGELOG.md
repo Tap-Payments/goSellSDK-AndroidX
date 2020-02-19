@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.4.0] - 2020-02-18
+### Version release for with new feature:
+- Merchant can now set cardType[CREDIT/DEBIT] and pass through the sdk session.
+- sdk allows theming of dialog alert.
+### Impact on existing integrations:
+- The new update will not affect current integration.
+### Required changes for existing integrations before updating:
+- If the merchant wants to use the latest feature then update to the above version.
+
 ## [3.3.1] - 2020-02-17
 ### Hot fixes :
 - [#Issue:6](https://github.com/Tap-Payments/goSellSDK-AndroidX/issues/6) version released for updating from Appcompat to MaterialComponents theme.
