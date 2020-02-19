@@ -139,7 +139,7 @@ public abstract class AmountCalculator {
                              */
                             //                      increase = currency.getAmount().multiply(fee.getValue()).divide(amountedCurrency.getAmount());
                             // increase = currency.getAmount().multiply(fee.getValue()).divide(amountedCurrency.getAmount(), MathContext.DECIMAL64); /// handling issue of  quotient has a non terminating decimal expansion
-                            BigDecimal rate = amountedCurrency.getAmount().divide(currency.getAmount());
+                            BigDecimal rate = amountedCurrency.getAmount().divide(currency.getAmount(),MathContext.DECIMAL64);
                             increase= fee.getValue().multiply(rate);
                         }
                         break;
