@@ -315,8 +315,8 @@ public class SDKSession implements View.OnClickListener{
     if (i == payButtonView.getLayoutId() || i == R.id.pay_button_id) {
       System.out.println(" sessionActive : "+sessionActive);
       sessionActive = true;
-      getPaymentOptions();
 
+          getPaymentOptions();
     }
   }
 
@@ -331,6 +331,7 @@ public class SDKSession implements View.OnClickListener{
 
     this.context = context;
     getPaymentOptions();
+
   }
 
 
@@ -369,7 +370,9 @@ public class SDKSession implements View.OnClickListener{
           showDialog("Connection Error", "Internet connection is not available");
         break;
       case INTERNET_AVAILABLE:
-        startPayment();
+
+            startPayment();
+
     }
   }
 
@@ -381,53 +384,57 @@ public class SDKSession implements View.OnClickListener{
     System.out.println(" this.paymentDataSource.getTransactionMode() : "+ this.paymentDataSource.getTransactionMode());
     PaymentOptionsRequest request = new PaymentOptionsRequest(
 
-            this.paymentDataSource.getTransactionMode(),
-            this.paymentDataSource.getAmount(),
-            this.paymentDataSource.getItems(),
-            this.paymentDataSource.getShipping(),
-            this.paymentDataSource.getTaxes(),
-            (this.paymentDataSource.getCurrency()!=null)?this.paymentDataSource.getCurrency().getIsoCode():"KWD",
-            ( this.paymentDataSource.getCustomer()!=null)?this.paymentDataSource.getCustomer().getIdentifier():null,
-            (this.paymentDataSource.getMerchant()!=null)?this.paymentDataSource.getMerchant().getId():null,
-            (this.paymentDataSource.getPaymentDataType()!=null)?this.paymentDataSource.getPaymentDataType():"ALL"
-    );
+              this.paymentDataSource.getTransactionMode(),
+              this.paymentDataSource.getAmount(),
+              this.paymentDataSource.getItems(),
+              this.paymentDataSource.getShipping(),
+              this.paymentDataSource.getTaxes(),
+              (this.paymentDataSource.getCurrency() != null) ? this.paymentDataSource.getCurrency().getIsoCode() : "KWD",
+              (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
+              (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
+              (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL"
+      );
 
 
-    GoSellAPI.getInstance().getPaymentOptions(request,
-            new APIRequestCallback<PaymentOptionsResponse>() {
 
-              @Override
-              public void onSuccess(int responseCode, PaymentOptionsResponse serializedResponse) {
-                if(payButtonView!=null){
-                  if(ThemeObject.getInstance().isPayButtLoaderVisible())
-                    payButtonView.getLoadingView()
-                            .setForceStop(true, () -> startSDK());
-                  else
-                    startSDK();
-                }else {
-                  startSDK();
+      GoSellAPI.getInstance().getPaymentOptions(request,
+              new APIRequestCallback<PaymentOptionsResponse>() {
+
+                @Override
+                public void onSuccess(int responseCode, PaymentOptionsResponse serializedResponse) {
+                  if (payButtonView != null) {
+                    if (ThemeObject.getInstance().isPayButtLoaderVisible())
+                      payButtonView.getLoadingView()
+                              .setForceStop(true, () -> startSDK());
+                    else
+                      startSDK();
+
+                  } else {
+                        startSDK();
+
+
+                  }
+
                 }
 
-              }
-
-              @Override
-              public void onFailure(GoSellError errorDetails) {
+                @Override
+                public void onFailure(GoSellError errorDetails) {
 
 
-                if(ThemeObject.getInstance().isPayButtLoaderVisible()) {
+                  if (ThemeObject.getInstance().isPayButtLoaderVisible()) {
 
-                  if(payButtonView!=null)
-                    payButtonView.getLoadingView().setForceStop(true);
+                    if (payButtonView != null)
+                      payButtonView.getLoadingView().setForceStop(true);
 
-                  sessionDelegate.sdkError(errorDetails);
+                    sessionDelegate.sdkError(errorDetails);
+                  } else {
+                    sessionDelegate.sdkError(errorDetails);
+                  }
+
                 }
-                else{
-                  sessionDelegate.sdkError(errorDetails);
-                }
+              });
+    }
 
-              }
-            });
-  }
 
 
   private void startSDK(){
