@@ -371,54 +371,61 @@ public class SDKSession implements View.OnClickListener{
       payButtonView.getLoadingView().start();
 
     System.out.println(" this.paymentDataSource.getTransactionMode() : "+ this.paymentDataSource.getTransactionMode());
-    PaymentOptionsRequest request = new PaymentOptionsRequest(
+    /**
+     * Checking added based on the param @Verified_application to check if application
+     * package id is registered or not
+     * @returns boolean value.
+     */
+    if(PaymentDataManager.getInstance().getSDKSettings().getData()!=null)
+    if(PaymentDataManager.getInstance().getSDKSettings().getData().isVerified_application()) {
+      PaymentOptionsRequest request = new PaymentOptionsRequest(
 
-            this.paymentDataSource.getTransactionMode(),
-            this.paymentDataSource.getAmount(),
-            this.paymentDataSource.getItems(),
-            this.paymentDataSource.getShipping(),
-            this.paymentDataSource.getTaxes(),
-            (this.paymentDataSource.getCurrency()!=null)?this.paymentDataSource.getCurrency().getIsoCode():"KWD",
-            ( this.paymentDataSource.getCustomer()!=null)?this.paymentDataSource.getCustomer().getIdentifier():null,
-            (this.paymentDataSource.getMerchant()!=null)?this.paymentDataSource.getMerchant().getId():null,
-            (this.paymentDataSource.getPaymentDataType()!=null)?this.paymentDataSource.getPaymentDataType():"ALL"
-    );
+              this.paymentDataSource.getTransactionMode(),
+              this.paymentDataSource.getAmount(),
+              this.paymentDataSource.getItems(),
+              this.paymentDataSource.getShipping(),
+              this.paymentDataSource.getTaxes(),
+              (this.paymentDataSource.getCurrency() != null) ? this.paymentDataSource.getCurrency().getIsoCode() : "KWD",
+              (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
+              (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
+              (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL"
+      );
 
 
-    GoSellAPI.getInstance().getPaymentOptions(request,
-            new APIRequestCallback<PaymentOptionsResponse>() {
+      GoSellAPI.getInstance().getPaymentOptions(request,
+              new APIRequestCallback<PaymentOptionsResponse>() {
 
-              @Override
-              public void onSuccess(int responseCode, PaymentOptionsResponse serializedResponse) {
-                if(payButtonView!=null){
-                  if(ThemeObject.getInstance().isPayButtLoaderVisible())
-                    payButtonView.getLoadingView()
-                            .setForceStop(true, () -> startSDK());
-                  else
+                @Override
+                public void onSuccess(int responseCode, PaymentOptionsResponse serializedResponse) {
+                  if (payButtonView != null) {
+                    if (ThemeObject.getInstance().isPayButtLoaderVisible())
+                      payButtonView.getLoadingView()
+                              .setForceStop(true, () -> startSDK());
+                    else
+                      startSDK();
+                  } else {
                     startSDK();
-                }else {
-                  startSDK();
+                  }
+
                 }
 
-              }
-
-              @Override
-              public void onFailure(GoSellError errorDetails) {
+                @Override
+                public void onFailure(GoSellError errorDetails) {
 
 
-                if(ThemeObject.getInstance().isPayButtLoaderVisible()) {
+                  if (ThemeObject.getInstance().isPayButtLoaderVisible()) {
 
-                  if(payButtonView!=null)
-                    payButtonView.getLoadingView().setForceStop(true);
+                    if (payButtonView != null)
+                      payButtonView.getLoadingView().setForceStop(true);
 
-                  sessionDelegate.sdkError(errorDetails);
+                    sessionDelegate.sdkError(errorDetails);
+                  } else {
+                    sessionDelegate.sdkError(errorDetails);
+                  }
+
                 }
-                else{
-                  sessionDelegate.sdkError(errorDetails);
-                }
-
-              }
-            });
+              });
+    }
   }
 
 
