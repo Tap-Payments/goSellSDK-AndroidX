@@ -49,6 +49,10 @@ public final class PaymentOptionsResponse implements BaseResponse {
     @Expose
     @Nullable private ArrayList<SavedCard> cards;
 
+    @SerializedName("settlement_currency")
+    @Expose
+    @Nullable private String settlement_currency;
+
 
     /**
      * Gets id.
@@ -116,6 +120,15 @@ public final class PaymentOptionsResponse implements BaseResponse {
         }
 
         return cards;
+    }
+    /**
+     * Gets settlement_currency.
+     *
+     * @return the settlement_currency
+     */
+    @Nullable
+    public String getSettlement_currency() {
+        return settlement_currency;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
 }

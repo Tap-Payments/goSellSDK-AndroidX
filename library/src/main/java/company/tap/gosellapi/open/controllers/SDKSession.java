@@ -381,7 +381,7 @@ public class SDKSession implements View.OnClickListener{
             (this.paymentDataSource.getCurrency()!=null)?this.paymentDataSource.getCurrency().getIsoCode():"KWD",
             ( this.paymentDataSource.getCustomer()!=null)?this.paymentDataSource.getCustomer().getIdentifier():null,
             (this.paymentDataSource.getMerchant()!=null)?this.paymentDataSource.getMerchant().getId():null,
-            this.paymentDataSource.getPaymentDataType()
+            (this.paymentDataSource.getPaymentDataType()!=null)?this.paymentDataSource.getPaymentDataType():"ALL"
     );
 
 
