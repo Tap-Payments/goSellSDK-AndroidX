@@ -622,20 +622,15 @@ public class CardCredentialsViewHolder
         // update card types
         BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
         updateCardSystemsRecyclerView(brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
-        // {
         if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null)
-            if (!PaymentDataSource.getInstance().getCardType().equals(binLookupResponse.getCardType())) {
-                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0) {
+            if (!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType())) {
+                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
-                }
-
-                showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
+                    showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
 
 
-            }else{
+            }else {
 
-
-                //  }
                 if (brand.getValidationState().equals(CardValidationState.invalid)) {
                     saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
