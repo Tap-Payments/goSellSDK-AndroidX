@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.4.0'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.5.0'
 	}
 ```
 
@@ -533,7 +533,7 @@ Don't forget to import the class at the beginning of the file:
 
              sdkSession.setPaymentType("WEB");   //** Merchant can customize payment options [WEB/CARD] for each transaction or it will show all payment options granted to him.
 
-             sdkSession.setCardType("CREDIT"); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+            sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
             /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -948,6 +948,21 @@ The following table describes its structure and specifies which fields are requi
             @SerializedName("SAVE_CARD_NO_UI")                      SAVE_CARD_NO_UI,
     }
  ```
+ 3. Card Type
+  ```java
+      public enum CardType {
+
+          /**
+           * Credit card type.
+           */
+          @SerializedName("CREDIT")  CREDIT,
+          /**
+           * Debit card type.
+           */
+          @SerializedName("DEBIT")  DEBIT
+      }
+  ```
+
  <a name="sdk_open_models"></a>
  ## SDK Open Models
   SDK open Models available for implementation through Merchant Project: 

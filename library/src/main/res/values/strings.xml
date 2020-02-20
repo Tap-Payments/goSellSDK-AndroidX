@@ -112,7 +112,8 @@
   <string name="error_deleting_card_title">Sorry</string>
   <string name="error_deleting_card_msg">The card can not be deleted right now. Please try it later.</string>
     <string name="ok" translatable="false">OK</string>
-    <string name="cardnotsupported" translatable="false">This card is not supported</string>
+  <string name="alert_un_supported_card_title" translatable="false">Attention</string>
+  <string name="alert_un_supported_card_message" translatable="false">This card is not supported</string>
 
 
 </resources>

@@ -629,7 +629,7 @@ public class CardCredentialsViewHolder
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
                 }
 
-                showDialog("Alert", "You cannot use this card");
+                showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
 
 
             }else{
@@ -836,7 +836,7 @@ public class CardCredentialsViewHolder
         dialogBuilder.setCancelable(false);
 
 
-        dialogBuilder.setPositiveButton(itemView.getContext().getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(itemView.getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 PaymentDataManager.getInstance().setBinLookupResponse(null);

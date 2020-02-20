@@ -27,6 +27,7 @@ import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.delegate.SessionDelegate;
+import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
 import company.tap.gosellapi.open.models.Customer;
@@ -288,8 +289,9 @@ public class SDKSession implements View.OnClickListener{
 
   /**
    * set setCardType
+   *  @param cardType the cardType
    */
-  public void setCardType(String cardType){
+  public void setCardType(CardType cardType){
     System.out.println("cardType ... "+cardType);
     paymentDataSource.setcardType(cardType);
   }
