@@ -152,7 +152,7 @@ public abstract class AmountCalculator {
                          * Increase i.e change in currency changed as per JS Lib FORMULA: extra_fee =  {amount} / (1 - fee.value / 100) - {amount};
                          */
                         increase = (currency.getAmount().divide(BigDecimal.valueOf(1).subtract((fee.getValue().divide(BigDecimal.valueOf(100)))),MathContext.DECIMAL64)).subtract(currency.getAmount());
-                        System.out.println("increase = " + increase );
+                       // System.out.println("increase = " + increase );
                         /**
                          *  Applying Min and Max values based on the calculated extra fees.
                          */
