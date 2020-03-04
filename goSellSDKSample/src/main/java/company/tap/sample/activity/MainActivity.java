@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp(){
        GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample");  // to be replaced by merchant
-       // GoSellSDK.init(this, "sk_test_zxeWoAMjXdPyKnh98GmNi3Q6","com.apps.smscountry.tabibpatients");  // to be replaced by merchant
         GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -204,13 +203,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("BHD"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(10));  //** Required **
+        sdkSession.setAmount(new BigDecimal(1));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -648,7 +647,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber   phoneNumber = customer!=null ? customer.getPhone(): new PhoneNumber("965","69045932");
 
-        return new Customer.CustomerBuilder("cus_Kh1b4220191939i1KP2506448").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(),phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
