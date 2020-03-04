@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.5.1] - 2020-03-04
+### Version release additional feature:
+- 3DS handling on the SDK
+### Impact on existing integrations:
+- The new update will not affect current integration.
+### Required changes for existing integrations before updating:
+- If the merchant wants to use the latest featureof setting cardType then update to the above version.
 ## [3.5.0] - 2020-02-20
 ### Version release for with new feature:
 - Merchant can now set cardType[CREDIT/DEBIT] and pass through the sdk session.
