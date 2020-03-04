@@ -160,12 +160,13 @@ public class SettingsManager {
                             build();
         } else {
             System.out.println(" paymentResultDataManager.getCustomerRef(context) null");
+            //65562630
             customer = new Customer.CustomerBuilder(null).
                     firstName("Name").
                     middleName("MiddleName").
                     lastName("Surname").
                     email("hello@tap.company").
-                    phone(new PhoneNumber("965", "65562630")).
+                    phone(new PhoneNumber("965", "69045932")).
                     metadata("meta").
                     build();
         }

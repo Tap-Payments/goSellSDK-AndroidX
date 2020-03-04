@@ -54,6 +54,10 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @Expose
     private int orderBy;
 
+    @SerializedName("threeDS")
+    @Expose
+    private String threeDS;
+
     /**
      * Gets id.
      *
@@ -135,6 +139,15 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      */
     public int getOrderBy() {
         return orderBy;
+    }
+
+    /**
+     * Gets threeDS.
+     *
+     * @return the threeDS.
+     */
+    public String getThreeDS() {
+        return threeDS;
     }
 
     @Override
