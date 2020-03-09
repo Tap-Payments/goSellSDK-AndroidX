@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.6.3] - 2020-03-09
+### Version release HotFixes:
+- Proguard update
+### Impact on existing integrations:
+- The new update will not affect current integration.
+### Required changes for existing integrations before updating:
+- Good to update to latest release.
 ## [3.6.1] - 2020-03-04
 ### Version release HotFixes:
 - Added goSellId in reference
