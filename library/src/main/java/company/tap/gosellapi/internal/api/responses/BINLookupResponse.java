@@ -44,9 +44,6 @@ public final class BINLookupResponse implements BaseResponse {
     @Expose
     private String cardType;
 
-    @SerializedName("card_type")
-    @Expose
-    private String cardType;
 
     /**
      * Defines if a card with the given bin_number requires address fields to be passed to
