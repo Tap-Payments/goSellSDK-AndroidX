@@ -40,6 +40,9 @@ public final class BINLookupResponse implements BaseResponse {
     @SerializedName("country")
     @Expose
     private String country;
+    @SerializedName("card_type")
+    @Expose
+    private String cardType;
 
     @SerializedName("card_type")
     @Expose
@@ -115,5 +118,4 @@ public final class BINLookupResponse implements BaseResponse {
     public String getCardType() {
         return cardType;
     }
-
 }

@@ -170,7 +170,7 @@ public class SettingsManager {
                     metadata("meta").
                     build();
         }
-
+      //  65562630
         return customer;
     }
 
