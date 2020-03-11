@@ -1,5 +1,6 @@
 package company.tap.gosellapi.internal.viewholders;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -7,7 +8,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import company.tap.gosellapi.R;
+import company.tap.gosellapi.internal.activities.AsynchronousPaymentActivity;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
 
 import static android.os.Build.VERSION.SDK_INT;
