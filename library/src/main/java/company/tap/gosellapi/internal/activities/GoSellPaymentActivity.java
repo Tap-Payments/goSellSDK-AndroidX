@@ -123,6 +123,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private  boolean selectedCurrencyAsynchronous = false;
 
     private ScrollView main_windowed_scrollview;
+    private static final String TAG = "GoSellPaymentActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -865,6 +866,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void didReceiveCharge(Charge charge) {
 
         if (charge == null) return;
+        Log.e("Charge status", String.valueOf(charge.getStatus()));
         switch (charge.getStatus()) {
             case INITIATED:
                 Authenticate authenticate = charge.getAuthenticate();
@@ -1088,6 +1090,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     .decisionForWebPaymentURL(url);
 
             boolean shouldOverride = !decision.shouldLoad();
+            Log.e("shouldOverride", String.valueOf(shouldOverride));
             if (shouldOverride) { // if decision is true and response has TAP_ID
                 PaymentDataManager.getInstance().retrieveChargeOrAuthorizeOrSaveCardAPI(getChargeOrAuthorize());
             }
@@ -1114,7 +1117,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
             super.onReceivedHttpError(view, request, errorResponse);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                 Log.d("onReceivedHttpError","web view ........ lonReceivedHttpError ....."+errorResponse.getReasonPhrase());
+                 Log.d("onReceivedHttpError","web view ........reason lonReceivedHttpError ....."+errorResponse.getReasonPhrase());
+                 Log.d("onReceivedHttpError","web view ........statuscode lonReceivedHttpError ....."+errorResponse.getStatusCode());
             }
         }
 
