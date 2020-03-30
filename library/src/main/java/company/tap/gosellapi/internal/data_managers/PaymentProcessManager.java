@@ -810,11 +810,11 @@ final class PaymentProcessManager {
 
     private void handleChargeOrAuthorizeOrSaveCardResponse(@Nullable Charge chargeOrAuthorizeOrSave,
                                                            @Nullable GoSellError error) {
-//     Log.d("handleChargeOrAuthorize"," step 5 : handleChargeOrAuthorizeOrSaveCardResponse  >>> success : in class "+ "["+this.getClass().getName()+"] chargeOrAuthorizeOrSave> status=["+chargeOrAuthorizeOrSave+"]  ");
+     Log.d("handleChargeOrAuthorize"," step 5 : handleChargeOrAuthorizeOrSaveCardResponse  >>> success : in class "+ "["+this.getClass().getName()+"] chargeOrAuthorizeOrSave> status=["+chargeOrAuthorizeOrSave+"]  ");
 
         if (chargeOrAuthorizeOrSave != null) {
 
-//        Log.d("PaymentProcessManager","handleChargeOrAuthorizeResponse >>  chargeOrAuthorize : "+ chargeOrAuthorizeOrSave.getStatus());
+        Log.d("PaymentProcessManager","handleChargeOrAuthorizeResponse >>  chargeOrAuthorize : "+ chargeOrAuthorizeOrSave.getStatus());
 
             if (chargeOrAuthorizeOrSave instanceof Authorize) {
                 getProcessListener().didReceiveAuthorize((Authorize) chargeOrAuthorizeOrSave);
