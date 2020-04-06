@@ -1,5 +1,5 @@
 # CHANGELOG
-## [3.6.4] - 2020-04-06
+## [3.6.5] - 2020-04-06
 ### Version release HotFixes:
 - TapGLKit updated from 1.15 to 1.18
 ### Impact on existing integrations:
