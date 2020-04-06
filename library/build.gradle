@@ -55,7 +55,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    implementation 'com.github.Tap-Payments:TapGLKit-Android:1.15'
+    implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
     implementation 'com.github.Tap-Payments:TapCardValidator-Android:2.1.0'
 
 
