@@ -1009,6 +1009,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void fireCardTokenizationProcessCompleted(Token token) {
         closePaymentActivity();
         SDKSession.getListener().cardTokenizedSuccessfully(token);
+        startPaymentFlag= false;
     }
 
 
@@ -1316,6 +1317,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                                 @Override
                                 public void onFinish() {
                                     startPaymentProcess();
+                                    startPaymentFlag = false;
+
                                 }
                             }.start();
 
