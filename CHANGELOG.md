@@ -1,5 +1,5 @@
 # CHANGELOG
-## [3.6.6] - 2020-04-07
+## [3.6.7] - 2020-04-07
 ### Version release HotFixes:
 - Reloading of 3D securepage stopped
 - Update Readme and ChangeLog
