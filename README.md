@@ -16,7 +16,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
 2. [Installation](#installation)
    1. [Include goSellSDK library as a dependency module in your project](#include_library_to_code_locally)
    2. [Installation with jitpack](#installation_with_jitpack)
-   3. [Proguard Rules](#proguard_rules)
+
 3. [Setup](#setup)
     1. [goSellSDK Class Properties](#setup_gosellsdk_class_properties)
 4. [Usage](#usage)
@@ -99,28 +99,6 @@ Step 2. Add the dependency
 	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.6.5'
 	}
 ```
-
-<a name="proguard_rules"></a>
-### Proguard Rules
----
-  Proguard rules for SDK Library are: 
-```java
-    -keepattributes Signature
-    -keepclassmembernames,allowobfuscation interface * {
-        @retrofit2.http.* <methods>;
-    }
-    -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-
-    #########################################################################
-    # OkHttp
-    #########################################################################
-    -dontwarn okhttp3.**
-    -dontwarn okhttp2.**
-    -dontwarn okio.**
-    -dontwarn javax.annotation.**
-    -dontwarn org.conscrypt.**
-    -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-```  
 
 # Note
 ---
@@ -568,25 +546,7 @@ Don't forget to import the class at the beginning of the file:
                */
               startSDKWithUI();
       
-              //////////////////////////////////////////////////////    SDK Tokenization without UI //////////////////////
-              /**
-               * 2- Start using  SDK to tokenize your card without using SDK main activity (Without Tap CARD FORM)
-               * After the SDK finishes card tokenization, it will notify this activity with tokenization result in either
-               * cardTokenizedSuccessfully(@NonNull String token) or sdkError(@Nullable GoSellError goSellError)
-               */
-      //          startSDKTokenizationWithoutUI();
-      //        sdkSession.start(this);
-      
-              //////////////////////////////////////////////////////    SDK Saving card without UI //////////////////////
-              /**
-               *  3- Start using  SDK to save your card without using SDK main activity ((Without Tap CARD FORM))
-               *  After the SDK finishes card tokenization, it will notify this activity with save card result in either
-               *  cardSaved(@NonNull Charge charge) or sdkError(@Nullable GoSellError goSellError)
-               *
-               */
-      //         startSDKSavingCardWithoutUI();
-      //       sdkSession.start(this);
-          }
+           }
  ```
  
  <a name="init_pay_button"></a>
