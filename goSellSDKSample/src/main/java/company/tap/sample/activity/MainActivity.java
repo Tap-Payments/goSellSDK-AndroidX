@@ -291,39 +291,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             //sdkSession.start(this);
         }
     }
-
-
-    /**
-     * Start using  SDK to tokenize your card without using SDK main activity
-     */
-
-    private void startSDKTokenizationWithoutUI(){
-        if(sdkSession!=null){
-            // set transaction mode [ TransactionMode.TOKENIZE_CARD_NO_UI ]
-            sdkSession.setTransactionMode(TransactionMode.TOKENIZE_CARD_NO_UI);    //** Required **
-            // pass card info to SDK
-            sdkSession.setCardInfo("5123450000000008","05","21","100","Haitham Elsheshtawy",null); //** Required **
-            // if you are not using tap button then start SDK using the following call
-            // sdkSession.start(this);
-        }
-    }
-
-
-    /**
-     * Start using  SDK to save your card without using SDK main activity
-     */
-    private void startSDKSavingCardWithoutUI(){
-        if(sdkSession!=null){
-            // set transaction mode [ TransactionMode.SAVE_CARD_NO_UI ]
-            sdkSession.setTransactionMode(TransactionMode.SAVE_CARD_NO_UI);    //** Required **
-            // pass card info to SDK
-            sdkSession.setCardInfo("5123450000000008","05","21","100","Haitham Elsheshtawy",null); //** Required **
-            // if you are not using tap button then start SDK using the following call
-//            sdkSession.start(this);
-        }
-    }
-
-
+    
     /**
      * Include pay button in merchant page
      */
