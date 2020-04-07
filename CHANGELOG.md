@@ -1,4 +1,12 @@
 # CHANGELOG
+## [3.6.6] - 2020-04-07
+### Version release HotFixes:
+- Reloading of 3D securepage stopped
+- Update Readme and ChangeLog
+### Impact on existing integrations:
+- The new update will not affect current integration.
+### Required changes for existing integrations before updating:
+- Any one facing the reloading issue of the 3d secure page must switch to latest release.
 ## [3.6.5] - 2020-04-06
 ### Version release HotFixes:
 - TapGLKit updated from 1.15 to 1.18

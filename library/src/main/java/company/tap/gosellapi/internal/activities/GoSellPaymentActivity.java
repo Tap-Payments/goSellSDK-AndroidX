@@ -1152,7 +1152,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void didReceiveAuthorize(Authorize authorize) {
         Log.d("GoSellPaymentActivity"," Cards >> didReceiveAuthorize * * * " );
         if (authorize == null) return;
-        Log.d("GoSellPaymentActivity"," Cards >> didReceiveAuthorize * * * " + authorize.getStatus());
+      //  Log.d("GoSellPaymentActivity"," Cards >> didReceiveAuthorize * * * " + authorize.getStatus());
 
         switch (authorize.getStatus()) {
             case INITIATED:
@@ -1317,6 +1317,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                                 @Override
                                 public void onFinish() {
                                     startPaymentProcess();
+                                    /**reset flag added to avoid reloading on 07apr2020 **/
                                     startPaymentFlag = false;
 
                                 }

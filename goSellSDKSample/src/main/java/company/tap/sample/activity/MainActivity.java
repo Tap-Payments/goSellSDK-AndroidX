@@ -276,22 +276,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
          */
         startSDKWithUI();
 
-        //////////////////////////////////////////////////////    SDK Tokenization without UI //////////////////////
-        /**
-         * 2- Start using  SDK to tokenize your card without using SDK main activity (Without Tap CARD FORM)
-         * After the SDK finishes card tokenization, it will notify this activity with tokenization result in either
-         * cardTokenizedSuccessfully(@NonNull String token) or sdkError(@Nullable GoSellError goSellError)
-         */
-//          startSDKTokenizationWithoutUI();
-
-        //////////////////////////////////////////////////////    SDK Saving card without UI //////////////////////
-        /**
-         *  3- Start using  SDK to save your card without using SDK main activity ((Without Tap CARD FORM))
-         *  After the SDK finishes card tokenization, it will notify this activity with save card result in either
-         *  cardSaved(@NonNull Charge charge) or sdkError(@Nullable GoSellError goSellError)
-         *
-         */
-//         startSDKSavingCardWithoutUI();
     }
 
 

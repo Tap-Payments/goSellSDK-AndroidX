@@ -400,9 +400,9 @@ final class PaymentProcessManager {
             @NonNull WebPaymentViewModel paymentOptionModel) {
 
         PaymentOption paymentOption = paymentOptionModel.getPaymentOption();
-        Log.d("PaymentProcessManager",
-                "startPaymentProcessWithWebPaymentModel >>> paymentOption.getSourceId : " + paymentOption
-                        .getSourceId());
+      //  Log.d("PaymentProcessManager",
+     //           "startPaymentProcessWithWebPaymentModel >>> paymentOption.getSourceId : " + paymentOption
+     //                   .getSourceId());
         SourceRequest source = new SourceRequest(paymentOption.getSourceId());
 
         callChargeOrAuthorizeOrSaveCardAPI(source, paymentOption, null, null);
