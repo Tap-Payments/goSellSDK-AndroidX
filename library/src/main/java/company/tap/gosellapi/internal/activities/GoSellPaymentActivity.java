@@ -199,16 +199,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
             boolean keyBoardHidden =  Utils.hideKeyboard(GoSellPaymentActivity.this);
             Log.d(TAG, "sKeyboard hidden .... after click pay button : "+keyBoardHidden );
-
-           if(keyBoardHidden) {
-               Log.d(TAG, "start startPaymentProcess after checking the keyboard is hidden ...." );
-               startPaymentProcess();
-           }
-           else
-           {
-               Log.d(TAG, "start startPaymentWithTimer after we don't receive true flag from   Utils.hideKeyboard...." );
-               startPaymentWithTimer();
-           }
+            startPaymentWithTimer();
 
 
         });
@@ -1298,7 +1289,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void startPaymentWithTimer() {
-        new CountDownTimer(500, 1000) {
+        new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
