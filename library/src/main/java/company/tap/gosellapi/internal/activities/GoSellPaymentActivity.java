@@ -110,7 +110,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     static int currentOrientation = -1;
 
     private boolean keyboardVisible = false;
-    private boolean startPaymentFlag = false;
 
     private GroupViewModel groupViewModel;
 
@@ -164,7 +163,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         SDKSession.getListener().sessionHasStarted();
 
         saveCardChecked = false;
-        setKeyboardVisibilityListener();
+//        setKeyboardVisibilityListener();
+
 
         if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
@@ -197,13 +197,20 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (cardCredentialsViewModel != null)
                 SDKSession.getListener().userEnabledSaveCardOption(cardCredentialsViewModel.shouldSaveCard());
 
-            if (keyboardVisible) {
-                startPaymentFlag = false;
-                Utils.hideKeyboard(GoSellPaymentActivity.this);
-                startPaymentwithtimer();
-            } else {
-                startPaymentProcess();
-            }
+            boolean keyBoardHidden =  Utils.hideKeyboard(GoSellPaymentActivity.this);
+            Log.d(TAG, "sKeyboard hidden .... after click pay button : "+keyBoardHidden );
+
+           if(keyBoardHidden) {
+               Log.d(TAG, "start startPaymentProcess after checking the keyboard is hidden ...." );
+               startPaymentProcess();
+           }
+           else
+           {
+               Log.d(TAG, "start startPaymentWithTimer after we don't receive true flag from   Utils.hideKeyboard...." );
+               startPaymentWithTimer();
+           }
+
+
         });
 
         setupPayButton();
@@ -996,7 +1003,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void fireCardTokenizationProcessCompleted(Token token) {
         closePaymentActivity();
         SDKSession.getListener().cardTokenizedSuccessfully(token);
-        startPaymentFlag = false;
     }
 
 
@@ -1222,7 +1228,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume: " + startPaymentFlag);
         setupPayButton();
         if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
@@ -1235,7 +1240,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.e(TAG, "onRestart: " + startPaymentFlag);
         setupPayButton();
         if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
@@ -1257,68 +1261,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    public void setKeyboardVisibilityListener() {
-
-        final View contentView = findViewById(android.R.id.content);
-        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            private int mPreviousHeight;
-
-            @Override
-            public void onGlobalLayout() {
-                int newHeight = contentView.getHeight();
-
-                if (newHeight == mPreviousHeight)
-                    return;
-
-                mPreviousHeight = newHeight;
-
-                if (getResources().getConfiguration().orientation != currentOrientation) {
-                    currentOrientation = getResources().getConfiguration().orientation;
-                    mAppHeight = 0;
-                }
-
-                if (newHeight >= mAppHeight) {
-                    mAppHeight = newHeight;
-                }
-
-                if (newHeight != 0) {
-                    if (mAppHeight > newHeight) {
-                        // Height decreased: keyboard was shown
-                        keyboardVisible = true;
-                    } else {
-                        // Height increased: keyboard was hidden
-                        keyboardVisible = false;
-                        Log.e(TAG, "startPaymentFlag:" + String.valueOf(startPaymentFlag));
-                        if (startPaymentFlag) {
-
-                            new CountDownTimer(1, 1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    Log.e(TAG, "startPaymentFlag on finish:" + String.valueOf(startPaymentFlag));
-                                    startPaymentProcess();
-                                    /**reset flag added to avoid reloading on 07apr2020 **/
-                                    startPaymentFlag = false;
-
-
-                                }
-                            }.start();
-
-
-                        }
-                    }
-                }
-            }
-        });
-    }
-
     private void startPaymentProcess() {
-        Log.e(TAG, "startPaymentFlag inside startPayment:" + startPaymentFlag);
         checkInternetConnectivity();
     }
 
@@ -1354,7 +1297,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     }
 
-    private void startPaymentwithtimer() {
+    private void startPaymentWithTimer() {
         new CountDownTimer(500, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -1362,12 +1305,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
             @Override
             public void onFinish() {
-                Log.e(TAG, "startPaymentFlag on finish:" + String.valueOf(startPaymentFlag));
                 startPaymentProcess();
-                /**reset flag added to avoid reloading on 07apr2020 **/
-                startPaymentFlag = false;
-
-
             }
         }.start();
     }
