@@ -1306,6 +1306,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     {
                         // Height increased: keyboard was hidden
                         keyboardVisible = false;
+                        Log.e(TAG, "startPaymentFlag:"+String.valueOf(startPaymentFlag) );
                         if(startPaymentFlag)
                         {
 
@@ -1316,6 +1317,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                                 @Override
                                 public void onFinish() {
+                                    Log.e(TAG, "startPaymentFlag on finish:"+String.valueOf(startPaymentFlag) );
                                     startPaymentProcess();
                                     /**reset flag added to avoid reloading on 07apr2020 **/
                                     startPaymentFlag = false;
@@ -1332,6 +1334,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void startPaymentProcess(){
+        Log.e(TAG, "startPaymentFlag inside startPayment:"+startPaymentFlag );
        checkInternetConnectivity();
     }
 
