@@ -1,4 +1,12 @@
 # CHANGELOG
+## [3.6.8] - 2020-04-09
+### Version release HotFixes:
+- Keyboard Listener fixes
+- Update Readme and ChangeLog.
+### Impact on existing integrations:
+- The new update will not affect current integration.
+### Required changes for existing integrations before updating:
+- Good to update to this release.
 ## [3.6.7] - 2020-04-07
 ### Version release HotFixes:
 - Reloading of 3D securepage stopped
