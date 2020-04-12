@@ -1,4 +1,10 @@
 # CHANGELOG
+## [3.6.9] - 2020-04-12
+### Version release Enhancement:
+- Added Expiry object in Card Object
+- Update Readme and ChangeLog.
+### Impact on existing integrations:
+- The new update will not affect current integration.
 ## [3.6.8] - 2020-04-09
 ### Version release HotFixes:
 - Keyboard Listener fixes
