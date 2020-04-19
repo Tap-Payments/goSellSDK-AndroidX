@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.6.11] - 2020-04-19
+### Version release HotFix:
+- CardType validation on Scanning clear on cancel
+- Update Readme and ChangeLog.
 ## [3.6.10] - 2020-04-19
 ### Version release HotFix:
 - CardType validation on Scanning
