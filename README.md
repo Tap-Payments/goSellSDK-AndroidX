@@ -439,6 +439,10 @@ Don't forget to import the class at the beginning of the file:
   	 <td> setButtonView </td>
   	 <td> If you included TAP PayButton in your activity then you need to configure it and then pass it to SDKSession through this method.</td>
     </tr>
+    <tr>
+      <td> setDefaultCardHolderName </td>
+      <td> Sets default CardHoldername in the field, without the user need to re-type.(OPTIONAL) </td>
+     </tr>
 </table>
 
 
