@@ -490,9 +490,11 @@ public class CardCredentialsViewHolder
             String expirationDate = viewModel.getExpirationMonth() + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
             expirationDateField.setText(expirationDate);
         }
-
         if (!viewModel.getNameOnCard().isEmpty()) {
             nameOnCardField.setText(viewModel.getNameOnCard());
+        } else if(PaymentDataSource.getInstance().getDefaultCardHolderName()!=null){
+            if(!PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty())
+            nameOnCardField.setText(PaymentDataSource.getInstance().getDefaultCardHolderName());
         }
         saveCardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
