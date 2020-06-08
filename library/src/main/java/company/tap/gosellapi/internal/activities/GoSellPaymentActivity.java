@@ -335,13 +335,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 
     private boolean isTransactionModeSaveCard() {
-        if(PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode()!=null){
+        if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
             return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.SAVE_CARD;
         }else return false;
     }
 
     private boolean isTransactionModeTokenizeCard() {
-        if(PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode()!=null){
+        if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
         return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.TOKENIZE_CARD;
         }else return false;
     }
