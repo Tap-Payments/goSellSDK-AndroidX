@@ -83,6 +83,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     private @Nullable
     String defaultCardHolderName;
 
+    private @NonNull
+    boolean enableEditCardHolderName;
+
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
     /**
@@ -292,6 +295,14 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
         this.defaultCardHolderName = defaultCardHolderName;
     }
 
+    /**
+     * Is user allowed to edit his cardHolderName
+     * @param enableEditCardHolderName
+     */
+    public void isUserAllowedToEditCardHolderName(boolean enableEditCardHolderName){
+        this.enableEditCardHolderName = enableEditCardHolderName;
+    }
+
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
     @Override
@@ -418,6 +429,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public String getDefaultCardHolderName() {
         return defaultCardHolderName;
+    }
+
+    @NonNull
+    @Override
+    public boolean getEnableEditCardHolderName() {
+        return enableEditCardHolderName;
     }
 
 

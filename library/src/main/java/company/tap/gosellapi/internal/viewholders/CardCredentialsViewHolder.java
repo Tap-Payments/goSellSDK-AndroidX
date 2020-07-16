@@ -496,19 +496,30 @@ public class CardCredentialsViewHolder
             if(!PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty())
             nameOnCardField.setText(PaymentDataSource.getInstance().getDefaultCardHolderName());
         }
-        saveCardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          viewModel.saveCardSwitchClicked(isChecked);
+
+        if (!viewModel.getNameOnCard().isEmpty()&&PaymentDataSource.getInstance().getEnableEditCardHolderName()) {
+            nameOnCardField.setText(viewModel.getNameOnCard());
+        } else if(PaymentDataSource.getInstance().getDefaultCardHolderName()!=null){
+            if(!PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty())
+                nameOnCardField.setText(PaymentDataSource.getInstance().getDefaultCardHolderName());
         }
-      });
+
+        if(PaymentDataSource.getInstance()!=null && PaymentDataSource.getInstance().getEnableEditCardHolderName()== true ){
+            nameOnCardField.setEnabled(true);
+        }else if(PaymentDataSource.getInstance().getDefaultCardHolderName()==null){
+            nameOnCardField.setEnabled(true);
+        }else if(PaymentDataSource.getInstance().getDefaultCardHolderName()!=null &&PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty() ){
+            nameOnCardField.setEnabled(true);
+        }else {
+            nameOnCardField.setEnabled(false);
+        }
+
+        saveCardSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.saveCardSwitchClicked(isChecked));
 
 
         nameOnCardField.addTextChangedListener(cardCredentialsTextWatcher);
         expirationDateField.addTextChangedListener(cardCredentialsTextWatcher);
         cvvField.addTextChangedListener(cardCredentialsTextWatcher);
-
-
 
     }
 
