@@ -443,6 +443,10 @@ Don't forget to import the class at the beginning of the file:
       <td> setDefaultCardHolderName </td>
       <td> Sets default CardHoldername in the field, without the user need to re-type.(OPTIONAL) </td>
      </tr>
+      <tr>
+           <td>isUserAllowedToEnableCardHolderName </td>
+           <td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
+          </tr>
 </table>
 
 
