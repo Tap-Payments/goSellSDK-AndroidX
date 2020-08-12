@@ -39,7 +39,7 @@
 -dontwarn javax.annotation.**
 -dontwarn org.conscrypt.**
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
--dontobfuscate
+#-dontobfuscate
 -optimizations !code/allocation/variable
 -keep class company.tap.gosellapi.** { *; }
 -keep public class gotap.com.tapglkitandroid.** { *; }
