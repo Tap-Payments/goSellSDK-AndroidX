@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.9.1] - 2020-08-12
+### Version release with Proguard update:
+- Update Readme and ChangeLog.
 ## [3.8.0] - 2020-07-16
 ### Version release with New Feature:
 - Merchant can now enable or disable defaultCardHolderName (Optional) and pass through the sdk session.This allows him from editing the name .
