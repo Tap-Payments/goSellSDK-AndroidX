@@ -1,6 +1,7 @@
 package company.tap.gosellapi.open.controllers;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.activities.GoSellPaymentActivity;
+import company.tap.gosellapi.internal.activities.WebPaymentActivity;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
@@ -38,6 +40,10 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
+import kotlin.WasExperimental;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * The type Sdk session.
@@ -54,6 +60,7 @@ public class SDKSession implements View.OnClickListener{
   private Activity context;
 
   private boolean sessionActive;
+  private boolean cancelFlag;
 
   /**
    * Instantiates a new Sdk session.
@@ -109,6 +116,7 @@ public class SDKSession implements View.OnClickListener{
 
   private void persistPaymentDataSource(){
     PaymentDataManager.getInstance().setExternalDataSource(paymentDataSource);
+
   }
 
   /**
@@ -335,6 +343,7 @@ public class SDKSession implements View.OnClickListener{
       System.out.println(" sessionActive : "+sessionActive);
       sessionActive = true;
 
+
           getPaymentOptions();
     }
   }
@@ -531,18 +540,21 @@ public class SDKSession implements View.OnClickListener{
 
     if(getListener()!=null)
       getListener().sessionIsStarting();
-
+    if(cancelFlag && !sessionActive) {return;}
     if(context!=null) {
       Intent intent = new Intent(context, GoSellPaymentActivity.class);
       context.startActivityForResult(intent, SDK_REQUEST_CODE);
       sessionActive = false;
+      cancelFlag = false;
     }else if(payButtonView!=null && payButtonView.getContext()!=null) {
       Intent intent = new Intent(payButtonView.getContext(), GoSellPaymentActivity.class);
       activityListener.startActivityForResult(intent,SDK_REQUEST_CODE );
       sessionActive = false;
+      cancelFlag = false;
     }else if (getListener()!=null){
       getListener().sessionFailedToStart();
       sessionActive = false;
+      cancelFlag = false;
     }
 
   }
@@ -620,4 +632,27 @@ public class SDKSession implements View.OnClickListener{
     }
 
   }
+
+  public void cancelSession(Activity activity) {
+    sessionActive = false;
+    if (PaymentDataManager.getInstance() != null){
+      PaymentDataManager.getInstance().clearPaymentProcessListeners();
+      PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+
+    }
+    if (ThemeObject.getInstance().isPayButtLoaderVisible())
+      payButtonView.getLoadingView().setForceStop(true);
+    if(getListener()!=null){
+      SDKSession.getListener().sessionCancelled();
+
+    }
+    cancelFlag = true;
+    activity.finishActivity(RESULT_CANCELED);
+
+
+
+  }
+
 }
+
+

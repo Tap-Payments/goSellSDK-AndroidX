@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.10.0] - 2020-08-18
+### Version release with New Feature:
+- Merchant can now cancel the session and stop all process initiating the SDK.
+- Update Readme and ChangeLog.
 ## [3.9.1] - 2020-08-12
 ### Version release with Proguard update:
 - Update Readme and ChangeLog.
