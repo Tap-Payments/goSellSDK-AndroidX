@@ -444,13 +444,13 @@ Don't forget to import the class at the beginning of the file:
       <td> Sets default CardHoldername in the field, without the user need to re-type.(OPTIONAL) </td>
      </tr>
       <tr>
-           <td> sdkSession.cancelSession(this); </td>
-           <td>This allows Merchant to cancel the session and stop all process initiating the SDK. .(OPTIONAL) </td>
+           <td>isUserAllowedToEnableCardHolderName </td>
+           <td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
           </tr>
-           <tr>
-   <td>e </td>
-<td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
-</tr>
+      <tr>
+                <td>dkSession.cancelSession(this); </td>
+                <td> Merchant can now cancel the session and stop all process initiating the SDK. .(OPTIONAL) </td>
+               </tr>
 </table>
 
 
