@@ -46,6 +46,7 @@ import company.tap.gosellapi.internal.api.models.Token;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.delegate.SessionDelegate;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.CardType;
@@ -524,6 +525,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         Log.d("MainActivity", "Session Cancelled.........");
     }
 
+
+
     @Override
     public void sessionFailedToStart() {
         Log.d("MainActivity", "Session Failed to start.........");
@@ -697,6 +700,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         listSavedCards();
     }
 
+    public void cancelSession(View view) {
+        sdkSession.cancelSession(this);
+    }
+
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
@@ -752,5 +759,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             return dataSet.size();
         }
     }
+
 
 }

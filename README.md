@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.9.1'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.10.0'
 	}
 ```
 
@@ -444,9 +444,13 @@ Don't forget to import the class at the beginning of the file:
       <td> Sets default CardHoldername in the field, without the user need to re-type.(OPTIONAL) </td>
      </tr>
       <tr>
-           <td>isUserAllowedToEnableCardHolderName </td>
-           <td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
+           <td> sdkSession.cancelSession(this); </td>
+           <td>This allows Merchant to cancel the session and stop all process initiating the SDK. .(OPTIONAL) </td>
           </tr>
+           <tr>
+   <td>e </td>
+<td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
+</tr>
 </table>
 
 
