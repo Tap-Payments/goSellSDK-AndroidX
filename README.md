@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.10.0'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.11.0'
 	}
 ```
 
@@ -303,6 +303,10 @@ Don't forget to import the class at the beginning of the file:
 
           // show/hide pay button security icon
           .setPayButtonSecurityIconVisible(true) // **Optional**
+
+           // set the text on pay button
+          .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
+
 
            // setup dialog textcolor and textsize
            .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**

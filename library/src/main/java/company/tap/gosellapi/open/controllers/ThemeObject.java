@@ -66,6 +66,7 @@ public class ThemeObject {
         private boolean                 payButtSecurityIconVisible=true;
         private boolean                 payButtLoaderVisible=true;
         private int                     payButtonTextSize;
+        private String                  payButtonText;
 
         /**
          * Dialog Appearance
@@ -362,6 +363,15 @@ public class ThemeObject {
                 return this;
         }
 
+        /**
+         * pay button text
+         * @param payButtonText
+         */
+        public ThemeObject setPayButtonText(String payButtonText) {
+                this.payButtonText = payButtonText;
+                return this;
+        }
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -569,6 +579,17 @@ public class ThemeObject {
                 return this.payButtonTextSize;
 
                 return 14;
+        }
+
+        /**
+         *
+         * @return Text
+         */
+        public String getPayButtonText() {
+                if(payButtonText!=null)
+                        return this.payButtonText;
+
+                return "PAY";
         }
         /**
          *
