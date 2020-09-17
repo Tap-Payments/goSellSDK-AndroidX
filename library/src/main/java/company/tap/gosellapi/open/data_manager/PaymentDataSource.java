@@ -5,6 +5,8 @@ package company.tap.gosellapi.open.data_manager;
  */
 
 import android.content.Context;
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -16,6 +18,7 @@ import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
+import company.tap.gosellapi.open.models.Buyer;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
 import company.tap.gosellapi.open.models.PaymentItem;
@@ -85,6 +88,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     private @NonNull
     boolean enableEditCardHolderName;
+
+    private @Nullable
+    Buyer  buyer;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
