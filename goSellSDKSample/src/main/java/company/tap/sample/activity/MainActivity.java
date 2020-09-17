@@ -1,10 +1,13 @@
 package company.tap.sample.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -177,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
-                .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
+                .setPayButtonText("PAY BTN CAN BE VERY LONGGGG ") // **Optional**
 
                 // setup dialog textcolor and textsize
                 .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("AED"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
@@ -600,11 +604,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         Customer customer = (settingsManager != null) ? settingsManager.getCustomer() : null;
 
-        PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
+        PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("971", "500000001");
 
-        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
-                .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
-                .middleName("middlename").build();
+        return new Customer.CustomerBuilder(null).email("successful.payment@tabby.ai").firstName("test")
+                .lastName("test").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
+                .middleName(null).build();
 
 
     }

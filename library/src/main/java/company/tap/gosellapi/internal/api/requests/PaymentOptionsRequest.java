@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import company.tap.gosellapi.internal.utils.AmountCalculator;
 import company.tap.gosellapi.open.enums.TransactionMode;
+import company.tap.gosellapi.open.models.Buyer;
+import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.PaymentItem;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.Tax;
@@ -58,6 +60,10 @@ public final class PaymentOptionsRequest {
     @Expose
     @NonNull private String payment_type;
 
+    @SerializedName("buyer")
+    @Expose
+    @NonNull private Customer buyer;
+
     /**
      * Instantiates a new Payment options request.
      *
@@ -67,7 +73,7 @@ public final class PaymentOptionsRequest {
      * @param shipping        the shipping
      * @param taxes           the taxes
      * @param currency        the currency
-     * @param customer        the customer
+     * @param buyer        the buyer
      */
     public PaymentOptionsRequest(@Nullable TransactionMode transactionMode,
                                  @Nullable BigDecimal amount,
@@ -77,7 +83,8 @@ public final class PaymentOptionsRequest {
                                  @Nullable String currency,
                                  @Nullable String customer,
                                  @Nullable String merchant_id,
-                                 @NonNull  String payment_type
+                                 @NonNull  String payment_type,
+                                 @Nullable Customer buyer
 
     ) {
 
@@ -88,7 +95,7 @@ public final class PaymentOptionsRequest {
         this.customer           = customer;
         this.merchant_id        = merchant_id;
         this.payment_type        = payment_type;
-
+        this.buyer = buyer;
         if (items != null && items.size() > 0) {
 
             this.items          = items;

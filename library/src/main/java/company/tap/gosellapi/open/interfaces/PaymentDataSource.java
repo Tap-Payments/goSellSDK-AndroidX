@@ -12,6 +12,7 @@ import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
+import company.tap.gosellapi.open.models.Buyer;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
 import company.tap.gosellapi.open.models.PaymentItem;
@@ -133,6 +134,7 @@ public interface PaymentDataSource {
      * @return
      */
     @NonNull    boolean                 getEnableEditCardHolderName();
+
 
 
 }

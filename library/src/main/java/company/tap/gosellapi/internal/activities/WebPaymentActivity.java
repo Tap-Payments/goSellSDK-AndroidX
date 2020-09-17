@@ -1,5 +1,7 @@
 package company.tap.gosellapi.internal.activities;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +12,8 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.PermissionRequest;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -73,9 +77,15 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     setContentView(R.layout.gosellapi_activity_web_payment);
 
     webView = findViewById(R.id.webPaymentWebView);
-    webView.setWebViewClient(new WebPaymentWebViewClient());
+
+    checkRunTimePermission();
+
+    webView.setWebChromeClient(new WebChromeClient()) ;
+     webView.setWebViewClient(new WebPaymentWebViewClient());
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
+    settings.setDomStorageEnabled(true);
+    settings.setJavaScriptCanOpenWindowsAutomatically(true);
 
     setTitle(getPaymentOption().getName());
     setImage(getPaymentOption().getImage());
@@ -115,12 +125,21 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
   private void updateWebView() {
 
-    WebView webView = findViewById(R.id.webPaymentWebView);
-    webView.setVisibility(View.VISIBLE);
+    WebView webView1 = findViewById(R.id.webPaymentWebView);
+    webView1.setVisibility(View.VISIBLE);
 
     if (paymentURL == null) return;
+    webView1.setWebChromeClient(new WebChromeClient() {
+      @Override
+      public void onPermissionRequest(PermissionRequest request) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          request.grant(request.getResources());
+        }
+      }
+    });
 
-    webView.loadUrl(paymentURL);
+    webView1.loadUrl(paymentURL);
+    System.out.println("pay url "+paymentURL);
   }
 
 
@@ -174,7 +193,10 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
       view.stopLoading();
       view.loadUrl("about:blank");
     }
+
+
   }
+
 
   @Override
   public void onBackPressed() {
@@ -317,5 +339,12 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
          * The constant paymentOptionModel.
          */
         public static final String paymentOptionModel = "payment_option_model";
+  }
+  private void checkRunTimePermission() {
+    String[] permissionArrays = new String[]{ Manifest.permission.BLUETOOTH,Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,Manifest.permission.MODIFY_AUDIO_SETTINGS,Manifest.permission_group.MICROPHONE,Manifest.permission_group.CAMERA};
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      requestPermissions(permissionArrays, 11111);
+    }
   }
 }

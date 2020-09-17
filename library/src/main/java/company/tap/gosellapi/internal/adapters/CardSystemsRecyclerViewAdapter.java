@@ -153,7 +153,7 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
     }
 
 
-    if (paymentOption.getBrand().compareTo(cardScheme.getCardBrand()) == 0) {
+    if (paymentOption.getName().compareTo(cardScheme.getCardBrand().toString()) == 0) {
       return true;
     }
 // stop this check to avoid displaying mada with master in case of scheme is not mada

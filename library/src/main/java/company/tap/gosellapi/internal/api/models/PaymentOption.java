@@ -85,7 +85,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      * @return the name
      */
     public String getName() {
-        return (getBrand()!=null)? getBrand().getRawValue():"";
+        return (getBrand()!=null)? getBrand().getRawValue(): "";
     }
 
     /**
@@ -161,4 +161,6 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     public boolean isAsynchronous() {
         return asynchronous;
     }
+
+
 }

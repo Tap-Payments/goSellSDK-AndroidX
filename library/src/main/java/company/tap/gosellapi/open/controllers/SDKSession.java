@@ -40,7 +40,7 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
-import kotlin.WasExperimental;
+
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -418,9 +418,10 @@ public class SDKSession implements View.OnClickListener{
               this.paymentDataSource.getShipping(),
               this.paymentDataSource.getTaxes(),
               (this.paymentDataSource.getCurrency() != null) ? this.paymentDataSource.getCurrency().getIsoCode() : "KWD",
-              (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
+             (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
               (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
-              (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL"
+              (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL",
+            (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer() :null
       );
 
 
