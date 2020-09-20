@@ -5,20 +5,38 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.ConsoleMessage;
+import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
@@ -43,6 +61,14 @@ import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 public class WebPaymentActivity extends BaseActionBarActivity implements IPaymentProcessListener {
   private WebPaymentViewModel viewModel;
   private WebView webView;
+  private static final String TAG = "WebPaymentActivity";
+  String[] PERMISSIONS = {
+          Manifest.permission.CAMERA,
+          Manifest.permission.WRITE_EXTERNAL_STORAGE
+  };
+
+  private ValueCallback<Uri[]> mFilePathCallback;
+  private String mCameraPhotoPath;
     /**
      * The Payment url.
      */
@@ -53,6 +79,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     String returnURL;
   private Charge chargeOrAuthorize;
 
+  @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -80,12 +107,73 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
     checkRunTimePermission();
 
-    webView.setWebChromeClient(new WebChromeClient()) ;
+    webView.setWebChromeClient(new WebChromeClient() {
+
+      public void onPermissionRequest(final PermissionRequest request) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          request.grant(request.getResources());
+        }
+      }
+
+      @Override
+      public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> filePath, WebChromeClient.FileChooserParams fileChooserParams) {
+        if (!hasPermissions(WebPaymentActivity.this, PERMISSIONS)) {
+          checkStoragePermission();
+          return false;
+        }
+        // Double check that we don't have any existing callbacks
+        if (mFilePathCallback != null) {
+          mFilePathCallback.onReceiveValue(null);
+        }
+        mFilePathCallback = filePath;
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+          // Create the File where the photo should go
+          File photoFile = createImageFile();
+          takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath);
+
+          // Continue only if the File was successfully created
+          if (photoFile != null) {
+            mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(photoFile));
+          } else {
+            takePictureIntent = null;
+          }
+        }
+
+        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        contentSelectionIntent.setType("image/*");
+
+        Intent[] intentArray;
+        if (takePictureIntent != null) {
+          intentArray = new Intent[]{takePictureIntent};
+        } else {
+          intentArray = new Intent[0];
+        }
+
+        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Select Photo");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
+
+        startActivityForResult(chooserIntent,444);
+
+        return true;
+
+      }
+
+    });
      webView.setWebViewClient(new WebPaymentWebViewClient());
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
     settings.setDomStorageEnabled(true);
-    settings.setJavaScriptCanOpenWindowsAutomatically(true);
+    settings.setPluginState(WebSettings.PluginState.ON);
+   // settings.setMediaPlaybackRequiresUserGesture(false);
+    settings.setAllowFileAccess(true);
+
 
     setTitle(getPaymentOption().getName());
     setImage(getPaymentOption().getImage());
@@ -103,6 +191,22 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
         getData();
       }
     });
+  }
+
+  private File createImageFile() {
+    OutputStream os = null;
+    File file = null;
+    try {
+      file = new File(Environment.getExternalStorageDirectory(), "image" + System.currentTimeMillis() + ".png");
+      os = new FileOutputStream(file);
+      // finalBMP.compress(Bitmap.CompressFormat.PNG, 100, os);
+      //  finalBMP.recycle(); // this is very important. make sure you always recycle your bitmap when you're done with it.
+      //   screenGrabFilePath = file.getPath();
+    } catch (IOException e) {
+      //  finalBMP.recycle(); // this is very important. make sure you always recycle your bitmap when you're done with it.
+      Log.e("combineImages", "problem combining images", e);
+    }
+return file;
   }
 
 
@@ -347,4 +451,37 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
       requestPermissions(permissionArrays, 11111);
     }
   }
+
+
+
+  private void checkStoragePermission() {
+    String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(WebPaymentActivity.this, new String[]{permission}, 222);
+
+    } else {
+      checkCameraPermission();
+    }
+  }
+
+  private void checkCameraPermission() {
+    String permission = Manifest.permission.CAMERA;
+    if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(WebPaymentActivity.this, new String[]{permission}, 333);
+    } else {
+     // onPermissionGranted();
+    }
+  }
+  public static boolean hasPermissions(Context context, String... permissions) {
+    if (context != null && permissions != null) {
+      for (String permission : permissions) {
+        if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+
 }
