@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         setContentView(R.layout.activity_main);
         settingsManager = SettingsManager.getInstance();
         settingsManager.setPref(this);
-
+        checkRunTimePermission();
         // start tap goSellSDK
         startSDK();
     }
@@ -764,6 +764,12 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             return dataSet.size();
         }
     }
+    private void checkRunTimePermission() {
+        String[] permissionArrays = new String[]{ Manifest.permission.BLUETOOTH,Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,Manifest.permission.MODIFY_AUDIO_SETTINGS,Manifest.permission_group.MICROPHONE,Manifest.permission_group.CAMERA};
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissionArrays, 11111);
+        }
+    }
 
 }
