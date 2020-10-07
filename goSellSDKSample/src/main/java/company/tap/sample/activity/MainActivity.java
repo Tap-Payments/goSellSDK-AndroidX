@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +37,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
@@ -135,9 +139,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Required step.
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
-        GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
-        GoSellSDK.setLocale("en");//  language to be set by merchant
+       GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+      GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
 
@@ -760,6 +765,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             return dataSet.size();
         }
     }
+
 
 
 }

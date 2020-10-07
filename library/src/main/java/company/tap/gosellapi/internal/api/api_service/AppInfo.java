@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import company.tap.gosellapi.BuildConfig;
+import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.logger.lo;
 
 /**
@@ -18,7 +19,7 @@ public class AppInfo {
     //auth information for headers
     private static String authToken;
     private static LinkedHashMap<Object, Object> applicationInfo;
-    private static String localeString = "en";
+    private static String localeString ;
     private static TelephonyManager manager;
     private static String deviceName;
 
@@ -63,6 +64,13 @@ public class AppInfo {
     public static void setLocale(String locale) {
         AppInfo.localeString = locale.length() < 2 ? locale : locale.substring(0, 2);
         AppInfo.applicationInfo.put("app_locale", SupportedLocales.findByString(localeString).language);
+        if(localeString==null){
+            AppInfo.applicationInfo.put("app_locale",getLocaleString());
+
+        }else{
+            AppInfo.applicationInfo.put("app_locale", SupportedLocales.findByString(localeString).language);
+
+        }
     }
 
     private static void initApplicationInfo(String applicationId) {
@@ -73,7 +81,13 @@ public class AppInfo {
         applicationInfo.put("requirer_version", BuildConfig.VERSION_NAME);
         applicationInfo.put("requirer_os", "Android");
         applicationInfo.put("requirer_os_version", Build.VERSION.RELEASE);
-        applicationInfo.put("app_locale", SupportedLocales.findByString(localeString).language);
+        if(localeString==null){
+            applicationInfo.put("app_locale", getLocaleString());
+
+        }else{
+            applicationInfo.put("app_locale", SupportedLocales.findByString(localeString).language);
+
+        }
         applicationInfo.put("requirer_device_name",deviceName);
         applicationInfo.put("requirer_device_type",Build.BRAND);
         applicationInfo.put("requirer_device_model",Build.MODEL);
@@ -90,7 +104,7 @@ public class AppInfo {
      * @return the locale string
      */
     public static String getLocaleString() {
-        return localeString;
+        return GoSellSDK.getLocaleString();
     }
 
     /**
@@ -131,6 +145,7 @@ public class AppInfo {
          * @return the supported locales
          */
         static SupportedLocales findByString(String localeString) {
+
             for (SupportedLocales locale : values()) {
                 if (locale.language.equalsIgnoreCase(localeString)) {
                     return locale;
