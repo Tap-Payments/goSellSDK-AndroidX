@@ -85,7 +85,7 @@
         app:hintTextAppearance="@style/TextInputLayout.Hint"
         >
 
-      <androidx.appcompat.widget.AppCompatEditText
+      <EditText
           android:id="@+id/cardNumberField"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
