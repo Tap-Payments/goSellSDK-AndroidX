@@ -232,10 +232,12 @@
         android:inputType="textCapCharacters"
         android:paddingRight="6dp"
         app:backgroundTint="@color/separator"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         tools:ignore="RtlSymmetry"
         android:paddingLeft="6dp" />
 
@@ -289,7 +291,9 @@
       android:layout_height="wrap_content"
       app:layout_constraintStart_toEndOf="@id/paymentOptionIconsContainer"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/bottomSeparator"
+      app:layout_constraintTop_toBottomOf="@+id/cardholderNameContainer"
+
+
       >
 
     <View
