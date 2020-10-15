@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
-                .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
+                //.setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
 
                 // setup dialog textcolor and textsize
                 .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
         sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
-        sdkSession.isUserAllowedToEnableCardHolderName(false); // ** Optional ** you can enable/ disable  default CardHolderName .
+        sdkSession.isUserAllowedToEnableCardHolderName(true); // ** Optional ** you can enable/ disable  default CardHolderName .
 
     }
 
