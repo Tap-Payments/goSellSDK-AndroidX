@@ -310,7 +310,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (ThemeObject.getInstance().getPayButtonText() != null){
             payButton.getPayButton().setText(String
-                    .format("%s %s %s", ThemeObject.getInstance().getPayButtonText(),
+                    .format("%s %s %s", getResources().getString(R.string.pay),
                             dataSource.getSelectedCurrency().getSymbol(),
                             dataSource.getSelectedCurrency().getAmount()));
 
