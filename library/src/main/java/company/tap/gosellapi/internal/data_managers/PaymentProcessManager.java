@@ -23,6 +23,7 @@ import company.tap.gosellapi.internal.api.enums.Permission;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.Authorize;
+import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.CreateTokenCard;
 import company.tap.gosellapi.internal.api.models.CreateTokenSavedCard;
@@ -665,6 +666,7 @@ final class PaymentProcessManager {
 
         Destinations destinations = provider.getDestination();
         @Nullable Merchant merchant = provider.getMerchant();
+        @Nullable CardIssuer cardIssuer = provider.getCardIssuer();
 
         TransactionMode transactionMode = provider.getTransactionMode();
         Log.d("PaymentProcessManager", "transactionMode : " + transactionMode);
@@ -787,7 +789,8 @@ final class PaymentProcessManager {
                         true,
                         true,
                         true,
-                        true
+                        true,
+                       cardIssuer
                 );
 
                 GoSellAPI.getInstance().createSaveCard(saveCardRequest, new APIRequestCallback<SaveCard>() {

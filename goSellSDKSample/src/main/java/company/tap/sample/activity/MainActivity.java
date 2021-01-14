@@ -461,6 +461,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("Card Saved Succeeded : " + charge.getCard().getBrand());
         System.out.println("Card Saved Succeeded : " + charge.getDescription());
         System.out.println("Card Saved Succeeded : " + charge.getResponse().getMessage());
+        System.out.println("Card Saved Succeeded : " +  ((SaveCard) charge).getCardIssuer().getName());
+        System.out.println("Card Saved Succeeded : " +  ((SaveCard) charge).getCardIssuer().getId());
         saveCustomerRefInSession(charge);
         showDialog(charge.getId(), charge.getStatus().toString(), company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }

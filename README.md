@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.11.2'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.12.0'
 	}
 ```
 
@@ -854,6 +854,11 @@ The following table describes its structure and specifies which fields are requi
           @Nullable    String                  getPaymentStatementDescriptor();
       
           /**
+           * Defines if user allowed to save card. @return the allowUserToSaveCard
+           * @return
+           */
+          @NonNull    boolean                 getAllowedToSaveCard();
+          /**
            * Defines if 3D secure check is required. @return the requires 3 d secure
            */
           @Nullable    boolean                 getRequires3DSecure();
@@ -874,7 +879,29 @@ The following table describes its structure and specifies which fields are requi
       
           @Nullable
           Destinations getDestination();
+      
+          @Nullable
+          Merchant      getMerchant();
+          @Nullable
+          String         getPaymentDataType();
+      
+          /**
+           *  Defines if user wants all cards or specific card types.
+           */
+          @Nullable
+          CardType        getCardType();
+          /**
+           * Defines the default cardHolderName. Optional. @return the default CardHolderName
+           */
+          @Nullable    String                  getDefaultCardHolderName();
+          /**
+           * Defines if user allowed to edit the cardHolderName. @return the enableEditCardHolderName
+           * @return
+           */
+          @NonNull    boolean                 getEnableEditCardHolderName();
+      
       }
+
  ```
  
 <a name="sdk_open_enums"></a>
