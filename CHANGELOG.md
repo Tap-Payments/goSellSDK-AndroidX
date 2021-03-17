@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.12.1] - 2021-03-17
+###  Version release with Hot fix:
+- Hot fix with encrypting device name
+- NPE fix 
+- Update Readme and ChangeLog.
 ## [3.12.0] - 2021-01-14
 ### Version release with New Feature:
 - Merchant can now get CardIssuer object and its details
