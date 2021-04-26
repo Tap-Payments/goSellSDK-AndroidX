@@ -122,19 +122,28 @@ Below is the list of properties in goSellSDK class you can manipulate. Make sure
 
 To set it up, add the following line of code somewhere in your project and make sure it will be called before any usage of `goSellSDK`, otherwise an exception will be thrown. **Required**.
 
-Android
+*Java:*
 ```java
     GoSellSDK.init(context, "sk_XXXXXXXXXXXXXXXXXXXXXXXX","app_id");
 ```
+*Kotlin:*
+```kotlin
+     GoSellSDK.init(context, "sk_XXXXXXXXXXXXXXXXXXXXXXXX","app_id")
+ ```    
 1. **`authToken`** - to authorize your requests.// Secret key (format: "sk_XXXXXXXXXXXXXXXXXXXXXXXX")
 2. **`app_id`** - replace it using your application ID "Application main package".
 
 Don't forget to import the class at the beginning of the file:
 
-*Android*:
+*Java:*
 
 ```java
  import company.tap.gosellapi.GoSellSDK;
+```
+*Kotlin:*
+
+```kotlin
+ import company.tap.gosellapi.GoSellSDK
 ```
 <a name="setup_gosellsdk_class_properties_mode"></a>
 ### Mode
@@ -159,7 +168,7 @@ Make sure it consists only from 2 lowercased letters and is presented in the lis
 
 `goSellSDK` should be set up. To set it up, add the following lines of code somewhere in your project and make sure they will be called before any usage of `goSellSDK`.
 
-*Android*:
+*Java:*
 ```java
 
     /**
@@ -199,6 +208,45 @@ Make sure it consists only from 2 lowercased letters and is presented in the lis
 
 
 ```
+*Kotlin:*
+```kotlin
+
+/**
+     * Integrating SDK.
+     */
+    private fun startSDK(){
+        /**
+         * Required step.
+         * Configure SDK with your Secret API key and App Bundle name registered with tap company.
+         */
+        configureApp()
+
+        /**
+         * Optional step
+         * Here you can configure your app theme (Look and Feel).
+         */
+        configureSDKThemeObject()
+
+        /**
+         * Required step.
+         * Configure SDK Session with all required data.
+         */
+        configureSDKSession()
+
+        /**
+         * Required step.
+         * Choose between different SDK modes
+         */
+        configureSDKMode()
+
+        /**
+         * If you included Tap Pay Button then configure it first, if not then ignore this step.
+         */
+        initPayButton()
+    }
+    
+```
+
 
 Below is the list of properties in goSellSDK class you can manipulate. Make sure you do the setup before any usage of the SDK.
 
@@ -209,7 +257,7 @@ To set it up, add the following line of code somewhere in your project and make 
 
 If you wish to localize the sdk following languages are available **English, Arabic , German,Turkish** and this has to be passed as below ,if locale not passed then default locale **EN** will be used.
 
-Android
+*Java:*
 ```java
      /**
          * Required step.
@@ -220,20 +268,39 @@ Android
             GoSellSDK.setLocale("ar");//  if you dont pass locale then default locale EN will be used
         }
 ```
+*Kotlin:*
+```kotlin
+     /**
+         * Required step.
+         * Configure SDK with your Secret API key and App Bundle name registered with tap company.
+         */
+        private fun configureApp(){
+            GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample")  // to be replaced by merchant, you can contact tap support team to get you credentials
+            GoSellSDK.setLocale("ar")//  if you dont pass locale then default locale EN will be used
+        }
+```
 1. **`authToken`** - to authorize your requests.// Secret key (format: "sk_XXXXXXXXXXXXXXXXXXXXXXXX")
 2. **`app_id`** - replace it using your application ID "Application main package".
 
 Don't forget to import the class at the beginning of the file:
 
-*Android*:
+*Java:*
 
 ```java
  import company.tap.gosellapi.GoSellSDK;
 ```
+*Kotlin:*
+
+```koltin
+import company.tap.gosellapi.GoSellSDK
+```
+
 
 <a name="configure_sdk_look_and_feel"></a>
 ### Configure SDK Look and Feel
  To customize the SDK look and feel you must use **ThemeObject** and populate it as following:
+
+*Java:*
 
  ```java
        private void configureSDKThemeObject() {
@@ -313,6 +380,87 @@ Don't forget to import the class at the beginning of the file:
            .setDialogTextSize(17)                // **Optional**
 
            ;
+
+          }
+ ```
+ *Kotlin:*
+
+ ```kotlin
+       private fun configureSDKThemeObject() {
+
+          ThemeObject.getInstance()
+
+          // set Appearance mode [Full Screen Mode - Windowed Mode]
+          .setAppearanceMode(AppearanceMode.WINDOWED_MODE) // **Required**
+          .setSdkLanguage("ar") //if you dont pass locale then default locale EN will be used
+
+          // Setup header font type face **Make sure that you already have asset folder with required fonts**
+          .setHeaderFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+
+          //Setup header text color
+          .setHeaderTextColor(getResources().getColor(R.color.black1))  // **Optional**
+
+          // Setup header text size
+          .setHeaderTextSize(17) // **Optional**
+
+          // setup header background
+          .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))//**Optional**
+
+          // setup card form input font type
+          .setCardInputFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+
+          // setup card input field text color
+          .setCardInputTextColor(getResources().getColor(R.color.black))//**Optional**
+
+          // setup card input field text color in case of invalid input
+          .setCardInputInvalidTextColor(getResources().getColor(R.color.red))//**Optional**
+
+          // setup card input hint text color
+          .setCardInputPlaceholderTextColor(getResources().getColor(R.color.black))//**Optional**
+
+          // setup Switch button Thumb Tint Color in case of Off State
+          .setSaveCardSwitchOffThumbTint(getResources().getColor(R.color.gray)) // **Optional**
+
+          // setup Switch button Thumb Tint Color in case of On State
+          .setSaveCardSwitchOnThumbTint(getResources().getColor(R.color.vibrant_green)) // **Optional**
+
+          // setup Switch button Track Tint Color in case of Off State
+          .setSaveCardSwitchOffTrackTint(getResources().getColor(R.color.gray)) // **Optional**
+
+          // setup Switch button Track Tint Color in case of On State
+          .setSaveCardSwitchOnTrackTint(getResources().getColor(R.color.green)) // **Optional**
+
+          // change scan icon
+          .setScanIconDrawable(getResources().getDrawable(R.drawable.btn_card_scanner_normal)) // **Optional**
+
+          // setup pay button selector [ background - round corner ]
+          .setPayButtonResourceId(R.drawable.btn_pay_selector)
+
+          // setup pay button font type face
+          .setPayButtonFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf")) // **Optional**
+
+          // setup pay button disable title color
+          .setPayButtonDisabledTitleColor(getResources().getColor(R.color.black)) // **Optional**
+
+          // setup pay button enable title color
+          .setPayButtonEnabledTitleColor(getResources().getColor(R.color.White)) // **Optional**
+
+          //setup pay button text size
+          .setPayButtonTextSize(14) // **Optional**
+
+          // show/hide pay button loader
+          .setPayButtonLoaderVisible(true) // **Optional**
+
+          // show/hide pay button security icon
+          .setPayButtonSecurityIconVisible(true) // **Optional**
+
+           // set the text on pay button
+          .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
+
+
+           // setup dialog textcolor and textsize
+           .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
+           .setDialogTextSize(17)                // **Optional**
 
           }
  ```
@@ -460,6 +608,8 @@ Don't forget to import the class at the beginning of the file:
 
 **Configure SDK Session Example**
 
+*Java:*
+
 ```java
 
           /**
@@ -541,7 +691,86 @@ Don't forget to import the class at the beginning of the file:
             sdkSession.start(this);
            }
  ```
+ *Kotlin:*
  
+ ```kotlin
+  /**
+     * Configure SDK Session
+     */
+    private fun configureSDKSession() {
+
+        // Instantiate SDK Session
+        if (sdkSession == null)
+
+            sdkSession = SDKSession() //** Required **
+
+        // pass your activity as a session delegate to listen to SDK internal payment process follow
+        sdkSession.addSessionDelegate(this) //** Required **
+
+        // initiate PaymentDataSource
+        sdkSession.instantiatePaymentDataSource() //** Required **
+
+        // set transaction currency associated to your account
+        sdkSession.setTransactionCurrency(TapCurrency("KWD")) //** Required **
+
+        // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
+        sdkSession.setCustomer(customer) //** Required **
+
+        // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
+        sdkSession.setAmount(BigDecimal(1)) //** Required **
+
+        // Set Payment Items array list
+        sdkSession.setPaymentItems(ArrayList()) // ** Optional ** you can pass empty array list
+
+
+         sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType
+
+        // Set Taxes array list
+        sdkSession.setTaxes(ArrayList()) // ** Optional ** you can pass empty array list
+
+        // Set Shipping array list
+        sdkSession.setShipping(ArrayList()) // ** Optional ** you can pass empty array list
+
+        // Post URL
+        sdkSession.setPostURL("") // ** Optional **
+
+        // Payment Description
+        sdkSession.setPaymentDescription("") //** Optional **
+
+        // Payment Extra Info
+        sdkSession.setPaymentMetadata(HashMap()) // ** Optional ** you can pass empty array hash map
+
+        // Payment Reference
+        sdkSession.setPaymentReference(null) // ** Optional ** you can pass null
+
+        // Payment Statement Descriptor
+        sdkSession.setPaymentStatementDescriptor("") // ** Optional **
+
+        // Enable or Disable Saving Card
+        sdkSession.isUserAllowedToSaveCard(true) //  ** Required ** you can pass boolean
+
+        // Enable or Disable 3DSecure
+        sdkSession.isRequires3DSecure(true)
+
+        //Set Receipt Settings [SMS - Email ]
+        sdkSession.setReceiptSettings(Receipt(false, false)) // ** Optional ** you can pass Receipt object or null
+
+        // Set Authorize Action
+        sdkSession.setAuthorizeAction(null) // ** Optional ** you can pass AuthorizeAction object or null
+        sdkSession.setDestination(null) // ** Optional ** you can pass Destinations object or null
+        sdkSession.setMerchantID(null) // ** Optional ** you can pass merchant id or null
+        sdkSession.setCardType(CardType.CREDIT) // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+
+         sdkSession.setDefaultCardHolderName("TEST TAP") // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
+         sdkSession.isUserAllowedToEnableCardHolderName(false) // ** Optional ** you can enable/ disable  default CardHolderName .
+	  /**
+             * Use this method where ever you want to show TAP SDK Main Screen.
+             * This method must be called after you configured SDK as above
+             * This method will be used in case of you are not using TAP PayButton in your activity.
+             */
+            sdkSession.start(this)
+    }
+```
  <a name="configure_sdk_transaction_mode"></a>
   **Configure SDK Transaction Mode**
   
@@ -549,6 +778,8 @@ Don't forget to import the class at the beginning of the file:
   
    **Note:-**
      - In case of using PayButton, then don't call sdkSession.start(this); because the SDK will start when user clicks the tap pay button.
+
+*Java:*
 
  ```java
         /**
@@ -570,12 +801,36 @@ Don't forget to import the class at the beginning of the file:
            }
  ```
  
+ *Kotlin:*
+ ```kotlin
+        /**
+           * Configure SDK Theme
+           */
+          private fun configureSDKMode(){
+      
+              /**
+               * You have to choose only one Mode of the following modes:
+               * Note:-
+               *      - In case of using PayButton, then don't call sdkSession.start(this) because the SDK will start when user clicks the tap pay button.
+               */
+              //////////////////////////////////////////////////////    SDK with UI //////////////////////
+              /**
+               * 1- Start using  SDK features through SDK main activity (With Tap CARD FORM)
+               */
+              startSDKWithUI()
+      
+           }
+ ```
+ 
+ 
  <a name="init_pay_button"></a>
    If you included Tap Pay Button then configure it first, if not then ignore this step.
    
   **Use Tap PayButton**
+ 
+ *Java:*
   ```java
-     /**
+        /**
           * Include pay button in merchant page
           */
          private void initPayButton() {
@@ -615,10 +870,55 @@ Don't forget to import the class at the beginning of the file:
      
          }
  
-  ```         
+  ``` 
+  *Kotlin:*
+  ```kotlin
+        /**
+          * Include pay button in merchant page
+          */
+         private void initPayButton() {
+     
+             payButtonView = findViewById(R.id.payButtonId)
+     
+             payButtonView.setupFontTypeFace(ThemeObject.getInstance().payButtonFont)
+     
+             payButtonView.setupTextColor(ThemeObject.getInstance().payButtonEnabledTitleColor,
+                     ThemeObject.getInstance().payButtonDisabledTitleColor)
+     //
+             payButtonView.getPayButton().setTextSize(ThemeObject.getInstance().payButtonTextSize)
+     //
+             payButtonView.getSecurityIconView().setVisibility(ThemeObject.getInstance().isPayButtSecurityIconVisible?View.VISIBLE:View.INVISIBLE)
+     
+             payButtonView.setBackgroundSelector(ThemeObject.getInstance().payButtonResourceId)
+     
+             if(sdkSession!=null){
+                 TransactionMode trx_mode = sdkSession.getTransactionMode();
+                 if(trx_mode!=null){
+     
+                     if (TransactionMode.SAVE_CARD == trx_mode  || TransactionMode.SAVE_CARD_NO_UI ==trx_mode) {
+                         payButtonView.payButton.text(getString(company.tap.gosellapi.R.string.save_card))
+                     }
+                     else if(TransactionMode.TOKENIZE_CARD == trx_mode || TransactionMode.TOKENIZE_CARD_NO_UI == trx_mode){
+                         payButtonView.payButton.text(getString(company.tap.gosellapi.R.string.tokenize))
+                     }
+                     else {
+                         payButtonView.payButton.text(getString(company.tap.gosellapi.R.string.pay))
+                     }
+                 }else{
+                     configureSDKMode()
+                 }
+                 sdkSession.setButtonView(payButtonView, this, SDK_REQUEST_CODE)
+             }
+     
+     
+         }
+ 
+  ``` 
   
 <a name="list_saved_cards"></a>
   **List Saved Cards**
+ 
+ *Java:*
   ```java
        /**
           * retrieve list of saved cards from the backend.
@@ -627,8 +927,22 @@ Don't forget to import the class at the beginning of the file:
              if(sdkSession!=null)
                  sdkSession.listAllCards("CUSTOMER_ID",this);
          } 
-  ```                  
+  ``` 
+  
+  *Kotlin*:
+  ```kotlin
+   /**
+     * retrieve list of saved cards from the backend.
+     */
+    private fun listSavedCards() {
+        if (sdkSession != null) sdkSession.listAllCards("CUSTOMER_ID", this)
+    }
+  ```
+  
 **To populate TAP Customer object**
+
+*Java:*
+
 ```java
      private Customer getCustomer() {
                          return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
@@ -636,6 +950,18 @@ Don't forget to import the class at the beginning of the file:
                                  .middleName("middlename").build();
      }
 ```
+
+*Kotlin*:
+```kotlin
+  private val customer: Customer
+        private get() { 
+            val customer = if (settingsManager != null) settingsManager!!.customer else null
+            val phoneNumber = if (customer != null) customer.phone else PhoneNumber("965", "69045932")
+            return CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
+                    .lastName("lastname").metadata("").phone(PhoneNumber(phoneNumber?.countryCode, phoneNumber.number))
+                    .middleName("middlename").build()
+        }
+ ```	
 
 <a name="sdkSession_data_source"></a>
 ### SDKSession Payment Data Source
@@ -1609,8 +1935,13 @@ Notifies the receiver that payment has succeed.
 
 #### Declaration
 
+*Java:*
 ```java
 - void paymentSucceed(@NonNull Charge charge);
+```
+*Kotlin:*
+```kotlin
+- fun paymentSucceed(charge: Charge) 
 ```
 
 #### Arguments
@@ -1624,10 +1955,14 @@ Notifies the receiver that payment has failed.
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 - void paymentFailed(@Nullable Charge charge);
+```
+*Kotlin:*
+```kotlin
+- fun paymentFailed(charge: Charge?) 
 ```
 
 #### Arguments
@@ -1641,10 +1976,15 @@ Notifies the receiver that authorization has succeed.
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 - void authorizationSucceed(@NonNull Authorize authorize);
+```
+*Kotlin:*
+
+```kotlin
+- fun authorizationSucceed(authorize: Authorize)
 ```
 
 #### Arguments
@@ -1658,10 +1998,15 @@ Notifies the receiver that authorization has failed.
 
 #### Declaration
 
-*Android*
+*Java:*
 
 ```java
 - void authorizationFailed(Authorize authorize);
+```
+*Kotlin:*
+
+```kotlin
+- fun authorizationFailed(authorize: Authorize)
 ```
 
 #### Arguments
@@ -1675,10 +2020,15 @@ Notifies the receiver that the customer has successfully saved the card.
 
 #### Declaration
 
-*Android*
+*Java:*
 
 ```java
 - void cardSaved(@NonNull Charge charge); // you have to cast Charge object to SaveCard object first to get card info 
+```
+*Kotlin:*
+
+```kotlin
+- fun cardSaved(charge: Charge) // you have to cast Charge object to SaveCard object first to get card info 
 ```
 
 #### Arguments
@@ -1692,10 +2042,15 @@ Notifies the receiver that the customer failed to save the card.
 
 #### Declaration
 
-*Android:
+*Java:*
 
 ```java
 - void cardSavingFailed(@NonNull Charge charge);
+```
+*Kotlin:*
+
+```kotlin
+- fun cardSavingFailed(charge: Charge)
 ```
 
 #### Arguments
@@ -1709,10 +2064,15 @@ Notifies the receiver that the card has successfully tokenized.
 
 #### Declaration
 
-*Android*
+*Java:*
 
 ```java
 - void cardTokenizedSuccessfully(@NonNull Token token);
+```
+*Kotlin:*
+
+```kotlin
+- fun cardTokenizedSuccessfully(token: Token)
 ```
 
 #### Arguments
@@ -1726,10 +2086,15 @@ Notifies the receiver with list of saved cards for a customer. If customer has n
 
 #### Declaration
 
-*Android*
+*Java:*
 
 ```java
 -  void savedCardsList(@NonNull CardsList cardsList);
+```
+*Kotlin:*
+
+```kotlin
+-  fun savedCardsList(cardsList: CardsList)
 ```
 
 #### Arguments
@@ -1744,10 +2109,16 @@ Notifies the receiver if any other error occurred.
 
 #### Declaration
 
-*Android:
+*Java:*
 
 ```java
 - void sdkError(@Nullable GoSellError goSellError);
+```
+
+*Kotlin:*
+
+```kotlin
+- fun sdkError(goSellError: GoSellError?)
 ```
 
 #### Arguments
@@ -1762,10 +2133,15 @@ Notifies the client that card data passed are invalid
 
 #### Declaration
 
-*Android:
+*Java:*
 
 ```java
 - void invalidCardDetails();
+```
+*Kotlin:*
+
+```kotlin
+- fun invalidCardDetails()
 ```
 
 
@@ -1776,10 +2152,15 @@ Notifies the client that an unknown error has occurred in the backend
 
 #### Declaration
 
-*Android:
+*Java:*
 
 ```java
 -  void backendUnknownError();
+```
+*Kotlin:*
+
+```kotlin
+-  fun backendUnknownError()
 ```
 
 <a name="invalid_transaction_mode"></a>
@@ -1789,10 +2170,15 @@ Notifies the client that Transaction Mode not configured.
 
 #### Declaration
 
-*Android:
+*Java:*
 
 ```java
 -  void invalidTransactionMode();
+```
+*Kotlin:*
+
+```kotlin
+-  fun invalidTransactionMode()
 ```
 
 <a name="user_enabled_save_card_option"></a>
@@ -1802,10 +2188,16 @@ Notifies the receiver (Merchant Activity) that the user wants to save his card.
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 - void userEnabledSaveCardOption(boolean saveCardEnabled);
+```
+
+*Kotlin:*
+
+```kotlin
+- fun userEnabledSaveCardOption(saveCardEnabled: Boolean)
 ```
 
 <a name="session_is_starting_callback"></a>
@@ -1815,10 +2207,15 @@ Notifies the receiver that session is about to start, but hasn't yet shown the S
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 - void sessionIsStarting();
+```
+*Kotlin:*
+
+```kotlin
+- fun sessionIsStarting()
 ```
 
 <a name="session_has_started_callback"></a>
@@ -1828,10 +2225,16 @@ Notifies the receiver that session has successfully started and shown the SDK UI
 
 #### Declaration
 
-*Android:*
+*Java*:
 
 ```java
 -  void sessionHasStarted();
+```
+
+*Kotlin*:
+
+```kotlin
+-  fun sessionHasStarted()
 ```
 
 <a name="session_failed_to_start_callback"></a>
@@ -1841,10 +2244,15 @@ Notifies the receiver that session has failed to start.
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 -  void sessionFailedToStart();
+```
+*Kotlin:*
+
+```kotlin
+-  fun sessionFailedToStart()
 ```
 
 <a name="session_cancel_callback"></a>
@@ -1854,10 +2262,15 @@ Notifies the receiver (Merchant Activity) that the user cancelled payment proces
 
 #### Declaration
 
-*Android:*
+*Java:*
 
 ```java
 - void sessionCancelled();
+```
+*Java:*
+
+```kotlin
+- fun sessionCancelled()
 ```
 
 -----
