@@ -178,7 +178,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.paymentActivityFragmentContainer, paymentOptionsFragment, "CARD")
+               .replace(R.id.paymentActivityFragmentContainer, paymentOptionsFragment, "CARD")
                 .commit();
 
         setupHeader();
@@ -531,6 +531,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
             payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
     }
+
+
 
 
     private void updatePayButtonWithFees(PaymentOption paymentOption) {

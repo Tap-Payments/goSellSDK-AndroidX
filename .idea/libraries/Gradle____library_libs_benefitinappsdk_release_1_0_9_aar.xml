@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: ./library/libs/benefitinappsdk-release_1.0.9.aar">
+    <CLASSES>
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/d16f7b692281da2e5325466cd08da525/jetified-benefitinappsdk-release_1.0.9/jars/classes.jar!/" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/d16f7b692281da2e5325466cd08da525/jetified-benefitinappsdk-release_1.0.9/res" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/d16f7b692281da2e5325466cd08da525/jetified-benefitinappsdk-release_1.0.9/AndroidManifest.xml" />
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/d16f7b692281da2e5325466cd08da525/jetified-benefitinappsdk-release_1.0.9/jars/libs/MPQR.jar!/" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/deea0d714a2cdda7b0a0ff937b39441c/jetified-benefitinappsdk-release_1.0.9/res" />
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/deea0d714a2cdda7b0a0ff937b39441c/jetified-benefitinappsdk-release_1.0.9/jars/libs/MPQR.jar!/" />
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/deea0d714a2cdda7b0a0ff937b39441c/jetified-benefitinappsdk-release_1.0.9/jars/classes.jar!/" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/deea0d714a2cdda7b0a0ff937b39441c/jetified-benefitinappsdk-release_1.0.9/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

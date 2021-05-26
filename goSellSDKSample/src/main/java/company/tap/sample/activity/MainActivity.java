@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("BHD"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
@@ -260,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+        // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
        // sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
        // sdkSession.isUserAllowedToEnableCardHolderName(false); // ** Optional ** you can enable/ disable  default CardHolderName .

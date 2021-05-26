@@ -75,5 +75,15 @@
         android:background="@drawable/ic_arrow_right_normal"
         tools:ignore="ContentDescription"/>
 
+    <mobi.foo.benefitinapp.utils.BenefitInAppButton
+        android:id="@+id/benefit_pay_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

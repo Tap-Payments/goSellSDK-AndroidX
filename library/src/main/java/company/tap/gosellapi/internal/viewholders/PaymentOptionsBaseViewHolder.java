@@ -53,7 +53,12 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
         /**
          * Card view holder type.
          */
-        CARD(5);
+        CARD(5),
+        /**
+         * BENEFITPAY view holder type.
+         */
+        BENEFITPAY(6);
+
 
         private int viewType;
 
@@ -128,6 +133,12 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
 //              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellapi_viewholder_card_credentials, parent, false);
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_card_payment_option, parent, false);
                 return new CardCredentialsViewHolder(view);
+
+            case BENEFITPAY:
+
+//              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellapi_viewholder_card_credentials, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_benefitpay, parent, false);
+                return new BenefitPayViewHolder(view);
 
             default:
 
