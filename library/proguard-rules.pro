@@ -54,6 +54,6 @@
 -keep class org.** { *; }
 -keepclassmembers enum * { *; }
 -keep public class mobi.foo.benefitinapp.utils.BenefitInAppButton{*;}
--keep,allowoptimization,allowobfuscation class mobi.foo.benefitinapp.** { *; }
+-keep class mobi.foo.benefitinapp.** { *; }
 
 
