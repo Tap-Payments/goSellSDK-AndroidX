@@ -5,6 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        flatDir {
+            dirs 'aars'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
@@ -21,7 +24,7 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
         flatDir {
-            dirs 'libs'
+            dirs 'aars'
         }
         maven {
             url "https://github.com/Tap-Payments/goSellSDK-AndroidX"

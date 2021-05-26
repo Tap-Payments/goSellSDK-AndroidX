@@ -82,10 +82,10 @@ dependencies {
 publishing {
     def publishArtifact = artifacts.add("default", file('libs/benefitinappsdk-release_1.0.9.aar'))
     publications {
-        aar(MavenPublication) {
+        maven(MavenPublication) {
             groupId = 'tap.benefit.artifact'
-            artifactId = 'benefitpay'
-            version = '1.0.0.1'
+            artifactId = 'paybenefit'
+            version = '1.0.0.0'
             artifact publishArtifact
         }
     }
