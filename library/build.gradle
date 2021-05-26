@@ -85,7 +85,7 @@ publishing {
         aar(MavenPublication) {
             groupId = 'tap.benefit.artifact'
             artifactId = 'benefitpay'
-            version = '1.0.0'
+            version = '1.0.0.0'
             artifact publishArtifact
         }
     }
@@ -114,12 +114,13 @@ publishing {
         }
     }
 }
+*/
 //publish to filesystem repo
-repositories{
+repositories {
     maven {
-        url "$buildDir/repo"
-    }*/
-
+        url "https://github.com/Tap-Payments/goSellSDK-AndroidX"
+    }
+}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
