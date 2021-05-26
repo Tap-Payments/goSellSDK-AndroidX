@@ -66,5 +66,8 @@ dependencies {
     implementation 'com.github.Tap-Payments:TapDimensionsKit-Android:1.0'
     implementation 'com.github.Tap-Payments:TapColorsKit-Android:1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+   // implementation files('libs/benefitinappsdk-release_1.0.9.aar')
     implementation 'androidx.cardview:cardview:1.0.0'
+
+
 }
