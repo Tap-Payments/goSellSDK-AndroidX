@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-    implementation files('libs/benefitinappsdk-release_1.0.9.aar')
+  //  implementation files('libs/benefitinappsdk-release_1.0.9.aar')
     configurations.maybeCreate("default")
 
 
