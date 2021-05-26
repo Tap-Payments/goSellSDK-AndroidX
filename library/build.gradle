@@ -115,12 +115,12 @@ publishing {
     }
 }
 */
-//publish to filesystem repo
+/*//publish to filesystem repo
 repositories {
     maven {
         url "https://github.com/Tap-Payments/goSellSDK-AndroidX"
     }
-}
+}*/
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
