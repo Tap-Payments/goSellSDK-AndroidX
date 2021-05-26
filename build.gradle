@@ -26,9 +26,7 @@ allprojects {
         flatDir {
             dirs 'aars'
         }
-        maven {
-            url "https://github.com/Tap-Payments/goSellSDK-AndroidX"
-        }
+
     }
 }
 
