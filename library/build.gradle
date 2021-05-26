@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.Tap-Payments'
+apply plugin: "maven-publish"
 def getVersionName = { ->
     try {
         def stdout = new ByteArrayOutputStream()
@@ -72,9 +73,53 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-    //implementation files('libs/benefitinappsdk-release_1.0.9.aar')
-    implementation(name:'benefitinappsdk-release_1.0.9', ext:'aar')
+    implementation files('libs/benefitinappsdk-release_1.0.9.aar')
+    configurations.maybeCreate("default")
+
+
 }
+
+publishing {
+    def publishArtifact = artifacts.add("default", file('libs/benefitinappsdk-release_1.0.9.aar'))
+    publications {
+        aar(MavenPublication) {
+            groupId = 'tap.benefit.artifact'
+            artifactId = 'benefitpay'
+            version = '1.0.0'
+            artifact publishArtifact
+        }
+    }
+}
+/*publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'com.tap.benefitpay'
+            //You can either define these here or get them from project conf elsewhere
+            artifactId 'benefitpay'
+            version '1.0.0'
+            artifact "libs/benefitinappsdk-release_1.0.9.aar" //aar artifact you want to publish
+
+            //generate pom nodes for dependencies
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.implementation.allDependencies.each { dependency ->
+                    if (dependency.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
+        }
+    }
+}
+//publish to filesystem repo
+repositories{
+    maven {
+        url "$buildDir/repo"
+    }*/
+
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Tap-Payments:TapGLKit-Android:1.18@aar">
     <CLASSES>
-      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/b61a73210b36db0123e6f181e6e915dc/TapGLKit-Android-1.18/jars/classes.jar!/" />
-      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/b61a73210b36db0123e6f181e6e915dc/TapGLKit-Android-1.18/res" />
-      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/b61a73210b36db0123e6f181e6e915dc/TapGLKit-Android-1.18/AndroidManifest.xml" />
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/f0ee2c27ad2d082f63576949286f4015/TapGLKit-Android-1.18/jars/classes.jar!/" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/f0ee2c27ad2d082f63576949286f4015/TapGLKit-Android-1.18/res" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/f0ee2c27ad2d082f63576949286f4015/TapGLKit-Android-1.18/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
