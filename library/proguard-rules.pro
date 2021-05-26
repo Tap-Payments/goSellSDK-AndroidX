@@ -53,6 +53,6 @@
 -keepnames interface org.** {*;}
 -keep class org.** { *; }
 -keepclassmembers enum * { *; }
--keep class mobi.foo.benefitinapp.utils.BenefitInAppButton{*;}
+-keep public class mobi.foo.benefitinapp.utils.BenefitInAppButton{*;}
 
 
