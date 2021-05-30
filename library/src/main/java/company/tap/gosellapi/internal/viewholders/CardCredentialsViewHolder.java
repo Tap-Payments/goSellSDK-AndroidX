@@ -63,6 +63,7 @@ import company.tap.tapcardvalidator_android.DefinedCardBrand;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+import static company.tap.gosellapi.open.enums.CardType.ALL;
 
 /**
  * The type Card credentials view holder.
@@ -639,16 +640,38 @@ public class CardCredentialsViewHolder
         BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
         updateCardSystemsRecyclerView(brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
       //  if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null){
-            if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
+
+         if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {
+             if (brand.getValidationState().equals(CardValidationState.invalid)) {
+                saveCardSwitch.setChecked(false);
+                viewModel.saveCardSwitchClicked(false);
                 if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
-                showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
 
+            } else {
+                if (PaymentDataManager.getInstance().getExternalDataSource() != null
+                        && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
+                    saveCardSwitch.setChecked(true);
+                    viewModel.saveCardSwitchClicked(true);
+                } else {
+                    saveCardSwitch.setChecked(false);
+                    viewModel.saveCardSwitchClicked(false);
+                }
+                if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+                }
+            }
+
+
+        }else if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null? !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
+             if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
+           // System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
 
           //  }
-        } else {
-
-                if (brand.getValidationState().equals(CardValidationState.invalid)) {
+        }  else {
+             if (brand.getValidationState().equals(CardValidationState.invalid)) {
                     saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
                     if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
@@ -667,8 +690,9 @@ public class CardCredentialsViewHolder
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
                     }
                 }
-
-
+         //   if(binLookupResponse!=null){
+         //   System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
+//}
             }
         return brand;
     }
