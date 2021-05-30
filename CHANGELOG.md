@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.12.2] - 2021-05-30
+###  Version release with Hot fix:
+- Hot fix to add cardType ALL to enum
+- Update Readme and ChangeLog.
 ## [3.12.1] - 2021-03-17
 ###  Version release with Hot fix:
 - Hot fix with encrypting device name
