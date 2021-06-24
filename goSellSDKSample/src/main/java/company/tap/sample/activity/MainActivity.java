@@ -57,8 +57,16 @@ import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
+import company.tap.gosellapi.open.models.Destination;
+import company.tap.gosellapi.open.models.Destinations;
+import company.tap.gosellapi.open.models.MetaData;
 import company.tap.gosellapi.open.models.Receipt;
+import company.tap.gosellapi.open.models.Reference;
+import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
+import company.tap.gosellapi.open.models.TopUp;
+import company.tap.gosellapi.open.models.TopUpApplication;
+import company.tap.gosellapi.open.models.TopUpReference;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
 import company.tap.sample.viewmodels.CustomerViewModel;
@@ -141,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
-       GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+      GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
       GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -214,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(1));  //** Required **
+        sdkSession.setAmount(new BigDecimal(23));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -260,6 +268,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+
+       // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
        // sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
        // sdkSession.isUserAllowedToEnableCardHolderName(false); // ** Optional ** you can enable/ disable  default CardHolderName .
@@ -381,13 +391,18 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : source payment type: " + charge.getSource().getPaymentType());
             System.out.println("Payment Succeeded : source type: " + charge.getSource().getType());
         }
+        System.out.println("##############################################################################");
+        if (charge.getTopup() != null) {
+            System.out.println("Payment Succeeded : topupWalletId : " + charge.getTopup().getWalletId());
+            System.out.println("Payment Succeeded : Id : " + charge.getTopup().getId());
+            System.out.println("Payment Succeeded : TopUpApp : " + charge.getTopup().getApplication().getAmount());
+        }
 
         System.out.println("##############################################################################");
         if (charge.getExpiry() != null) {
             System.out.println("Payment Succeeded : expiry type :" + charge.getExpiry().getType());
             System.out.println("Payment Succeeded : expiry period :" + charge.getExpiry().getPeriod());
         }
-
         saveCustomerRefInSession(charge);
         configureSDKSession();
         showDialog(charge.getId(), charge.getResponse().getMessage(), company.tap.gosellapi.R.drawable.ic_checkmark_normal);
@@ -609,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("cus_TS060420211633j3KO1606527").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
@@ -766,8 +781,27 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         public int getItemCount() {
             return dataSet.size();
         }
+
+
+    }
+
+    //Set topup object
+    private TopUp getTopUp() {
+        TopUp topUp = new TopUp(
+                null,
+                "wal_xXTwK5211326gmgS16SV53834",
+               null,
+                BigDecimal.valueOf(0),
+                "kwd",
+                null,null,null,new TopUpApplication(5,"kwd"),null);
+        return topUp;
+
+
+        }
+
+
+
+
     }
 
 
-
-}

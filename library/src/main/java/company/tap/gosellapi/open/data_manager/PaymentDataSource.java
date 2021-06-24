@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
@@ -90,6 +91,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     private @Nullable
     CardIssuer cardIssuer;
 
+    private @Nullable
+    TopUp topUp;
+
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
     /**
@@ -108,6 +112,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public static PaymentDataSource getInstance(){
         return  SingletonCreationAdmin.INSTANCE;
     }
+
 
     private static class SingletonCreationAdmin {
         private static final PaymentDataSource INSTANCE = new PaymentDataSource();
@@ -306,7 +311,15 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public void isUserAllowedToEditCardHolderName(boolean enableEditCardHolderName){
         this.enableEditCardHolderName = enableEditCardHolderName;
     }
+    /**
+     * Set default TopUp.
+     *
+     * @param topUp the  default TopUp
+     */
 
+    public void setTopUp(@Nullable TopUp topUp) {
+        this.topUp = topUp;
+    }
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
     @Override
@@ -445,6 +458,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public CardIssuer getCardIssuer() {
         return cardIssuer;
+    }
+
+    @Nullable
+    @Override
+    public TopUp getTopUp() {
+        return topUp;
     }
 
 

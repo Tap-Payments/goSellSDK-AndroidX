@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
@@ -138,6 +139,12 @@ public interface PaymentDataSource {
      * Defines the cardIssuer details. Optional. @return the default CardIssuer
      */
     @Nullable  CardIssuer getCardIssuer();
+
+    /**
+     * Defines the TopUp details. Optional. @return the default TopUp
+     */
+    @Nullable
+    TopUp getTopUp();
 
 
 }

@@ -18,6 +18,7 @@ import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.Reference;
+import company.tap.gosellapi.open.models.TopUp;
 
 /**
  * The type Create authorize request.
@@ -52,28 +53,29 @@ public final class CreateAuthorizeRequest extends CreateChargeRequest {
      * @param destinations        the destinations object
      */
     public CreateAuthorizeRequest(
-                                  @NonNull  Merchant                merchant,
-                                  @NonNull  BigDecimal              amount,
-                                  @NonNull  String                  currency,
-                                  @NonNull  BigDecimal              selectedAmount,
-                                  @NonNull  String                  selectedCurrency,
-                                  @NonNull  Customer                customer,
-                                  @NonNull  BigDecimal              fee,
-                                  @NonNull  Order                   order,
-                                  @NonNull  TrackingURL             redirect,
-                                  @Nullable TrackingURL             post,
-                                  @NonNull  SourceRequest           source,
-                                  @Nullable String                  description,
-                                  @Nullable HashMap<String, String> metadata,
-                                  @Nullable Reference               reference,
-                                  @NonNull  boolean                 saveCard,
-                                  @Nullable String                  statementDescriptor,
-                                  @Nullable boolean                 threeDSecure,
-                                  @Nullable Receipt                 receipt,
-                                  @NonNull  AuthorizeAction         authorizeAction,
-                                  @Nullable Destinations destinations) {
+            @NonNull  Merchant                merchant,
+            @NonNull  BigDecimal              amount,
+            @NonNull  String                  currency,
+            @NonNull  BigDecimal              selectedAmount,
+            @NonNull  String                  selectedCurrency,
+            @NonNull  Customer                customer,
+            @NonNull  BigDecimal              fee,
+            @NonNull  Order                   order,
+            @NonNull  TrackingURL             redirect,
+            @Nullable TrackingURL             post,
+            @NonNull  SourceRequest           source,
+            @Nullable String                  description,
+            @Nullable HashMap<String, String> metadata,
+            @Nullable Reference               reference,
+            @NonNull  boolean                 saveCard,
+            @Nullable String                  statementDescriptor,
+            @Nullable boolean                 threeDSecure,
+            @Nullable Receipt                 receipt,
+            @NonNull  AuthorizeAction         authorizeAction,
+            @Nullable Destinations destinations,
+            @Nullable TopUp                   topUp) {
 
-        super(merchant,amount, currency,selectedAmount,selectedCurrency, customer, fee, order, redirect, post, source, description, metadata, reference, saveCard, statementDescriptor, threeDSecure, receipt,destinations);
+        super(merchant,amount, currency,selectedAmount,selectedCurrency, customer, fee, order, redirect, post, source, description, metadata, reference, saveCard, statementDescriptor, threeDSecure, receipt,destinations,topUp);
 
         this.authorizeAction = authorizeAction;
     }

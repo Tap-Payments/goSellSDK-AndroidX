@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.12.2'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.13.0'
 	}
 ```
 
@@ -600,9 +600,13 @@ import company.tap.gosellapi.GoSellSDK
            <td> Lets default CardHoldername in the field,can be editable or not based on user configuration .(OPTIONAL) </td>
           </tr>
       <tr>
-                <td>dkSession.cancelSession(this); </td>
+                <td>sdkSession.cancelSession(this); </td>
                 <td> Merchant can now cancel the session and stop all process initiating the SDK. .(OPTIONAL) </td>
                </tr>
+               <tr>
+                               <td>setTopUp </td>
+                               <td> Merchant can now send a topUp object while initiating the SDK. .(OPTIONAL) </td>
+                              </tr>
 </table>
 
 
@@ -682,6 +686,8 @@ import company.tap.gosellapi.GoSellSDK
             sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
 
             sdkSession.isUserAllowedToEnableCardHolderName(false); //** Optional ** you can enable/ disable  default CardHolderName .
+            
+             sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
@@ -1924,7 +1930,105 @@ The following table describes its structure and specifies which fields are requi
                     return cards;
                 }
             }
-           ```        
+           ```  
+         8.TopUp
+         ```java
+        public final class TopUp implements Serializable {
+            @SerializedName("id")
+            @Expose
+             String Id;
+            @SerializedName("wallet_id")
+            @Expose
+             String walletId;
+            @SerializedName("created")
+            @Expose
+            @Nullable  Long created;
+            @SerializedName("amount")
+            @Expose
+            @Nullable  BigDecimal amount;
+            @SerializedName("currency")
+            @Expose
+            @Nullable  String currency;
+            @SerializedName("charge")
+            @Expose
+            @Nullable  TopchargeModel charge;
+            @SerializedName("customer")
+            @Expose
+           @Nullable  TopCustomerModel customer;
+            @SerializedName("reference")
+            @Expose
+             TopUpReference topUpReference;
+            @SerializedName("application")
+            @Expose
+             TopUpApplication application;
+        
+            public String getId() {
+                return Id;
+            }
+        
+            public String getWalletId() {
+                return walletId;
+            }
+        
+            @Nullable
+            public Long getCreated() {
+                return created;
+            }
+        
+            @Nullable
+            public BigDecimal getAmount() {
+                return amount;
+            }
+        
+            @Nullable
+            public String getCurrency() {
+                return currency;
+            }
+        
+            @Nullable
+            public TopchargeModel getCharge() {
+                return charge;
+            }
+        
+            @Nullable
+            public TopCustomerModel getCustomer() {
+                return customer;
+            }
+        
+            public TopUpReference getTopUpReference() {
+                return topUpReference;
+            }
+        
+            public TopUpApplication getApplication() {
+                return application;
+            }
+        
+            public MetaData getMetadata() {
+                return metadata;
+            }
+        
+            @SerializedName("metadata")
+            @Expose
+            MetaData metadata;
+        
+        
+            //  Constructor is private to prevent access from client app, it must be through inner Builder class only
+            public TopUp(@Nullable String Id , String walletId, @Nullable Long created, BigDecimal amount , String currency,@Nullable TopchargeModel charge ,@Nullable TopCustomerModel customer, @Nullable TopUpReference topUpReference, TopUpApplication topUpApplication,@Nullable MetaData metaData
+            ) {
+        
+                this.Id = Id;
+                this.walletId = walletId;
+                this.created = created;
+                this.amount = amount;
+                this.currency = currency;
+                this.charge = charge;
+                this.customer = customer;
+                this.topUpReference = topUpReference;
+                this.application = topUpApplication;
+                this.metadata = metaData;
+            }
+        }
+      ```
 <a name="sdk_delegate"></a>
 ## SDKSession Delegate
 
