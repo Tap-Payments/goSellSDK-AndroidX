@@ -60,6 +60,7 @@ import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.Reference;
+import company.tap.gosellapi.open.models.TopUp;
 
 /**
  * The type Payment process manager.
@@ -667,9 +668,10 @@ final class PaymentProcessManager {
         Destinations destinations = provider.getDestination();
         @Nullable Merchant merchant = provider.getMerchant();
         @Nullable CardIssuer cardIssuer = provider.getCardIssuer();
-
+        @Nullable TopUp topUp = provider.getTopUp();
         TransactionMode transactionMode = provider.getTransactionMode();
         Log.d("PaymentProcessManager", "transactionMode : " + transactionMode);
+//        Log.d("PaymentProcessManager", "topUp : " + topUp.toString());
         /**
          * Condition added for 3Ds for merchant
          * */
@@ -707,7 +709,8 @@ final class PaymentProcessManager {
                         statementDescriptor,
                         require3DSecure,
                         receipt,
-                        destinations
+                        destinations,
+                        topUp
                 );
 
                 GoSellAPI.getInstance().createCharge(chargeRequest, new APIRequestCallback<Charge>() {
@@ -753,7 +756,8 @@ final class PaymentProcessManager {
                         require3DSecure,
                         receipt,
                         authorizeAction,
-                        destinations
+                        destinations,
+                        topUp
                 );
                 GoSellAPI.getInstance()
                         .createAuthorize(authorizeRequest, new APIRequestCallback<Authorize>() {

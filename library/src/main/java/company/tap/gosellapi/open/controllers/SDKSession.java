@@ -1,7 +1,6 @@
 package company.tap.gosellapi.open.controllers;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,12 +16,12 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.activities.GoSellPaymentActivity;
-import company.tap.gosellapi.internal.activities.WebPaymentActivity;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.PaymentOptionsResponse;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
@@ -40,10 +39,8 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
-import kotlin.WasExperimental;
 
 import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 /**
  * The type Sdk session.
@@ -314,6 +311,15 @@ public class SDKSession implements View.OnClickListener{
   }
 
   /**
+   * set TopUp wallet
+   *
+   * @param topUp the default TopUp
+   */
+  public void setTopUp(TopUp topUp){
+    paymentDataSource.setTopUp(topUp);
+  }
+
+  /**
    * enable or disable edit cardholdername.
    * @param enableCardHolderName
    */
@@ -420,10 +426,11 @@ public class SDKSession implements View.OnClickListener{
               (this.paymentDataSource.getCurrency() != null) ? this.paymentDataSource.getCurrency().getIsoCode() : "KWD",
               (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
               (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
-              (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL"
+               (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL",
+               this.paymentDataSource.getTopUp()
       );
 
-
+    System.out.println("request sdkSession:"+ request);
 
       GoSellAPI.getInstance().getPaymentOptions(request,
               new APIRequestCallback<PaymentOptionsResponse>() {
