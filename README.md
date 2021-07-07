@@ -1931,9 +1931,10 @@ The following table describes its structure and specifies which fields are requi
                 }
             }
            ```  
-         8.TopUp
-         ```java
-        public final class TopUp implements Serializable {
+      8.TopUp
+      
+        ```java
+           public final class TopUp implements Serializable {
             @SerializedName("id")
             @Expose
              String Id;
@@ -2030,13 +2031,11 @@ The following table describes its structure and specifies which fields are requi
             public MetaData getMetadata() {
                 return metadata;
             }
-        
-        
-   //  Constructor is private to prevent access from client app, it must be through inner Builder class only
-            public TopUp(@Nullable String Id , String walletId, @Nullable Long created,@Nullable String status,@Nullable  BigDecimal amount , String currency, @Nullable TopchargeModel charge , @Nullable TopCustomerModel customer, @Nullable TopUpReference topUpReference, TopUpApplication topUpApplication, @Nullable Response response, @Nullable TopupPost post,@Nullable MetaData metaData
+           //  Constructor is private to prevent access from client app, it must be through inner Builder class only
+             public TopUp(@Nullable String Id , String walletId, @Nullable Long created,@Nullable String status,@Nullable  BigDecimal amount , String currency,                  @Nullable TopchargeModel charge , @Nullable TopCustomerModel customer, @Nullable TopUpReference topUpReference, TopUpApplication topUpApplication,                @Nullable Response response, @Nullable TopupPost post,@Nullable MetaData metaData
             ) {
         
-   this.Id = Id;
+                this.Id = Id;
                 this.walletId = walletId;
                 this.created = created;
                 this.status = status;
@@ -2051,7 +2050,6 @@ The following table describes its structure and specifies which fields are requi
                 this.metadata = metaData;
             }
         }
-       
        ```
 <a name="sdk_delegate"></a>
 ## SDKSession Delegate
