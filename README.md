@@ -96,7 +96,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.13.0'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.13.1'
 	}
 ```
 
@@ -1943,6 +1943,9 @@ The following table describes its structure and specifies which fields are requi
             @SerializedName("created")
             @Expose
             @Nullable  Long created;
+            @SerializedName("status")
+            @Expose
+            @Nullable String status;
             @SerializedName("amount")
             @Expose
             @Nullable  BigDecimal amount;
@@ -1961,6 +1964,17 @@ The following table describes its structure and specifies which fields are requi
             @SerializedName("application")
             @Expose
              TopUpApplication application;
+            @SerializedName("response")
+            @Expose
+            @Nullable
+            Response response;
+            @SerializedName("post")
+            @Expose
+            @Nullable TopupPost post;
+            @SerializedName("metadata")
+            @Expose
+            MetaData metadata;
+        
         
             public String getId() {
                 return Id;
@@ -2002,33 +2016,43 @@ The following table describes its structure and specifies which fields are requi
             public TopUpApplication getApplication() {
                 return application;
             }
+            public Response getResponse() {
+                return response;
+            }
+            @Nullable
+            public TopupPost getPost() {
+                return post;
+            }
+            public String getStatus() {
+                return status;
+            }
         
             public MetaData getMetadata() {
                 return metadata;
             }
         
-            @SerializedName("metadata")
-            @Expose
-            MetaData metadata;
         
-        
-            //  Constructor is private to prevent access from client app, it must be through inner Builder class only
-            public TopUp(@Nullable String Id , String walletId, @Nullable Long created, BigDecimal amount , String currency,@Nullable TopchargeModel charge ,@Nullable TopCustomerModel customer, @Nullable TopUpReference topUpReference, TopUpApplication topUpApplication,@Nullable MetaData metaData
+   //  Constructor is private to prevent access from client app, it must be through inner Builder class only
+            public TopUp(@Nullable String Id , String walletId, @Nullable Long created,@Nullable String status,@Nullable  BigDecimal amount , String currency, @Nullable TopchargeModel charge , @Nullable TopCustomerModel customer, @Nullable TopUpReference topUpReference, TopUpApplication topUpApplication, @Nullable Response response, @Nullable TopupPost post,@Nullable MetaData metaData
             ) {
         
-                this.Id = Id;
+   this.Id = Id;
                 this.walletId = walletId;
                 this.created = created;
+                this.status = status;
                 this.amount = amount;
                 this.currency = currency;
                 this.charge = charge;
                 this.customer = customer;
                 this.topUpReference = topUpReference;
                 this.application = topUpApplication;
+                this.response = response;
+                this.post = post;
                 this.metadata = metaData;
             }
         }
-      ```
+       
+       ```
 <a name="sdk_delegate"></a>
 ## SDKSession Delegate
 
