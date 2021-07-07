@@ -67,6 +67,7 @@ import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.models.TopUpApplication;
 import company.tap.gosellapi.open.models.TopUpReference;
+import company.tap.gosellapi.open.models.TopupPost;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
 import company.tap.sample.viewmodels.CustomerViewModel;
@@ -216,19 +217,19 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("kwd"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(23));  //** Required **
+        sdkSession.setAmount(new BigDecimal(20));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
 
 
-//       sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType
+      sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
 
         // Set Taxes array list
         sdkSession.setTaxes(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -373,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : last four: " + charge.getCard().getLast4());
             System.out.println("Payment Succeeded : card object : " + charge.getCard().getObject());
             System.out.println("Payment Succeeded : brand : " + charge.getCard().getBrand());
-            System.out.println("Payment Succeeded : expiry : " + charge.getCard().getExpiry().getMonth()+"\n"+charge.getCard().getExpiry().getYear());
+          //  System.out.println("Payment Succeeded : expiry : " + charge.getCard().getExpiry().getMonth()+"\n"+charge.getCard().getExpiry().getYear());
         }
 
         System.out.println("##############################################################################");
@@ -396,6 +397,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : topupWalletId : " + charge.getTopup().getWalletId());
             System.out.println("Payment Succeeded : Id : " + charge.getTopup().getId());
             System.out.println("Payment Succeeded : TopUpApp : " + charge.getTopup().getApplication().getAmount());
+            System.out.println("Payment Succeeded : status : " + charge.getTopup().getStatus());
+            if (charge.getTopup().getPost() != null) {
+                System.out.println("Payment Succeeded : post : " + charge.getTopup().getPost().getUrl());
+            }
         }
 
         System.out.println("##############################################################################");
@@ -790,15 +795,15 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         TopUp topUp = new TopUp(
                 null,
                 "wal_xXTwK5211326gmgS16SV53834",
-               null,
-                BigDecimal.valueOf(0),
+                null,
+                null,
+                BigDecimal.valueOf(20),
                 "kwd",
-                null,null,null,new TopUpApplication(5,"kwd"),null);
+                null,null,null,new TopUpApplication((BigDecimal.valueOf(30)),"kwd"),null,new TopupPost("wwww.google.com"),null);
         return topUp;
 
 
-        }
-
+    }
 
 
 

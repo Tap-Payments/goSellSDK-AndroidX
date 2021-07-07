@@ -757,7 +757,7 @@ final class PaymentProcessManager {
                         receipt,
                         authorizeAction,
                         destinations,
-                        topUp
+                        null
                 );
                 GoSellAPI.getInstance()
                         .createAuthorize(authorizeRequest, new APIRequestCallback<Authorize>() {
