@@ -3,7 +3,9 @@ package company.tap.gosellapi.open.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopUpReference {
+import java.io.Serializable;
+
+public class TopUpReference implements Serializable {
     public String getOrder() {
         return order;
     }
