@@ -52,11 +52,11 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
-    implementation 'com.github.Tap-Payments:TapCardValidator-Android:2.1.5'
+    implementation 'com.github.Tap-Payments:TapCardValidator-Android:2.1.6'
 
 
 
