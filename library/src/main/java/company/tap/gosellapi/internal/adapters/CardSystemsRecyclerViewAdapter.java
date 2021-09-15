@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -18,6 +19,7 @@ import company.tap.gosellapi.internal.api.enums.PaymentType;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
+import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
 import company.tap.tapcardvalidator_android.CardBrand;
 
 
@@ -111,7 +113,7 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
      * @param brand      the brand
      * @param cardScheme the card scheme
      */
-    public void updateForCardBrand(CardBrand brand, CardScheme cardScheme) {
+    public void updateForCardBrand(CardBrand brand, CardScheme cardScheme, CardCredentialsViewHolder cardCredentialsViewHolder) {
 
     if (brand == null) {
       data = new ArrayList<>(initialData);
@@ -134,6 +136,10 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
       } else {
         if (cardBrands.contains(brand)) {
           data.add(option);
+        }else {
+          cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
+          //return;
+
         }
       }
 
@@ -187,4 +193,5 @@ class CardSystemViewHolder extends RecyclerView.ViewHolder {
 
     cardSystemIcon = itemView.findViewById(R.id.cardSystemIcon);
   }
+
 }
