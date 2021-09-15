@@ -634,11 +634,14 @@ public class CardCredentialsViewHolder
         ArrayList<CardBrand> paymentOptionsCardBrands = PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands();
         DefinedCardBrand brand = CardValidator.validate(cardNumber,paymentOptionsCardBrands);
 
+      //  System.out.println("paymentOptionsCardBrands in validation "+getPaymentOption());
+
         // update CCVEditText CardType: to set CCV Length according to CardType
         updateCCVEditTextCardType(brand.getCardBrand());
         // update card types
         BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
-        updateCardSystemsRecyclerView(brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
+       // System.out.println("brand.getCardBrand() in validation "+brand.getCardBrand());
+        updateCardSystemsRecyclerView( brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
       //  if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null){
 
          if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {

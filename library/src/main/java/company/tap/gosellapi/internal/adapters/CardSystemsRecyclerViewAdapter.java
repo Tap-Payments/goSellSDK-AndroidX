@@ -2,10 +2,17 @@ package company.tap.gosellapi.internal.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +27,10 @@ import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
+import company.tap.gosellapi.open.controllers.ThemeObject;
 import company.tap.tapcardvalidator_android.CardBrand;
+
+import static android.os.Build.VERSION.SDK_INT;
 
 
 /**
@@ -42,9 +52,10 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
 ////      System.out.println(" filter based on  currency inside card view holder : " + option
 ////          .getPaymentType() + " >> " + option.getName());
 //    }
-    this.initialData = new ArrayList<>(filter(_data));
-    filterPaymentOptions();
-  }
+      filterPaymentOptions();
+      this.initialData = new ArrayList<>(filter(_data));
+
+    }
 
   private ArrayList<PaymentOption> filter(ArrayList<PaymentOption> _data) {
     ArrayList<PaymentOption> filteredData = new ArrayList<>(_data);
@@ -59,6 +70,7 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
         it.remove();
       }
     }
+    System.out.println("filteredData"+filteredData);
     return filteredData;
   }
 
@@ -109,12 +121,12 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
 
     /**
      * Update for card brand.
-     *
-     * @param brand      the brand
+     *  @param brand      the brand
      * @param cardScheme the card scheme
+     * @param cardCredentialsViewHolder
      */
     public void updateForCardBrand(CardBrand brand, CardScheme cardScheme, CardCredentialsViewHolder cardCredentialsViewHolder) {
-
+        ArrayList<CardBrand> cardBrands = null;
     if (brand == null) {
       data = new ArrayList<>(initialData);
       notifyDataSetChanged();
@@ -123,28 +135,31 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
 
     data.clear();
 
-    for (PaymentOption option : initialData) {
 
-      ArrayList<CardBrand> cardBrands = option.getSupportedCardBrands();
-//      System.out.println("brand :" + brand + " >>> scheme :" + cardScheme);
+ for (PaymentOption option : initialData) {
+
+      cardBrands = option.getSupportedCardBrands();
 
       if (cardScheme != null) {
         if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
           data.add(option);
           continue;
         }
-      } else {
+      }
+      else {
         if (cardBrands.contains(brand)) {
           data.add(option);
-        }else {
-          cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
-          //return;
-
+          
         }
       }
 
 
     }
+
+ if(data.isEmpty() && !cardBrands.contains(brand)) {
+     cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
+
+ }
 
     if (data.size() == 0)
       data = new ArrayList<>(initialData);
@@ -193,5 +208,7 @@ class CardSystemViewHolder extends RecyclerView.ViewHolder {
 
     cardSystemIcon = itemView.findViewById(R.id.cardSystemIcon);
   }
+
+
 
 }
