@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.13.4] - 2021-09-16
+###  Version release with Hot Fix:
+- Fix issue for cardbrand type alert
+- Update Readme and ChangeLog.
 ## [3.13.3] - 2021-09-15
 ###  Version release with Hot Fix:
 - Fix issue for NPE with 3DS
