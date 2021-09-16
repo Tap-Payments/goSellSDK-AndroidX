@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.13.7] - 2021-09-16
+###  Version release with Hot Fix:
+- Fix issue for build error
+- Update Readme and ChangeLog.
 ## [3.13.5] - 2021-09-16
 ###  Version release with Hot Fix:
 - Fix issue for build error
