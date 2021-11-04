@@ -624,12 +624,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     }
 
     private Customer getCustomer() { // test customer id cus_Kh1b4220191939i1KP2506448
+        //cus_TS060420211633j3KO1606527
 
         Customer customer = (settingsManager != null) ? settingsManager.getCustomer() : null;
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder("cus_TS060420211633j3KO1606527").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
