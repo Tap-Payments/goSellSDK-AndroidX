@@ -1,3 +1,4 @@
+/*
 package company.tap.gosellapi.internal.custom_views;
 
 import android.content.Context;
@@ -17,37 +18,47 @@ import java.util.List;
 
 import company.tap.gosellapi.R;
 
+*/
 /**
  * The type Date picker.
- */
+ *//*
+
 public class DatePicker {
 
-    /**
+    */
+/**
      * The interface Date picker listener.
-     */
+     *//*
+
     public interface DatePickerListener {
-        /**
+        */
+/**
          * Date selected.
          *
          * @param month the month
          * @param year  the year
-         */
+         *//*
+
         void dateSelected(String month, String year);
     }
 
-    /**
+    */
+/**
      * The constant expirationData.
-     */
+     *//*
+
     public static String expirationData = null;
 
-    /**
+    */
+/**
      * Show in context.
      *
      * @param context       the context
      * @param selectedMonth the selected month
      * @param selectedYear  the selected year
      * @param listener      the listener
-     */
+     *//*
+
     public static void showInContext(Context context, @Nullable String selectedMonth, @Nullable String selectedYear, final DatePickerListener listener){
         //init custom view
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -56,11 +67,11 @@ public class DatePicker {
         if (selectedMonth == null ) { selectedMonth = String.format("%02d", Calendar.getInstance().get(Calendar.MONTH) + 1); }
         if (selectedYear  == null ) { selectedYear  = String.valueOf(Calendar.getInstance().get(Calendar.YEAR)); }
 
-        final WheelPicker monthPicker = view.findViewById(R.id.npMonthPicker);
+      //  final WheelPicker monthPicker = view.findViewById(R.id.npMonthPicker);
         ArrayList<String> monthValues = getMonthPickerValues();
-        fillWheelPickerWithData(monthPicker, monthValues, selectedMonth);
+      //  fillWheelPickerWithData(monthPicker, monthValues, selectedMonth);
 
-        final WheelPicker yearPicker = view.findViewById(R.id.npYearPicker);
+      //  final WheelPicker yearPicker = view.findViewById(R.id.npYearPicker);
         ArrayList<String> yearValues = getYearPickerValues();
         fillWheelPickerWithData(yearPicker, yearValues, selectedYear);
 
@@ -134,3 +145,4 @@ public class DatePicker {
     private static int MONTHS_COUNT = 12;
     private static int YEARS_COUNT  = 50;
 }
+*/
