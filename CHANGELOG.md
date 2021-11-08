@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.13.8] - 2021-11-08
+###  Version release with Hot Fix:
+- Fix issue for react-native plugin.
+- Update Readme and ChangeLog.
 ## [3.13.7] - 2021-09-16
 ###  Version release with Hot Fix:
 - Fix issue for build error
