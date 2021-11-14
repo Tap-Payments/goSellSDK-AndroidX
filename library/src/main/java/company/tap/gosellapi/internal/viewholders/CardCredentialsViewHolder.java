@@ -648,8 +648,10 @@ public class CardCredentialsViewHolder
              if (brand.getValidationState().equals(CardValidationState.invalid)) {
                 saveCardSwitch.setChecked(false);
                 viewModel.saveCardSwitchClicked(false);
-                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
+                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+
+                } else cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
 
             } else {
                 if (PaymentDataManager.getInstance().getExternalDataSource() != null
@@ -667,8 +669,10 @@ public class CardCredentialsViewHolder
 
 
         }else if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null? !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
-             if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
-                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+             if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
+                 cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+
+             }else cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
                 showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
            // System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
 
@@ -677,8 +681,11 @@ public class CardCredentialsViewHolder
              if (brand.getValidationState().equals(CardValidationState.invalid)) {
                     saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
-                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
+                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                    }else {
+                        cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
+                    }
 
                 } else {
                     if (PaymentDataManager.getInstance().getExternalDataSource() != null
@@ -940,8 +947,10 @@ public class CardCredentialsViewHolder
                 viewModel.setPaymentOption(cardBrand, binLookupResponse ==null?null: binLookupResponse.getScheme());
                // System.out.println("card = " + viewModel.getCardNumber() +"binlookup "+ PaymentDataManager.getInstance().getBinLookupResponse().getCardType());
                 if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
-                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0)
+                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+
+                    }else cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
                     showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
                 }
             }
