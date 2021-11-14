@@ -665,6 +665,7 @@ public class CardCredentialsViewHolder
                 if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
                 }
+                else { cardNumberField.setTextColor(itemView.getResources().getColor(R.color.black));}
             }
 
 
@@ -672,7 +673,7 @@ public class CardCredentialsViewHolder
              if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                  cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
 
-             }else cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
+             }else{ cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
                 showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
            // System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
 
@@ -699,6 +700,7 @@ public class CardCredentialsViewHolder
                     if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
                     }
+                    else { cardNumberField.setTextColor(itemView.getResources().getColor(R.color.black));}
                 }
          //   if(binLookupResponse!=null){
          //   System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
@@ -950,7 +952,7 @@ public class CardCredentialsViewHolder
                     if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
 
-                    }else cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
+                    }else {cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
                     showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
                 }
             }
