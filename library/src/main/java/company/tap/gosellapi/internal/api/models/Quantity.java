@@ -49,9 +49,9 @@ public final class Quantity  implements Serializable {
      * @param measurementUnit the measurement unit
      * @param value           the value
      */
-    public Quantity(MeasurementUnit measurementUnit, BigDecimal value) {
+    public Quantity(Measurement measurementGroup , MeasurementUnit measurementUnit, BigDecimal value) {
 
-        this.measurementGroup = measurementUnit.getMeasurementGroup();
+        this.measurementGroup = measurementGroup;
         this.measurementUnit = measurementUnit;
         this.value = value;
     }
