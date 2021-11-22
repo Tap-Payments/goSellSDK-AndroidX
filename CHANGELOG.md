@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.13.11] - 2021-11-22
+###  Version release with Hot Fix:
+- Fix issue for null safety kotlin versions.
+- Update Readme and ChangeLog.
 ## [3.13.10] - 2021-11-14
 ###  Version release with Hot Fix:
 - Fix issue for react-native plugin invalid card number color.
