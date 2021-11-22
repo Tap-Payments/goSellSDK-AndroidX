@@ -52,7 +52,12 @@ public final class Quantity  implements Serializable {
     public Quantity(Measurement measurementGroup , MeasurementUnit measurementUnit, BigDecimal value) {
 
         this.measurementGroup = measurementGroup;
-        this.measurementUnit = measurementUnit;
+        if(measurementUnit==null|| measurementUnit.equals("")){
+            this.measurementUnit = measurementGroup.getMeasurementGroup();
+        }else{
+            this.measurementUnit = measurementUnit;
+
+        }
         this.value = value;
     }
 }
