@@ -2196,10 +2196,31 @@ Notifies the receiver that the card has successfully tokenized.
 ```kotlin
 - fun cardTokenizedSuccessfully(token: Token)
 ```
+#### Arguments
+
+**token**: card token object.
+
+Notifies the receiver that the card has successfully tokenized and user enabled / disabled save card.
+
+#### Declaration
+
+*Java:*
+
+```java
+- void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
+```
+*Kotlin:*
+
+```kotlin
+- fun cardTokenizedSuccessfully( token:Token, saveCardEnabled:Boolean)
+```
 
 #### Arguments
 
 **token**: card token object.
+
+**saveCardEnabled**: boolean for user enabled/disabled save card.
+
 
 <a name="saved_cards_list_callback"></a>
 ### Saved Cards List Callback
