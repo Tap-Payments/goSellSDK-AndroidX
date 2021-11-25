@@ -197,6 +197,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (cardCredentialsViewModel != null)
                 SDKSession.getListener().userEnabledSaveCardOption(cardCredentialsViewModel.shouldSaveCard());
 
+
+
             boolean keyBoardHidden =  Utils.hideKeyboard(GoSellPaymentActivity.this);
             Log.d(TAG, "sKeyboard hidden .... after click pay button : "+keyBoardHidden );
             startPaymentWithTimer();
@@ -1032,6 +1034,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     public void fireCardTokenizationProcessCompleted(Token token) {
         closePaymentActivity();
         SDKSession.getListener().cardTokenizedSuccessfully(token);
+        if(cardCredentialsViewModel!=null)
+        SDKSession.getListener().cardTokenizedSuccessfully(token,cardCredentialsViewModel.shouldSaveCard());
     }
 
 
