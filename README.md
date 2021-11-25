@@ -858,10 +858,10 @@ import company.tap.gosellapi.GoSellSDK
                  TransactionMode trx_mode = sdkSession.getTransactionMode();
                  if(trx_mode!=null){
      
-                     if (TransactionMode.SAVE_CARD == trx_mode  || TransactionMode.SAVE_CARD_NO_UI ==trx_mode) {
+                     if (TransactionMode.SAVE_CARD == trx_mode ) {
                          payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.save_card));
                      }
-                     else if(TransactionMode.TOKENIZE_CARD == trx_mode || TransactionMode.TOKENIZE_CARD_NO_UI == trx_mode){
+                     else if(TransactionMode.TOKENIZE_CARD == trx_mode ){
                          payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.tokenize));
                      }
                      else {
@@ -901,10 +901,10 @@ import company.tap.gosellapi.GoSellSDK
                  TransactionMode trx_mode = sdkSession.getTransactionMode();
                  if(trx_mode!=null){
      
-                     if (TransactionMode.SAVE_CARD == trx_mode  || TransactionMode.SAVE_CARD_NO_UI ==trx_mode) {
+                     if (TransactionMode.SAVE_CARD == trx_mode ) {
                          payButtonView.payButton.text(getString(company.tap.gosellapi.R.string.save_card))
                      }
-                     else if(TransactionMode.TOKENIZE_CARD == trx_mode || TransactionMode.TOKENIZE_CARD_NO_UI == trx_mode){
+                     else if(TransactionMode.TOKENIZE_CARD == trx_mode){
                          payButtonView.payButton.text(getString(company.tap.gosellapi.R.string.tokenize))
                      }
                      else {
@@ -1119,6 +1119,8 @@ The following table describes its structure and specifies which fields are requi
                       void invalidCustomerID();
 
                       void userEnabledSaveCardOption(boolean saveCardEnabled);
+
+                      void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
       }
  ```
  2. PaymentDataSource
@@ -1276,16 +1278,7 @@ The following table describes its structure and specifies which fields are requi
              */
             @SerializedName("TOKENIZE_CARD")                       TOKENIZE_CARD,
         
-        /////////////////////////////////////  APIs exposer without UI ////////////////////////////
-            /**
-             * Tokenize card mode no UI.
-             */
-            @SerializedName("TOKENIZE_CARD_NO_UI")                 TOKENIZE_CARD_NO_UI,
-        
-            /**
-             * Save card transaction mode no UI.
-             */
-            @SerializedName("SAVE_CARD_NO_UI")                      SAVE_CARD_NO_UI,
+      
     }
  ```
  3. Card Type
