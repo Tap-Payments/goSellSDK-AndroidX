@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         /**
          * - Start using  SDK features through SDK main activity (With Tap CARD FORM)
          */
-        startSDKWithUI();
+        startSDKUI();
 
     }
 
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     /**
      * Start using  SDK features through SDK main activity
      */
-    private void startSDKWithUI() {
+    private void startSDKUI() {
         if (sdkSession != null) {
             TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.PURCHASE;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
