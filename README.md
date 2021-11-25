@@ -802,7 +802,7 @@ import company.tap.gosellapi.GoSellSDK
               /**
                * 1- Start using  SDK features through SDK main activity (With Tap CARD FORM)
                */
-              startSDKWithUI();
+              startSDKUI();
       
            }
  ```
@@ -819,11 +819,10 @@ import company.tap.gosellapi.GoSellSDK
                * Note:-
                *      - In case of using PayButton, then don't call sdkSession.start(this) because the SDK will start when user clicks the tap pay button.
                */
-              //////////////////////////////////////////////////////    SDK with UI //////////////////////
               /**
-               * 1- Start using  SDK features through SDK main activity (With Tap CARD FORM)
+               *  Start using  SDK features through SDK main activity (With Tap CARD FORM)
                */
-              startSDKWithUI()
+              startSDKUI()
       
            }
  ```
