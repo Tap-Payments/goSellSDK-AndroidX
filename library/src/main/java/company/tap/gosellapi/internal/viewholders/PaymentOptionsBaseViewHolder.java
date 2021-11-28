@@ -53,7 +53,11 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
         /**
          * Card view holder type.
          */
-        CARD(5);
+        CARD(5),
+        /**
+         * GooglePay view holder type.
+         */
+        GOOGLEPAY(6);
 
         private int viewType;
 
@@ -122,6 +126,11 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
 
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_web_payment_option, parent, false);
                 return new WebPaymentViewHolder(view);
+
+            case GOOGLEPAY:
+
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_google_payment, parent, false);
+                return new GooglePaymentViewHolder(view);
 
             case CARD:
 
