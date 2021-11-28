@@ -26,6 +26,7 @@ android {
         versionName "2.0"
 
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
     }
 

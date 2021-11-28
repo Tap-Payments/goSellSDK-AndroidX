@@ -23,6 +23,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.utils.Paymen
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CurrencyViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.EmptyViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.PaymentOptionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
@@ -750,6 +751,7 @@ public class PaymentOptionsDataManager {
             CurrencyViewModel currencyViewModel = generateCurrencyModel();
             viewModelsResult.add(currencyViewModel);
 
+
 //      ArrayList<PaymentOption> paymentOptions = getPaymentOptionsResponse().getPaymentOptions();
             ArrayList<PaymentOption> paymentOptionsWorker = new ArrayList<>(getPaymentOptionsResponse().getPaymentOptions());
 
@@ -892,6 +894,13 @@ public class PaymentOptionsDataManager {
                 }
             }
 
+            /**
+             * Added GooglePay as ViewModel***/
+            GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this,"data" );
+            viewModelResult.add(googlePayViewModel);
+
+
+
             if (hasCardPaymentOptions) {
 
                 if (hasWebPaymentOptions || !displaysGroupTitles) {
@@ -917,6 +926,9 @@ public class PaymentOptionsDataManager {
 
             return new CurrencyViewModel(PaymentOptionsDataManager.this, currencyViewModelData);
         }
+
+
+
 
         private CurrencyViewModel findCurrencyModel() {
 
