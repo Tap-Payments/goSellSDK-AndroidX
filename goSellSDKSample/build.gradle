@@ -67,4 +67,5 @@ dependencies {
     implementation 'com.github.Tap-Payments:TapColorsKit-Android:1.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
 }

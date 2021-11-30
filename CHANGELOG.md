@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.14.1] - 2021-12-01
+### Minor version release for switch:
+- Merchant can configure button as his choice
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 ## [3.14.0] - 2021-11-25
 ###  Version release with New Feature:
 - New Feature added for Merchant to know tokenized card save enabled or not.
