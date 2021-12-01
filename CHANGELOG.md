@@ -1,7 +1,7 @@
 # CHANGELOG
 ## [3.14.1] - 2021-12-01
-### Minor version release for switch:
-- Merchant can configure button as his choice
+### Minor version release for Hot Fix:
+- Hot fix in button themeing
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
