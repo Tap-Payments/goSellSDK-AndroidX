@@ -233,8 +233,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         ImageView businessIcon = findViewById(R.id.businessIcon);
         TextView businessName = findViewById(R.id.businessName);
         String header_title = "";
-
-        if (isTransactionModeSaveCard() || isTransactionModeTokenizeCard()) {
+//|| isTransactionModeTokenizeCard()
+        if (isTransactionModeSaveCard() ) {
             header_title = getString(R.string.textview_disclaimer_save_card_header_title);
 
             LinearLayout businessIconNameContainer = findViewById(R.id.businessIconNameContainer);
