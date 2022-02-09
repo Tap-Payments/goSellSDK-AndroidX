@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.14.3] - 2022-02-09
+### Minor version release for Hot Fix:
+- Hot fix in NPE in cancel session
+- Align Header with Ios Saved card
+- New Param in PaymentOptions
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 ## [3.14.1] - 2021-12-01
 ### Minor version release for Hot Fix:
 - Hot fix in button themeing
