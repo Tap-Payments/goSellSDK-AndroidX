@@ -1,9 +1,9 @@
 # CHANGELOG
-## [3.14.3] - 2022-02-09
+## [3.14.3] - 2022-02-10
 ### Minor version release for Hot Fix:
 - Hot fix in NPE in cancel session
-- Align Header with Ios Saved card
-- New Param in PaymentOptions
+- Align Header with Ios Tokenize card
+- New Object in PaymentOptions Response
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
