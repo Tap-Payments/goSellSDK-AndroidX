@@ -171,7 +171,7 @@ public final class PaymentOptionsResponse implements BaseResponse {
 
         @SerializedName("live_mode")
         @Expose
-        private String live_mode;
+        private Boolean live_mode;
 
         @SerializedName("logo")
         @Expose
@@ -207,17 +207,35 @@ public final class PaymentOptionsResponse implements BaseResponse {
             return logo;
         }
 
-        public String getLive_mode() {
+        /**
+         * Gets live_mode.
+         *
+         * @return the live_mode
+         */
+        public Boolean getLive_mode() {
             return live_mode;
         }
-
+        /**
+         * Gets object.
+         *
+         * @return the object
+         */
         public String getObject() {
             return object;
         }
-
+        /**
+         * Gets country_code.
+         *
+         * @return the country_code
+         */
         public String getCountry_code() {
             return country_code;
         }
+        /**
+         * Gets contact.
+         *
+         * @return the contact
+         */
 
         public Object getContact() {
             return contact;
