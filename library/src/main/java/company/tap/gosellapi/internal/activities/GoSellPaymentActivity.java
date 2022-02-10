@@ -261,7 +261,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         } else {
             String logoPath = "";
             if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse() != null &&
-                    PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse() != null &&
+                    PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant() != null &&
                     PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant().getLogo() != null
             ) {
 
