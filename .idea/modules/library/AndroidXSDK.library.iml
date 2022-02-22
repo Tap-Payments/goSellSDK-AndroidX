@@ -103,7 +103,7 @@
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.Tap-Payments:TapGLKit-Android:1.18@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.Tap-Payments:TapCardValidator-Android:2.1.6@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Tap-Payments:TapCardValidator-Android:2.1.7@aar" level="project" />
     <orderEntry type="library" name="Gradle: jp.wasabeef:blurry:2.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.card:android-sdk:5.5.1@aar" level="project" />
   </component>

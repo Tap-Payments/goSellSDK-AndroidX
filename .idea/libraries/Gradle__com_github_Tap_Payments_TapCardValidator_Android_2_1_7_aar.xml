@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.Tap-Payments:TapCardValidator-Android:2.1.7@aar">
+    <CLASSES>
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/e10da86aceddb2eaf2045b1424a5a534/TapCardValidator-Android-2.1.7/jars/classes.jar!/" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/e10da86aceddb2eaf2045b1424a5a534/TapCardValidator-Android-2.1.7/res" />
+      <root url="file:///usr/local/Cellar/gradle/6.7.1/caches/transforms-2/files-2.1/e10da86aceddb2eaf2045b1424a5a534/TapCardValidator-Android-2.1.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar:///usr/local/Cellar/gradle/6.7.1/caches/modules-2/files-2.1/com.github.Tap-Payments/TapCardValidator-Android/2.1.7/178b0b39b6165a0c78d790e3ff50265b2350c796/TapCardValidator-Android-2.1.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
