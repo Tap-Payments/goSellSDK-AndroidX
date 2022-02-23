@@ -160,7 +160,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 });
 
         initViews();
-        SDKSession.getListener().sessionHasStarted();
+        if(SDKSession.getListener()!=null)
+            SDKSession.getListener().sessionHasStarted();
 
         saveCardChecked = false;
 //        setKeyboardVisibilityListener();
@@ -260,6 +261,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         } else {
             String logoPath = "";
+            if(PaymentDataManager.getInstance().getPaymentOptionsDataManager()!=null)
             if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse() != null &&
                     PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant() != null &&
                     PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant().getLogo() != null
@@ -320,7 +322,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
             payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
-        if (ThemeObject.getInstance().getPayButtonText() != null){
+        if (ThemeObject.getInstance().getPayButtonText() != null && dataSource !=null  && dataSource.getSelectedCurrency()!=null){
             payButton.getPayButton().setText(String
                     .format("%s %s %s", getResources().getString(R.string.pay),
                             dataSource.getSelectedCurrency().getSymbol(),
@@ -328,7 +330,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         }else {
 
-            if (dataSource.getSelectedCurrency() != null)
+            if (dataSource!= null && dataSource.getSelectedCurrency() != null)
                 payButton.getPayButton().setText(String
                         .format("%s %s %s", getResources().getString(R.string.pay),
                                 dataSource.getSelectedCurrency().getSymbol(),
