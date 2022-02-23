@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="company.tap.gosellapi">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="company.tap.gosellapi">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -29,8 +30,21 @@
     <activity
         android:name=".internal.activities.WebPaymentActivity"
         android:theme="@style/GoSellSDKAppTheme"
-        android:screenOrientation="portrait"
-        />
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+
+    <data android:scheme="http"/>
+    <data android:scheme="https"
+         android:host="app.adjust.com/jsr"/>
+
+        <data android:scheme="app" android:host="com.careem.acma"
+           />
+    </intent-filter>
+
+  </activity>
     <activity
         android:name=".internal.activities.CountriesActivity"
         android:theme="@style/GoSellSDKAppTheme"/>

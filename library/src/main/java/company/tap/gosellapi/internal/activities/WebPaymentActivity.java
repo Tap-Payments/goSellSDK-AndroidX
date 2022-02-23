@@ -1,9 +1,11 @@
 package company.tap.gosellapi.internal.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -49,6 +51,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     String returnURL;
   private Charge chargeOrAuthorize;
 
+  @SuppressLint("SetJavaScriptEnabled")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,10 +76,26 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     setContentView(R.layout.gosellapi_activity_web_payment);
 
     webView = findViewById(R.id.webPaymentWebView);
-    webView.setWebViewClient(new WebPaymentWebViewClient());
+
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
 
+    settings.setDisplayZoomControls(false);
+    settings.supportZoom();
+    settings.setSupportZoom(true);
+    settings.setBuiltInZoomControls(true);
+    settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+    settings.setLoadWithOverviewMode(true);
+    settings.setUseWideViewPort(true);
+    settings.setDomStorageEnabled(true);
+    settings.setAppCacheEnabled(true);
+    settings.setLoadsImagesAutomatically(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    }
+
+
+    webView.setWebViewClient(new WebPaymentWebViewClient());
     setTitle(getPaymentOption().getName());
     setImage(getPaymentOption().getImage());
     //Get the view which you added by activity setContentView() method
@@ -113,12 +132,27 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     PaymentDataManager.getInstance().initiatePayment(viewModel, this);
   }
 
+  @SuppressLint("SetJavaScriptEnabled")
   private void updateWebView() {
 
     WebView webView = findViewById(R.id.webPaymentWebView);
     webView.setVisibility(View.VISIBLE);
 
     if (paymentURL == null) return;
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.getSettings().setDisplayZoomControls(false);
+    webView.getSettings().supportZoom();
+    webView.getSettings().setSupportZoom(true);
+    webView.getSettings().setBuiltInZoomControls(true);
+    webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+    webView.getSettings().setLoadWithOverviewMode(true);
+    webView.getSettings().setUseWideViewPort(true);
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.getSettings().setAppCacheEnabled(true);
+    webView.getSettings().setLoadsImagesAutomatically(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    }
 
     webView.loadUrl(paymentURL);
   }
@@ -142,24 +176,37 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 //       Log.d("onPageStarted","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageStarted");
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//       Log.d("shouldOverrideUrlLoad",("rrrrrrrrrrrrrrrrrrrrrrrrr");
-//      Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : " + url);
-      PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance().decisionForWebPaymentURL(url);
+      Intent intent;
+      //  Log.d("shouldOverrideUrlLoad",("rrrrrrrrrrrrrrrrrrrrrrrrr");
+      Log.d("WebPaymentActivity", " shouldOverrideUrlLoading1 : " + url);
+      if (url.contains("https://app.adjust.com/jsr")|| url.contains("careem://pay.careem.com/payment")|| url.contains("market://details")){
+        intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+          startActivity(intent);
+        }
+      } else {
 
-      boolean shouldOverride = !decision.shouldLoad();
+
+        PaymentDataManager.WebPaymentURLDecision decision = PaymentDataManager.getInstance().decisionForWebPaymentURL(url);
+        boolean shouldOverride = !decision.shouldLoad();
 //      Log.d("WebPaymentActivity"," shouldOverrideUrlLoading : decision : " + shouldOverride);
-      if (shouldOverride) { // if decision is true and response has TAP_ID
-        // call backend to get charge response >> based of charge object type [Authorize - Charge] call retrieveCharge / retrieveAuthorize
-        PaymentDataManager.getInstance().retrieveChargeOrAuthorizeOrSaveCardAPI(getChargeOrAuthorize());
+        if (shouldOverride) { // if decision is true and response has TAP_ID
+          // call backend to get charge response >> based of charge object type [Authorize - Charge] call retrieveCharge / retrieveAuthorize
+          PaymentDataManager.getInstance().retrieveChargeOrAuthorizeOrSaveCardAPI(getChargeOrAuthorize());
+        }
+        return shouldOverride;
+
       }
-      return shouldOverride;
+      return true;
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
-//       Log.d("onPageFinished","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageFinished");
+       Log.d("onPageFinished","rrrrrrrrrrrrrrrrrrrrrrrrr  >>> onPageFinished"+url);
       super.onPageFinished(view, url);
       LoadingScreenManager.getInstance().closeLoadingScreen();
     }
@@ -239,11 +286,15 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
   private void finishActivityWithResultCodeOK(Charge charge) {
     setResult(RESULT_OK,new Intent().putExtra("charge", charge));
+    webView.clearHistory();
+    webView.clearCache(true);
     finish();
   }
 
   private void finishActivityWithResultCancelled(GoSellError error) {
     setResult(RESULT_CANCELED,new Intent().putExtra("error", error));
+    webView.clearHistory();
+    webView.clearCache(true);
     finish();
   }
   private void setPaymentResult(Charge chargeOrAuthorize) {
