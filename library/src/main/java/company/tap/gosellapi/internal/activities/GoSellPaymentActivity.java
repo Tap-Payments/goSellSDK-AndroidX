@@ -423,7 +423,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private void startWebPaymentProcess1() {
         if (selectedCurrencyAsynchronous) {
             PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this);
-            payButton.setEnabled(true);
             payButton.getLoadingView().start();
 
         } else {
