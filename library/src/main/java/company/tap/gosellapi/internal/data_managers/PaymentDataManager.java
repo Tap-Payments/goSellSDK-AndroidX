@@ -378,6 +378,7 @@ public final class PaymentDataManager {
      */
     public void checkCardPaymentExtraFees(CardCredentialsViewModel model,
                                         PaymentOptionsDataManager.PaymentOptionsDataListener paymentOptionsDataListener) {
+        if(model!=null && model.getSelectedCardPaymentOption()!=null)
     getPaymentProcessManager()
         .checkPaymentExtraFees(model.getSelectedCardPaymentOption(), paymentOptionsDataListener,
             PaymentType.CARD);
