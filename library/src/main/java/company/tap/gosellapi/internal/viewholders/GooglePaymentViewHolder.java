@@ -61,7 +61,6 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
     private void requestPayment(View view) {
         // Disables the button to prevent multiple clicks.
         googlePayButton.setClickable(false);
-        Toast.makeText(view.getContext(),"You clicked googlepay",Toast.LENGTH_SHORT).show();
 
         Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(PaymentDataSource.getInstance().getAmount().toBigInteger().longValue());
         if (!paymentDataRequestJson.isPresent()) {

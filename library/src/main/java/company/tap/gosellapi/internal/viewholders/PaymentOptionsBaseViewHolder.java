@@ -1,7 +1,9 @@
 package company.tap.gosellapi.internal.viewholders;
 
+import android.os.Build;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +101,7 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
      * @param viewHolderType the view holder type
      * @return the payment options base view holder
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static PaymentOptionsBaseViewHolder newInstance(ViewGroup parent, @NonNull ViewHolderType viewHolderType) {
         View view;
 

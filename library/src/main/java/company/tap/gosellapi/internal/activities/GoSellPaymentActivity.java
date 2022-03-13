@@ -1,5 +1,6 @@
 package company.tap.gosellapi.internal.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -39,6 +41,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.PaymentData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -81,6 +88,7 @@ import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
+import com.google.android.gms.common.api.Status;
 
 /**
  * The type Go sell payment activity.
@@ -117,6 +125,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private ScrollView main_windowed_scrollview;
     private static final String TAG = "GoSellPaymentActivity";
+
+    // Arbitrarily-picked constant integer you define to track a request for payment data activity.
+    private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -820,6 +831,28 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                 break;
 
+            case LOAD_PAYMENT_DATA_REQUEST_CODE:
+                switch (resultCode) {
+
+                    case Activity.RESULT_OK:
+                        PaymentData paymentData = PaymentData.getFromIntent(data);
+                        handlePaymentSuccess(paymentData);
+                        break;
+
+                    case Activity.RESULT_CANCELED:
+                        // The user cancelled the payment attempt
+                        break;
+
+                    case AutoResolveHelper.RESULT_ERROR:
+                        Status status = AutoResolveHelper.getStatusFromIntent(data);
+                        handleError(status.getStatusCode());
+                        break;
+                }
+
+                // Re-enables the Google Pay payment button.
+            //    googlePayButton.setClickable(true);
+                break;
+
         }
     }
 
@@ -1342,7 +1375,45 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             }
         }.start();
     }
+    private void handlePaymentSuccess(PaymentData paymentData) {
+
+        // Token will be null if PaymentDataRequest was not constructed using fromJson(String).
+        final String paymentInfo = paymentData.toJson();
+        if (paymentInfo == null) {
+            return;
+        }
+
+        try {
+            JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
+            // If the gateway is set to "example", no payment information is returned - instead, the
+            // token will only consist of "examplePaymentMethodToken".
+
+            final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
+            final String tokenizationType = tokenizationData.getString("type");
+            final String token = tokenizationData.getString("token");
+
+            System.out.println("tokenizationData is"+token);
+            Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * At this stage, the user has already seen a popup informing them an error occurred. Normally,
+     * only logging is required.
+     *
+     * @param statusCode will hold the value of any constant from CommonStatusCode or one of the
+     *                   WalletConstants.ERROR_CODE_* constants.
+     * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
+     * WalletConstants#constant-summary">Wallet Constants Library</a>
+     */
+    private void handleError(int statusCode) {
+        Log.e("loadPaymentData failed", String.format("Error code: %d", statusCode));
+    }
+
 
 }
+
 
 
