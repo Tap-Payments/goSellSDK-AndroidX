@@ -895,6 +895,9 @@ public class PaymentOptionsDataManager {
             }
 
             /**
+             * Need Logic here to check if GPay is available as Payment Option  + if device is supporting GPAY , show it */
+
+            /**
              * Added GooglePay as ViewModel***/
             GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this,"data" );
             viewModelResult.add(googlePayViewModel);
