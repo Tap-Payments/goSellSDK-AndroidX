@@ -2,15 +2,20 @@ package company.tap.gosellapi.internal.viewholders;
 
 import android.app.Activity;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.IsReadyToPayRequest;
 import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
+import com.google.android.gms.wallet.callback.OnCompleteListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,12 +55,49 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         // It's recommended to create the PaymentsClient object inside of the onCreate method.
         paymentsClient = PaymentsUtil.createPaymentsClient((Activity) view.getContext());
         googlePayButton = view.findViewById(R.id.googlePayButton);
+        possiblyShowGooglePayButton();
+
         googlePayButton.setOnClickListener(
                 view1 -> requestPayment(view1)
 
         );
 
     }
+
+    /**
+     * Determine the viewer's ability to pay with a payment method supported by your app and display a
+     * Google Pay payment button.
+     *
+     * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
+     * PaymentsClient.html#isReadyToPay(com.google.android.gms.wallet.
+     * IsReadyToPayRequest)">PaymentsClient#IsReadyToPay</a>
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void possiblyShowGooglePayButton() {
+        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+        if (!isReadyToPayJson.isPresent()) {
+            return;
+        }
+
+        // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+        // OnCompleteListener to be triggered when the result of the call is known.
+        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+        Task<Boolean> task = paymentsClient.isReadyToPay(request);
+        task.addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+                if (task.isSuccessful()) {
+                    setGooglePayAvailable(task.getResult());
+                } else {
+                    Log.w("isReadyToPay failed", task.getException());
+                }
+            }
+        });
+
+
+
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void requestPayment(View view) {
@@ -92,6 +134,23 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
 
 
 
+    /**
+     * If isReadyToPay returned {@code true}, show the button and hide the "checking" text. Otherwise,
+     * notify the user that Google Pay is not available. Please adjust to fit in with your current
+     * user flow. You are not required to explicitly let the user know if isReadyToPay returns {@code
+     * false}.
+     *
+     * @param available isReadyToPay API response.
+     */
+    private void setGooglePayAvailable(boolean available) {
+        if (available) {
+            googlePayButton.setVisibility(View.VISIBLE);
+
+
+        } else {
+            Toast.makeText(itemView.getContext(),"Google Pay is not supported", Toast.LENGTH_LONG).show();
+        }
+    }
 
 
 
