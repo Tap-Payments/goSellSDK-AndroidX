@@ -777,7 +777,7 @@ public class PaymentOptionsDataManager {
             boolean hasCardPaymentOptions = cardPaymentOptions.size() > 0;
             boolean hasOtherPaymentOptions = hasWebPaymentOptions || hasCardPaymentOptions;
             boolean displaysGroupTitles = hasSavedCards && hasOtherPaymentOptions;
-
+            PaymentDataSource.getInstance().setCardPay(cardPaymentOptions);
             if (displaysGroupTitles) {
 
                 GroupViewModel recentGroupModel = generateGroupModel(Constants.recentGroupTitle);
@@ -815,6 +815,7 @@ public class PaymentOptionsDataManager {
                 viewModelsResult.add(emptyModel);
                 CardCredentialsViewModel cardPaymentModel = generateCardPaymentModel(cardPaymentOptions);
 
+                PaymentDataSource.getInstance().setCardPay(cardPaymentOptions);
                 if (cardPaymentModel != null) viewModelsResult.add(cardPaymentModel);
             }
 

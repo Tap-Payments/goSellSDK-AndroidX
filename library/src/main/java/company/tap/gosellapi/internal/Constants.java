@@ -2,9 +2,14 @@ package company.tap.gosellapi.internal;
 
 import com.google.android.gms.wallet.WalletConstants;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * The type Constants.
@@ -53,13 +58,16 @@ public class Constants {
      *
      * @value #SUPPORTED_NETWORKS
      */
-    public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
+public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
             "AMEX",
             "DISCOVER",
             "JCB",
             "MASTERCARD",
             "VISA"
             );
+
+
+
 
     /**
      * The Google Pay API may return cards on file on Google.com (PAN_ONLY) and/or a device token on
@@ -83,7 +91,7 @@ public class Constants {
      *
      * @value #CURRENCY_CODE Your local currency
      */
-    public static final String CURRENCY_CODE = "KWD";
+    public static final String CURRENCY_CODE = PaymentDataSource.getInstance().getCurrency().toString();
 
     /**
      * Supported countries for shipping (use ISO 3166-1 alpha-2 country codes). Relevant only when
