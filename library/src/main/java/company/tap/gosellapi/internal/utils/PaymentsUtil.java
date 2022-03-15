@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
+import com.google.android.gms.wallet.WalletConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,9 +22,19 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import company.tap.gosellapi.internal.Constants;
+import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
+import company.tap.gosellapi.open.enums.OperationMode;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * Contains helper static methods for dealing with the Payments API.
@@ -53,8 +64,18 @@ public class PaymentsUtil {
      * @param activity is the caller's activity.
      */
     public static PaymentsClient createPaymentsClient(Activity activity) {
-        Wallet.WalletOptions walletOptions =
-                new Wallet.WalletOptions.Builder().setEnvironment(Constants.PAYMENTS_ENVIRONMENT).build();
+        Wallet.WalletOptions walletOptions = null;
+
+        if(PaymentDataSource.getInstance().getOperationMode()!=null){
+            if(PaymentDataSource.getInstance().getOperationMode().equals(OperationMode.SAND_BOX)){
+               walletOptions =
+                        new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
+            }else  if(PaymentDataSource.getInstance().getOperationMode().equals(OperationMode.PRODUCTION)){
+                walletOptions =
+                        new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION).build();
+            }else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
+        }
+
         return Wallet.getPaymentsClient(activity, walletOptions);
     }
 
@@ -120,8 +141,34 @@ public class PaymentsUtil {
      * @see <a
      * href="https://developers.google.com/pay/api/android/reference/object#CardParameters">CardParameters</a>
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static JSONArray getAllowedCardNetworks() {
-        return new JSONArray(Constants.SUPPORTED_NETWORKS);
+       // System.out.println("SUPPORTED_NETWORKS"+Constants.SUPPORTED_NETWORKS);
+        List<String> newlist = new ArrayList<>();
+        ArrayList<String> listWithoutDuplicates = new ArrayList<>();
+        if(PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands()!=null) {
+          //  ArrayList<CardBrand> allowedCardBrands = PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands();
+            ArrayList<PaymentOption> allowedCardBrands = PaymentDataSource.getInstance().getCardPaymentOptions();
+
+            String newValue = null;
+
+            for (int i = 0; i < allowedCardBrands.size(); i++) {
+                if (allowedCardBrands.get(i) != null) {
+                    newValue = allowedCardBrands.get(i).getName().toUpperCase();
+                }
+                if(newValue.contains("AMERICANEXPRESS")){
+                    newValue ="AMEX";
+                }
+                newlist.add(i, newValue);
+            }
+            LinkedHashSet<String> hashSet = new LinkedHashSet<>(newlist);
+
+            listWithoutDuplicates = new ArrayList<>(hashSet);
+
+        }
+
+      //  return new JSONArray(Constants.SUPPORTED_NETWORKS);
+        return new JSONArray(listWithoutDuplicates);
     }
 
     /**
@@ -157,12 +204,12 @@ public class PaymentsUtil {
         parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
         parameters.put("allowedCardNetworks", getAllowedCardNetworks());
         // Optionally, you can add billing address/phone number associated with a CARD payment method.
-        parameters.put("billingAddressRequired", true);
+      //  parameters.put("billingAddressRequired", true);
 
-        JSONObject billingAddressParameters = new JSONObject();
-        billingAddressParameters.put("format", "FULL");
+      //  JSONObject billingAddressParameters = new JSONObject();
+      //  billingAddressParameters.put("format", "FULL");
 
-        parameters.put("billingAddressParameters", billingAddressParameters);
+      //  parameters.put("billingAddressParameters", billingAddressParameters);
 
         cardPaymentMethod.put("parameters", parameters);
 
@@ -263,7 +310,7 @@ public class PaymentsUtil {
            // JSONObject shippingAddressParameters = new JSONObject();
            // shippingAddressParameters.put("phoneNumberRequired", false);
 
-            JSONArray allowedCountryCodes = new JSONArray(Constants.SHIPPING_SUPPORTED_COUNTRIES);
+          //  JSONArray allowedCountryCodes = new JSONArray(Constants.SHIPPING_SUPPORTED_COUNTRIES);
 
            // shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
           //  paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);
@@ -281,8 +328,6 @@ public class PaymentsUtil {
      */
     public static String centsToString(long cents) {
         return new BigDecimal(cents)
-                .divide(CENTS_IN_A_UNIT, RoundingMode.HALF_EVEN)
-                .setScale(2, RoundingMode.HALF_EVEN)
                 .toString();
     }
 }

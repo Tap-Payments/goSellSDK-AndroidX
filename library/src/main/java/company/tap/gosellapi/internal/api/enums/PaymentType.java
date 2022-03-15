@@ -18,5 +18,11 @@ public enum PaymentType {
     /**
      * Saved card payment type.
      */
-    @SerializedName("savedCard")  SavedCard
+    @SerializedName("savedCard")  SavedCard,
+
+    /**
+     * Google Payment  payment type.
+     */
+    @SerializedName("Google Pay")  GOOGLEPAY,
+
 }

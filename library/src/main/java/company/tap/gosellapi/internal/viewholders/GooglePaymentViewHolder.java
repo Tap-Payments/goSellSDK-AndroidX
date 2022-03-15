@@ -55,7 +55,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         // It's recommended to create the PaymentsClient object inside of the onCreate method.
         paymentsClient = PaymentsUtil.createPaymentsClient((Activity) view.getContext());
         googlePayButton = view.findViewById(R.id.googlePayButton);
-        possiblyShowGooglePayButton();
+       // possiblyShowGooglePayButton();
 
         googlePayButton.setOnClickListener(
                 view1 -> requestPayment(view1)
@@ -86,6 +86,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         task.addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
             @Override
             public void onComplete(@NonNull Task<Boolean> task) {
+                System.out.println("|TASK"+task.isSuccessful());
                 if (task.isSuccessful()) {
                     setGooglePayAvailable(task.getResult());
                 } else {
@@ -104,7 +105,8 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         // Disables the button to prevent multiple clicks.
         googlePayButton.setClickable(false);
 
-        Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(PaymentDataSource.getInstance().getAmount().toBigInteger().longValue());
+        assert PaymentDataSource.getInstance().getAmount() != null;
+        Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(33);
         if (!paymentDataRequestJson.isPresent()) {
             return;
         }
@@ -143,6 +145,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
      * @param available isReadyToPay API response.
      */
     private void setGooglePayAvailable(boolean available) {
+        System.out.println("available"+available);
         if (available) {
             googlePayButton.setVisibility(View.VISIBLE);
 
