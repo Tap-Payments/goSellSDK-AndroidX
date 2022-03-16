@@ -73,6 +73,7 @@ import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
@@ -845,12 +846,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                     case AutoResolveHelper.RESULT_ERROR:
                         Status status = AutoResolveHelper.getStatusFromIntent(data);
+                        System.out.println("status values are>>"+status.getStatusMessage());
                         handleError(status.getStatusCode());
                         break;
                 }
 
                 // Re-enables the Google Pay payment button.
-            //    googlePayButton.setClickable(true);
+                //googlePayButton.setClickable(true);
                 break;
 
         }

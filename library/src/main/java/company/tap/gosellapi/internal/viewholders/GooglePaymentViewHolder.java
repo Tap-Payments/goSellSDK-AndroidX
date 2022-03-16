@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
      *
      * @param view the view
      */
+    Activity activity;
     @RequiresApi(api = Build.VERSION_CODES.N)
     GooglePaymentViewHolder(View view) {
         super(view);
@@ -55,8 +57,9 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         // It's recommended to create the PaymentsClient object inside of the onCreate method.
         paymentsClient = PaymentsUtil.createPaymentsClient((Activity) view.getContext());
         googlePayButton = view.findViewById(R.id.googlePayButton);
-       // possiblyShowGooglePayButton();
 
+        activity = (Activity) view.getContext();
+         possiblyShowGooglePayButton();
         googlePayButton.setOnClickListener(
                 view1 -> requestPayment(view1)
 
@@ -74,6 +77,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void possiblyShowGooglePayButton() {
+
         final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
         if (!isReadyToPayJson.isPresent()) {
             return;
@@ -83,10 +87,9 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         // OnCompleteListener to be triggered when the result of the call is known.
         IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
         Task<Boolean> task = paymentsClient.isReadyToPay(request);
-        task.addOnCompleteListener(new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
+        task.addOnCompleteListener(activity ,new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
             @Override
             public void onComplete(@NonNull Task<Boolean> task) {
-                System.out.println("|TASK"+task.isSuccessful());
                 if (task.isSuccessful()) {
                     setGooglePayAvailable(task.getResult());
                 } else {
@@ -94,9 +97,6 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
                 }
             }
         });
-
-
-
     }
 
 
@@ -123,6 +123,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
             AutoResolveHelper.resolveTask(
                     paymentsClient.loadPaymentData(request),
                     (Activity) view.getContext(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+
         }
 
     }
@@ -148,8 +149,6 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         System.out.println("available"+available);
         if (available) {
             googlePayButton.setVisibility(View.VISIBLE);
-
-
         } else {
             Toast.makeText(itemView.getContext(),"Google Pay is not supported", Toast.LENGTH_LONG).show();
         }
