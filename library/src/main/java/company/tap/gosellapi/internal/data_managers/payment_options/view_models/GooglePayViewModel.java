@@ -20,7 +20,7 @@ public class GooglePayViewModel extends PaymentOptionViewModel<String, GooglePay
      */
     public GooglePayViewModel(PaymentOptionsDataManager parentDataManager, String data) {
 
-        super(parentDataManager, "data", PaymentOptionsBaseViewHolder.ViewHolderType.GOOGLEPAY);
+        super(parentDataManager, data, PaymentOptionsBaseViewHolder.ViewHolderType.GOOGLEPAY);
     }
 
     /**

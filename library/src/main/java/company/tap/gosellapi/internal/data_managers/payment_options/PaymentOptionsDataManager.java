@@ -896,7 +896,8 @@ public class PaymentOptionsDataManager {
             }
 
             /**
-             * Need Logic here to check if GPay is available as Payment Option  + if device is supporting GPAY , show it */
+             * Need Logic here to check if GPay is available as Payment Option  + if device is supporting GPAY , show it
+             * Also pass the data from api related to GPAY*/
 
             /**
              * Added GooglePay as ViewModel***/
