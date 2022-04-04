@@ -846,8 +846,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                     case AutoResolveHelper.RESULT_ERROR:
                         Status status = AutoResolveHelper.getStatusFromIntent(data);
-                        System.out.println("status values are>>"+status.getStatusMessage());
-                        handleError(status.getStatusCode());
+                        System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
+
+                        handleError((status != null) ? status.getStatusCode() : 400);
                         break;
                 }
 

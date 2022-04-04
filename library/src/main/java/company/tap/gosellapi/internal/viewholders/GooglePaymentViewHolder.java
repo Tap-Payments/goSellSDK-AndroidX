@@ -114,7 +114,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         PaymentDataRequest request =
                 PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
 
-        System.out.println("request value is>>>"+request);
+        System.out.println("request value is>>>"+request.toJson());
 
         // Since loadPaymentData may show the UI asking the user to select a payment method, we use
         // AutoResolveHelper to wait for the user interacting with it. Once completed,
