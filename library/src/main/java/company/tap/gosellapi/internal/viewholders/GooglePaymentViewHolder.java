@@ -150,7 +150,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         if (available) {
             googlePayButton.setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(itemView.getContext(),"Google Pay is not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(itemView.getContext(),R.string.googlepay_button_not_supported, Toast.LENGTH_LONG).show();
         }
     }
 
