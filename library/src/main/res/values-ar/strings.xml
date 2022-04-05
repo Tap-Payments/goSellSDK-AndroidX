@@ -120,4 +120,6 @@
   </string>
   <string name="email_sent" translatable="false">تم إرسال رسالة بريد إلكتروني لـ</string>
   <string name="code_expires_on" translatable="false">تنتهي صلاحية الكود في</string>
+  <string name="googlepay_button_content_description" translatable="false">Google Pay</string>
+  <string name="googlepay_button_not_supported">Google Pay غير مدعوم</string>
 </resources>
