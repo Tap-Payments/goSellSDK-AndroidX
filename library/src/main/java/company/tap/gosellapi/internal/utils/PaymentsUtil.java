@@ -167,8 +167,8 @@ public class PaymentsUtil {
 
         }
 
-      //  return new JSONArray(Constants.SUPPORTED_NETWORKS);
-        return new JSONArray(listWithoutDuplicates);
+        return new JSONArray(Constants.SUPPORTED_NETWORKS);
+      //  return new JSONArray(listWithoutDuplicates);
     }
 
     /**
