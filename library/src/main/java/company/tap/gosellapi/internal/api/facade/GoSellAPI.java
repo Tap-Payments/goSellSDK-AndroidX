@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.RestrictTo;
 
+import com.google.gson.JsonObject;
+
 import company.tap.gosellapi.internal.api.api_service.APIService;
 import company.tap.gosellapi.internal.api.api_service.RetrofitHelper;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
@@ -12,10 +14,12 @@ import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.Token;
+import company.tap.gosellapi.internal.api.models.TokenizedCard;
 import company.tap.gosellapi.internal.api.requests.CreateAuthorizeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateChargeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateOTPVerificationRequest;
 import company.tap.gosellapi.internal.api.requests.CreateSaveCardRequest;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithCardDataRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithExistingCardDataRequest;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
@@ -256,4 +260,11 @@ public final class GoSellAPI {
     public void listAllCards(String customer_id,final APIRequestCallback<ListCardsResponse> requestCallback){
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.listAllCards(customer_id),requestCallback),false);
     }
+
+
+   // public void createTokenForGPay(CreateTokenGPayRequest createTokenGPayRequest, final APIRequestCallback<Token> requestCallback){
+    public void createTokenForGPay(JsonObject createTokenGPayRequest, final APIRequestCallback<Token> requestCallback){
+        requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.createTokenGooglePayApi(createTokenGPayRequest), requestCallback),true);
+    }
+
 }
