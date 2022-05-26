@@ -54,6 +54,7 @@ import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.enums.AuthenticationStatus;
+import company.tap.gosellapi.internal.api.enums.AuthenticationType;
 import company.tap.gosellapi.internal.api.enums.ChargeStatus;
 import company.tap.gosellapi.internal.api.enums.ExtraFeesStatus;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
@@ -61,13 +62,19 @@ import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.Authenticate;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
+import company.tap.gosellapi.internal.api.models.IntermediateSigningKey;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
+import company.tap.gosellapi.internal.api.models.TokenData;
+import company.tap.gosellapi.internal.api.requests.CreateOTPVerificationRequest;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
+import company.tap.gosellapi.internal.api.requests.CreateTokenWithExistingCardDataRequest;
 import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.api.responses.DeleteCardResponse;
 
+import company.tap.gosellapi.internal.api.responses.ListCardsResponse;
 import company.tap.gosellapi.internal.custom_views.OTPFullScreenDialog;
 import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
@@ -90,6 +97,9 @@ import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 import com.google.android.gms.common.api.Status;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * The type Go sell payment activity.
@@ -1393,11 +1403,41 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             // token will only consist of "examplePaymentMethodToken".
 
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
+            System.out.println("tokenizationData>>>"+tokenizationData);
             final String tokenizationType = tokenizationData.getString("type");
+            System.out.println("tokenizationType is"+tokenizationType);
             final String token = tokenizationData.getString("token");
+            System.out.println("token is"+token);
+            JSONObject jsonObject =new JSONObject(token);
+            JsonElement jsonToken = new JsonParser().parse(token);
+            JsonElement jsonType = new JsonParser().parse("googlepay");
+            System.out.println("jsonObject is"+jsonObject);
+            JsonObject createTokenRequest = new JsonObject();
+            createTokenRequest.add("type",jsonType);
+            createTokenRequest.add("token_data",jsonToken);
 
-            System.out.println("tokenizationData is"+token);
-            Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+          //  CreateTokenGPayRequest request = new CreateTokenGPayRequest("googlepay", new TokenData(signature, new IntermediateSigningKey(signedKey,signatures),protocolVersion,signedMessage));
+          //  CreateTokenGPayRequest request = new CreateTokenGPayRequest("googlepay",jsonObject).build();
+         //   CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest.Builder("googlepay", jsonObject).build();
+          //  CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay", token);
+          //  System.out.println("request"+request.toString());
+           GoSellAPI.getInstance().createTokenForGPay(createTokenRequest, new APIRequestCallback<Token>(){
+
+                        @Override
+                        public void onSuccess(int responseCode, Token serializedResponse) {
+                            System.out.println("serializedResponse token>>>"+serializedResponse.getObject());
+                            System.out.println("serializedResponse token>>>"+serializedResponse.getCard().getFingerprint());
+                            System.out.println("serializedResponse token>>>"+serializedResponse.getName());
+                            System.out.println("serializedResponse token>>>"+serializedResponse.getClient_ip());
+                            System.out.println("serializedResponse token>>>"+serializedResponse.getType());
+                        }
+
+                        @Override
+                        public void onFailure(GoSellError errorDetails) {
+                            System.out.println("errorDetails token>>>"+errorDetails);                        }
+                    });
+
+          //  Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }

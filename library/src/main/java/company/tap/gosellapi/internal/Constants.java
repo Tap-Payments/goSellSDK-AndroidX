@@ -100,29 +100,35 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      * @value #SHIPPING_SUPPORTED_COUNTRIES
      */
     public static final List<String> SHIPPING_SUPPORTED_COUNTRIES = Arrays.asList("US", "GB","KW");
+/*
 
-    /**
+    */
+/**
      * The name of your payment processor/gateway. Please refer to their documentation for more
      * information.
      *
      * @value #PAYMENT_GATEWAY_TOKENIZATION_NAME
-     */
+     *//*
+
     public static final String PAYMENT_GATEWAY_TOKENIZATION_NAME = "example";
 
-    /**
+    */
+/**
      * Custom parameters required by the processor/gateway.
      * In many cases, your processor / gateway will only require a gatewayMerchantId.
      * Please refer to your processor's documentation for more information. The number of parameters
      * required and their names vary depending on the processor.
      *
      * @value #PAYMENT_GATEWAY_TOKENIZATION_PARAMETERS
-     */
+     *//*
+
     public static final HashMap<String, String> PAYMENT_GATEWAY_TOKENIZATION_PARAMETERS =
             new HashMap<String, String>() {{
                 put("gateway", PAYMENT_GATEWAY_TOKENIZATION_NAME);
                 put("gatewayMerchantId", "exampleGatewayMerchantId");
                 // Your processor may require additional parameters.
             }};
+*/
 
     /**
      * Only used for {@code DIRECT} tokenization. Can be removed when using {@code PAYMENT_GATEWAY}
