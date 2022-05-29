@@ -1404,13 +1404,19 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             GoSellAPI.getInstance().createTokenForGPay(createTokenGPayRequest, new APIRequestCallback<Token>() {
                         @Override
                         public void onSuccess(int responseCode, Token serializedResponse) {
-                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getObject());
+                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getId());
                             System.out.println("serializedResponse getFingerprint token>>>"+serializedResponse.getCard().getFingerprint());
                             System.out.println("serializedResponse getId token>>>"+serializedResponse.getCard().getId());
                             System.out.println("serializedResponse getName token>>>"+serializedResponse.getCard().getName());
                             System.out.println("serializedResponse getClient_ip  token>>>"+serializedResponse.getClient_ip());
-                            System.out.println("serializedResponse getCurrency token>>>"+serializedResponse.getCurrency());
-                            System.out.println("serializedResponse getType token>>>"+serializedResponse.getType());
+                            System.out.println("serializedResponse funding token>>>"+serializedResponse.getCard().getFunding());
+                            System.out.println("serializedResponse first_six token>>>"+serializedResponse.getCard().getFirstSix());
+                            System.out.println("serializedResponse last_four token>>>"+serializedResponse.getCard().getLastFour());
+                            System.out.println("serializedResponse getExpirationMonth token>>>"+serializedResponse.getCard().getExpirationMonth());
+                            System.out.println("serializedResponse getExpirationYear token>>>"+serializedResponse.getCard().getExpirationYear());
+                            System.out.println("serializedResponse getCreated token>>>"+serializedResponse.getCreated());
+                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getObject());
+                            System.out.println("serializedResponse type token>>>"+serializedResponse.getType());
                         }
 
                         @Override

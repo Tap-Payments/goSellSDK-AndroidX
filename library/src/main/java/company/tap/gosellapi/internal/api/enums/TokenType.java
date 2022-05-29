@@ -14,5 +14,9 @@ public enum TokenType {
     /**
      * Saved card token type.
      */
-    @SerializedName("SAVED_CARD")   SAVED_CARD
+    @SerializedName("SAVED_CARD")   SAVED_CARD ,
+    /**
+     * Google Pay  token type.
+     */
+    @SerializedName("GOOGLEPAY")   GOOGLEPAY
 }
