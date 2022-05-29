@@ -97,6 +97,7 @@ import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 import com.google.android.gms.common.api.Status;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -1390,7 +1391,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         }.start();
     }
     private void handlePaymentSuccess(PaymentData paymentData) {
-
         // Token will be null if PaymentDataRequest was not constructed using fromJson(String).
         final String paymentInfo = paymentData.toJson();
         if (paymentInfo == null) {
@@ -1401,35 +1401,27 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
-
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
             System.out.println("tokenizationData>>>"+tokenizationData);
             final String tokenizationType = tokenizationData.getString("type");
             System.out.println("tokenizationType is"+tokenizationType);
             final String token = tokenizationData.getString("token");
             System.out.println("token is"+token);
-            JSONObject jsonObject =new JSONObject(token);
-            JsonElement jsonToken = new JsonParser().parse(token);
-            JsonElement jsonType = new JsonParser().parse("googlepay");
-            System.out.println("jsonObject is"+jsonObject);
-            JsonObject createTokenRequest = new JsonObject();
-            createTokenRequest.add("type",jsonType);
-            createTokenRequest.add("token_data",jsonToken);
+            Gson gson = new Gson();
+            JsonObject jsonToken = gson.fromJson(token, JsonObject.class);
 
-          //  CreateTokenGPayRequest request = new CreateTokenGPayRequest("googlepay", new TokenData(signature, new IntermediateSigningKey(signedKey,signatures),protocolVersion,signedMessage));
-          //  CreateTokenGPayRequest request = new CreateTokenGPayRequest("googlepay",jsonObject).build();
-         //   CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest.Builder("googlepay", jsonObject).build();
-          //  CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay", token);
-          //  System.out.println("request"+request.toString());
-           GoSellAPI.getInstance().createTokenForGPay(createTokenRequest, new APIRequestCallback<Token>(){
+            CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay",jsonToken);
 
+            GoSellAPI.getInstance().createTokenForGPay(createTokenGPayRequest, new APIRequestCallback<Token>() {
                         @Override
                         public void onSuccess(int responseCode, Token serializedResponse) {
-                            System.out.println("serializedResponse token>>>"+serializedResponse.getObject());
-                            System.out.println("serializedResponse token>>>"+serializedResponse.getCard().getFingerprint());
-                            System.out.println("serializedResponse token>>>"+serializedResponse.getName());
-                            System.out.println("serializedResponse token>>>"+serializedResponse.getClient_ip());
-                            System.out.println("serializedResponse token>>>"+serializedResponse.getType());
+                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getObject());
+                            System.out.println("serializedResponse getFingerprint token>>>"+serializedResponse.getCard().getFingerprint());
+                            System.out.println("serializedResponse getId token>>>"+serializedResponse.getCard().getId());
+                            System.out.println("serializedResponse getName token>>>"+serializedResponse.getCard().getName());
+                            System.out.println("serializedResponse getClient_ip  token>>>"+serializedResponse.getClient_ip());
+                            System.out.println("serializedResponse getCurrency token>>>"+serializedResponse.getCurrency());
+                            System.out.println("serializedResponse getType token>>>"+serializedResponse.getType());
                         }
 
                         @Override
@@ -1437,7 +1429,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             System.out.println("errorDetails token>>>"+errorDetails);                        }
                     });
 
-          //  Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
