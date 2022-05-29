@@ -31,7 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -41,8 +40,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.PaymentData;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +56,6 @@ import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.enums.AuthenticationStatus;
-import company.tap.gosellapi.internal.api.enums.AuthenticationType;
 import company.tap.gosellapi.internal.api.enums.ChargeStatus;
 import company.tap.gosellapi.internal.api.enums.ExtraFeesStatus;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
@@ -62,25 +63,18 @@ import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.Authenticate;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
-import company.tap.gosellapi.internal.api.models.IntermediateSigningKey;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
-import company.tap.gosellapi.internal.api.models.TokenData;
-import company.tap.gosellapi.internal.api.requests.CreateOTPVerificationRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
-import company.tap.gosellapi.internal.api.requests.CreateTokenWithExistingCardDataRequest;
 import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.api.responses.DeleteCardResponse;
-
-import company.tap.gosellapi.internal.api.responses.ListCardsResponse;
 import company.tap.gosellapi.internal.custom_views.OTPFullScreenDialog;
 import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
-import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
@@ -96,11 +90,6 @@ import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-import com.google.android.gms.common.api.Status;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 /**
  * The type Go sell payment activity.
