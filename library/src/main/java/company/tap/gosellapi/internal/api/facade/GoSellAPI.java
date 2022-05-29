@@ -262,8 +262,7 @@ public final class GoSellAPI {
     }
 
 
-   // public void createTokenForGPay(CreateTokenGPayRequest createTokenGPayRequest, final APIRequestCallback<Token> requestCallback){
-    public void createTokenForGPay(JsonObject createTokenGPayRequest, final APIRequestCallback<Token> requestCallback){
+    public void createTokenForGPay(CreateTokenGPayRequest createTokenGPayRequest, final APIRequestCallback<Token> requestCallback){
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.createTokenGooglePayApi(createTokenGPayRequest), requestCallback),true);
     }
 

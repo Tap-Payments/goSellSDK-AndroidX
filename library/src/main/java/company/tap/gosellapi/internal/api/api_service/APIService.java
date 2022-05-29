@@ -2,6 +2,10 @@ package company.tap.gosellapi.internal.api.api_service;
 
 import androidx.annotation.RestrictTo;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.SaveCard;
@@ -10,6 +14,7 @@ import company.tap.gosellapi.internal.api.requests.CreateAuthorizeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateChargeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateOTPVerificationRequest;
 import company.tap.gosellapi.internal.api.requests.CreateSaveCardRequest;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithCardDataRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithExistingCardDataRequest;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
@@ -223,5 +228,14 @@ public interface APIService {
     @GET(API_Constants.LIST_CARD +"/{"+API_Constants.CUSTOMER_ID+"}")
     Call<ListCardsResponse> listAllCards(@Path(API_Constants.CUSTOMER_ID) String customer_id);
 
+
+    /**
+     * Create token for GooglePay.
+     *
+     * @param createTokenGPayRequest the create token with data request
+     * @return the call
+     */
+    @POST(API_Constants.TOKEN)
+    Call<Token> createTokenGooglePayApi(@Body CreateTokenGPayRequest createTokenGPayRequest);
 
 }
