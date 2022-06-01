@@ -506,6 +506,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("Token card : " + token.getCard().getId() + " ****** " + token.getCard().getName());
         System.out.println("Token card : " + token.getCard().getAddress() + " ****** " + token.getCard().getObject());
         System.out.println("Token card : " + token.getCard().getExpirationMonth() + " ****** " + token.getCard().getExpirationYear());
+        System.out.println("Token card : " + token.getType() + " ****** " + token.getType());
 
         showDialog(token.getId(), "Token", company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }
