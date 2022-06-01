@@ -27,6 +27,5 @@ public class GooglePayViewModel extends PaymentOptionViewModel<String, GooglePay
      * Holder clicked.
      */
     public void holderClicked() {
-        parentDataManager.currencyHolderClicked(position);
     }
 }

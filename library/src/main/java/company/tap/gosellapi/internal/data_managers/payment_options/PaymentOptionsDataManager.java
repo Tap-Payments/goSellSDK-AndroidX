@@ -342,6 +342,11 @@ public class PaymentOptionsDataManager {
         listener.startCurrencySelection(currencies, currencyViewModelData.getSelectedCurrency());
     }
 
+    public void googlePayHolderClicked(boolean clicked) {
+        System.out.println("clicked"+clicked);
+
+    }
+
     /**
      * Recent payment item clicked.
      *

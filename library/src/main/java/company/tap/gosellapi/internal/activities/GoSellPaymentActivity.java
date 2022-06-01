@@ -83,6 +83,8 @@ import company.tap.gosellapi.internal.interfaces.ICardDeleteListener;
 import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.Utils;
+import company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder;
+import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
@@ -842,6 +844,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                     case Activity.RESULT_CANCELED:
                         // The user cancelled the payment attempt
+                        try {
+                            closePaymentActivity();
+                            SDKSession.getListener().sessionCancelled();
+                        } catch (Exception e) {
+                            closePaymentActivity();
+                        }
                         break;
 
                     case AutoResolveHelper.RESULT_ERROR:
@@ -854,7 +862,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 }
 
                 // Re-enables the Google Pay payment button.
-                //googlePayButton.setClickable(true);
+              //  googlePayButton.setClickable(true);
                 break;
 
         }
@@ -1404,19 +1412,27 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             GoSellAPI.getInstance().createTokenForGPay(createTokenGPayRequest, new APIRequestCallback<Token>() {
                         @Override
                         public void onSuccess(int responseCode, Token serializedResponse) {
-                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getId());
-                            System.out.println("serializedResponse getFingerprint token>>>"+serializedResponse.getCard().getFingerprint());
-                            System.out.println("serializedResponse getId token>>>"+serializedResponse.getCard().getId());
-                            System.out.println("serializedResponse getName token>>>"+serializedResponse.getCard().getName());
-                            System.out.println("serializedResponse getClient_ip  token>>>"+serializedResponse.getClient_ip());
-                            System.out.println("serializedResponse funding token>>>"+serializedResponse.getCard().getFunding());
-                            System.out.println("serializedResponse first_six token>>>"+serializedResponse.getCard().getFirstSix());
-                            System.out.println("serializedResponse last_four token>>>"+serializedResponse.getCard().getLastFour());
-                            System.out.println("serializedResponse getExpirationMonth token>>>"+serializedResponse.getCard().getExpirationMonth());
-                            System.out.println("serializedResponse getExpirationYear token>>>"+serializedResponse.getCard().getExpirationYear());
-                            System.out.println("serializedResponse getCreated token>>>"+serializedResponse.getCreated());
-                            System.out.println("serializedResponse getObject token>>>"+serializedResponse.getObject());
-                            System.out.println("serializedResponse type token>>>"+serializedResponse.getType());
+                            System.out.println("goolepay api  getObject token>>>"+serializedResponse.getId());
+                            System.out.println("goolepay api serializedResponse getFingerprint token>>>"+serializedResponse.getCard().getFingerprint());
+                            System.out.println("goolepay api serializedResponse getId token>>>"+serializedResponse.getCard().getId());
+                            System.out.println("goolepay api serializedResponse getName token>>>"+serializedResponse.getCard().getName());
+                            System.out.println("goolepay api serializedResponse getClient_ip  token>>>"+serializedResponse.getClient_ip());
+                            System.out.println("goolepay api serializedResponse funding token>>>"+serializedResponse.getCard().getFunding());
+                            System.out.println("goolepay api serializedResponse first_six token>>>"+serializedResponse.getCard().getFirstSix());
+                            System.out.println("goolepay api serializedResponse last_four token>>>"+serializedResponse.getCard().getLastFour());
+                            System.out.println("goolepay api serializedResponse getExpirationMonth token>>>"+serializedResponse.getCard().getExpirationMonth());
+                            System.out.println(" goolepay api serializedResponse getExpirationYear token>>>"+serializedResponse.getCard().getExpirationYear());
+                            System.out.println("goolepay api vserializedResponse getCreated token>>>"+serializedResponse.getCreated());
+                            System.out.println(" goolepay apiserializedResponse getObject token>>>"+serializedResponse.getObject());
+                            System.out.println(" goolepay apiserializedResponse type token>>>"+serializedResponse.getType());
+
+                            try {
+                                closePaymentActivity();
+                                SDKSession.getListener().cardTokenizedSuccessfully(serializedResponse);
+                            } catch (Exception e) {
+                                Log.d("GoSellPaymentActivity", " Error while calling fireWebPaymentCallBack >>> method paymentSucceed(charge)");
+                                closePaymentActivity();
+                            }
                         }
 
                         @Override
