@@ -114,6 +114,7 @@ public class PaymentsUtil {
      * @see <a
      * href="https://developers.google.com/pay/api/android/reference/object#PaymentMethodTokenizationSpecification">PaymentMethodTokenizationSpecification</a>
      */
+/*
     private static JSONObject getDirectTokenizationSpecification()
             throws JSONException, RuntimeException {
         if (Constants.DIRECT_TOKENIZATION_PARAMETERS.isEmpty()
@@ -131,6 +132,7 @@ public class PaymentsUtil {
 
         return tokenizationSpecification;
     }
+*/
 
     /**
      * Card networks supported by your app and your gateway.
