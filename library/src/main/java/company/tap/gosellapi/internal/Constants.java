@@ -91,7 +91,7 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      *
      * @value #CURRENCY_CODE Your local currency
      */
-    public static final String CURRENCY_CODE = PaymentDataSource.getInstance().getCurrency().getIsoCode().toUpperCase();
+    public static final String CURRENCY_CODE = PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSelectedCurrency().getCurrency();
 
     /**
      * Supported countries for shipping (use ISO 3166-1 alpha-2 country codes). Relevant only when
@@ -136,18 +136,18 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      *
      * @value #DIRECT_TOKENIZATION_PUBLIC_KEY
      */
-    public static final String DIRECT_TOKENIZATION_PUBLIC_KEY = "REPLACE_ME";
+ /*   public static final String DIRECT_TOKENIZATION_PUBLIC_KEY = "REPLACE_ME";
 
-    /**
+    *//**
      * Parameters required for {@code DIRECT} tokenization.
      * Only used for {@code DIRECT} tokenization. Can be removed when using {@code PAYMENT_GATEWAY}
      * tokenization.
      *
      * @value #DIRECT_TOKENIZATION_PARAMETERS
-     */
+     *//*
     public static final HashMap<String, String> DIRECT_TOKENIZATION_PARAMETERS =
             new HashMap<String, String>() {{
                 put("protocolVersion", "ECv2");
                 put("publicKey", DIRECT_TOKENIZATION_PUBLIC_KEY);
-            }};
+            }};*/
 }

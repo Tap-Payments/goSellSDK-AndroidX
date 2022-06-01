@@ -48,6 +48,7 @@ import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
 import company.tap.gosellapi.open.buttons.PayButtonView;
+import company.tap.gosellapi.open.controllers.GooglePay;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
 
+    private GooglePay googlePay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
          * Configure SDK with your Secret API key and App Bundle name registered with tap company.
          */
         configureApp();
-
         /**
          * Optional step
          * Here you can configure your app theme (Look and Feel).
@@ -273,6 +274,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setOperationMode(OperationMode.SAND_BOX);//** Required ** For setting GooglePAY Enviroment
 
+//todo:working on this needs to test and work
+        googlePay = new GooglePay.GooglePayBuilder("who is the merchant using sdk",OperationMode.SAND_BOX,"to come from backend").build();
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
