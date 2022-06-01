@@ -225,6 +225,7 @@ public class PaymentsUtil {
      * @see <a
      * href="https://developers.google.com/pay/api/android/reference/object#PaymentMethod">PaymentMethod</a>
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static JSONObject getCardPaymentMethod() throws JSONException {
         JSONObject cardPaymentMethod = getBaseCardPaymentMethod();
         cardPaymentMethod.put("tokenizationSpecification", getGatewayTokenizationSpecification());

@@ -37,7 +37,7 @@ import company.tap.gosellapi.open.data_manager.PaymentDataSource;
  * All rights reserved.
  **/
 public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String, GooglePaymentViewHolder, GooglePayViewModel> {
-    private View googlePayButton;
+    public View googlePayButton;
     // A client for interacting with the Google Pay API.
     private PaymentsClient paymentsClient;
 
@@ -106,25 +106,30 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
         googlePayButton.setClickable(false);
 
         assert PaymentDataSource.getInstance().getAmount() != null;
-        Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(33);
-        if (!paymentDataRequestJson.isPresent()) {
-            return;
+
+        if(PaymentDataManager.getInstance().getPaymentDataProvider()!=null && PaymentDataManager.getInstance().getPaymentDataProvider().getSelectedCurrency()!=null && PaymentDataManager.getInstance().getPaymentDataProvider().getSelectedCurrency().getAmount()!=null){
+            Optional<JSONObject> paymentDataRequestJson = PaymentsUtil.getPaymentDataRequest(PaymentDataManager.getInstance().getPaymentDataProvider().getSelectedCurrency().getAmount().longValue());
+            if (!paymentDataRequestJson.isPresent()) {
+                return;
+            }
+            PaymentDataRequest request =
+                    PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
+            System.out.println("request value is>>>"+request.toJson());
+
+            // Since loadPaymentData may show the UI asking the user to select a payment method, we use
+            // AutoResolveHelper to wait for the user interacting with it. Once completed,
+            // onActivityResult will be called with the result.
+            if (request != null) {
+                AutoResolveHelper.resolveTask(
+                        paymentsClient.loadPaymentData(request),
+                        (Activity) view.getContext(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+
+            }
+
         }
 
-        PaymentDataRequest request =
-                PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
 
-        System.out.println("request value is>>>"+request.toJson());
 
-        // Since loadPaymentData may show the UI asking the user to select a payment method, we use
-        // AutoResolveHelper to wait for the user interacting with it. Once completed,
-        // onActivityResult will be called with the result.
-     if (request != null) {
-            AutoResolveHelper.resolveTask(
-                    paymentsClient.loadPaymentData(request),
-                    (Activity) view.getContext(), LOAD_PAYMENT_DATA_REQUEST_CODE);
-
-        }
 
     }
 
