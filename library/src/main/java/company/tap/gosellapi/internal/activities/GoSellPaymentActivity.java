@@ -838,9 +838,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 }, 1000);
 
                 break;
-/**
- * Handling of received GooglePayLoad
-**/
+            /**
+            *** Handling of received GooglePayLoad
+            **/
             case LOAD_PAYMENT_DATA_REQUEST_CODE:
                 switch (resultCode) {
 
