@@ -22,6 +22,7 @@ import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.open.enums.OperationMode;
+import company.tap.gosellapi.open.models.GooglePay;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.PaymentOptionsResponse;
