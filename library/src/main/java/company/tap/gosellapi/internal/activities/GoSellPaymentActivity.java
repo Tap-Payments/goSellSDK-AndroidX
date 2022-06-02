@@ -75,6 +75,7 @@ import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
@@ -114,6 +115,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private Charge chargeOrAuthorizeOrSaveCard;
     private SavedCard savedCard;
     private WebPaymentViewModel webPaymentViewModel;
+    private GooglePayViewModel googlePayViewModel;
 
     private AppearanceMode apperanceMode;
 
@@ -426,7 +428,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private void startWebPaymentProcess1() {
         if (selectedCurrencyAsynchronous) {
-            PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this);
+            PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this,null);
             payButton.setEnabled(true);
             payButton.getLoadingView().start();
 
@@ -485,6 +487,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof CardCredentialsViewModel) {
                 cardCredentialsViewModel = (CardCredentialsViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
+            }else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof GooglePayViewModel) {
+                googlePayViewModel = (GooglePayViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+
             }
         }
     }
@@ -506,7 +511,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.disableCardScanView();
         if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
-        PaymentDataManager.getInstance().initiatePayment(cardCredentialsViewModel, this);
+        PaymentDataManager.getInstance().initiatePayment(cardCredentialsViewModel, this,null);
     }
 
     private void initCardTokenization() {
@@ -1408,31 +1413,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             JsonObject jsonToken = gson.fromJson(token, JsonObject.class);
 
             CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay",jsonToken);
-
-            GoSellAPI.getInstance().createTokenForGPay(createTokenGPayRequest, new APIRequestCallback<Token>() {
-                        @Override
-                        public void onSuccess(int responseCode, Token serializedResponse) {
-                            System.out.println("goolepay api  getObject token>>>"+serializedResponse.getId());
-                            System.out.println("goolepay api serializedResponse getFingerprint token>>>"+serializedResponse.getCard().getFingerprint());
-                            System.out.println("goolepay api serializedResponse getId token>>>"+serializedResponse.getCard().getId());
-                            System.out.println("goolepay api serializedResponse getName token>>>"+serializedResponse.getCard().getName());
-                            System.out.println("goolepay api serializedResponse getClient_ip  token>>>"+serializedResponse.getClient_ip());
-                            System.out.println("goolepay api serializedResponse funding token>>>"+serializedResponse.getCard().getFunding());
-                            System.out.println("goolepay api serializedResponse first_six token>>>"+serializedResponse.getCard().getFirstSix());
-                            System.out.println("goolepay api serializedResponse last_four token>>>"+serializedResponse.getCard().getLastFour());
-                            System.out.println("goolepay api serializedResponse getExpirationMonth token>>>"+serializedResponse.getCard().getExpirationMonth());
-                            System.out.println(" goolepay api serializedResponse getExpirationYear token>>>"+serializedResponse.getCard().getExpirationYear());
-                            System.out.println("goolepay api vserializedResponse getCreated token>>>"+serializedResponse.getCreated());
-                            System.out.println(" goolepay apiserializedResponse getObject token>>>"+serializedResponse.getObject());
-                            System.out.println(" goolepay apiserializedResponse type token>>>"+serializedResponse.getType());
-//todo call charge api 
-
-                        }
-
-                        @Override
-                        public void onFailure(GoSellError errorDetails) {
-                            System.out.println("errorDetails token>>>"+errorDetails);                        }
-                    });
+            initiateGooglePayProcess(createTokenGPayRequest);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1459,6 +1440,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     }
 
+
+    public void initiateGooglePayProcess(CreateTokenGPayRequest createTokenGPayRequest){
+        getVisibleViewModels();
+        PaymentDataManager.getInstance().initiatePayment(googlePayViewModel, this,createTokenGPayRequest);
+    }
 
 }
 
