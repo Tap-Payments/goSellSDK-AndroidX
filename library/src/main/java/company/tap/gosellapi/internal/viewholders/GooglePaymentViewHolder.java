@@ -128,9 +128,6 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
 
         }
 
-
-
-
     }
 
 
