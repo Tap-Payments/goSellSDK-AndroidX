@@ -33,6 +33,7 @@ import company.tap.gosellapi.internal.Constants;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
 import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.tapcardvalidator_android.CardBrand;
 
@@ -67,10 +68,10 @@ public class PaymentsUtil {
         Wallet.WalletOptions walletOptions = null;
 
         if(PaymentDataSource.getInstance().getGooglePay()!=null && PaymentDataSource.getInstance().getGooglePay().getWalletTestMode()!=null){
-            if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(OperationMode.SAND_BOX)){
+            if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(GPayWalletMode.ENVIRONMENT_TEST)){
                walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
-            }else  if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(OperationMode.PRODUCTION)){
+            }else  if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(GPayWalletMode.ENVIRONMENT_PRODUCTION)){
                 walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION).build();
             }else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
