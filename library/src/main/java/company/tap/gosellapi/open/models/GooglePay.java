@@ -1,11 +1,10 @@
-package company.tap.gosellapi.open.controllers;
+package company.tap.gosellapi.open.models;
 
-import company.tap.gosellapi.internal.api.models.PhoneNumber;
+import java.io.Serializable;
+
 import company.tap.gosellapi.open.enums.GPayWalletMode;
-import company.tap.gosellapi.open.enums.OperationMode;
-import company.tap.gosellapi.open.models.Customer;
 
-public class GooglePay {
+public class GooglePay implements Serializable {
 
 
     private String merchantName;
