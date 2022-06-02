@@ -1426,13 +1426,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             System.out.println(" goolepay apiserializedResponse getObject token>>>"+serializedResponse.getObject());
                             System.out.println(" goolepay apiserializedResponse type token>>>"+serializedResponse.getType());
 
-                            try {
-                                closePaymentActivity();
-                                SDKSession.getListener().cardTokenizedSuccessfully(serializedResponse);
-                            } catch (Exception e) {
-                                Log.d("GoSellPaymentActivity", " Error while calling fireWebPaymentCallBack >>> method paymentSucceed(charge)");
-                                closePaymentActivity();
-                            }
+
                         }
 
                         @Override

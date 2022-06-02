@@ -329,6 +329,15 @@ public class SDKSession implements View.OnClickListener{
     paymentDataSource.setOperationMode(operatioMode);
   }
 
+
+  /**
+   * set setGooglePay
+   *  @param googlePay the
+   */
+  public void setGooglePay(GooglePay googlePay){
+    System.out.println("setGooglePay ... "+googlePay);
+    paymentDataSource.setGooglePay(googlePay);
+  }
   /**
    * enable or disable edit cardholdername.
    * @param enableCardHolderName

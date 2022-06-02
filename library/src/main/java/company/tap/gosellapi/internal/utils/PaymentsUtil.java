@@ -66,11 +66,11 @@ public class PaymentsUtil {
     public static PaymentsClient createPaymentsClient(Activity activity) {
         Wallet.WalletOptions walletOptions = null;
 
-        if(PaymentDataSource.getInstance().getOperationMode()!=null){
-            if(PaymentDataSource.getInstance().getOperationMode().equals(OperationMode.SAND_BOX)){
+        if(PaymentDataSource.getInstance().getGooglePay()!=null && PaymentDataSource.getInstance().getGooglePay().getWalletTestMode()!=null){
+            if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(OperationMode.SAND_BOX)){
                walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
-            }else  if(PaymentDataSource.getInstance().getOperationMode().equals(OperationMode.PRODUCTION)){
+            }else  if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(OperationMode.PRODUCTION)){
                 walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION).build();
             }else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
@@ -93,11 +93,12 @@ public class PaymentsUtil {
      * "https://developers.google.com/pay/api/android/reference/object#PaymentMethodTokenizationSpecification">PaymentMethodTokenizationSpecification</a>
      */
     private static JSONObject getGatewayTokenizationSpecification() throws JSONException {
+        //todo replace value coming from API
         return new JSONObject() {{
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
-                put("gateway", "tappayments");
-                put("gatewayMerchantId", "googletest");
+                put("gateway", Constants.GATEWAY_ID);
+                put("gatewayMerchantId", Constants.GATEWAY_MERCHANT_ID);
             }});
         }};
     }
