@@ -690,6 +690,8 @@ import company.tap.gosellapi.GoSellSDK
             
              sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
+             sdkSession.setGooglePay(getGooglePay());//** Required ** For setting GooglePAY Environment
+
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -770,6 +772,7 @@ import company.tap.gosellapi.GoSellSDK
 
          sdkSession.setDefaultCardHolderName("TEST TAP") // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
          sdkSession.isUserAllowedToEnableCardHolderName(false) // ** Optional ** you can enable/ disable  default CardHolderName .
+         sdkSession.setGooglePay(googlePay)
 	  /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -966,6 +969,25 @@ import company.tap.gosellapi.GoSellSDK
             return CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
                     .lastName("lastname").metadata("").phone(PhoneNumber(phoneNumber?.countryCode, phoneNumber.number))
                     .middleName("middlename").build()
+        }
+ ```	
+**To populate GooglePay object**
+
+*Java:*
+
+```java
+     private GooglePay getGooglePay() {
+         return  new GooglePay.GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build();
+
+     }
+```
+
+*Kotlin*:
+```kotlin
+  private val googlePay: GooglePay
+        private get() { 
+          
+            return GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build()
         }
  ```	
 
