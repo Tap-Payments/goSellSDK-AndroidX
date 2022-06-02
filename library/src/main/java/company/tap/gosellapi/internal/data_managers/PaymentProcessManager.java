@@ -40,11 +40,13 @@ import company.tap.gosellapi.internal.api.requests.CreateAuthorizeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateChargeRequest;
 import company.tap.gosellapi.internal.api.requests.CreateOTPVerificationRequest;
 import company.tap.gosellapi.internal.api.requests.CreateSaveCardRequest;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithCardDataRequest;
 import company.tap.gosellapi.internal.api.requests.CreateTokenWithExistingCardDataRequest;
 import company.tap.gosellapi.internal.api.responses.DeleteCardResponse;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.PaymentOptionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
@@ -250,9 +252,9 @@ final class PaymentProcessManager {
      *
      * @param paymentOptionModel the payment option model
      */
-    void startPaymentProcess(@NonNull final PaymentOptionViewModel paymentOptionModel) {
+    void startPaymentProcess(@NonNull final PaymentOptionViewModel paymentOptionModel, @Nullable CreateTokenGPayRequest createTokenGPayRequest) {
 //       Log.d("startPaymentProcess"," step 3 : startPaymentProcess : in class "+ "["+this.getClass().getName()+"]  ");
-        forceStartPaymentProcess(paymentOptionModel);
+        forceStartPaymentProcess(paymentOptionModel ,createTokenGPayRequest);
     }
 
     /**
@@ -377,7 +379,7 @@ final class PaymentProcessManager {
         DialogManager.getInstance().showDialog(title, message, confirm, cancelled, callback);
     }
 
-    private void forceStartPaymentProcess(@NonNull PaymentOptionViewModel paymentOptionModel) {
+    private void forceStartPaymentProcess(@NonNull PaymentOptionViewModel paymentOptionModel,@Nullable CreateTokenGPayRequest request) {
 
         Log.d("PaymentProcessManager",
                 "paymentOptionModel instance of  :" + paymentOptionModel);
@@ -388,6 +390,9 @@ final class PaymentProcessManager {
         } else if (paymentOptionModel instanceof CardCredentialsViewModel) {
             setCurrentPaymentViewModel(paymentOptionModel);
             startPaymentProcessWithCardPaymentModel((CardCredentialsViewModel) paymentOptionModel);
+        }else if (paymentOptionModel instanceof GooglePayViewModel) {
+            setCurrentPaymentViewModel(paymentOptionModel);
+            startGooglePayProcess((GooglePayViewModel) paymentOptionModel,request,null);
         }
     }
 
@@ -465,6 +470,7 @@ final class PaymentProcessManager {
     }
 
 
+
     private void startPaymentProcessWithCard(@NonNull CreateTokenCard card,
                                              PaymentOption paymentOption, boolean saveCard) {
 //     Log.d("startPaymentProcessWith"," step 4 : startPaymentProcessWithCard : in class "+ "["+this.getClass().getName()+"] with card=["+card+"]  ");
@@ -528,6 +534,31 @@ final class PaymentProcessManager {
             @Override
             public void onSuccess(int responseCode, Token serializedResponse) {
                 fireCardTokenizationProcessCompleted(serializedResponse);
+
+            }
+
+            @Override
+            public void onFailure(GoSellError errorDetails) {
+                Log.d("PaymentProcessManager", "GoSellAPI.callCardTokenizationTokenAPI : " + errorDetails.getErrorBody());
+                closePaymentWithError(errorDetails);
+            }
+        });
+    }
+
+    private void startGooglePayProcess( @NonNull GooglePayViewModel paymentOptionModel, @NonNull CreateTokenGPayRequest request,
+                                                             PaymentOption paymentOption) {
+        callGooglePayTokenizationTokenAPI(request, paymentOption);
+    }
+
+    private void callGooglePayTokenizationTokenAPI(@NonNull CreateTokenGPayRequest request,
+                                              @NonNull final PaymentOption paymentOption) {
+
+        GoSellAPI.getInstance().createTokenForGPay(request, new APIRequestCallback<Token>() {
+
+            @Override
+            public void onSuccess(int responseCode, Token serializedResponse) {
+                SourceRequest source = new SourceRequest(serializedResponse);
+                callChargeOrAuthorizeOrSaveCardAPI(source, paymentOption, serializedResponse.getCard().getFirstSix(),null);
 
             }
 
