@@ -838,13 +838,18 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 }, 1000);
 
                 break;
-
+/**
+ * Handling of received GooglePayLoad
+**/
             case LOAD_PAYMENT_DATA_REQUEST_CODE:
                 switch (resultCode) {
 
                     case Activity.RESULT_OK:
                         PaymentData paymentData = PaymentData.getFromIntent(data);
-                        handlePaymentSuccess(paymentData);
+                        if(paymentData!=null){
+                            handlePaymentSuccess(paymentData);
+
+                        }
                         break;
 
                     case Activity.RESULT_CANCELED:
@@ -859,10 +864,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                     case AutoResolveHelper.RESULT_ERROR:
                         Status status = AutoResolveHelper.getStatusFromIntent(data);
-                        if(status!=null)
-                        System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
-
-                        handleError((status != null) ? status.getStatusCode() : 400);
+                        if(status!=null){
+                            System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
+                            handleError(status);
+                        }
                         break;
                 }
 
@@ -1398,20 +1403,21 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (paymentInfo == null) {
             return;
         }
-
         try {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
-            System.out.println("tokenizationData>>>"+tokenizationData);
+           // System.out.println("tokenizationData>>>"+tokenizationData);
             final String tokenizationType = tokenizationData.getString("type");
-            System.out.println("tokenizationType is"+tokenizationType);
+          //  System.out.println("tokenizationType is"+tokenizationType);
             final String token = tokenizationData.getString("token");
-            System.out.println("token is"+token);
+          //  System.out.println("token is"+token);
             Gson gson = new Gson();
             JsonObject jsonToken = gson.fromJson(token, JsonObject.class);
-
+            /**
+             * At this stage, Passing the googlePaylaod to Tap Backend TokenAPI call followed by chargeAPI.
+             * ***/
             CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay",jsonToken);
             initiateGooglePayProcess(createTokenGPayRequest);
 
@@ -1424,16 +1430,15 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
      * At this stage, the user has already seen a popup informing them an error occurred. Normally,
      * only logging is required.
      *
-     * @param statusCode will hold the value of any constant from CommonStatusCode or one of the
-     *                   WalletConstants.ERROR_CODE_* constants.
+     * @param status object
      * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
      * WalletConstants#constant-summary">Wallet Constants Library</a>
      */
-    private void handleError(int statusCode) {
-        Log.e("loadPaymentData failed", String.format("Error code: %d", statusCode));
+    private void handleError(Status status) {
+        Log.e("loadPaymentData failed", String.format("Error code: %d", status.getStatusCode()));
         try {
             closePaymentActivity();
-            SDKSession.getListener().backendUnknownError(String.valueOf(statusCode));
+            SDKSession.getListener().googlePayFailed(status);
         } catch (Exception e) {
             closePaymentActivity();
         }

@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     /**
      * Integrating SDK.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startSDK() {
         /**
          * Required step.
@@ -608,7 +610,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         showDialog(token.getId(), "Token", company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }
 
-
+    @Override
+    public void googlePayFailed(Status error) {
+        System.out.println("googlePayFailed :  " + error.getStatusMessage());
+        System.out.println("googlePayFailed :  " + error.getStatus());
+    }
 
 
 /////////////////////////////////////////////////////////  needed only for demo ////////////////////
