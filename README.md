@@ -1301,6 +1301,36 @@ The following table describes its structure and specifies which fields are requi
          @SerializedName("ALL")  ALL
       }
   ```
+ 4. OperationMode
+   ```java
+       public enum OperationMode {
+        /**
+         * Sandbox is for testing purposes
+         */
+         @SerializedName("SAND_BOX")              SAND_BOX,
+
+        /**
+          * Production is for live
+         ***/
+        @SerializedName("PRODUCTION")            PRODUCTION
+
+       }
+ ```
+ 5. GPayWalletMode
+   ```java
+        public  enum GPayWalletMode {
+        /**
+         * Sandbox is for testing purposes
+        */
+        @SerializedName("ENVIRONMENT_TEST")  ENVIRONMENT_TEST,
+
+        /**
+        *  Production is for live
+        */
+        @SerializedName("ENVIRONMENT_PRODUCTION")            ENVIRONMENT_PRODUCTION
+     }
+  ```   
+
 
  <a name="sdk_open_models"></a>
  ## SDK Open Models
