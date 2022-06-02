@@ -1120,6 +1120,8 @@ The following table describes its structure and specifies which fields are requi
                       void userEnabledSaveCardOption(boolean saveCardEnabled);
 
                       void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
+                      
+                      void googlePayFailed(Status error);
       }
  ```
  2. PaymentDataSource
