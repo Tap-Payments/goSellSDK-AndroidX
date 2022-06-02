@@ -5,10 +5,24 @@ import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.Customer;
 
 public class GooglePay {
+
+
     private String merchantName;
     private OperationMode walletTestMode;
     private String merchantGatewayId;
 
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public OperationMode getWalletTestMode() {
+        return walletTestMode;
+    }
+
+    public String getMerchantGatewayId() {
+        return merchantGatewayId;
+    }
     //  Constructor is private to prevent access from client app, it must be through inner Builder class only
     private GooglePay(String merchantName, OperationMode walletTestMode,String merchantGatewayId) {
         this.merchantName = merchantName;

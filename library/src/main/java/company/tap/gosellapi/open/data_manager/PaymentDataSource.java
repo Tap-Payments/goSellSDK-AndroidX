@@ -15,6 +15,7 @@ import java.util.HashMap;
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.open.controllers.GooglePay;
 import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
@@ -101,6 +102,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     private @Nullable
    OperationMode operationMode;
+
+    private @Nullable
+    GooglePay googlePay;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
@@ -338,6 +342,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public void setOperationMode(@Nullable OperationMode operationMode) {
         this.operationMode =operationMode;
     }
+    public void setGooglePay(@Nullable GooglePay googlePay) {
+        this.googlePay =googlePay;
+    }
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
     @Override
@@ -494,6 +501,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public OperationMode getOperationMode() {
         return operationMode;
+    }
+
+    @Nullable
+    @Override
+    public GooglePay getGooglePay() {
+        return googlePay;
     }
 
 }

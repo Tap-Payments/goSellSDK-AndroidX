@@ -277,6 +277,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 //todo:working on this needs to test and work
         googlePay = new GooglePay.GooglePayBuilder("who is the merchant using sdk",OperationMode.SAND_BOX,"to come from backend").build();
 
+        sdkSession.setGooglePay(googlePay);
+
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
        // sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.

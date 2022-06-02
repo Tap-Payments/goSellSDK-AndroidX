@@ -43,14 +43,9 @@ public class Constants {
     public final static String DEFAULT="default";
 
 
-    /**
-     * Changing this to ENVIRONMENT_PRODUCTION will make the API return chargeable card information.
-     * Please refer to the documentation to read about the required steps needed to enable
-     * ENVIRONMENT_PRODUCTION.
-     *
-     * @value #PAYMENTS_ENVIRONMENT
-     */
-    public static final int PAYMENTS_ENVIRONMENT = WalletConstants.ENVIRONMENT_TEST;
+    public final static String GATEWAY_ID="tappayments";
+
+    public final static String GATEWAY_MERCHANT_ID="googletest";
 
     /**
      * The allowed networks to be requested from the API. If the user has cards from networks not

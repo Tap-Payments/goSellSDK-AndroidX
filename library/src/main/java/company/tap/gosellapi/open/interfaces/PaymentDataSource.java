@@ -11,6 +11,7 @@ import java.util.HashMap;
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.open.controllers.GooglePay;
 import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
@@ -158,6 +159,9 @@ public interface PaymentDataSource {
      */
     @Nullable
     OperationMode getOperationMode();
+
+    @Nullable
+    GooglePay getGooglePay();
 
 
 
