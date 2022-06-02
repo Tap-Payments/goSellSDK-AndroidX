@@ -110,7 +110,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
   private void getData() {
 
     LoadingScreenManager.getInstance().showLoadingScreen(this);
-    PaymentDataManager.getInstance().initiatePayment(viewModel, this,null);
+    PaymentDataManager.getInstance().initiatePayment(viewModel, this);
   }
 
   private void updateWebView() {

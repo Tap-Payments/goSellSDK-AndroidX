@@ -252,7 +252,18 @@ final class PaymentProcessManager {
      *
      * @param paymentOptionModel the payment option model
      */
-    void startPaymentProcess(@NonNull final PaymentOptionViewModel paymentOptionModel, @Nullable CreateTokenGPayRequest createTokenGPayRequest) {
+    void startPaymentProcess(@NonNull final PaymentOptionViewModel paymentOptionModel) {
+//       Log.d("startPaymentProcess"," step 3 : startPaymentProcess : in class "+ "["+this.getClass().getName()+"]  ");
+        forceStartPaymentProcess(paymentOptionModel,null);
+    }
+
+
+    /**
+     * Start payment process.
+     *
+     * @param paymentOptionModel the payment option model
+     */
+    void startGooglePaymentProcess(@NonNull final PaymentOptionViewModel paymentOptionModel, @Nullable CreateTokenGPayRequest createTokenGPayRequest) {
 //       Log.d("startPaymentProcess"," step 3 : startPaymentProcess : in class "+ "["+this.getClass().getName()+"]  ");
         forceStartPaymentProcess(paymentOptionModel ,createTokenGPayRequest);
     }

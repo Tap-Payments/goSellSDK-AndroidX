@@ -400,12 +400,25 @@ public final class PaymentDataManager {
      * @param model    the model
      * @param listener the listener
      */
-    public void initiatePayment(PaymentOptionViewModel model, IPaymentProcessListener listener ,@Nullable CreateTokenGPayRequest request) {
+    public void initiatePayment(PaymentOptionViewModel model, IPaymentProcessListener listener ) {
 //       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
         clearPaymentProcessListeners();
     getProcessListener().addListener(listener);
-    getPaymentProcessManager().startPaymentProcess(model,request);
+    getPaymentProcessManager().startPaymentProcess(model);
   }
+
+    /**
+     * Initiate googlePayToken.
+     *
+     * @param model    the model
+     * @param listener the listener
+     */
+    public void initiateGooglePayTokenPayment(PaymentOptionViewModel model, IPaymentProcessListener listener ,@Nullable CreateTokenGPayRequest request) {
+//       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
+        clearPaymentProcessListeners();
+        getProcessListener().addListener(listener);
+        getPaymentProcessManager().startGooglePaymentProcess(model,request);
+    }
 
   /**
    * Init card tokenization
