@@ -1425,7 +1425,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             System.out.println("goolepay api vserializedResponse getCreated token>>>"+serializedResponse.getCreated());
                             System.out.println(" goolepay apiserializedResponse getObject token>>>"+serializedResponse.getObject());
                             System.out.println(" goolepay apiserializedResponse type token>>>"+serializedResponse.getType());
-
+//todo call charge api 
 
                         }
 
@@ -1450,6 +1450,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
      */
     private void handleError(int statusCode) {
         Log.e("loadPaymentData failed", String.format("Error code: %d", statusCode));
+        try {
+            closePaymentActivity();
+            SDKSession.getListener().backendUnknownError(String.valueOf(statusCode));
+        } catch (Exception e) {
+            closePaymentActivity();
+        }
+
     }
 
 
