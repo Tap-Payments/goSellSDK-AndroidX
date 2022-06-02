@@ -55,6 +55,7 @@ import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.delegate.SessionDelegate;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.CardType;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
 import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
 
-    private GooglePay googlePay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -272,12 +272,9 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
-        sdkSession.setOperationMode(OperationMode.SAND_BOX);//** Required ** For setting GooglePAY Enviroment
+        sdkSession.setOperationMode(OperationMode.SAND_BOX);
 
-//todo:working on this needs to test and work
-        googlePay = new GooglePay.GooglePayBuilder("who is the merchant using sdk",OperationMode.SAND_BOX,"to come from backend").build();
-
-        sdkSession.setGooglePay(googlePay);
+        sdkSession.setGooglePay(getGooglePay());//** Required ** For setting GooglePAY Environment
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -659,6 +656,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .middleName("middlename").build();
 
 
+    }
+
+    private GooglePay getGooglePay() {
+        return  new GooglePay.GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build();
     }
 
     private void showDialog(String chargeID, String msg, int icon) {
