@@ -53,6 +53,7 @@ public class Constants {
      *
      * @value #SUPPORTED_NETWORKS
      */
+    //TODO we need to get this from TAP API
 public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
             "AMEX",
             "DISCOVER",
@@ -79,6 +80,7 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      *
      * @value #COUNTRY_CODE Your local country
      */
+    //TODO we need to get this from TAP API
     public static final String COUNTRY_CODE = "KW";
 
     /**
