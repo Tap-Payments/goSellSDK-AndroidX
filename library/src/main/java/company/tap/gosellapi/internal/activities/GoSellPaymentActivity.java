@@ -428,7 +428,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private void startWebPaymentProcess1() {
         if (selectedCurrencyAsynchronous) {
-            PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this,null);
+            PaymentDataManager.getInstance().initiatePayment(webPaymentViewModel, this);
             payButton.setEnabled(true);
             payButton.getLoadingView().start();
 
@@ -511,7 +511,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.disableCardScanView();
         if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
-        PaymentDataManager.getInstance().initiatePayment(cardCredentialsViewModel, this,null);
+        PaymentDataManager.getInstance().initiatePayment(cardCredentialsViewModel, this);
     }
 
     private void initCardTokenization() {
@@ -1443,7 +1443,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     public void initiateGooglePayProcess(CreateTokenGPayRequest createTokenGPayRequest){
         getVisibleViewModels();
-        PaymentDataManager.getInstance().initiatePayment(googlePayViewModel, this,createTokenGPayRequest);
+        PaymentDataManager.getInstance().initiateGooglePayTokenPayment(googlePayViewModel, this,createTokenGPayRequest);
     }
 
 }
