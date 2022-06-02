@@ -47,6 +47,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     15. [Session Failed To Start Callback](#session_failed_to_start_callback)
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
+    18. [GooglePayFailed](#google_pay_failed_callback)
 6. [Documentation](#docs)
 
 
@@ -2416,6 +2417,24 @@ Notifies the receiver (Merchant Activity) that the user cancelled payment proces
 
 ```kotlin
 - fun sessionCancelled()
+```
+
+<a name="g"></a>
+### GooglePay Failed Callback
+
+Notifies the receiver (Merchant Activity) that error occured or transaction failed using GooglePay.
+
+#### Declaration
+
+*Java:*
+
+```java
+- void googlePayFailed(Status error);
+```
+*Java:*
+
+```kotlin
+- fun googlePayFailed(error:Status)
 ```
 
 -----
