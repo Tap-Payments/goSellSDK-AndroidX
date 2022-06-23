@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.16.0] - 2022-06-
+### New Feature Release:
+- Merchants can now use different payment types like PostPay, PayPal etc
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- If someone wishes to use new payment types , they need to update the sdk .
 ## [3.15.3] - 2022-03-10
 ### Minor version release for Hot Fix:
 - Hot fix crash / NPE
