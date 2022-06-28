@@ -27,6 +27,7 @@ import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.EmptyViewModelData;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 
@@ -36,10 +37,13 @@ import company.tap.gosellapi.open.data_manager.PaymentDataSource;
  * Copyright (c) 2021    Tap Payments.
  * All rights reserved.
  **/
-public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String, GooglePaymentViewHolder, GooglePayViewModel> {
+public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<GooglePaymentViewModelData, GooglePaymentViewHolder, GooglePayViewModel> {
     public View googlePayButton;
     // A client for interacting with the Google Pay API.
     private PaymentsClient paymentsClient;
+
+
+    GooglePaymentViewModelData googlePaymentViewModelData;
 
     // Arbitrarily-picked constant integer you define to track a request for payment data activity.
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
@@ -67,6 +71,14 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
 
     }
 
+
+
+    @Override
+    public void bind(GooglePaymentViewModelData data) {
+        this.googlePaymentViewModelData = data;
+        System.out.println("googlePaymentViewModelData>>"+googlePaymentViewModelData);
+    }
+
     /**
      * Determine the viewer's ability to pay with a payment method supported by your app and display a
      * Google Pay payment button.
@@ -78,7 +90,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void possiblyShowGooglePayButton() {
 
-        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest(googlePaymentViewModelData);
         if (!isReadyToPayJson.isPresent()) {
             return;
         }
@@ -130,12 +142,6 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<String
 
     }
 
-
-    @Override
-    public void bind(String data) {
-
-
-    }
 
 
 

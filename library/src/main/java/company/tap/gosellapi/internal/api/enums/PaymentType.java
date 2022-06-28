@@ -23,6 +23,6 @@ public enum PaymentType {
     /**
      * Google Payment  payment type.
      */
-    @SerializedName("Google Pay")  GOOGLEPAY,
+    @SerializedName("google_pay")  GOOGLE_PAY,
 
 }
