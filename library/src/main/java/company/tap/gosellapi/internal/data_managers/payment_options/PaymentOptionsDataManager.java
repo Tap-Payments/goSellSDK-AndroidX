@@ -30,6 +30,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models.
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CardCredentialsViewModelData;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CurrencyViewModelData;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.CompoundFilter;
 import company.tap.gosellapi.internal.utils.Utils;
@@ -775,14 +776,20 @@ public class PaymentOptionsDataManager {
             ArrayList<PaymentOption> cardPaymentOptions = Utils.List
                     .filter(paymentOptionsWorker, getPaymentOptionsFilter(PaymentType.CARD));
 
+            ArrayList<PaymentOption> googlePaymentOptions = Utils.List
+                    .filter(paymentOptionsWorker, getPaymentOptionsFilter(PaymentType.GOOGLE_PAY));
+
             ArrayList<SavedCard> savedCardsWorker = new ArrayList<>(getPaymentOptionsResponse().getCards());
 
             boolean hasSavedCards = savedCardsWorker.size() > 0;
             boolean hasWebPaymentOptions = webPaymentOptions.size() > 0;
             boolean hasCardPaymentOptions = cardPaymentOptions.size() > 0;
-            boolean hasOtherPaymentOptions = hasWebPaymentOptions || hasCardPaymentOptions;
+            boolean hasGooglePaymentOptions = googlePaymentOptions.size() > 0;
+            boolean hasOtherPaymentOptions = hasWebPaymentOptions || hasCardPaymentOptions|| hasGooglePaymentOptions;
             boolean displaysGroupTitles = hasSavedCards && hasOtherPaymentOptions;
-            PaymentDataSource.getInstance().setCardPay(cardPaymentOptions);
+            PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
+
+            System.out.println("");
             if (displaysGroupTitles) {
 
                 GroupViewModel recentGroupModel = generateGroupModel(Constants.recentGroupTitle);
@@ -820,8 +827,16 @@ public class PaymentOptionsDataManager {
                 viewModelsResult.add(emptyModel);
                 CardCredentialsViewModel cardPaymentModel = generateCardPaymentModel(cardPaymentOptions);
 
-                PaymentDataSource.getInstance().setCardPay(cardPaymentOptions);
+
                 if (cardPaymentModel != null) viewModelsResult.add(cardPaymentModel);
+            }
+
+            if(hasGooglePaymentOptions){
+                ArrayList<PaymentOption> paymentOptions = new ArrayList<>(googlePaymentOptions);
+                // GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this );
+                GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(paymentOptions);
+                PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
+                viewModelsResult.add(googlePayViewModel);
             }
 
             viewModels = viewModelsResult;
@@ -852,17 +867,21 @@ public class PaymentOptionsDataManager {
 
             if (savedCards == null) savedCards = new ArrayList<>();
 
-
+            ArrayList<PaymentOption> googlePaymentOptions = filteredByPaymentTypeAndCurrencyAndSortedList(
+                    paymentOptionsWorker, PaymentType.GOOGLE_PAY, currency);
             ArrayList<PaymentOption> webPaymentOptions = filteredByPaymentTypeAndCurrencyAndSortedList(
                     paymentOptionsWorker, PaymentType.WEB, currency);
-
             ArrayList<PaymentOption> cardPaymentOptions = filteredByPaymentTypeAndCurrencyAndSortedList(
                     paymentOptionsWorker, PaymentType.CARD, currency);
 
+
+
+            System.out.println("googlePaymentOptions lIst"+googlePaymentOptions);
             boolean hasSavedCards = savedCards.size() > 0;
             boolean hasWebPaymentOptions = webPaymentOptions.size() > 0;
             boolean hasCardPaymentOptions = cardPaymentOptions.size() > 0;
-            boolean hasOtherPaymentOptions = hasWebPaymentOptions || hasCardPaymentOptions;
+            boolean hasGooglePaymentOptions = googlePaymentOptions.size() > 0;
+            boolean hasOtherPaymentOptions = hasWebPaymentOptions || hasCardPaymentOptions || hasGooglePaymentOptions;
             boolean displaysGroupTitles = hasSavedCards && hasOtherPaymentOptions;
 
             if (displaysGroupTitles) {
@@ -906,11 +925,11 @@ public class PaymentOptionsDataManager {
 
             /**
              * Added GooglePay as ViewModel***/
-            GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this,"data" );
-            viewModelResult.add(googlePayViewModel);
+            if(hasGooglePaymentOptions){
+                GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(googlePaymentOptions);
+                viewModelResult.add(googlePayViewModel);
 
-
-
+            }
             if (hasCardPaymentOptions) {
 
                 if (hasWebPaymentOptions || !displaysGroupTitles) {
@@ -1055,14 +1074,14 @@ public class PaymentOptionsDataManager {
         }
 
         private Utils.List.Filter<PaymentOption> getPaymentOptionsFilter(
-                final PaymentType paymentType) {
+                final PaymentType _paymentType) {
 
             return new Utils.List.Filter<PaymentOption>() {
 
                 @Override
                 public boolean isIncluded(PaymentOption object) {
 
-                    return object.getPaymentType() == paymentType;
+                    return object.getPaymentType() == _paymentType;
                 }
             };
         }
@@ -1077,7 +1096,7 @@ public class PaymentOptionsDataManager {
 
         private ArrayList<PaymentOption> filteredByPaymentTypeAndCurrencyAndSortedList(
                 ArrayList<PaymentOption> list, PaymentType paymentType, String currency) {
-
+            System.out.println("paymentType in filter"+paymentType);
             ArrayList<Utils.List.Filter<PaymentOption>> filters = new ArrayList<>();
 
 
@@ -1148,6 +1167,13 @@ public class PaymentOptionsDataManager {
 
             private static final String spaceBeforeWebPaymentOptionsIdentifier = "space_before_web_payment_options";
             private static final String spaceBetweenWebAndCardOptionsIdentifier = "space_between_web_and_card_options";
+        }
+
+        private GooglePayViewModel generateGooglePaymentModel(
+                ArrayList<PaymentOption> paymentOptions) {
+
+            GooglePaymentViewModelData data = new GooglePaymentViewModelData(paymentOptions);
+            return new GooglePayViewModel(PaymentOptionsDataManager.this, data);
         }
     }
 }

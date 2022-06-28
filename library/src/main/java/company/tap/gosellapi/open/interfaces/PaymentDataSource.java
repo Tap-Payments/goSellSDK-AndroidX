@@ -153,7 +153,7 @@ public interface PaymentDataSource {
      * Defines the PaymentOption details. Optional. @return the default PaymentOption
      */
     @Nullable
-    ArrayList<PaymentOption> getCardPaymentOptions();
+    ArrayList<PaymentOption> getGooglePaymentOptions();
     /**
      * Defines the OperationMode details. Optional. @return the default OperationMode
      */

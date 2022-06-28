@@ -30,8 +30,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import company.tap.gosellapi.internal.Constants;
+import company.tap.gosellapi.internal.api.enums.CardScheme;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.GPayWalletMode;
 import company.tap.gosellapi.open.enums.OperationMode;
@@ -55,7 +57,7 @@ public class PaymentsUtil {
      * @throws JSONException
      */
     private static JSONObject getBaseRequest() throws JSONException {
-        return new JSONObject().put("apiVersion", 2).put("apiVersionMinor", 0);
+        return new JSONObject().put("apiVersion", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getApiVersion()).put("apiVersionMinor",  PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getApiVersionMinor());
     }
 
     /**
@@ -99,7 +101,8 @@ public class PaymentsUtil {
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
                 put("gateway", Constants.GATEWAY_ID);
-                put("gatewayMerchantId", Constants.GATEWAY_MERCHANT_ID);
+              //  put("gateway", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayName());
+                put("gatewayMerchantId", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayMerchantId());
             }});
         }};
     }
@@ -147,32 +150,7 @@ public class PaymentsUtil {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static JSONArray getAllowedCardNetworks() {
-       // System.out.println("SUPPORTED_NETWORKS"+Constants.SUPPORTED_NETWORKS);
-        List<String> newlist = new ArrayList<>();
-        ArrayList<String> listWithoutDuplicates = new ArrayList<>();
-        if(PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands()!=null) {
-          //  ArrayList<CardBrand> allowedCardBrands = PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands();
-            ArrayList<PaymentOption> allowedCardBrands = PaymentDataSource.getInstance().getCardPaymentOptions();
-
-            String newValue = null;
-
-            for (int i = 0; i < allowedCardBrands.size(); i++) {
-                if (allowedCardBrands.get(i) != null) {
-                    newValue = allowedCardBrands.get(i).getName().toUpperCase();
-                }
-                if(newValue.contains("AMERICANEXPRESS")){
-                    newValue ="AMEX";
-                }
-                newlist.add(i, newValue);
-            }
-            LinkedHashSet<String> hashSet = new LinkedHashSet<>(newlist);
-
-            listWithoutDuplicates = new ArrayList<>(hashSet);
-
-        }
-
         return new JSONArray(Constants.SUPPORTED_NETWORKS);
-      //  return new JSONArray(listWithoutDuplicates);
     }
 
     /**
@@ -202,20 +180,23 @@ public class PaymentsUtil {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static JSONObject getBaseCardPaymentMethod() throws JSONException {
+        List<String> capCardBrandList = new ArrayList<>();
         JSONObject cardPaymentMethod = new JSONObject();
         cardPaymentMethod.put("type", "CARD");
-
+        System.out.println("Payment data"+PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands());
         JSONObject parameters = new JSONObject();
-        parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
-        parameters.put("allowedCardNetworks", getAllowedCardNetworks());
-        // Optionally, you can add billing address/phone number associated with a CARD payment method.
-      //  parameters.put("billingAddressRequired", true);
+        parameters.put("allowedAuthMethods", new JSONArray(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getAllowed_auth_methods()));
+       // parameters.put("allowedCardNetworks", getAllowedCardNetworks());
+        String newValue = null;
 
-      //  JSONObject billingAddressParameters = new JSONObject();
-      //  billingAddressParameters.put("format", "FULL");
+        for (int i = 0; i < PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().size(); i++) {
+            if (PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().get(i) != null) {
+                newValue = String.valueOf(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().get(i)).toUpperCase();
+            }
 
-      //  parameters.put("billingAddressParameters", billingAddressParameters);
-
+            capCardBrandList.add(i, newValue);
+        }
+        parameters.put("allowedCardNetworks", new JSONArray(capCardBrandList));
         cardPaymentMethod.put("parameters", parameters);
 
         return cardPaymentMethod;
@@ -244,9 +225,10 @@ public class PaymentsUtil {
      * @return API version and payment methods supported by the app.
      * @see <a
      * href="https://developers.google.com/pay/api/android/reference/object#IsReadyToPayRequest">IsReadyToPayRequest</a>
+     * @param googlePaymentViewModelData
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static Optional<JSONObject> getIsReadyToPayRequest() {
+    public static Optional<JSONObject> getIsReadyToPayRequest(GooglePaymentViewModelData googlePaymentViewModelData) {
         try {
             JSONObject isReadyToPayRequest = getBaseRequest();
             isReadyToPayRequest.put(
@@ -271,7 +253,7 @@ public class PaymentsUtil {
         JSONObject transactionInfo = new JSONObject();
         transactionInfo.put("totalPrice", price);
         transactionInfo.put("totalPriceStatus", "FINAL");
-        transactionInfo.put("countryCode", Constants.COUNTRY_CODE);
+        //gatewayMerchantIdtransactionInfo.put("countryCode", Constants.COUNTRY_CODE);
         transactionInfo.put("currencyCode", Constants.CURRENCY_CODE);
         transactionInfo.put("checkoutOption", "COMPLETE_IMMEDIATE_PURCHASE");
 
@@ -287,7 +269,7 @@ public class PaymentsUtil {
      * href="https://developers.google.com/pay/api/android/reference/object#MerchantInfo">MerchantInfo</a>
      */
     private static JSONObject getMerchantInfo() throws JSONException {
-        return new JSONObject().put("merchantName", "Example Merchant");
+        return new JSONObject().put("merchantName", PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getName());
     }
 
     /**
