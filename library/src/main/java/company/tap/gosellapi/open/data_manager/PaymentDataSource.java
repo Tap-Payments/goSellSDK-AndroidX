@@ -492,8 +492,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     }
 
     @Nullable
+
     @Override
-    public ArrayList<PaymentOption> getCardPaymentOptions() {
+    public ArrayList<PaymentOption> getGooglePaymentOptions() {
         return cardPaymentOptions;
     }
 
