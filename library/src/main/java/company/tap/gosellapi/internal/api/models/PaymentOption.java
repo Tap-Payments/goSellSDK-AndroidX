@@ -24,7 +24,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
 
     @SerializedName("name")
     @Expose
-    private CardBrand brand;
+    private String name;
 
     @SerializedName("image")
     @Expose
@@ -61,6 +61,34 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @Expose
     private boolean asynchronous;
 
+
+    @SerializedName("cc_markup")
+    @Expose
+    private Double cc_markup;
+
+
+    @SerializedName("allowed_auth_methods")
+    @Expose
+    private ArrayList<String> allowed_auth_methods;
+
+    @SerializedName("api_version")
+    @Expose
+    private Integer apiVersion;
+
+    @SerializedName("api_version_minor")
+    @Expose
+    private Integer apiVersionMinor;
+
+    @SerializedName("gateway_name")
+    @Expose
+    private String gatewayName;
+
+    @SerializedName("gateway_merchant_id")
+    @Expose
+    private String gatewayMerchantId;
+
+
+    private CardBrand brand;
     /**
      * Gets id.
      *
@@ -85,7 +113,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      * @return the name
      */
     public String getName() {
-        return (getBrand()!=null)? getBrand().getRawValue():"";
+        return (getBrand()!=null)? getBrand().getRawValue():name;
     }
 
     /**
@@ -94,6 +122,12 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      * @return the brand
      */
     public CardBrand getBrand() {
+        // System.out.println("name values are#######"+name);
+        for (CardBrand brand : CardBrand.values()) {
+            if (brand.name().equalsIgnoreCase(name)) {
+                return brand;
+            }
+        }
         return brand;
     }
 
@@ -152,6 +186,32 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     public String getThreeDS() {
         return threeDS;
     }
+
+
+    public Double getCc_markup() {
+        return cc_markup;
+    }
+
+    public ArrayList<String> getAllowed_auth_methods() {
+        return allowed_auth_methods;
+    }
+
+    public Integer getApiVersion() {
+        return apiVersion;
+    }
+
+    public Integer getApiVersionMinor() {
+        return apiVersionMinor;
+    }
+
+    public String getGatewayName() {
+        return gatewayName;
+    }
+
+    public String getGatewayMerchantId() {
+        return gatewayMerchantId;
+    }
+
 
     @Override
     public int compareTo(@NonNull PaymentOption o) {
