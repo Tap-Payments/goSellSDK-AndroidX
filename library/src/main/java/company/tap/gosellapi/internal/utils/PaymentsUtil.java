@@ -100,6 +100,7 @@ public class PaymentsUtil {
         return new JSONObject() {{
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
+                assert PaymentDataSource.getInstance().getGooglePaymentOptions() != null;
                 put("gateway", Constants.GATEWAY_ID);
               //  put("gateway", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayName());
                 put("gatewayMerchantId", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayMerchantId());
@@ -250,11 +251,12 @@ public class PaymentsUtil {
      * href="https://developers.google.com/pay/api/android/reference/object#TransactionInfo">TransactionInfo</a>
      */
     private static JSONObject getTransactionInfo(String price) throws JSONException {
+        assert PaymentDataSource.getInstance().getGooglePaymentOptions() != null;
         JSONObject transactionInfo = new JSONObject();
         transactionInfo.put("totalPrice", price);
         transactionInfo.put("totalPriceStatus", "FINAL");
-        //gatewayMerchantIdtransactionInfo.put("countryCode", Constants.COUNTRY_CODE);
-        transactionInfo.put("currencyCode", Constants.CURRENCY_CODE);
+        transactionInfo.put("countryCode",PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getAcquirerCountryCode());
+        transactionInfo.put("currencyCode", PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSelectedCurrency().getCurrency());
         transactionInfo.put("checkoutOption", "COMPLETE_IMMEDIATE_PURCHASE");
 
         return transactionInfo;
