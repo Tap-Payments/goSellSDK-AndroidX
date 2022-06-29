@@ -876,7 +876,6 @@ public class PaymentOptionsDataManager {
 
 
 
-            System.out.println("googlePaymentOptions lIst"+googlePaymentOptions);
             boolean hasSavedCards = savedCards.size() > 0;
             boolean hasWebPaymentOptions = webPaymentOptions.size() > 0;
             boolean hasCardPaymentOptions = cardPaymentOptions.size() > 0;
@@ -1096,7 +1095,6 @@ public class PaymentOptionsDataManager {
 
         private ArrayList<PaymentOption> filteredByPaymentTypeAndCurrencyAndSortedList(
                 ArrayList<PaymentOption> list, PaymentType paymentType, String currency) {
-            System.out.println("paymentType in filter"+paymentType);
             ArrayList<Utils.List.Filter<PaymentOption>> filters = new ArrayList<>();
 
 

@@ -97,7 +97,7 @@ public class PaymentsUtil {
      * "https://developers.google.com/pay/api/android/reference/object#PaymentMethodTokenizationSpecification">PaymentMethodTokenizationSpecification</a>
      */
     private static JSONObject getGatewayTokenizationSpecification() throws JSONException {
-        //todo replace value coming from API
+        //todo :29Jun22 replace value coming from API>>PENDING GATEWAY ID
         return new JSONObject() {{
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
@@ -185,12 +185,12 @@ public class PaymentsUtil {
         List<String> capCardBrandList = new ArrayList<>();
         JSONObject cardPaymentMethod = new JSONObject();
         cardPaymentMethod.put("type", "CARD");
-        System.out.println("Payment data"+PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands());
+       // System.out.println("Payment data"+PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands());
         JSONObject parameters = new JSONObject();
         parameters.put("allowedAuthMethods", new JSONArray(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getAllowed_auth_methods()));
        // parameters.put("allowedCardNetworks", getAllowedCardNetworks());
         String newValue = null;
-
+        //Logic done to get cardbrands in capitals
         for (int i = 0; i < PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().size(); i++) {
             if (PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().get(i) != null) {
                 newValue = String.valueOf(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands().get(i)).toUpperCase();
@@ -272,6 +272,7 @@ public class PaymentsUtil {
      * href="https://developers.google.com/pay/api/android/reference/object#MerchantInfo">MerchantInfo</a>
      */
     private static JSONObject getMerchantInfo() throws JSONException {
+        assert PaymentDataManager.getInstance().getSDKSettings()!=null;
         return new JSONObject().put("merchantName", PaymentDataManager.getInstance().getSDKSettings().getData().getMerchant().getName());
     }
 
