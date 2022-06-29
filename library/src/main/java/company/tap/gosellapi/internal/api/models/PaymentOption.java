@@ -88,6 +88,12 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     private String gatewayMerchantId;
 
 
+
+    @SerializedName("acquirer_country")
+    @Expose
+    private String acquirerCountryCode;
+
+
     private CardBrand brand;
     /**
      * Gets id.
@@ -220,5 +226,9 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
 
     public boolean isAsynchronous() {
         return asynchronous;
+    }
+
+    public String getAcquirerCountryCode() {
+        return acquirerCountryCode;
     }
 }
