@@ -69,16 +69,17 @@ public class PaymentsUtil {
     public static PaymentsClient createPaymentsClient(Activity activity) {
         Wallet.WalletOptions walletOptions = null;
 
-        if(PaymentDataSource.getInstance().getGooglePay()!=null && PaymentDataSource.getInstance().getGooglePay().getWalletTestMode()!=null){
-            if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(GPayWalletMode.ENVIRONMENT_TEST)){
+        if(PaymentDataSource.getInstance().getGooglePayWalletMode()!=null && PaymentDataSource.getInstance().getGooglePayWalletMode()!=null){
+            if(PaymentDataSource.getInstance().getGooglePayWalletMode().equals(GPayWalletMode.ENVIRONMENT_TEST)){
                walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
-            }else  if(PaymentDataSource.getInstance().getGooglePay().getWalletTestMode().equals(GPayWalletMode.ENVIRONMENT_PRODUCTION)){
+            }else  if(PaymentDataSource.getInstance().getGooglePayWalletMode().equals(GPayWalletMode.ENVIRONMENT_PRODUCTION)){
                 walletOptions =
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION).build();
             }else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
         }
 
+        assert walletOptions != null;
         return Wallet.getPaymentsClient(activity, walletOptions);
     }
 

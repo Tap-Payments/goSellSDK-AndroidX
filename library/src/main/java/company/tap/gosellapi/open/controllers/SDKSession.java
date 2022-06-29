@@ -21,6 +21,7 @@ import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
 import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.GooglePay;
 import company.tap.gosellapi.open.models.TopUp;
@@ -332,12 +333,12 @@ public class SDKSession implements View.OnClickListener{
 
 
   /**
-   * set setGooglePay
-   *  @param googlePay the
+   * set googlePayWalletMode
+   *  @param googlePayWalletMode the
    */
-  public void setGooglePay(GooglePay googlePay){
-    System.out.println("setGooglePay ... "+googlePay);
-    paymentDataSource.setGooglePay(googlePay);
+  public void setGooglePayWalletMode(GPayWalletMode googlePayWalletMode){
+    System.out.println("googlePayWalletMode ... "+googlePayWalletMode);
+    paymentDataSource.setGooglePayWalletMode(googlePayWalletMode);
   }
   /**
    * enable or disable edit cardholdername.
