@@ -881,6 +881,10 @@ final class PaymentProcessManager {
             Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
             getProcessListener().didReceiveError(error);
         }
+        if(chargeOrAuthorizeOrSave!=null && chargeOrAuthorizeOrSave.getSource().getPaymentType()!=null && chargeOrAuthorizeOrSave.getSource().getPaymentType().equals(PaymentType.GOOGLE_PAY)){
+            LoadingScreenManager.getInstance().closeLoadingScreen();
+
+        }
     }
 
     /**

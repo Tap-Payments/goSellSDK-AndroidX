@@ -31,8 +31,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -41,8 +43,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.IsReadyToPayRequest;
 import com.google.android.gms.wallet.PaymentData;
+import com.google.android.gms.wallet.PaymentsClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -51,6 +56,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
@@ -1403,8 +1409,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (paymentInfo == null) {
             return;
         }
+        LoadingScreenManager.getInstance().showLoadingScreen(this);
         try {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
+            System.out.println("paymentMethodData"+paymentMethodData);
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
