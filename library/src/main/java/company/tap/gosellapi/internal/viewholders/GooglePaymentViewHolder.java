@@ -90,7 +90,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void possiblyShowGooglePayButton() {
 
-        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest(googlePaymentViewModelData);
+        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
         if (!isReadyToPayJson.isPresent()) {
             return;
         }
