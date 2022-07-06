@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.15.4] - 2022-07-06
+### Minor version release for Hot Fix:
+- Hot fix Scanner in react native
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 ## [3.15.3] - 2022-03-10
 ### Minor version release for Hot Fix:
 - Hot fix crash / NPE

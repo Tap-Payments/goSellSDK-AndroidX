@@ -42,7 +42,9 @@ import java.util.ArrayList;
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.adapters.CardSystemsRecyclerViewAdapter;
 import company.tap.gosellapi.internal.api.enums.CardScheme;
+import company.tap.gosellapi.internal.api.enums.PaymentType;
 import company.tap.gosellapi.internal.api.enums.Permission;
+import company.tap.gosellapi.internal.api.models.Card;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.custom_views.CvvEditText;
@@ -948,15 +950,25 @@ public class CardCredentialsViewHolder
                 BINLookupResponse binLookupResponse  =  PaymentDataManager.getInstance().getBinLookupResponse();
                 viewModel.setPaymentOption(cardBrand, binLookupResponse ==null?null: binLookupResponse.getScheme());
                // System.out.println("card = " + viewModel.getCardNumber() +"binlookup "+ PaymentDataManager.getInstance().getBinLookupResponse().getCardType());
-                if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
-                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
-                        cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+              //  if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
+               if(binLookupResponse!=null){
+                   if(PaymentDataSource.getInstance().getCardType() != null && !PaymentDataSource.getInstance().getCardType().equals(company.tap.gosellapi.open.enums.CardType.ALL)){
 
-                    }else {cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
-                    showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
-                }
+                       if ( !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()))
+                       {
+                           if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
+                               cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+
+                           }else {
+                               cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
+                           showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
+                       }
+                   }
+
+               }
+
             }
-        }, 1000); //Time in mis
+        }, 3000); //Time in mis
 
 
     }
