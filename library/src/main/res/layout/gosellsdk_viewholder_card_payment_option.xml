@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    >
+    android:textDirection="locale"
+
+    tools:targetApi="jelly_bean_mr1">
 
   <!-- TOP SEPARATOR -->
   <View
@@ -99,9 +101,12 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:backgroundTint="@color/separator"
-
           android:paddingStart="4dp"
-          android:paddingLeft="4dp" />
+          android:paddingEnd="4dp"
+          android:paddingRight="4dp"
+          android:paddingLeft="4dp"
+
+          />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,6 +167,8 @@
 
           android:paddingStart="3dp"
           android:paddingLeft="3dp"
+          android:paddingRight="3dp"
+          android:paddingEnd="3dp"
           />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -231,15 +238,17 @@
         android:hint="@string/edittext_hint_name_on_card"
         android:inputType="textCapCharacters"
         android:paddingRight="6dp"
-        app:backgroundTint="@color/separator"
+        android:paddingLeft="6dp"
+        android:textDirection="locale"
+        android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
+    app:backgroundTint="@color/separator"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        tools:ignore="RtlSymmetry"
-        android:paddingLeft="6dp" />
+
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -329,6 +338,7 @@
         app:layout_constraintTop_toBottomOf="@id/saveCardTopSeparator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

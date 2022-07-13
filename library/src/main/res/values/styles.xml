@@ -159,6 +159,8 @@
         <item name="android:textSize">@dimen/font_size_16sp</item>
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textDirection" tools:targetApi="jelly_bean_mr1">locale</item>
     </style>
 
 
