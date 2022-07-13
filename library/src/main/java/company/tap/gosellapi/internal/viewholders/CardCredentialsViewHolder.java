@@ -28,6 +28,7 @@ import android.text.TextWatcher;
 import android.text.style.ReplacementSpan;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -55,6 +56,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models.
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CardCredentialsViewModelData;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.CardType;
+import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.open.controllers.ThemeObject;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.TransactionMode;
@@ -516,8 +518,14 @@ public class CardCredentialsViewHolder
         }else {
             nameOnCardField.setEnabled(false);
         }
+// Added hide keyboard for disabled card name
+        saveCardSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            viewModel.saveCardSwitchClicked(isChecked);
+            if(buttonView!=null &&  !PaymentDataSource.getInstance().getEnableEditCardHolderName()){
+                Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
+            }
 
-        saveCardSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.saveCardSwitchClicked(isChecked));
+        });
 
 
         nameOnCardField.addTextChangedListener(cardCredentialsTextWatcher);
@@ -648,7 +656,7 @@ public class CardCredentialsViewHolder
 
          if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {
              if (brand.getValidationState().equals(CardValidationState.invalid)) {
-                saveCardSwitch.setChecked(false);
+             //   saveCardSwitch.setChecked(false);
                 viewModel.saveCardSwitchClicked(false);
                 if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
@@ -658,10 +666,10 @@ public class CardCredentialsViewHolder
             } else {
                 if (PaymentDataManager.getInstance().getExternalDataSource() != null
                         && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
-                    saveCardSwitch.setChecked(true);
+                 //   saveCardSwitch.setChecked(true);
                     viewModel.saveCardSwitchClicked(true);
                 } else {
-                    saveCardSwitch.setChecked(false);
+                //    saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
                 }
                 if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
@@ -682,7 +690,7 @@ public class CardCredentialsViewHolder
           //  }
         }  else {
              if (brand.getValidationState().equals(CardValidationState.invalid)) {
-                    saveCardSwitch.setChecked(false);
+                 //   saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
                     if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                         cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
@@ -693,10 +701,10 @@ public class CardCredentialsViewHolder
                 } else {
                     if (PaymentDataManager.getInstance().getExternalDataSource() != null
                             && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
-                        saveCardSwitch.setChecked(true);
+                   //     saveCardSwitch.setChecked(true);
                         viewModel.saveCardSwitchClicked(true);
                     } else {
-                        saveCardSwitch.setChecked(false);
+                   //     saveCardSwitch.setChecked(false);
                         viewModel.saveCardSwitchClicked(false);
                     }
                     if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
@@ -972,5 +980,6 @@ public class CardCredentialsViewHolder
 
 
     }
+
 
 }

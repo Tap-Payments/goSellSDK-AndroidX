@@ -124,7 +124,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         super.onCreate(savedInstanceState);
 
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
-
+        setupScreenMode();
         apperanceMode = ThemeObject.getInstance().getAppearanceMode();
 
         if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
@@ -158,7 +158,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     }
 
                 });
-
         initViews();
         SDKSession.getListener().sessionHasStarted();
 
@@ -207,6 +206,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         });
 
         setupPayButton();
+    }
+
+    private void setupScreenMode() {
+        if(isTransactionModeTokenizeCard()|| isTransactionModeSaveCard()) {
+            ThemeObject.getInstance().setAppearanceMode(AppearanceMode.WINDOWED_MODE);
+        }
     }
 
 
@@ -304,7 +309,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         }
 
-        if (isTransactionModeSaveCard() || isTransactionModeTokenizeCard()) {
+        if (isTransactionModeSaveCard()) {
             setupSaveCardMode();
         } else {
             setupChargeOrAuthorizeMode();
@@ -354,7 +359,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             }else
             payButton.getPayButton().setText(getResources().getString(R.string.save_card));
         }
-        if (isTransactionModeTokenizeCard()){
+        //Removed as per Merchant 13/07/21
+       /* if (isTransactionModeTokenizeCard()){
 
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
@@ -362,13 +368,15 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             }else
                 payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
         }
+*/
+        }
 
 
-    }
 
 
     private boolean isTransactionModeSaveCard() {
         if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
+            ThemeObject.getInstance().setAppearanceMode(AppearanceMode.WINDOWED_MODE);
             return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.SAVE_CARD;
         }else return false;
     }
@@ -553,7 +561,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 //        Log.d("GoSellPaymentActivity"," update pay button with : fees : " + feesAmount);
 
-        if (isTransactionModeSaveCard() || isTransactionModeTokenizeCard()) return;
+        if (isTransactionModeSaveCard() ) return;
        if( ThemeObject.getInstance().getPayButtonText() != null){
 
            payButton.getPayButton().setText(
