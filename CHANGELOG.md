@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.15.6] - 2022-07-13
+### Minor version release for Hot Fix:
+- Hot fixes for react native sdk
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 ## [3.15.5] - 2022-07-13
 ### Minor version release for Hot Fix:
 - Hot fixes for react native sdk
