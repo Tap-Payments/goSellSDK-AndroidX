@@ -27,7 +27,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ReplacementSpan;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -523,6 +525,18 @@ public class CardCredentialsViewHolder
             viewModel.saveCardSwitchClicked(isChecked);
             if(buttonView!=null &&  !PaymentDataSource.getInstance().getEnableEditCardHolderName()){
                 Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
+
+            } else {
+                nameOnCardField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            // hide virtual keyboard
+                            Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
             }
 
         });
