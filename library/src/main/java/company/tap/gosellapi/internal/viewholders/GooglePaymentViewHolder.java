@@ -38,7 +38,7 @@ import company.tap.gosellapi.open.data_manager.PaymentDataSource;
  * All rights reserved.
  **/
 public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<GooglePaymentViewModelData, GooglePaymentViewHolder, GooglePayViewModel> {
-    public View googlePayButton;
+    public static View googlePayButton;
     // A client for interacting with the Google Pay API.
     private PaymentsClient paymentsClient;
 
@@ -91,6 +91,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
     private void possiblyShowGooglePayButton() {
 
         final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+        System.out.println("ready to pay request>>>>"+isReadyToPayJson);
         if (!isReadyToPayJson.isPresent()) {
             return;
         }
@@ -102,6 +103,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
         task.addOnCompleteListener(activity ,new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
             @Override
             public void onComplete(@NonNull Task<Boolean> task) {
+                System.out.println("task value is"+task.getResult());
                 if (task.isSuccessful()) {
                     setGooglePayAvailable(task.getResult());
                 } else {
@@ -115,7 +117,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void requestPayment(View view) {
         // Disables the button to prevent multiple clicks.
-        googlePayButton.setClickable(false);
+      //  googlePayButton.setClickable(false);
 
         assert PaymentDataSource.getInstance().getAmount() != null;
 

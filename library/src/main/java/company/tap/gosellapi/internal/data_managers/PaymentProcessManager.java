@@ -569,6 +569,7 @@ final class PaymentProcessManager {
             @Override
             public void onSuccess(int responseCode, Token serializedResponse) {
                 SourceRequest source = new SourceRequest(serializedResponse);
+                System.out.println("source google"+source);
                 callChargeOrAuthorizeOrSaveCardAPI(source, paymentOption, serializedResponse.getCard().getFirstSix(),null);
 
             }

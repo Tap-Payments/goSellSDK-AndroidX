@@ -73,8 +73,7 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      * @value #SUPPORTED_METHODS
      */
     public static final List<String> SUPPORTED_METHODS = Arrays.asList(
-            "PAN_ONLY",
-            "CRYPTOGRAM_3DS");
+            "PAN_ONLY");
 
 
     /**
@@ -90,8 +89,8 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      *
      * @value #CURRENCY_CODE Your local currency
      */
-    //public static final String CURRENCY_CODE = PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSelectedCurrency().getCurrency();
-    public static final String CURRENCY_CODE = "AED";
+    public static final String CURRENCY_CODE = PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSelectedCurrency().getCurrency();
+    //public static final String CURRENCY_CODE = "AED";
     /**
      * Supported countries for shipping (use ISO 3166-1 alpha-2 country codes). Relevant only when
      * requesting a shipping address.
