@@ -188,6 +188,7 @@ public class PaymentsUtil {
        // System.out.println("Payment data"+PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands());
         JSONObject parameters = new JSONObject();
         parameters.put("allowedAuthMethods", new JSONArray(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getAllowed_auth_methods()));
+       // parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
        // parameters.put("allowedCardNetworks", getAllowedCardNetworks());
         String newValue = null;
         //Logic done to get cardbrands in capitals
@@ -227,10 +228,9 @@ public class PaymentsUtil {
      * @return API version and payment methods supported by the app.
      * @see <a
      * href="https://developers.google.com/pay/api/android/reference/object#IsReadyToPayRequest">IsReadyToPayRequest</a>
-     * @param googlePaymentViewModelData
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static Optional<JSONObject> getIsReadyToPayRequest(GooglePaymentViewModelData googlePaymentViewModelData) {
+    public static Optional<JSONObject> getIsReadyToPayRequest() {
         try {
             JSONObject isReadyToPayRequest = getBaseRequest();
             isReadyToPayRequest.put(

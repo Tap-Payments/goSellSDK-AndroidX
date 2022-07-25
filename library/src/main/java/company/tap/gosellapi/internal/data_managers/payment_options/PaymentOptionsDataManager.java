@@ -1,7 +1,11 @@
 package company.tap.gosellapi.internal.data_managers.payment_options;
 
-import androidx.annotation.NonNull;
 
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import android.os.Build;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,6 +13,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import company.tap.gosellapi.internal.Constants;
+import company.tap.gosellapi.internal.activities.GoSellPaymentActivity;
 import company.tap.gosellapi.internal.api.enums.ExtraFeesStatus;
 import company.tap.gosellapi.internal.api.enums.PaymentType;
 import company.tap.gosellapi.internal.api.enums.Permission;
@@ -831,13 +836,15 @@ public class PaymentOptionsDataManager {
                 if (cardPaymentModel != null) viewModelsResult.add(cardPaymentModel);
             }
 
-            if(hasGooglePaymentOptions){
-                ArrayList<PaymentOption> paymentOptions = new ArrayList<>(googlePaymentOptions);
-                // GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this );
-                GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(paymentOptions);
-                PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
-                viewModelsResult.add(googlePayViewModel);
-            }
+    if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY") && PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE) {
+ //   if(hasGooglePaymentOptions) {
+  //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
+    ArrayList<PaymentOption> paymentOptions = new ArrayList<>(googlePaymentOptions);
+    // GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this );
+    GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(paymentOptions);
+    PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
+    viewModelsResult.add(googlePayViewModel);
+}
 
             viewModels = viewModelsResult;
         }
@@ -924,11 +931,16 @@ public class PaymentOptionsDataManager {
 
             /**
              * Added GooglePay as ViewModel***/
-            if(hasGooglePaymentOptions){
-                GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(googlePaymentOptions);
-                viewModelResult.add(googlePayViewModel);
+            GooglePayViewModel googlePayViewModel = null;
+            if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY")  && PaymentDataSource.getInstance().getTransactionMode()== TransactionMode.PURCHASE) {
+          //  if(hasGooglePaymentOptions  ) {
+             //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
+                 googlePayViewModel = generateGooglePaymentModel(googlePaymentOptions);
+                 viewModelResult.add(googlePayViewModel);
+
 
             }
+
             if (hasCardPaymentOptions) {
 
                 if (hasWebPaymentOptions || !displaysGroupTitles) {
@@ -1169,9 +1181,9 @@ public class PaymentOptionsDataManager {
 
         private GooglePayViewModel generateGooglePaymentModel(
                 ArrayList<PaymentOption> paymentOptions) {
-
             GooglePaymentViewModelData data = new GooglePaymentViewModelData(paymentOptions);
             return new GooglePayViewModel(PaymentOptionsDataManager.this, data);
         }
     }
+
 }

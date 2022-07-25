@@ -1,5 +1,8 @@
 package company.tap.gosellapi.internal.activities;
 
+
+import static company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder.googlePayButton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -89,6 +92,7 @@ import company.tap.gosellapi.internal.fragments.GoSellPaymentOptionsFragment;
 import company.tap.gosellapi.internal.interfaces.ICardDeleteListener;
 import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
+import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder;
 import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
@@ -140,6 +144,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     // Arbitrarily-picked constant integer you define to track a request for payment data activity.
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
 
+    // A client for interacting with the Google Pay API.
+    private PaymentsClient paymentsClient;
+
+    public static boolean gPayFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -192,6 +200,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
+        paymentsClient = PaymentsUtil.createPaymentsClient(this);
+        //possiblyShowGooglePayButton();
     }
 
     private void initViews() {
@@ -363,16 +373,20 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
 
-            }else
-            payButton.getPayButton().setText(getResources().getString(R.string.save_card));
+            }else{
+                payButton.getPayButton().setText(getResources().getString(R.string.save_card));
+            }
+
         }
         if (isTransactionModeTokenizeCard()){
 
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
 
-            }else
+            }else{
                 payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
+
+            }
         }
 
 
@@ -796,6 +810,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                    }
                    updateDisplayedCards(userChoiceCurrency);
                 }
+              //  possiblyShowGooglePayButton();
                 break;
 
             case WEB_PAYMENT_REQUEST_CODE:
@@ -861,7 +876,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     case Activity.RESULT_CANCELED:
                         // The user cancelled the payment attempt
                         try {
-                            closePaymentActivity();
+                            //closePaymentActivity();
                             SDKSession.getListener().sessionCancelled();
                         } catch (Exception e) {
                             closePaymentActivity();
@@ -1459,6 +1474,57 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         PaymentDataManager.getInstance().initiateGooglePayTokenPayment(googlePayViewModel, this,createTokenGPayRequest);
     }
 
+
+    /**
+     * Determine the viewer's ability to pay with a payment method supported by your app and display a
+     * Google Pay payment button.
+     *
+     * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
+     * PaymentsClient.html#isReadyToPay(com.google.android.gms.wallet.
+     * IsReadyToPayRequest)">PaymentsClient#IsReadyToPay</a>
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void possiblyShowGooglePayButton() {
+
+        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+        if (!isReadyToPayJson.isPresent()) {
+            return;
+        }
+
+        // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+        // OnCompleteListener to be triggered when the result of the call is known.
+        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+        Task<Boolean> task = paymentsClient.isReadyToPay(request);
+        task.addOnCompleteListener(this , task1 -> {
+            if (task1.isSuccessful()) {
+                System.out.println("do we reach"+task1.getResult());
+                setGooglePayAvailable(task1.getResult());
+            } else {
+                Log.w("isReadyToPay failed", task1.getException());
+            }
+            gPayFlag = task1.getResult();
+            System.out.println("task1 is"+task1.getResult());
+        });
+    }
+
+    /**
+     * If isReadyToPay returned {@code true}, show the button and hide the "checking" text. Otherwise,
+     * notify the user that Google Pay is not available. Please adjust to fit in with your current
+     * user flow. You are not required to explicitly let the user know if isReadyToPay returns {@code
+     * false}.
+     *
+     * @param available isReadyToPay API response.
+     */
+    private void setGooglePayAvailable(boolean available) {
+        System.out.println("available"+available);
+        googlePayButton = findViewById(R.id.googlePayButton);
+        if (available) {
+            if(googlePayButton!=null)
+            googlePayButton.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(this,R.string.googlepay_button_not_supported, Toast.LENGTH_LONG).show();
+        }
+    }
 }
 
 
