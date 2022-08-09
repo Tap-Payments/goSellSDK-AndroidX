@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import company.tap.gosellapi.internal.api.models.Address;
+import company.tap.gosellapi.internal.api.models.AddressCustomer;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
 
 /**
@@ -38,6 +40,15 @@ public final class Customer implements Serializable {
   @Expose
   private PhoneNumber phone;
 
+
+  @SerializedName("nationality")
+  @Expose
+  private String nationality;
+
+  @SerializedName("address")
+  @Expose
+  private AddressCustomer address;
+
   /**
    * The Meta data.
    */
@@ -46,13 +57,14 @@ public final class Customer implements Serializable {
 
 //  Constructor is private to prevent access from client app, it must be through inner Builder class only
   private Customer(String identifier, String firstName, String middleName, String lastName,
-                   String email, PhoneNumber phone, String metaData) {
+                   String email, PhoneNumber phone, String nationality ,String metaData) {
     this.identifier = identifier;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
     this.email = email;
     this.phone = phone;
+    this.nationality = nationality;
     this.metaData = metaData;
   }
 
@@ -66,6 +78,9 @@ public final class Customer implements Serializable {
     return this.identifier;
   }
 
+  public String getNationality() {
+    return this.nationality;
+  }
   /**
    * Gets first name.
    *
@@ -136,6 +151,7 @@ public final class Customer implements Serializable {
         "\n        last_name =  '" + lastName + '\'' +
         "\n        phone  country code =  '" + phone.getCountryCode() + '\'' +
         "\n        phone number =  '" + phone.getNumber() + '\'' +
+        "\n        nationality =  '" + nationality + '\'' +
         "\n        metadata =  '" + metaData + '\'' +
         "\n    }";
   }
@@ -154,6 +170,7 @@ public final class Customer implements Serializable {
     private String nestedEmail;
     private PhoneNumber nestedPhone;
     private String nestedMetaData;
+    private String nestedNationality;
 
     /**
      * Client app can create a customer object with only customer id
@@ -218,6 +235,17 @@ public final class Customer implements Serializable {
       this.nestedPhone = innerPhone;
       return this;
     }
+    /**
+     * Nationality of customer builder.
+     *
+     * @param innerNationality the inner innerNationality
+     * @return the customer builder
+     */
+    public CustomerBuilder nationality(String innerNationality) {
+      this.nestedNationality = innerNationality;
+      return this;
+    }
+
 
     /**
      * Metadata customer builder.
@@ -237,7 +265,7 @@ public final class Customer implements Serializable {
      */
     public Customer build() {
       return new Customer(nestedIdentifier, nestedFirstName, nestedMiddleName, nestedLastName,
-          nestedEmail, nestedPhone, nestedMetaData);
+          nestedEmail, nestedPhone, nestedNationality ,nestedMetaData);
     }
   }
   ////////////////////////// ############################ End of Builder Region ########################### ///////////////////////
