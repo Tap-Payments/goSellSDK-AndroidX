@@ -1,108 +1,140 @@
 package company.tap.gosellapi.internal.api.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import company.tap.gosellapi.open.models.MetaData;
+import company.tap.gosellapi.open.models.TopCustomerModel;
+import company.tap.gosellapi.open.models.TopUpApplication;
+import company.tap.gosellapi.open.models.TopUpReference;
+import company.tap.gosellapi.open.models.TopchargeModel;
+import company.tap.gosellapi.open.models.TopupPost;
 
 public class Items implements Serializable {
 
     @SerializedName("product_id")
     @Expose
-    @NonNull
-    private String product_id;
+   @Nullable
+    private String productId;
 
     @SerializedName("name")
     @Expose
-    @NonNull
+    @Nullable
     private String name;
 
     @SerializedName("amount")
     @Expose
-    @NonNull
+    @Nullable
     private String amount;
 
 
     @SerializedName("currency")
     @Expose
-    @NonNull
+    @Nullable
     private String currency;
 
     @SerializedName("quantity")
     @Expose
-    @NonNull
+    @Nullable
     private String quantity;
 
     @SerializedName("category")
     @Expose
-    @NonNull
+    @Nullable
     private String category;
 
     @SerializedName("discount")
     @Expose
-    @NonNull
+    @Nullable
     private Discount discount;
 
     @SerializedName("vendor")
     @Expose
-    @NonNull
+    @Nullable
     private Vendor vendor;
 
     @SerializedName("fulfillment_service")
     @Expose
-    @NonNull
-    private String fulfillment_service;
+    @Nullable
+    private String fulfillmentService;
 
     @SerializedName("requires_shipping")
     @Expose
-    @NonNull
+    @Nullable
     private String requireShipping;
 
     @SerializedName("item_code")
     @Expose
-    @NonNull
-    private String item_code;
+    @Nullable
+    private String itemCode;
 
     @SerializedName("account_code")
     @Expose
-    @NonNull
-    private String account_code;
+    @Nullable
+    private String accountCode;
 
     @SerializedName("description")
     @Expose
-    @NonNull
+    @Nullable
     private String description;
 
 
     @SerializedName("image")
     @Expose
-    @NonNull
+    @Nullable
     private String image;
 
     @SerializedName("reference")
     @Expose
-    @NonNull
+    @Nullable
     private ReferenceItem reference;
 
     @SerializedName("dimensions")
     @Expose
-    @NonNull
+    @Nullable
     private ItemDimensions dimensions;
 
 
     @SerializedName("tags")
     @Expose
-    @NonNull
+    @Nullable
     private String tags;
 
     @SerializedName("meta_data")
     @Expose
-    @NonNull
+    @Nullable
     private MetaData metaData;
+
+    //  Constructor is private to prevent access from client app, it must be through inner Builder class only
+    public Items(@Nullable String productId , String name, @Nullable String amount, @Nullable String currency, @Nullable String quantity , @Nullable String category, @Nullable Discount discount , @Nullable Vendor vendor, @Nullable String fulfillmentService, @Nullable String requireShipping, @Nullable String itemCode, @Nullable String accountCode,
+                 @Nullable String description, @Nullable String image,@Nullable ReferenceItem reference,@Nullable ItemDimensions dimensions,@Nullable String tags , @Nullable MetaData metaData
+    ) {
+
+        this.productId = productId;
+        this.name = name;
+        this.amount = amount;
+        this. currency = currency;
+        this.quantity = quantity;
+        this.category = category;
+        this.discount = discount;
+        this.vendor = vendor;
+        this.fulfillmentService = fulfillmentService;
+        this.requireShipping = requireShipping;
+        this.itemCode = itemCode;
+        this.accountCode = accountCode;
+        this.description = description;
+        this.image = image;
+        this.reference = reference;
+        this.dimensions = dimensions;
+        this.tags = tags;
+        this.metaData = metaData;
+    }
 
 
 }
