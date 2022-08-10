@@ -1,6 +1,7 @@
 package company.tap.gosellapi.internal.api.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -23,30 +24,47 @@ public class OrderObject {
 
     @SerializedName("customer")
     @Expose
-    @NonNull private Customer customer;
+    @Nullable private Customer customer;
 
     @SerializedName("items")
     @Expose
-    @NonNull private Items items;
+    @Nullable private Items items;
 
     @SerializedName("tax")
     @Expose
-    @NonNull private Tax2 tax;
+    @Nullable private Tax2 tax;
 
     @SerializedName("shipping")
     @Expose
-    @NonNull private ShippingN shipping;
+    @Nullable private ShippingN shipping;
 
     @SerializedName("merchant")
     @Expose
-    @NonNull private Merchant merchant;
+    @Nullable private Merchant merchant;
 
     @SerializedName("metadata")
     @Expose
-    @NonNull private MetaData metaData;
+    @Nullable private MetaData metaData;
 
     @SerializedName("reference")
     @Expose
-    @NonNull private ReferId reference;
+    @Nullable private ReferId reference;
+
+
+    //  Constructor is private to prevent access from client app, it must be through inner Builder class only
+    public OrderObject(@NonNull BigDecimal amount , @NonNull String currency, @Nullable Customer customer, @Nullable Items items,
+                       @Nullable Tax2 tax , @Nullable ShippingN shipping, @Nullable Merchant merchant , @Nullable MetaData metaData, @Nullable ReferId reference
+    ) {
+
+        this.amount = amount;
+        this.currency = currency;
+        this.customer = customer;
+        this. items = items;
+        this.tax = tax;
+        this.shipping = shipping;
+        this.merchant = merchant;
+        this.metaData = metaData;
+      
+    }
 
 }

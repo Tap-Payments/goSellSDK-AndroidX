@@ -1,6 +1,7 @@
 package company.tap.gosellapi.internal.api.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,33 +11,48 @@ import java.io.Serializable;
 public class ItemDimensions implements Serializable {
     @SerializedName("weight_type")
     @Expose
-    @NonNull
+    @Nullable
     private String weightType;
 
     @SerializedName("weight")
     @Expose
-    @NonNull
+    @Nullable
     private Double weight;
 
 
     @SerializedName("measurements")
     @Expose
-    @NonNull
+    @Nullable
     private String measurements;
 
     @SerializedName("length")
     @Expose
-    @NonNull
+    @Nullable
     private Double length;
 
     @SerializedName("width")
     @Expose
-    @NonNull
+    @Nullable
     private Double width;
 
     @SerializedName("height")
     @Expose
-    @NonNull
+    @Nullable
     private Double height;
+
+    public ItemDimensions(@Nullable String weightType , @Nullable Double weight, @Nullable String measurements, @Nullable Double length,
+                     @Nullable Double width , @Nullable Double height
+
+    ) {
+
+        this.weightType = weightType;
+        this.weight = weight;
+        this.measurements = measurements;
+        this. length = length;
+        this.width = width;
+        this.height = height;
+
+
+    }
 
 }
