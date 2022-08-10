@@ -10,6 +10,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
+import company.tap.gosellapi.internal.api.models.Order;
+import company.tap.gosellapi.internal.api.models.OrderId;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 
@@ -25,9 +27,9 @@ public final class PaymentOptionsResponse implements BaseResponse {
     @Expose
     @NonNull private String id;
 
-    @SerializedName("order_id")
+    @SerializedName("order")
     @Expose
-    @NonNull private String orderID;
+    @NonNull private OrderId order;
 
     @SerializedName("object")
     @Expose
@@ -77,8 +79,8 @@ public final class PaymentOptionsResponse implements BaseResponse {
      *
      * @return the order id
      */
-    @NonNull public String getOrderID() {
-        return orderID;
+    @NonNull public OrderId getOrderID() {
+        return order;
     }
 
     /**
@@ -241,4 +243,7 @@ public final class PaymentOptionsResponse implements BaseResponse {
             return contact;
         }
     }
+
+
 }
+
