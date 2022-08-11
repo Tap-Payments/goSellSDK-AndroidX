@@ -43,6 +43,7 @@ import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
+import company.tap.gosellapi.internal.api.models.OrderObject;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
@@ -269,6 +270,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+
+        sdkSession.setOrderObject(getOrder()); // ** Optional **
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -816,6 +819,14 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 "kwd",
                 null,null,null,new TopUpApplication((BigDecimal.valueOf(30)),"kwd"),null,new TopupPost("wwww.google.com"),null);
         return topUp;
+
+
+    }
+
+    //Set Order object
+    private OrderObject getOrder() {
+        OrderObject orderObject = new OrderObject();
+        return orderObject;
 
 
     }

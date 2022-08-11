@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.api.models.OrderObject;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
@@ -145,6 +146,12 @@ public interface PaymentDataSource {
      */
     @Nullable
     TopUp getTopUp();
+
+    /**
+     * Defines the OrderObject details. Optional. @return the default Order
+     */
+    @Nullable
+    OrderObject getOrderObject();
 
 
 }

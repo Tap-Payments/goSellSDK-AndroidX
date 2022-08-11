@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.api.models.OrderObject;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
@@ -93,6 +94,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     private @Nullable
     TopUp topUp;
+
+    private @Nullable
+    OrderObject orderObject;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
@@ -321,6 +325,17 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
         this.topUp = topUp;
     }
 
+
+
+    /**
+     * Set Order.
+     *
+     * @param customer the customer
+     */
+    public void setOrder(@NonNull OrderObject orderObject){
+        this.orderObject = orderObject;
+    }
+
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
     @Override
     public @NonNull
@@ -464,6 +479,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public TopUp getTopUp() {
         return topUp;
+    }
+
+    @Nullable
+    @Override
+    public OrderObject getOrderObject() {
+        return orderObject;
     }
 
 
