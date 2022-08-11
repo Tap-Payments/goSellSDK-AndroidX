@@ -21,6 +21,7 @@ import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.api.models.OrderObject;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.PaymentOptionsResponse;
@@ -317,6 +318,14 @@ public class SDKSession implements View.OnClickListener{
    */
   public void setTopUp(TopUp topUp){
     paymentDataSource.setTopUp(topUp);
+  }
+
+  /**
+   * set OrderObject
+   */
+
+  public void setOrderObject(OrderObject orderObject){
+    paymentDataSource.setOrder(orderObject);
   }
 
   /**
