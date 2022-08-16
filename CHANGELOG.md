@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.16.0] - 2022-08-
+### New Feature Release:
+- New objects added giving Merchants opportunity to create orders from SDK
+- The update does not impact existing integrations.
+- If any one wishes to use new feature needs to update the sdk
+### Impact on existing integrations:
+- The update does not impact existing integrations.
 ## [3.15.9] - 2022-07-27
 ### Minor version release for Hot Fix:
 - Hot fixes for react native sdk

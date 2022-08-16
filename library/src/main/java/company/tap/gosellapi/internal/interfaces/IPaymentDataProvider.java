@@ -13,6 +13,8 @@ import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.AuthorizeAction;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
+import company.tap.gosellapi.open.models.Items;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.TopUp;
@@ -142,6 +144,16 @@ public interface IPaymentDataProvider {
      */
     @Nullable
     TopUp                                     getTopUp();
+  /**
+     * get orderObject object
+     */
+    @Nullable
+    OrderObject getOrderObject();
+  /**
+     * get order Items
+     */
+    @Nullable
+    ArrayList<Items> getOrderItems();
 
 
 }

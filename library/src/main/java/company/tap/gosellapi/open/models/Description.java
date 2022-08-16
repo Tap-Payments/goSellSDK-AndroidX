@@ -1,4 +1,4 @@
-package company.tap.gosellapi.internal.api.models;
+package company.tap.gosellapi.open.models;
 
 import androidx.annotation.NonNull;
 

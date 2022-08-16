@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import company.tap.gosellapi.internal.api.models.OrderObject;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.internal.utils.AmountCalculator;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.PaymentItem;
@@ -104,10 +104,14 @@ public final class PaymentOptionsRequest {
         this.payment_type        = payment_type;
         this.topup               = topUp;
         this.orderObject               = orderObject;
-        if (items != null && items.size() > 0) {
+        if (items != null && items.size() > 0 ) {
 
             this.items          = items;
             this.totalAmount    = AmountCalculator.calculateTotalAmountOf(items, taxes, shipping);
+            if(orderObject!=null){
+                this.totalAmount    = totalAmount.add(AmountCalculator.calculateTotalAmountOfObject(orderObject));
+
+            }
         }
         else {
 
@@ -115,6 +119,11 @@ public final class PaymentOptionsRequest {
 
             BigDecimal plainAmount = amount == null ? BigDecimal.ZERO : amount;
             this.totalAmount = AmountCalculator.calculateTotalAmountOf(new ArrayList<PaymentItem>(), taxes, shipping).add(plainAmount);
+            if(orderObject!=null){
+                totalAmount =BigDecimal.ZERO;
+                this.totalAmount    = totalAmount.add(AmountCalculator.calculateTotalAmountOfObject(orderObject));
+
+            }
         }
     }
 

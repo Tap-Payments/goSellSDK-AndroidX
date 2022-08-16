@@ -79,7 +79,7 @@ public final class PaymentOptionsResponse implements BaseResponse {
      *
      * @return the order id
      */
-    @NonNull public OrderId getOrderID() {
+    @Nullable public OrderId getOrderID() {
         return order;
     }
 

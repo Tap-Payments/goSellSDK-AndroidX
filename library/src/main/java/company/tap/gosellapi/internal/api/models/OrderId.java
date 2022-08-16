@@ -9,6 +9,11 @@ import company.tap.gosellapi.internal.api.responses.BaseResponse;
 
 public final class OrderId implements BaseResponse {
 
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
     @SerializedName("id")
     @Expose
     @NonNull

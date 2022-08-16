@@ -39,6 +39,8 @@ import company.tap.gosellapi.open.interfaces.PaymentDataSource;
 import company.tap.gosellapi.open.models.AuthorizeAction;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Destinations;
+import company.tap.gosellapi.open.models.Items;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.TopUp;
@@ -542,8 +544,10 @@ public final class PaymentDataManager {
     @NonNull
     @Override
     public String getPaymentOptionsOrderID() {
-
-      return getPaymentOptionsDataManager().getPaymentOptionsResponse().getOrderID();
+          if(getPaymentOptionsDataManager().getPaymentOptionsResponse().getOrderID()==null){
+              return "";
+          }else
+              return getPaymentOptionsDataManager().getPaymentOptionsResponse().getOrderID().getId();
     }
 
     @Nullable
@@ -657,6 +661,20 @@ public final class PaymentDataManager {
       public TopUp getTopUp() {
           TopUp topUp = getExternalDataSource().getTopUp();
           return topUp;
+      }
+
+      @Nullable
+      @Override
+      public OrderObject getOrderObject() {
+          OrderObject orderObject = getExternalDataSource().getOrderObject();
+          return orderObject;
+      }
+
+      @Nullable
+      @Override
+      public ArrayList<Items> getOrderItems() {
+          ArrayList<Items> orderItems = getExternalDataSource().getOrderItems();
+          return orderItems;
       }
   }
 
