@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,13 +36,21 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
+import company.tap.gosellapi.internal.api.enums.AmountModificatorType;
+import company.tap.gosellapi.internal.api.models.AmountModificator;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
-import company.tap.gosellapi.internal.api.models.OrderObject;
+import company.tap.gosellapi.open.enums.Category;
+import company.tap.gosellapi.open.models.ItemDimensions;
+import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.models.ReferId;
+import company.tap.gosellapi.open.models.ReferenceItem;
+import company.tap.gosellapi.internal.api.models.Vendor;
+import company.tap.gosellapi.open.models.Items;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
@@ -51,23 +58,16 @@ import company.tap.gosellapi.internal.api.models.Token;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
-import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.delegate.SessionDelegate;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
-import company.tap.gosellapi.open.models.Destination;
-import company.tap.gosellapi.open.models.Destinations;
-import company.tap.gosellapi.open.models.MetaData;
 import company.tap.gosellapi.open.models.Receipt;
-import company.tap.gosellapi.open.models.Reference;
-import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.models.TopUpApplication;
-import company.tap.gosellapi.open.models.TopUpReference;
 import company.tap.gosellapi.open.models.TopupPost;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     private static ArrayList<SavedCard> data;
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
-
-
+    ArrayList<Items> itemsList = new ArrayList<>();
+    BigDecimal totalOrderAmount=BigDecimal.ZERO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
+       // sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
       sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
@@ -271,7 +272,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
-        sdkSession.setOrderObject(getOrder()); // ** Optional **
+       sdkSession.setOrderItems(getOrderItemsList()); // ** Usually Optional ** Required when creating order object
+
+        sdkSession.setOrderObject(getOrder()); // ** Usually Optional ** Required when creating order object
+
+
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -649,7 +654,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
-                .middleName("middlename").build();
+                .middleName("middlename").nationality("nationality").build();
 
 
     }
@@ -825,10 +830,17 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
     //Set Order object
     private OrderObject getOrder() {
-        OrderObject orderObject = new OrderObject();
-        return orderObject;
+        return new OrderObject(BigDecimal.valueOf(12),"kwd",getCustomer(),getOrderItemsList(),null,null, new Merchant("1124340"),null, new ReferId(""));
 
 
+    }
+
+    private  ArrayList<Items> getOrderItemsList(){
+        itemsList = new ArrayList<>();
+        itemsList.add( new Items("","abcjuice",BigDecimal.valueOf(12),"kwd",BigDecimal.valueOf(3), Category.DIGITAL_GOODS, new AmountModificator(AmountModificatorType.FIXED,BigDecimal.valueOf(1)),new Vendor("id","name"),"ff",true,
+                "items1","aac1","descr1","image1", new ReferenceItem("GTU","SKI"), new ItemDimensions("KG",
+                0.5, "IN", 1.0, 1.0, 1.0),"",null));
+  return itemsList;
     }
 
 

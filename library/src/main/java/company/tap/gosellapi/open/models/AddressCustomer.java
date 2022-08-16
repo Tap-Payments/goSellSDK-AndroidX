@@ -1,4 +1,7 @@
-package company.tap.gosellapi.internal.api.models;
+package company.tap.gosellapi.open.models;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,6 +10,7 @@ import java.io.Serializable;
 
 import company.tap.gosellapi.internal.api.enums.AddressFormat;
 import company.tap.gosellapi.internal.api.enums.AddressType;
+import company.tap.gosellapi.internal.api.models.AmountModificator;
 
 /**
  * The type Address.
@@ -77,4 +81,31 @@ public final class AddressCustomer implements Serializable {
     @SerializedName("locale")
     @Expose
     private String locale;
+
+    /**
+     * Instantiates a new AddressCustomer.
+     *
+     *
+     */
+    public AddressCustomer(@Nullable String type, @NonNull String line1, @Nullable String line2, @Nullable String line3, @Nullable String line4,
+                           @Nullable String avenue, @Nullable String street, @Nullable String building,@Nullable String apartment,@Nullable String country,
+                           @Nullable String state,@Nullable String city,@Nullable String area,@Nullable String zipCode,@Nullable String postalCode,@Nullable String locale) {
+        this.type = type;
+        this.line1 = line1;
+        this.line2 = line2;
+        this.line3 = line3;
+        this.line4 = line4;
+        this.avenue = avenue;
+        this.street = street;
+        this.building = building;
+        this.apartment = apartment;
+        this.country = country;
+        this.state = state;
+        this.city = city;
+        this.area = area;
+        this.zipCode = zipCode;
+        this.postalCode = postalCode;
+        this.locale = locale;
+    }
+
 }

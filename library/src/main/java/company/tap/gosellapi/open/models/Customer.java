@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import company.tap.gosellapi.internal.api.models.Address;
-import company.tap.gosellapi.internal.api.models.AddressCustomer;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
 
 /**

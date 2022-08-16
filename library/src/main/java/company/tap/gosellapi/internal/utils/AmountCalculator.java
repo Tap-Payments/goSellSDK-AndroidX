@@ -6,11 +6,16 @@ import java.util.ArrayList;
 
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 import company.tap.gosellapi.internal.api.models.ExtraFee;
+import company.tap.gosellapi.internal.api.models.Order;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
+import company.tap.gosellapi.open.models.Items;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.open.models.PaymentItem;
 import company.tap.gosellapi.open.models.Shipping;
+import company.tap.gosellapi.open.models.ShippingObject;
 import company.tap.gosellapi.open.models.Tax;
+import company.tap.gosellapi.open.models.TaxObject;
 
 /**
  * The type Amount calculator.
@@ -69,6 +74,8 @@ public abstract class AmountCalculator {
         return result;
     }
 
+
+
     /**
      * Calculate taxes on big decimal.
      *
@@ -86,6 +93,40 @@ public abstract class AmountCalculator {
         }
 
         for (Tax tax : taxes) {
+
+            switch (tax.getAmount().getType()) {
+
+                case PERCENTAGE:
+
+                    result = result.add(amount.multiply(tax.getAmount().getNormalizedValue()));
+
+                case FIXED:
+
+                    result = result.add(tax.getAmount().getValue());
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
+     * Calculate taxes on big decimal.
+     *
+     * @param amount the amount
+     * @param taxes  the taxes
+     * @return the big decimal
+     */
+    public static BigDecimal calculateTaxesOnItems(BigDecimal amount, ArrayList<TaxObject> taxes) {
+
+        BigDecimal result = BigDecimal.ZERO;
+
+        if (taxes == null) {
+
+            return result;
+        }
+
+        for (TaxObject tax : taxes) {
 
             switch (tax.getAmount().getType()) {
 
@@ -187,5 +228,97 @@ public abstract class AmountCalculator {
         }
 
         return null;
+    }
+
+
+    /**
+     * Calculate total amount of big decimal.
+     *
+     * @param orderObject the orderObject
+     * @return the big decimal
+     */
+    public static BigDecimal calculateTotalAmountOfObject(OrderObject orderObject) {
+
+        BigDecimal result = orderObject.getAmount().add(orderObject.getTaxesAmount());
+        return result;
+    }
+
+
+
+    /**
+     * Calculate total amount of big decimal.
+     *
+     * @param orderObjects     the orderObjects
+     * @param taxes     the taxes
+     * @param shippings the shippings
+     * @return the big decimal
+     */
+    public static BigDecimal calculateTotalAmountOfOrder(ArrayList<Items> items, ArrayList<TaxObject> taxes, ArrayList<ShippingObject> shippings,OrderObject orderObjects ) {
+
+        BigDecimal itemsPlainAmount     = BigDecimal.ZERO;
+        BigDecimal itemsDiscountAmount  = BigDecimal.ZERO;
+        BigDecimal itemsTaxesAmount     = BigDecimal.ZERO;
+
+        for (Items item:items
+             ) {
+
+            itemsPlainAmount = itemsPlainAmount.add(item.getPlainAmount());
+        }
+
+          //  itemsPlainAmount    = itemsPlainAmount.add(orderObjects.getAmount());
+            itemsTaxesAmount    = itemsTaxesAmount.add(orderObjects.getTaxesAmount());
+
+        BigDecimal discountedAmount = itemsPlainAmount.subtract(itemsDiscountAmount);
+
+        BigDecimal shippingAmount = BigDecimal.ZERO;
+        if (shippings != null) {
+
+            for (ShippingObject shipping : shippings) {
+
+                shippingAmount = shippingAmount.add(shipping.getAmount());
+            }
+        }
+
+        BigDecimal taxesAmount = calculateTaxesOnOrder(discountedAmount.add(shippingAmount), taxes);
+        BigDecimal totalTaxesAmount = itemsTaxesAmount.add(taxesAmount);
+
+        BigDecimal result = discountedAmount.add(shippingAmount).add(totalTaxesAmount);
+
+        return result;
+    }
+
+
+
+    /**
+     * Calculate taxes on big decimal.
+     *
+     * @param amount the amount
+     * @param taxes  the taxes
+     * @return the big decimal
+     */
+    public static BigDecimal calculateTaxesOnOrder(BigDecimal amount, ArrayList<TaxObject> taxes) {
+
+        BigDecimal result = BigDecimal.ZERO;
+
+        if (taxes == null) {
+
+            return result;
+        }
+
+        for (TaxObject tax : taxes) {
+
+            switch (tax.getAmount().getType()) {
+
+                case PERCENTAGE:
+
+                    result = result.add(amount.multiply(tax.getAmount().getNormalizedValue()));
+
+                case FIXED:
+
+                    result = result.add(tax.getAmount().getValue());
+            }
+        }
+
+        return result;
     }
 }

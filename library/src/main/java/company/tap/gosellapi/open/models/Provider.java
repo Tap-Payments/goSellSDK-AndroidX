@@ -1,4 +1,4 @@
-package company.tap.gosellapi.internal.api.models;
+package company.tap.gosellapi.open.models;
 
 import androidx.annotation.NonNull;
 
@@ -17,4 +17,10 @@ public class Provider implements Serializable {
     @Expose
     @NonNull
     private String name;
+
+    public Provider(@NonNull String id , @NonNull String name) {
+
+        this.id = id;
+        this.name = name;
+    }
 }

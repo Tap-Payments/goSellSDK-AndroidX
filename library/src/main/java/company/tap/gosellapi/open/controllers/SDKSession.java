@@ -21,7 +21,8 @@ import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
-import company.tap.gosellapi.internal.api.models.OrderObject;
+import company.tap.gosellapi.open.models.Items;
+import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.PaymentOptionsResponse;
@@ -329,6 +330,14 @@ public class SDKSession implements View.OnClickListener{
   }
 
   /**
+   * set OrderObject Items
+   */
+
+  public void setOrderItems(ArrayList<Items> orderItems){
+    paymentDataSource.setOrderItems(orderItems);
+  }
+
+  /**
    * enable or disable edit cardholdername.
    * @param enableCardHolderName
    */
@@ -436,7 +445,8 @@ public class SDKSession implements View.OnClickListener{
               (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
               (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
                (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL",
-               this.paymentDataSource.getTopUp()
+               this.paymentDataSource.getTopUp(),
+            (this.paymentDataSource.getOrderObject() != null) ? this.paymentDataSource.getOrderObject() : null
       );
 
     System.out.println("request sdkSession:"+ request);
