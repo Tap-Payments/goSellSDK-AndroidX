@@ -33,7 +33,25 @@ public abstract class AmountCalculator {
         BigDecimal result = item.getPlainAmount().subtract(item.getDiscountAmount()).add(item.getTaxesAmount());
         return result;
     }
+    /**
+     * Calculate total amount of big decimal.
+     *
+     * @param item the item
+     * @return the big decimal
+     */
+    public static BigDecimal calculateTotalAmountOfItem(ArrayList<Items> item) {
+        BigDecimal itemsPlainAmount     = BigDecimal.ZERO;
+        BigDecimal itemsDiscountAmount  = BigDecimal.ZERO;
+        BigDecimal itemsTaxesAmount     = BigDecimal.ZERO;
+        for (Items itemsList : item) {
 
+            itemsPlainAmount    = itemsPlainAmount.add(itemsList.getPlainAmount());
+            itemsDiscountAmount = itemsDiscountAmount.add(itemsList.getDiscountAmount());
+
+        }
+        BigDecimal discountedAmount = itemsPlainAmount.subtract(itemsDiscountAmount);
+        return discountedAmount;
+    }
     /**
      * Calculate total amount of big decimal.
      *
@@ -239,7 +257,7 @@ public abstract class AmountCalculator {
      */
     public static BigDecimal calculateTotalAmountOfObject(OrderObject orderObject) {
 
-        BigDecimal result = orderObject.getAmount().add(orderObject.getTaxesAmount());
+        BigDecimal result = orderObject.getAmount();
         return result;
     }
 

@@ -34,6 +34,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,6 +67,7 @@ import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.TapCurrency;
+import company.tap.gosellapi.open.models.TaxObject;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.models.TopUpApplication;
 import company.tap.gosellapi.open.models.TopupPost;
@@ -224,11 +226,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(20));  //** Required **
+        sdkSession.setAmount(new BigDecimal(38));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
-       // sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
+      //  sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
       sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
@@ -830,7 +832,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
     //Set Order object
     private OrderObject getOrder() {
-        return new OrderObject(BigDecimal.valueOf(12),"kwd",getCustomer(),getOrderItemsList(),null,null, new Merchant("1124340"),null, new ReferId(""));
+        return new OrderObject(BigDecimal.valueOf(12),"kwd",getCustomer(),getOrderItemsList(), new ArrayList<TaxObject>(Collections.singleton(new TaxObject("Tax1", "tax described", new AmountModificator(AmountModificatorType.FIXED, BigDecimal.valueOf(2))))),null, new Merchant("1124340"),null, new ReferId(""));
 
 
     }
