@@ -88,7 +88,7 @@ public class OrderObject {
      */
     public BigDecimal getTaxesAmount() {
 
-        BigDecimal taxationAmount = amount.subtract(this.items.get(0).getDiscountAmount());
+        BigDecimal taxationAmount = amount;
 
         return AmountCalculator.calculateTaxesOnItems(taxationAmount, this.tax);
     }

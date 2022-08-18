@@ -231,6 +231,7 @@ public class Items implements Serializable {
      */
     public BigDecimal getPlainAmount() {
         System.out.println("  #### getPlainAmount : " + this.amount );
+        assert this.amount != null;
         return this.amount.multiply(quantity);
     }
 
