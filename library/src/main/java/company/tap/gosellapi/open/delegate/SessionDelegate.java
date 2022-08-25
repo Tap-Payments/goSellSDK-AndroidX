@@ -43,4 +43,6 @@ public interface SessionDelegate {
         void userEnabledSaveCardOption(boolean saveCardEnabled);
 
         void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
+
+        void asyncPaymentStarted(@NonNull Charge charge);
 }

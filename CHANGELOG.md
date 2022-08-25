@@ -1,4 +1,11 @@
-# CHANGELOG
+# CHANGELOG## 
+[3.15.10] - 2022-08-25
+### Minor version release for Feature update:
+- Added new callback for Asynchronous Payment
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 ## [3.15.9] - 2022-07-27
 ### Minor version release for Hot Fix:
 - Hot fixes for react native sdk
