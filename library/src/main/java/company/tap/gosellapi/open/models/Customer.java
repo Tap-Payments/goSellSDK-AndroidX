@@ -55,7 +55,7 @@ public final class Customer implements Serializable {
 
 //  Constructor is private to prevent access from client app, it must be through inner Builder class only
   private Customer(String identifier, String firstName, String middleName, String lastName,
-                   String email, PhoneNumber phone, String nationality ,String metaData) {
+                   String email, PhoneNumber phone, String nationality ,String metaData, AddressCustomer address) {
     this.identifier = identifier;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -64,6 +64,7 @@ public final class Customer implements Serializable {
     this.phone = phone;
     this.nationality = nationality;
     this.metaData = metaData;
+    this.address = address;
   }
 
 
@@ -169,6 +170,7 @@ public final class Customer implements Serializable {
     private PhoneNumber nestedPhone;
     private String nestedMetaData;
     private String nestedNationality;
+    private AddressCustomer nestedAddress;
 
     /**
      * Client app can create a customer object with only customer id
@@ -243,7 +245,16 @@ public final class Customer implements Serializable {
       this.nestedNationality = innerNationality;
       return this;
     }
-
+    /**
+     * innerAddress of customer builder.
+     *
+     * @param innerAddress the inner innerAddress
+     * @return the customer builder
+     */
+    public CustomerBuilder address(AddressCustomer innerAddress) {
+      this.nestedAddress = innerAddress;
+      return this;
+    }
 
     /**
      * Metadata customer builder.
@@ -263,7 +274,7 @@ public final class Customer implements Serializable {
      */
     public Customer build() {
       return new Customer(nestedIdentifier, nestedFirstName, nestedMiddleName, nestedLastName,
-          nestedEmail, nestedPhone, nestedNationality ,nestedMetaData);
+          nestedEmail, nestedPhone ,nestedMetaData,nestedNationality,nestedAddress);
     }
   }
   ////////////////////////// ############################ End of Builder Region ########################### ///////////////////////

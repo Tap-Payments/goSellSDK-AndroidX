@@ -49,7 +49,7 @@ import company.tap.gosellapi.open.models.ItemDimensions;
 import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.open.models.ReferId;
 import company.tap.gosellapi.open.models.ReferenceItem;
-import company.tap.gosellapi.internal.api.models.Vendor;
+import company.tap.gosellapi.open.models.Vendor;
 import company.tap.gosellapi.open.models.Items;
 import company.tap.gosellapi.open.models.OrderObject;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
-      GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+     // GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+      GoSellSDK.init(this, "sk_test_MPjz8HtVxr0nuSglYvpCoDwI", "com.cleantimeـco.customer");  // to be replaced by merchant
       GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -274,9 +275,9 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
-       sdkSession.setOrderItems(getOrderItemsList()); // ** Usually Optional ** Required when creating order object
+     //  sdkSession.setOrderItems(getOrderItemsList()); // ** Usually Optional ** Required when creating order object
 
-        sdkSession.setOrderObject(getOrder()); // ** Usually Optional ** Required when creating order object
+    //    sdkSession.setOrderObject(getOrder()); // ** Usually Optional ** Required when creating order object
 
 
 

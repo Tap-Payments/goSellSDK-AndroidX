@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import company.tap.gosellapi.internal.api.models.AmountModificator;
-import company.tap.gosellapi.internal.api.models.Vendor;
-import company.tap.gosellapi.internal.utils.AmountCalculator;
 import company.tap.gosellapi.open.enums.Category;
 
 public class Items implements Serializable {
