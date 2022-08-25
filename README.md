@@ -47,6 +47,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     15. [Session Failed To Start Callback](#session_failed_to_start_callback)
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
+    18. [Asynch_Payment_Callback](#asyncPaymentStarted_callback)
 6. [Documentation](#docs)
 
 
@@ -96,7 +97,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.15.9'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.15.10'
 	}
 ```
 
@@ -1120,6 +1121,8 @@ The following table describes its structure and specifies which fields are requi
                       void userEnabledSaveCardOption(boolean saveCardEnabled);
 
                       void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
+                     
+                      void asyncPaymentStarted(@NonNull Charge charge);      
       }
  ```
  2. PaymentDataSource
@@ -2415,7 +2418,23 @@ Notifies the receiver (Merchant Activity) that the user cancelled payment proces
 ```kotlin
 - fun sessionCancelled()
 ```
+<a name="asyncPaymentStarted_callback"></a>
+### AsynchPaymentStarted  Callback
 
+Notifies the receiver (Merchant Activity) that the asynchronous payment has started.
+
+#### Declaration
+
+*Java:*
+
+```java
+- void asyncPaymentStarted(@NonNull Charge charge);
+```
+*Java:*
+
+```kotlin
+- fun asyncPaymentStarted(charge:Charge)
+```
 -----
 <a name="docs"></a>
 # Documentation
