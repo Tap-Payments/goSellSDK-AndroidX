@@ -2551,9 +2551,13 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
 3.Ask for Enabling googlePay as payment option from Tap team.
 
 4. Tap Google Pay button will appear if:
+  
    i.You did all the previous steps.
+   
    ii. If your device supports Google Pay .
+   
    iii.The customer is paying with a currency that has Google Pay option enabled from our side.
+   
    iv.The customer paying has already added at least one valid card in his Google Wallet with one our Google pay payment networks.
 
 
