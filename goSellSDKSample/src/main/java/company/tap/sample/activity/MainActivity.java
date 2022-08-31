@@ -605,8 +605,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     @Override
     public void googlePayFailed(String error) {
         System.out.println("googlePayFailed :  " + error);
-        System.out.println("googlePayFailed :  " + error);
-        showDialog(error, "googlePayFailed", company.tap.gosellapi.R.drawable.icon_failed);
+     //   System.out.println("googlePayFailed :  " + error);
+      //  showDialog(error, "googlePayFailed", company.tap.gosellapi.R.drawable.icon_failed);
 
     }
 
