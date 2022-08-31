@@ -46,5 +46,5 @@ public interface SessionDelegate {
 
         void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
 
-        void googlePayFailed(Status error);
+        void googlePayFailed(String error);
 }

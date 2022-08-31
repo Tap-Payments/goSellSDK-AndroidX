@@ -2,6 +2,8 @@ package company.tap.gosellapi.internal.data_managers.payment_options;
 
 
 
+import static company.tap.gosellapi.internal.activities.GoSellPaymentActivity.gPayFlag;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
@@ -38,6 +40,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models_
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.CompoundFilter;
+import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.GroupViewHolder;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
@@ -241,6 +244,14 @@ public class PaymentOptionsDataManager {
 
         this.paymentOptionsResponse = paymentOptionsResponse;
         this.modelsHandler = new ViewModelsHandler();
+        for (int i = 0; i < paymentOptionsResponse.getPaymentOptions().size() ; i++) {
+            if(paymentOptionsResponse.getPaymentOptions().get(i).getName().contains("GOOGLE_PAY")){
+                gPayFlag = true;
+            }else {
+
+                gPayFlag = false;
+            }
+        }
         getModelsHandler().generateViewModels();
         getModelsHandler().filterViewModels(getPaymentOptionsResponse().getCurrency());
     }
@@ -700,6 +711,11 @@ public class PaymentOptionsDataManager {
 
     }
 
+
+    public void removeview(){
+    viewModels.remove(modelsHandler.findGoogleModel());
+    }
+
     //endregion
 
     //region focus interaction between holders
@@ -755,6 +771,7 @@ public class PaymentOptionsDataManager {
 
     private final class ViewModelsHandler {
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         private void generateViewModels() {
 
             ArrayList<PaymentOptionViewModel> viewModelsResult = new ArrayList<>();
@@ -812,6 +829,17 @@ public class PaymentOptionsDataManager {
                 GroupViewModel othersGroupModel = generateGroupModel(Constants.othersGroupTitle);
                 viewModelsResult.add(othersGroupModel);
             }
+            if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY") && PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE) {
+                //   if(hasGooglePaymentOptions) {
+                //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
+                ArrayList<PaymentOption> paymentOptions = new ArrayList<>(googlePaymentOptions);
+                // GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this );
+                GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(paymentOptions);
+                PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
+                if(gPayFlag) {
+                    viewModelsResult.add(googlePayViewModel);
+                }
+            }
             // according to paymentOptions response im working on for test >>> user has two web payment options [ KNEt - BENEFIT]
             if (hasWebPaymentOptions) {
                 EmptyViewModel emptyModel = PaymentOptionsDataManagerUtils.ViewModelUtils
@@ -836,15 +864,7 @@ public class PaymentOptionsDataManager {
                 if (cardPaymentModel != null) viewModelsResult.add(cardPaymentModel);
             }
 
-    if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY") && PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE) {
- //   if(hasGooglePaymentOptions) {
-  //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
-    ArrayList<PaymentOption> paymentOptions = new ArrayList<>(googlePaymentOptions);
-    // GooglePayViewModel googlePayViewModel = new GooglePayViewModel(PaymentOptionsDataManager.this );
-    GooglePayViewModel googlePayViewModel = generateGooglePaymentModel(paymentOptions);
-    PaymentDataSource.getInstance().setCardPay(googlePaymentOptions);
-    viewModelsResult.add(googlePayViewModel);
-}
+
 
             viewModels = viewModelsResult;
         }
@@ -908,7 +928,25 @@ public class PaymentOptionsDataManager {
                 GroupViewModel recentGroupModel = findGroupModel(Constants.othersGroupTitle);
                 viewModelResult.add(recentGroupModel);
             }
+            //TODO:Based on PaymentOptions we need to show this
+            /**
+             * Need Logic here to check if GPay is available as Payment Option  + if device is supporting GPAY , show it
+             * Also pass the data from api related to GPAY*/
 
+            /**
+             * Added GooglePay as ViewModel***/
+            GooglePayViewModel googlePayViewModel = null;
+            if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY")  && PaymentDataSource.getInstance().getTransactionMode()== TransactionMode.PURCHASE) {
+                //  if(hasGooglePaymentOptions  ) {
+                //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
+                googlePayViewModel = generateGooglePaymentModel(googlePaymentOptions);
+                if(gPayFlag){
+                    viewModelResult.add(googlePayViewModel);
+
+                }
+
+
+            }
             if (hasWebPaymentOptions && PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() != TransactionMode.TOKENIZE_CARD) {
 
                 if (!hasSavedCards) {
@@ -924,22 +962,7 @@ public class PaymentOptionsDataManager {
                     viewModelResult.add(webPaymentModel);
                 }
             }
-            //TODO:Based on PaymentOptions we need to show this
-            /**
-             * Need Logic here to check if GPay is available as Payment Option  + if device is supporting GPAY , show it
-             * Also pass the data from api related to GPAY*/
 
-            /**
-             * Added GooglePay as ViewModel***/
-            GooglePayViewModel googlePayViewModel = null;
-            if(hasGooglePaymentOptions  && googlePaymentOptions.get(0).getAllowed_auth_methods().contains("PAN_ONLY")  && PaymentDataSource.getInstance().getTransactionMode()== TransactionMode.PURCHASE) {
-          //  if(hasGooglePaymentOptions  ) {
-             //  if(hasGooglePaymentOptions  && company.tap.gosellapi.internal.Constants.SUPPORTED_METHODS.contains("PAN_ONLY") ) {
-                 googlePayViewModel = generateGooglePaymentModel(googlePaymentOptions);
-                 viewModelResult.add(googlePayViewModel);
-
-
-            }
 
             if (hasCardPaymentOptions) {
 
@@ -976,6 +999,17 @@ public class PaymentOptionsDataManager {
                 if (model instanceof CurrencyViewModel) {
 
                     return (CurrencyViewModel) model;
+                }
+            }
+
+            return null;
+        }
+        private GooglePayViewModel findGoogleModel() {
+
+            for (PaymentOptionViewModel model : getViewModels()) {
+                if (model instanceof GooglePayViewModel) {
+
+                    return (GooglePayViewModel) model;
                 }
             }
 
@@ -1184,6 +1218,11 @@ public class PaymentOptionsDataManager {
             GooglePaymentViewModelData data = new GooglePaymentViewModelData(paymentOptions);
             return new GooglePayViewModel(PaymentOptionsDataManager.this, data);
         }
+
+
     }
+
+
+
 
 }

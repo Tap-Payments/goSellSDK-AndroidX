@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
+import android.os.Build;
 import android.view.View;
 
 import java.math.BigDecimal;
@@ -528,6 +531,7 @@ public class SDKSession implements View.OnClickListener{
   /**
    * launch goSellSDK activity
    */
+  @RequiresApi(api = Build.VERSION_CODES.N)
   private void startMainActivity() {
 
     if(payButtonView!=null )

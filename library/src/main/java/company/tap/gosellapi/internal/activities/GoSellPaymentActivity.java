@@ -94,11 +94,11 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
-import company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder;
-import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
+
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
@@ -154,7 +154,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         super.onCreate(savedInstanceState);
 
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
+        if(PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE){
+            paymentsClient = PaymentsUtil.createPaymentsClient(this);
+            possiblyShowGooglePayButton();
 
+        }
         apperanceMode = ThemeObject.getInstance().getAppearanceMode();
 
         if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
@@ -200,8 +204,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
-        paymentsClient = PaymentsUtil.createPaymentsClient(this);
-        //possiblyShowGooglePayButton();
+
     }
 
     private void initViews() {
@@ -1461,7 +1464,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         Log.e("loadPaymentData failed", String.format("Error code: %d", status.getStatusCode()));
         try {
             closePaymentActivity();
-            SDKSession.getListener().googlePayFailed(status);
+            SDKSession.getListener().googlePayFailed(status.getStatusMessage());
         } catch (Exception e) {
             closePaymentActivity();
         }
@@ -1499,11 +1502,15 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (task1.isSuccessful()) {
                 System.out.println("do we reach"+task1.getResult());
                 setGooglePayAvailable(task1.getResult());
+                gPayFlag = task1.getResult();
             } else {
+                SDKSession.getListener().googlePayFailed(task.getException().toString());
+                gPayFlag = false;
+               PaymentDataManager.getInstance().getPaymentOptionsDataManager().removeview();
                 Log.w("isReadyToPay failed", task1.getException());
             }
-            gPayFlag = task1.getResult();
-            System.out.println("task1 is"+task1.getResult());
+
+            //System.out.println("task1 is"+task1.getResult());
         });
     }
 
@@ -1521,7 +1528,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (available) {
             if(googlePayButton!=null)
             googlePayButton.setVisibility(View.VISIBLE);
+
         } else {
+            googlePayButton.setVisibility(View.GONE);
             Toast.makeText(this,R.string.googlepay_button_not_supported, Toast.LENGTH_LONG).show();
         }
     }

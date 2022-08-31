@@ -29,6 +29,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models.
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.EmptyViewModelData;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.internal.utils.PaymentsUtil;
+import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 
 /**
@@ -94,23 +95,25 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
         System.out.println("ready to pay request>>>>"+isReadyToPayJson);
         if (!isReadyToPayJson.isPresent()) {
             return;
-        }
+        }else {
 
-        // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
-        // OnCompleteListener to be triggered when the result of the call is known.
-        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
-        Task<Boolean> task = paymentsClient.isReadyToPay(request);
-        task.addOnCompleteListener(activity ,new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
-            @Override
-            public void onComplete(@NonNull Task<Boolean> task) {
-                System.out.println("task value is"+task.getResult());
-                if (task.isSuccessful()) {
-                    setGooglePayAvailable(task.getResult());
-                } else {
-                    Log.w("isReadyToPay failed", task.getException());
+            // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+            // OnCompleteListener to be triggered when the result of the call is known.
+            IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+            Task<Boolean> task = paymentsClient.isReadyToPay(request);
+            task.addOnCompleteListener(activity, new com.google.android.gms.tasks.OnCompleteListener<Boolean>() {
+                @Override
+                public void onComplete(@NonNull Task<Boolean> task) {
+                   // System.out.println("task value is" + task.getResult());
+                    if (task.isSuccessful()) {
+                        setGooglePayAvailable(task.getResult());
+                    } else {
+                        SDKSession.getListener().googlePayFailed(task.getException().toString());
+                        Log.w("isReadyToPay failed", task.getException());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 
@@ -160,6 +163,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
         if (available) {
             googlePayButton.setVisibility(View.VISIBLE);
         } else {
+            googlePayButton.setVisibility(View.GONE);
             Toast.makeText(itemView.getContext(),R.string.googlepay_button_not_supported, Toast.LENGTH_LONG).show();
         }
     }

@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.16.0] - 2022-08-31
+###  Version release with New Feature:
+- New Feature added for Merchant to use GooglePay.
+- Update Readme and ChangeLog.
 ## [3.14.0] - 2021-11-25
 ###  Version release with New Feature:
 - New Feature added for Merchant to know tokenized card save enabled or not.
