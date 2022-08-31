@@ -221,7 +221,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setAmount(new BigDecimal(20));  //** Required **
 
         // Set Payment Items array list
-        sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
+       // sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
+        sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
       sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
@@ -267,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setOperationMode(OperationMode.SAND_BOX);
 
-        sdkSession.setGooglePay(getGooglePay());//** Required ** For setting GooglePAY Environment
+        sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -602,9 +603,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     }
 
     @Override
-    public void googlePayFailed(Status error) {
-        System.out.println("googlePayFailed :  " + error.getStatusMessage());
-        System.out.println("googlePayFailed :  " + error.getStatus());
+    public void googlePayFailed(String error) {
+        System.out.println("googlePayFailed :  " + error);
+        System.out.println("googlePayFailed :  " + error);
+        showDialog(error, "googlePayFailed", company.tap.gosellapi.R.drawable.icon_failed);
+
     }
 
 
@@ -648,15 +651,12 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
+       return new Customer.CustomerBuilder("cus_TS034920221213Om413108368").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
 
-    }
 
-    private GooglePay getGooglePay() {
-        return  new GooglePay.GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build();
     }
 
     private void showDialog(String chargeID, String msg, int icon) {
