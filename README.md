@@ -48,7 +48,8 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
-6. [Documentation](#docs)
+6. [GOOGLE PAY](#google_pay)    
+7. [Documentation](#docs)
 
 
 <a name="requirements"></a>
@@ -2537,6 +2538,21 @@ Notifies the receiver (Merchant Activity) that error occured or transaction fail
 ```kotlin
 - fun googlePayFailed(error:Status)
 ```
+
+-----
+<a name="google_pay"></a>
+# Google Pay
+Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
+## Requirements
+1.Make sure, your current goSellSDK version is >= 3.16.0
+
+2.Ask for Enabling googlePay  as payment option from Tap team.
+
+3. Tap Google Pay button will appear if:
+   1.You did all the previous steps.
+   2.The customer is paying with a currency that has Google Pay option enabled from our side.
+   3.The customer paying has already added at least one valid card in his Google Wallet with one our Google pay payment networks.
+
 
 -----
 <a name="docs"></a>
