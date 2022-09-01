@@ -48,7 +48,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
-6. [GOOGLE PAY](#google_pay)    
+6. [Google Pay™](#google_pay)    
 7. [Documentation](#docs)
 
 
@@ -2541,7 +2541,7 @@ Notifies the receiver (Merchant Activity) that error occured or transaction fail
 
 -----
 <a name="google_pay"></a>
-# Google Pay
+# Google Pay™
 Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
 ## Requirements
 
@@ -2601,7 +2601,206 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
    
    viii. Notify Google support when your APK is 100% visible to users.
 
-###
+## Integrate Google Pay Directly in your App
+
+Accept a payment using Google Pay in your Android app and Tap Payment as your PSP.
+
+1. Set up your integration
+
+To use Google Pay, first enable the Google Pay API by adding the following to the <application> tag of your AndroidManifest.xml:
+```java
+<application>
+  ...
+  <meta-data
+    android:name="com.google.android.gms.wallet.api.enabled"
+    android:value="true" />
+</application>
+```
+Include the GooglePay button as per Google Branding standards
+
+Step 1: Define your Google Pay API version
+```java
+  private static JSONObject getBaseRequest() throws JSONException {
+    return new JSONObject().put("apiVersion", 2).put("apiVersionMinor", 0);
+  }
+```
+Step 2: Request a payment token for your payment provider --Here it will be TapPayments
+
+```java
+  private static JSONObject getGatewayTokenizationSpecification() throws JSONException {
+    return new JSONObject() {{
+      put("type", "PAYMENT_GATEWAY");
+      put("parameters", new JSONObject() {{
+        put("gateway", "tappayments");
+        put("gatewayMerchantId", "Here pass your Merchant Id with Tap");
+      }});
+    }};
+  }
+```
+Step 3: Define supported payment card networks 
+Here you can pass the cardNetworks Tap has enabled for you or your choice if Networks
+```java
+private static JSONArray getAllowedCardNetworks() {
+  return new JSONArray()
+      .put("AMEX")
+      .put("DISCOVER")
+      .put("INTERAC")
+      .put("JCB")
+      .put("MASTERCARD")
+      .put("MIR")
+      .put("VISA");
+}
+```
+Allowed Card Methods
+```java
+private static JSONArray getAllowedCardAuthMethods() {
+  return new JSONArray()
+      .put("PAN_ONLY")
+      .put("CRYPTOGRAM_3DS");
+}
+```
+Step 4: Describe your allowed payment method
+```java
+  private static JSONObject getBaseCardPaymentMethod() throws JSONException {
+    JSONObject cardPaymentMethod = new JSONObject();
+    cardPaymentMethod.put("type", "CARD");
+
+    JSONObject parameters = new JSONObject();
+    parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
+    parameters.put("allowedCardNetworks", getAllowedCardNetworks());
+   
+    cardPaymentMethod.put("parameters", parameters);
+
+    return cardPaymentMethod;
+  }
+```
+Step 5: Create a PaymentsClient instance
+Create a PaymentsClient instance in the onCreate method in your Activity. The PaymentsClient is used for interaction with the Google Pay API.
+
+```java
+  public static PaymentsClient createPaymentsClient(Activity activity) {
+    Wallet.WalletOptions walletOptions =
+        new Wallet.WalletOptions.Builder().setEnvironment(Constants.PAYMENTS_ENVIRONMENT).build();
+    return Wallet.getPaymentsClient(activity, walletOptions);
+  }
+```
+
+Step 6: Determine readiness to pay with the Google Pay API
+
+Before you display the Google Pay button, call the isReadyToPay API to determine if the user can make payments with the Google Pay API.
+
+```java
+  public static Optional<JSONObject> getIsReadyToPayRequest() {
+    try {
+      JSONObject isReadyToPayRequest = getBaseRequest();
+      isReadyToPayRequest.put(
+          "allowedPaymentMethods", new JSONArray().put(getBaseCardPaymentMethod()));
+
+      return Optional.of(isReadyToPayRequest);
+
+    } catch (JSONException e) {
+      return Optional.empty();
+    }
+  }
+  ```
+Show GooglePay Button based on the above
+```java
+  private void possiblyShowGooglePayButton() {
+
+    final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+    if (!isReadyToPayJson.isPresent()) {
+      return;
+    }
+
+    // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+    // OnCompleteListener to be triggered when the result of the call is known.
+    IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+    Task<Boolean> task = paymentsClient.isReadyToPay(request);
+    task.addOnCompleteListener(this,
+        new OnCompleteListener<Boolean>() {
+          @Override
+          public void onComplete(@NonNull Task<Boolean> task) {
+            if (task.isSuccessful()) {
+              setGooglePayAvailable(task.getResult());
+            } else {
+              Log.w("isReadyToPay failed", task.getException());
+            }
+          }
+        });
+  }
+```
+Step 7: Create a PaymentDataRequest object
+
+A PaymentDataRequest JSON object describes the information that you request from a payer in a Google Pay payment sheet.
+
+```java
+  private static JSONObject getTransactionInfo(String price) throws JSONException {
+    JSONObject transactionInfo = new JSONObject();
+    transactionInfo.put("totalPrice", price);
+    transactionInfo.put("totalPriceStatus", "FINAL");
+    transactionInfo.put("countryCode", Constants.COUNTRY_CODE);
+    transactionInfo.put("currencyCode", Constants.CURRENCY_CODE);
+    transactionInfo.put("checkoutOption", "COMPLETE_IMMEDIATE_PURCHASE");
+
+    return transactionInfo;
+  }
+  ```
+The following example shows how to request payment data:
+
+```java
+
+  public static Optional<JSONObject> getPaymentDataRequest(long priceCents) {
+
+    final String price = PaymentsUtil.centsToString(priceCents);
+
+    try {
+      JSONObject paymentDataRequest = PaymentsUtil.getBaseRequest();
+      paymentDataRequest.put(
+          "allowedPaymentMethods", new JSONArray().put(PaymentsUtil.getCardPaymentMethod()));
+      paymentDataRequest.put("transactionInfo", PaymentsUtil.getTransactionInfo(price));
+      paymentDataRequest.put("merchantInfo", PaymentsUtil.getMerchantInfo());
+
+    
+      return Optional.of(paymentDataRequest);
+
+    } catch (JSONException e) {
+      return Optional.empty();
+    }
+  }
+```
+Step 9: Handle the response object
+After a payer successfully provides the requested information in the Google Pay payment sheet, a PaymentData object is returned to onActivityResult.
+
+To pass payment information to your processor and to present the user with a confirmation of their purchase, convert a successful response to JSON.
+
+```java
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      // value passed in AutoResolveHelper
+      case LOAD_PAYMENT_DATA_REQUEST_CODE:
+        switch (resultCode) {
+
+          case Activity.RESULT_OK:
+            PaymentData paymentData = PaymentData.getFromIntent(data);
+            handlePaymentSuccess(paymentData);
+            break;
+
+          case Activity.RESULT_CANCELED:
+            // The user cancelled the payment attempt
+            break;
+
+          case AutoResolveHelper.RESULT_ERROR:
+            Status status = AutoResolveHelper.getStatusFromIntent(data);
+            handleError(status.getStatusCode());
+            break;
+        }
+
+        // Re-enables the Google Pay payment button.
+        googlePayButton.setClickable(true);
+    }
+  }
+```
+
 -----
 <a name="docs"></a>
 # Documentation
