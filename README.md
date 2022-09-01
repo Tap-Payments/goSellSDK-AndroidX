@@ -2601,6 +2601,12 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
    
    viii. Notify Google support when your APK is 100% visible to users.
 
+6. Additional Note:
+
+   Register with the [GooglePay and Wallet Console] (https://pay.google.com/business/console)  and receive a Google merchant ID. 
+   All merchants must adhere to the [Google Pay APIS] (https://payments.developers.google.com/terms/aup)  and accept the terms that the [Google Pay API Terms of Service]
+   (https://payments.developers.google.com/terms/sellertos)defines.
+
 ## Integrate Google Pay Directly in your App
 
 Accept a payment using Google Pay in your Android app and Tap Payment as your PSP.
