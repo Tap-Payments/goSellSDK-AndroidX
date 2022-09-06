@@ -2806,7 +2806,7 @@ To pass payment information to your processor and to present the user with a con
     }
   }
 ```
-Step 10: Tokenize the Google Pay payment data with Tap
+Step 10:  ##Tokenize the Google Pay payment data with Tap
 
 Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
 you can find this payment data in the paymentMethodToken property of the Google Pay payment data request's response.
@@ -2815,8 +2815,8 @@ you can find this payment data in the paymentMethodToken property of the Google 
 You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
 
 1.SandBox Sample Tokenize Request
-
-** --> POST https://api.tap.company/v2/tokens **
+ 
+--> POST https://api.tap.company/v2/tokens 
 
 ```java
  {
