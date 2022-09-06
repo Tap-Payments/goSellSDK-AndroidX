@@ -2583,15 +2583,15 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
    
    iv. The customer paying has already added at least one valid card in his Google Wallet with one our Google pay payment networks.
 
-5.Going live with Google Pay
+5. Going live with Google Pay
 
-  i. Build your app using GooglePayEnvironment.Test 
+   i. Build your app using GooglePayEnvironment.Test 
    
-  ii. Reach out to Google support. 
+   ii. Reach  out to Google support. 
   
-  iii.Send the APK using GooglePayEnvironment.Test to Google support when requested.
+   iii.Send the APK using GooglePayEnvironment.Test to Google support when requested.
   
-  iv. Google assesses the app against their integration checklist and provides feedback if needed.
+   iv. Google assesses the app against their integration checklist and provides feedback if needed.
   
    v. Google provides instructions on how to agree to their Terms of Service and ensure production access is granted.
    
