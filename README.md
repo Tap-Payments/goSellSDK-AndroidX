@@ -2637,7 +2637,7 @@ Step 2: Request a payment token for your payment provider --Here it will be TapP
     return new JSONObject() {{
       put("type", "PAYMENT_GATEWAY");
       put("parameters", new JSONObject() {{
-        put("gateway", "tappayments");
+        put("gateway", *"tappayments"*);
         put("gatewayMerchantId", "Here pass your Merchant Id with Tap");
       }});
     }};
@@ -2806,6 +2806,61 @@ To pass payment information to your processor and to present the user with a con
     }
   }
 ```
+Step 10: Tokenize the Google Pay payment data with Tap
+
+Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
+you can find this payment data in the paymentMethodToken property of the Google Pay payment data request's response.
+
+# Endpoints
+You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
+
+1.SandBox Sample Tokenize Request
+
+** --> POST https://api.tap.company/v2/tokens **
+
+```java
+ {
+"token_data":{
+"signature":"MEUCIQCgAIHrd65KhLQR4KMDqwfSYyjdF/rKUQG7eVPAP2NIuAIgWcA02MjvXAD9Xo4u2O6gl6PBjNNJeLTNy++paOGE3nE=",
+"intermediateSigningKey":{
+"signedKey":"{\"keyValue\":\"/uCLf1SqYc4feUicYPJSIu1djT3RQXe/71W50TegMLcs94OScACGtOPaiJmZwUPxCA\\u003d\\u003d\",\"keyExpiration\":\"1663134862361\"}",
+"signatures":[
+"MEYCIQDf7b5O3xatEfZu9aK1+IebTs1N2otF++MtdgwitZK6iUf2hNdb4XXut+k5H8tHj"
+]
+},
+"protocolVersion":"ECv2",
+"signedMessage":"{\"encryptedMessage\":\"8tW8iQuL8dOyZ1+OhZMMzVXFggBsE2dKobOsNw00nOQI7JuY7Zfqq4kbae+o48HoXDayEHkjFlnXW/QZBIHBqWgrMce9LJj+jnYTN7WcAAxLNbwf3leZs+zV7GMV+0aMAsOOdvKdurCg7LBIDJZeNbMyomtp9HqQ+paLjgxqtvOGnZ5jJoYMTQqOR+qdFmxvsOqhHZHtiRvdTQi8Z9p9+jvbn28M0DRle1COyQOrhnOVZ7RUu1kYaMm7cOxeXbXP4CuuCb2EQZ\",\"ephemeralPublicKey\":\"BPYdAC923D/jRypCseOUA9bersY0i\\u003d\",\"tag\":\"UcPrx3j4NzXy38/pKZ4nXEViVSKacXEQpxeRxqdkZPU\\u003d\"}"
+},
+"type":"googlepay"
+}
+```
+Sample Response
+
+```java
+{
+"id":"tok_zMMQ40227330XHU6SH88276",
+"created":1662449620276,
+"object":"token",
+"live_mode":false,
+"type":"GOOGLEPAY",
+"used":false,
+"card":{
+"id":"card_3snF4022733eqh56yL8E279",
+"object":"card",
+"funding":"CREDIT",
+"fingerprint":"FEAWi7M8%2BpIXbsraeWsHfuMOg2AeIpG5Pp2wkf4LHPU%3D",
+"brand":"VISA",
+"scheme":"VISA",
+"exp_month":12,
+"exp_year":2027,
+"last_four":"3478",
+"first_six":"489537"
+}
+}
+```
+
+2. You can further use the charge API and pass the token further as [Charges API](https://www.tap.company/kw/en/developers) 
+
 
 -----
 <a name="docs"></a>
