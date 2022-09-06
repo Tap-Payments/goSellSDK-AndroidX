@@ -2861,6 +2861,15 @@ Sample Response
 
 2. You can further use the charge API and pass the token further as [Charges API](https://www.tap.company/kw/en/developers) 
 
+## Test Google Pay
+
+Google Pay does not allow the configuration of test cards within its online wallet. However, when using Google's test environment,
+if a real card is selected when making the online purchase, Google Pay provides a test card in the encrypted payment data; ensuring 
+that no actual transaction takes place.
+
+You can also join the [Google Test Suite](https://groups.google.com/forum/#!forum/googlepay-test-mode-stub-data) , Make sure your account is 
+whitelisted and so sample cards will be available from google to test in TEST enviroment.
+
 
 -----
 <a name="docs"></a>
