@@ -2814,9 +2814,9 @@ you can find this payment data in the paymentMethodToken property of the Google 
 # Endpoints
 You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
 
-1.SandBox Sample Tokenize Request
+1. Sample Tokenize Request
  
---> POST https://api.tap.company/v2/tokens 
+   POST https://api.tap.company/v2/tokens 
 
 ```java
  {
