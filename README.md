@@ -2858,8 +2858,74 @@ Sample Response
 }
 }
 ```
+2. Request a 3D Secure payment using Google Pay 
+   After receiving your token, you can authenticate the transaction as follows:
+   To process this transaction as a 3D Secure payment, set the ```java threeDSecure``` field to```java true ``` as in the request example below.
+   
+Example: Request body
+   
+```java
+{
+  "amount": 10,
+  "currency": "USD",
+  "threeDSecure": true,
+  "save_card": false,
+  "description": "Test Description",
+  "statement_descriptor": "Sample",
+  "metadata": {
+    "udf1": "test 1",
+    "udf2": "test 2"
+  },
+  "reference": {
+    "transaction": "txn_0001",
+    "order": "ord_0001"
+  },
+  "receipt": {
+    "email": false,
+    "sms": true
+  },
+  "customer": {
+    "first_name": "test",
+    "middle_name": "test",
+    "last_name": "test",
+    "email": "test@test.com",
+    "phone": {
+      "country_code": "965",
+      "number": "50000000"
+    }
+  },
+  "merchant": {
+    "id": ""
+  },
+  "source": {
+    "id": "src_google_pay"
+  },
+  "destinations": {
+    "destination": [
+      {
+        "id": "480593",
+        "amount": 2,
+        "currency": "USD"
+      },
+      {
+        "id": "486374",
+        "amount": 3,
+        "currency": "USD"
+      }
+    ]
+  },
+  "post": {
+    "url": "http://your_website.com/post_url"
+  },
+  "redirect": {
+    "url": "http://your_website.com/redirect_url"
+  }
+}
+```
 
-2. You can further use the charge API and pass the token further as [Charges API](https://www.tap.company/kw/en/developers) 
+3. You can further use the charge API and pass the token further as [Charges API](https://www.tap.company/kw/en/developers)
+
+
 
 ## Test Google Pay
 
