@@ -2858,7 +2858,7 @@ Sample Response
 }
 }
 ```
-2. *Request a 3D Secure payment using Google Pay* 
+2. **Request a 3D Secure payment using Google Pay** 
    
 After receiving your token, you can authenticate the transaction as follows:
    To process this transaction as a 3D Secure payment, set the ```java threeDSecure``` field to```java true ``` as in the request example below.
