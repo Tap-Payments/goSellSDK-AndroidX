@@ -2814,7 +2814,7 @@ you can find this payment data in the paymentMethodToken property of the Google 
 # Endpoints
 You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
 
-1. Sample Tokenize Request
+1. **Sample Tokenize Request**
  
    POST https://api.tap.company/v2/tokens 
 
@@ -2924,7 +2924,7 @@ Example: Request body
 }
 ```
 
-3. You can further use the charge API and pass the token further as [Charges API](https://www.tap.company/kw/en/developers)
+3. You can further use the **charge API** and pass the token further as [Charges API](https://www.tap.company/kw/en/developers)
 
 
 
