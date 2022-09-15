@@ -48,7 +48,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
-6. [Google Pay™](#google_pay)    
+6. [Google Pay™™](#google_pay)    
 7. [Documentation](#docs)
 
 
@@ -2542,12 +2542,12 @@ Notifies the receiver (Merchant Activity) that error occured or transaction fail
 -----
 <a name="google_pay"></a>
 # Google Pay™
-Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
+Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
 ## Requirements
 
 1. Make sure, your current goSellSDK version is >= 3.16.0
 
-2. To use Google Pay, first ensure your device supports GooglePay and is above api version 22
+2. To use Google Pay™, first ensure your device supports GooglePay and is above api version 22
 
 3. Ask for Enabling googlePay as payment option from Tap team.
 
@@ -2573,17 +2573,17 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
    />
    ```
 
-4. Tap Google Pay button will appear if:
+4. Tap Google Pay™ button will appear if:
   
    i. You did all the previous steps.
    
-   ii. If your device supports Google Pay .
+   ii. If your device supports Google Pay™ .
    
-   iii. The customer is paying with a currency that has Google Pay option enabled from our side.
+   iii. The customer is paying with a currency that has Google Pay™ option enabled from our side.
    
-   iv. The customer paying has already added at least one valid card in his Google Wallet with one our Google pay payment networks.
+   iv. The customer paying has already added at least one valid card in his Google Wallet with one our Google Pay™ payment networks.
 
-5. Going live with Google Pay
+5. Going live with Google Pay™
 
    i. Build your app using GooglePayEnvironment.Test 
    
@@ -2604,16 +2604,16 @@ Google Pay is fully compatible with Tap’s goSellSDK Android , allowing you to 
 6. Additional Note:
 
    Register with the [GooglePay and Wallet Console] (https://pay.google.com/business/console)  and receive a Google merchant ID. 
-   All merchants must adhere to the [Google Pay APIS] (https://payments.developers.google.com/terms/aup)  and accept the terms that the [Google Pay API Terms of Service]
+   All merchants must adhere to the [Google Pay™ APIS] (https://payments.developers.google.com/terms/aup)  and accept the terms that the [Google Pay™ API Terms of Service]
    (https://payments.developers.google.com/terms/sellertos)defines.
 
-## Integrate Google Pay Directly in your App
+## Integrate Google Pay™ Directly in your App
 
-Accept a payment using Google Pay in your Android app and Tap Payment as your PSP.
+Accept a payment using Google Pay™ in your Android app and Tap Payment as your PSP.
 
 1. Set up your integration
 
-To use Google Pay, first enable the Google Pay API by adding the following to the <application> tag of your AndroidManifest.xml:
+To use Google Pay™, first enable the Google Pay™ API by adding the following to the <application> tag of your AndroidManifest.xml:
 ```java
 <application>
   ...
@@ -2624,7 +2624,7 @@ To use Google Pay, first enable the Google Pay API by adding the following to th
 ```
 Include the GooglePay button as per Google Branding standards
 
-Step 1: Define your Google Pay API version
+Step 1: Define your Google Pay™ API version
 ```java
   private static JSONObject getBaseRequest() throws JSONException {
     return new JSONObject().put("apiVersion", 2).put("apiVersionMinor", 0);
@@ -2681,7 +2681,7 @@ Step 4: Describe your allowed payment method
   }
 ```
 Step 5: Create a PaymentsClient instance
-Create a PaymentsClient instance in the onCreate method in your Activity. The PaymentsClient is used for interaction with the Google Pay API.
+Create a PaymentsClient instance in the onCreate method in your Activity. The PaymentsClient is used for interaction with the Google Pay™ API.
 
 ```java
   public static PaymentsClient createPaymentsClient(Activity activity) {
@@ -2691,9 +2691,9 @@ Create a PaymentsClient instance in the onCreate method in your Activity. The Pa
   }
 ```
 
-Step 6: Determine readiness to pay with the Google Pay API
+Step 6: Determine readiness to pay with the Google Pay™ API
 
-Before you display the Google Pay button, call the isReadyToPay API to determine if the user can make payments with the Google Pay API.
+Before you display the Google Pay™ button, call the isReadyToPay API to determine if the user can make payments with the Google Pay™ API.
 
 ```java
   public static Optional<JSONObject> getIsReadyToPayRequest() {
@@ -2737,7 +2737,7 @@ Show GooglePay Button based on the above
 ```
 Step 7: Create a PaymentDataRequest object
 
-A PaymentDataRequest JSON object describes the information that you request from a payer in a Google Pay payment sheet.
+A PaymentDataRequest JSON object describes the information that you request from a payer in a Google Pay™ payment sheet.
 
 ```java
   private static JSONObject getTransactionInfo(String price) throws JSONException {
@@ -2775,7 +2775,7 @@ The following example shows how to request payment data:
   }
 ```
 Step 9: Handle the response object
-After a payer successfully provides the requested information in the Google Pay payment sheet, a PaymentData object is returned to onActivityResult.
+After a payer successfully provides the requested information in the Google Pay™ payment sheet, a PaymentData object is returned to onActivityResult.
 
 To pass payment information to your processor and to present the user with a confirmation of their purchase, convert a successful response to JSON.
 
@@ -2801,15 +2801,15 @@ To pass payment information to your processor and to present the user with a con
             break;
         }
 
-        // Re-enables the Google Pay payment button.
+        // Re-enables the Google Pay™ payment button.
         googlePayButton.setClickable(true);
     }
   }
 ```
-## Step 10: Tokenize the Google Pay payment data with Tap
+## Step 10: Tokenize the Google Pay™ payment data with Tap
 
 Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
-you can find this payment data in the paymentMethodToken property of the Google Pay payment data request's response.
+you can find this payment data in the paymentMethodToken property of the Google Pay™ payment data request's response.
 
 # Endpoints
 You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
@@ -2858,7 +2858,7 @@ Sample Response
 }
 }
 ```
-2. **Request a 3D Secure payment using Google Pay** 
+2. **Request a 3D Secure payment using Google Pay™** 
    
 After receiving your token, you can authenticate the transaction as follows:
    To process this transaction as a 3D Secure payment, set the ```threeDSecure``` field to```true``` as in the request example below.
@@ -2928,10 +2928,10 @@ Example: Request body
 
 
 
-## Test Google Pay
+## Test Google Pay™
 
-Google Pay does not allow the configuration of test cards within its online wallet. However, when using Google's test environment,
-if a real card is selected when making the online purchase, Google Pay provides a test card in the encrypted payment data; ensuring 
+Google Pay™ does not allow the configuration of test cards within its online wallet. However, when using Google's test environment,
+if a real card is selected when making the online purchase, Google Pay™ provides a test card in the encrypted payment data; ensuring 
 that no actual transaction takes place.
 
 You can also join the [Google Test Suite](https://groups.google.com/forum/#!forum/googlepay-test-mode-stub-data) , Make sure your account is 
