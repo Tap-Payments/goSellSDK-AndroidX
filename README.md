@@ -2680,6 +2680,26 @@ Step 4: Describe your allowed payment method
     return cardPaymentMethod;
   }
 ```
+**If you wish to add a billing address then you can modify the request as below: (optional)**
+```java
+    private fun baseCardPaymentMethod(): JSONObject {
+        return JSONObject().apply {
+
+        val parameters = JSONObject().apply {
+        put("allowedAuthMethods", allowedCardAuthMethods)
+        put("allowedCardNetworks", allowedCardNetworks)
+        put("billingAddressRequired", true)
+        put("billingAddressParameters", JSONObject().apply {
+        put("format", "FULL")
+        })
+        }
+
+        put("type", "CARD")
+        put("parameters", parameters)
+        }
+        }
+```
+
 Step 5: Create a PaymentsClient instance
 Create a PaymentsClient instance in the onCreate method in your Activity. The PaymentsClient is used for interaction with the Google Pay™ API.
 
