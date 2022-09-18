@@ -48,7 +48,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
-6. [Google Pay™™](#google_pay)    
+6. [Google Pay™](#google_pay)    
 7. [Documentation](#docs)
 
 
@@ -2603,9 +2603,9 @@ Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you 
 
 6. Additional Note:
 
-   Register with the [GooglePay and Wallet Console] (https://pay.google.com/business/console)  and receive a Google merchant ID. 
-   All merchants must adhere to the [Google Pay™ APIS] (https://payments.developers.google.com/terms/aup)  and accept the terms that the [Google Pay™ API Terms of Service]
-   (https://payments.developers.google.com/terms/sellertos)defines.
+   Register with the [Google Pay™ and Wallet Console](https://pay.google.com/business/console)  and receive a Google merchant ID. 
+   All merchants must adhere to the [Google Pay™ APIS](https://payments.developers.google.com/terms/aup)  and accept the terms that the 
+   [Google Pay™ API Terms of Service](https://payments.developers.google.com/terms/sellertos) defines.
 
 ## Integrate Google Pay™ Directly in your App
 
@@ -2709,7 +2709,7 @@ Before you display the Google Pay™ button, call the isReadyToPay API to determ
     }
   }
   ```
-Show GooglePay Button based on the above
+Show Google Pay™ Button based on the above
 ```java
   private void possiblyShowGooglePayButton() {
 
