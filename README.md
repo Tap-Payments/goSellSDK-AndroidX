@@ -2806,6 +2806,9 @@ To pass payment information to your processor and to present the user with a con
     }
   }
 ```
+For more details you can check the following [Google Pay™ Android developer documentation](https://developers.google.com/pay/api/android/overview), [Google Pay™ Android integration checklist](https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist) and
+[Google Pay™ Android brand guidelines](https://developers.google.com/pay/api/android/guides/brand-guidelines).
+
 ## Step 10: Tokenize the Google Pay™ payment data with Tap
 
 Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
