@@ -50,7 +50,7 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     18. [GooglePayFailed](#google_pay_failed_callback)
 6. [Google Pay™](#google_pay) 
   
-   1. [Requirements](#requirements_googlepay)
+   1. [Requirements And SetUp](#requirements_googlepay)
    2. [Integrate Google Pay™ Directly in your App](#google_pay_integrate_direct)
    3. [Tokenize the Google Pay™ payment data with Tap](#google_pay_tokenize_tap)
    4. [Test Google Pay™](#google_pay_test)
@@ -2551,7 +2551,7 @@ Notifies the receiver (Merchant Activity) that error occured or transaction fail
 Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
 
 <a name="requirements_googlepay"></a>
-## Requirements
+## Requirements And SetUp
 
 1. Make sure, your current goSellSDK version is >= 3.16.0
 
