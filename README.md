@@ -49,10 +49,11 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
 6. [Google Pay™](#google_pay) 
-     1.[Requirements](#requirements_googlepay)
-     2.[Integrate Google Pay™ Directly in your App](#google_pay_integrate_direct)
-     3.[Step 10: Tokenize the Google Pay™ payment data with Tap](#google_pay_tokenize_tap)
-     4.[Test Google Pay™](#google_pay_test)
+  
+   1. [Requirements](#requirements_googlepay)
+   2. [Integrate Google Pay™ Directly in your App](#google_pay_integrate_direct)
+   3. [Tokenize the Google Pay™ payment data with Tap](#google_pay_tokenize_tap)
+   4. [Test Google Pay™](#google_pay_test)
 
 7. [Documentation](#docs)
 
