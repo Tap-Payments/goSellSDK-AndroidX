@@ -48,7 +48,11 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [GooglePayFailed](#google_pay_failed_callback)
-6. [Google Pay™](#google_pay)    
+6. [Google Pay™](#google_pay)
+   1.[Requirements](#requirements_googlepay)
+   2.[Integrate Google Pay™ Directly in your App](#google_pay_integrate_direct)
+   3.[Step 10: Tokenize the Google Pay™ payment data with Tap](#google_pay_tokenize_tap)
+   4.[Test Google Pay™](#google_pay_test)
 7. [Documentation](#docs)
 
 
@@ -2543,6 +2547,8 @@ Notifies the receiver (Merchant Activity) that error occured or transaction fail
 <a name="google_pay"></a>
 # Google Pay™
 Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
+
+<a name="requirements_googlepay"></a>
 ## Requirements
 
 1. Make sure, your current goSellSDK version is >= 3.16.0
@@ -2607,6 +2613,8 @@ Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you 
    All merchants must adhere to the [Google Pay™ APIS](https://payments.developers.google.com/terms/aup)  and accept the terms that the 
    [Google Pay™ API Terms of Service](https://payments.developers.google.com/terms/sellertos) defines.
 
+
+<a name="google_pay_integrate_direct"></a>
 ## Integrate Google Pay™ Directly in your App
 
 Accept a payment using Google Pay™ in your Android app and Tap Payment as your PSP.
@@ -2829,6 +2837,7 @@ To pass payment information to your processor and to present the user with a con
 For more details you can check the following [Google Pay™ Android developer documentation](https://developers.google.com/pay/api/android/overview), [Google Pay™ Android integration checklist](https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist) and
 [Google Pay™ Android brand guidelines](https://developers.google.com/pay/api/android/guides/brand-guidelines).
 
+<a name="google_pay_tokenize_tap"></a>
 ## Step 10: Tokenize the Google Pay™ payment data with Tap
 
 Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
@@ -2963,7 +2972,7 @@ Example: Request body
 3. You can further use the **charge API** and pass the token further as [Charges API](https://www.tap.company/kw/en/developers)
 
 
-
+<a name="google_pay_test"></a>
 ## Test Google Pay™
 
 Google Pay™ does not allow the configuration of test cards within its online wallet. However, when using Google's test environment,
