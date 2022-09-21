@@ -2898,8 +2898,7 @@ Google Pay™ offers **two authentication modes**:
  
 *PAN_ONLY*
 - The card is stored on file with your customer's Google account. Thus, the payment credentials are not linked to an Android device.
-- Google handles the authentication and provides a payload that meets the SCA
-      requirements.
+- PAN_ONLY - A PAN that requires 3D Secure 2.0 for SCA.
 
 *CRYPTOGRAM_3DS*
 - Google Pay offers SCA compliance by binding payment credentials to an Android device and allowing issuers to delegate the authentication to
