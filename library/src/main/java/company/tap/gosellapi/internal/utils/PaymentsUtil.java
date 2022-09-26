@@ -33,7 +33,6 @@ import company.tap.gosellapi.internal.Constants;
 import company.tap.gosellapi.internal.api.enums.CardScheme;
 import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
-import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.GPayWalletMode;
 import company.tap.gosellapi.open.enums.OperationMode;
