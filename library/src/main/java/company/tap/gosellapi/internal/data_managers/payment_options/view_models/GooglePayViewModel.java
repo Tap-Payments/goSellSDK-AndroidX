@@ -13,7 +13,7 @@ import company.tap.gosellapi.internal.viewholders.GroupViewHolder;
 import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
 
 /**
- * The type Currency view model.
+ * The type GooglePayViewModel view model.
  */
 public class GooglePayViewModel extends PaymentOptionViewModel<GooglePaymentViewModelData, GooglePaymentViewHolder, GooglePayViewModel> {
     /**
