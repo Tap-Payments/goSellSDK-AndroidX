@@ -889,7 +889,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     case AutoResolveHelper.RESULT_ERROR:
                         Status status = AutoResolveHelper.getStatusFromIntent(data);
                         if(status!=null){
-                            System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
+                         //   System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
                             handleError(status);
                         }
                         break;
@@ -1430,7 +1430,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         LoadingScreenManager.getInstance().showLoadingScreen(this);
         try {
             JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
-            System.out.println("paymentMethodData"+paymentMethodData);
+         //   System.out.println("paymentMethodData"+paymentMethodData);
             // If the gateway is set to "example", no payment information is returned - instead, the
             // token will only consist of "examplePaymentMethodToken".
             final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
@@ -1500,7 +1500,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         Task<Boolean> task = paymentsClient.isReadyToPay(request);
         task.addOnCompleteListener(this , task1 -> {
             if (task1.isSuccessful()) {
-                System.out.println("do we reach"+task1.getResult());
+              //  System.out.println("do we reach"+task1.getResult());
                 setGooglePayAvailable(task1.getResult());
                 gPayFlag = task1.getResult();
             } else {
@@ -1523,7 +1523,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
      * @param available isReadyToPay API response.
      */
     private void setGooglePayAvailable(boolean available) {
-        System.out.println("available"+available);
+       // System.out.println("available"+available);
         googlePayButton = findViewById(R.id.googlePayButton);
         if (available) {
             if(googlePayButton!=null)
