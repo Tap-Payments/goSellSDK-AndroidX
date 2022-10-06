@@ -1,5 +1,5 @@
 # CHANGELOG
-## [3.16.0] - 2022-08-31
+## [3.16.0] - 2022-10-06
 ###  Version release with New Feature:
 - New Feature added for Merchant to use GooglePay.
 - Update Readme and ChangeLog.
