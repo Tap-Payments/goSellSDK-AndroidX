@@ -1490,6 +1490,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private void possiblyShowGooglePayButton() {
 
         final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+      //  System.out.println("isReadyToPayJson"+isReadyToPayJson);
         if (!isReadyToPayJson.isPresent()) {
             return;
         }

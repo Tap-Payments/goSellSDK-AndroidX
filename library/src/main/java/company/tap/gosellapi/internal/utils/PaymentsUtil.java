@@ -101,7 +101,7 @@ public class PaymentsUtil {
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
                 assert PaymentDataSource.getInstance().getGooglePaymentOptions() != null;
-                put("gateway", Constants.GATEWAY_ID);
+                put("gateway", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayName());
               //  put("gateway", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayName());
                 put("gatewayMerchantId", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getGatewayMerchantId());
             }});
