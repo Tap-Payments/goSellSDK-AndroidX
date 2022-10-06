@@ -24,7 +24,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
 
     @SerializedName("name")
     @Expose
-    private CardBrand brand;
+    private String name;
 
     @SerializedName("image")
     @Expose
@@ -60,7 +60,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @SerializedName("asynchronous")
     @Expose
     private boolean asynchronous;
-
+    private CardBrand brand;
     /**
      * Gets id.
      *
@@ -85,7 +85,7 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      * @return the name
      */
     public String getName() {
-        return (getBrand()!=null)? getBrand().getRawValue():"";
+        return (getBrand()!=null)? getBrand().getRawValue():name;
     }
 
     /**
@@ -94,6 +94,12 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
      * @return the brand
      */
     public CardBrand getBrand() {
+        // System.out.println("name values are#######"+name);
+        for (CardBrand brand : CardBrand.values()) {
+            if (brand.name().equalsIgnoreCase(name)) {
+                return brand;
+            }
+        }
         return brand;
     }
 
