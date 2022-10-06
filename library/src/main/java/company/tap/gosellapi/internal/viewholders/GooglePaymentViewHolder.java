@@ -77,7 +77,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
     @Override
     public void bind(GooglePaymentViewModelData data) {
         this.googlePaymentViewModelData = data;
-        System.out.println("googlePaymentViewModelData>>"+googlePaymentViewModelData);
+     //   System.out.println("googlePaymentViewModelData>>"+googlePaymentViewModelData);
     }
 
     /**
@@ -92,7 +92,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
     private void possiblyShowGooglePayButton() {
 
         final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
-        System.out.println("ready to pay request>>>>"+isReadyToPayJson);
+     //   System.out.println("ready to pay request>>>>"+isReadyToPayJson);
         if (!isReadyToPayJson.isPresent()) {
             return;
         }else {
@@ -131,7 +131,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
             }
             PaymentDataRequest request =
                     PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
-            System.out.println("request value is>>>"+request.toJson());
+         //   System.out.println("request value is>>>"+request.toJson());
 
             // Since loadPaymentData may show the UI asking the user to select a payment method, we use
             // AutoResolveHelper to wait for the user interacting with it. Once completed,
@@ -159,7 +159,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
      * @param available isReadyToPay API response.
      */
     private void setGooglePayAvailable(boolean available) {
-        System.out.println("available"+available);
+      //  System.out.println("GPayavailable"+available);
         if (available) {
             googlePayButton.setVisibility(View.VISIBLE);
         } else {
