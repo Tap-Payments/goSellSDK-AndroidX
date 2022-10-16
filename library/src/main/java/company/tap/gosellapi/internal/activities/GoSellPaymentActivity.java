@@ -156,7 +156,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
         if(PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE){
             paymentsClient = PaymentsUtil.createPaymentsClient(this);
-            possiblyShowGooglePayButton();
+            if(PaymentDataSource.getInstance().getGooglePaymentOptions().size()!=0){
+                possiblyShowGooglePayButton();
+            }
+
 
         }
         apperanceMode = ThemeObject.getInstance().getAppearanceMode();
