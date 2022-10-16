@@ -56,7 +56,9 @@ public class PaymentsUtil {
      * @throws JSONException
      */
     private static JSONObject getBaseRequest() throws JSONException {
+        if(PaymentDataSource.getInstance().getGooglePaymentOptions().size() != 0){
         return new JSONObject().put("apiVersion", PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getApiVersion()).put("apiVersionMinor",  PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getApiVersionMinor());
+    }else return  null;
     }
 
     /**
@@ -186,6 +188,7 @@ public class PaymentsUtil {
         cardPaymentMethod.put("type", "CARD");
        // System.out.println("Payment data"+PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getSupportedCardBrands());
         JSONObject parameters = new JSONObject();
+        if(PaymentDataSource.getInstance().getGooglePaymentOptions().size() != 0)
         parameters.put("allowedAuthMethods", new JSONArray(PaymentDataSource.getInstance().getGooglePaymentOptions().get(0).getAllowed_auth_methods()));
        // parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
        // parameters.put("allowedCardNetworks", getAllowedCardNetworks());
@@ -234,6 +237,7 @@ public class PaymentsUtil {
             JSONObject isReadyToPayRequest = getBaseRequest();
             isReadyToPayRequest.put(
                     "allowedPaymentMethods", new JSONArray().put(getBaseCardPaymentMethod()));
+
 
             return Optional.of(isReadyToPayRequest);
 

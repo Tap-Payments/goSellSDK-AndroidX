@@ -64,11 +64,14 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
         googlePayButton = view.findViewById(R.id.googlePayButton);
 
         activity = (Activity) view.getContext();
-         possiblyShowGooglePayButton();
-        googlePayButton.setOnClickListener(
-                view1 -> requestPayment(view1)
+        if(PaymentDataSource.getInstance().getGooglePaymentOptions().size()!=0){
+            possiblyShowGooglePayButton();
+            googlePayButton.setOnClickListener(
+                    view1 -> requestPayment(view1)
 
-        );
+            );
+        }
+
 
     }
 
@@ -131,7 +134,7 @@ public class GooglePaymentViewHolder extends PaymentOptionsBaseViewHolder<Google
             }
             PaymentDataRequest request =
                     PaymentDataRequest.fromJson(paymentDataRequestJson.get().toString());
-          //  System.out.println("request value is>>>"+request.toJson());
+            System.out.println("request value is>>>"+request.toJson());
 
             // Since loadPaymentData may show the UI asking the user to select a payment method, we use
             // AutoResolveHelper to wait for the user interacting with it. Once completed,
