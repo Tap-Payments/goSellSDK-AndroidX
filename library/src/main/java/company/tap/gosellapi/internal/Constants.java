@@ -72,8 +72,7 @@ public static final List<String> SUPPORTED_NETWORKS = Arrays.asList(
      *
      * @value #SUPPORTED_METHODS
      */
-    public static final List<String> SUPPORTED_METHODS = Arrays.asList(
-            "PAN_ONLY");
+    public static final List<String> SUPPORTED_METHODS = Arrays.asList("PAN_ONLY","CRYPTOGRAM_3DS");
 
 
     /**
