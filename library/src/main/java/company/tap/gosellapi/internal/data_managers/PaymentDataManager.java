@@ -22,6 +22,7 @@ import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.api.responses.DeleteCardResponse;
@@ -197,7 +198,7 @@ public final class PaymentDataManager {
     return paymentSessionActive;
   }
 
-  /////////////////////////////////////////    ########### Start of Singleton section ##################
+    /////////////////////////////////////////    ########### Start of Singleton section ##################
 
   /**
    * Here we will use inner class to create a singleton object of PaymentDataManager
@@ -400,12 +401,25 @@ public final class PaymentDataManager {
      * @param model    the model
      * @param listener the listener
      */
-    public void initiatePayment(PaymentOptionViewModel model, IPaymentProcessListener listener) {
+    public void initiatePayment(PaymentOptionViewModel model, IPaymentProcessListener listener ) {
 //       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
         clearPaymentProcessListeners();
     getProcessListener().addListener(listener);
     getPaymentProcessManager().startPaymentProcess(model);
   }
+
+    /**
+     * Initiate googlePayToken.
+     *
+     * @param model    the model
+     * @param listener the listener
+     */
+    public void initiateGooglePayTokenPayment(PaymentOptionViewModel model, IPaymentProcessListener listener ,@Nullable CreateTokenGPayRequest request) {
+//       Log.d("initiatePayment"," step 3 : initPayment : in class "+ "["+this.getClass().getName()+"]  ");
+        clearPaymentProcessListeners();
+        getProcessListener().addListener(listener);
+        getPaymentProcessManager().startGooglePaymentProcess(model,request);
+    }
 
   /**
    * Init card tokenization

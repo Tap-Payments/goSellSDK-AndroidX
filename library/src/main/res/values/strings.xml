@@ -122,4 +122,6 @@
   <string name="email_sms__sent" translatable="false">An SMS and email has been sent " </string>
   <string name="fawry_cash_location" translatable="false">Please visit a Fawry Cash Location \n using the link below to complete your payment</string>
   <string name="code_expires_on" translatable="false">Code Expires on</string>
+    <string name="googlepay_button_content_description" translatable="false">Google Pay</string>
+    <string name="googlepay_button_not_supported" translatable="false">Google Pay is not supported</string>
 </resources>
