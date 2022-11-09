@@ -284,7 +284,7 @@ public class SettingsManager {
      */
     public TransactionMode getTransactionsMode(String key){
 
-        String trx_mode = pref.getString(key, TransactionMode.PURCHASE.name());
+        String trx_mode = pref.getString(key, TransactionMode.TOKENIZE_CARD.name());
 
         if (trx_mode.equalsIgnoreCase(TransactionMode.PURCHASE.name()))
             return TransactionMode.PURCHASE;
