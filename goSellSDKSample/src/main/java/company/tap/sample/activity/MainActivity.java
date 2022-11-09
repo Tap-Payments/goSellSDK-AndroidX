@@ -301,9 +301,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void startSDKUI() {
         if (sdkSession != null) {
-            TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.PURCHASE;
+            TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.SAVE_CARD;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
             sdkSession.setTransactionMode(trx_mode);    //** Required **
+            System.out.println("Transaction Mode = " + trx_mode);
+
             // if you are not using tap button then start SDK using the following call
             //sdkSession.start(this);
         }

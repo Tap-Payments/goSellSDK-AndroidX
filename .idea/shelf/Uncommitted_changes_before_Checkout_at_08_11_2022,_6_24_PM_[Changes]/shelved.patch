@@ -1,0 +1,31 @@
+Index: goSellSDKSample/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\n    repositories {\n        maven { url 'https://maven.fabric.io/public' }\n    }\n\n    dependencies {\n        classpath 'io.fabric.tools:gradle:1.+'\n    }\n}\napply plugin: 'com.android.application'\napply plugin: 'io.fabric'\n\nrepositories {\n    maven { url 'https://maven.fabric.io/public' }\n}\n\n\nandroid {\n    compileSdkVersion 30\n\n    defaultConfig {\n        applicationId \"company.tap.sample\"\n        minSdkVersion 17\n        targetSdkVersion 30\n        versionCode 2\n        versionName \"2.0\"\n\n        vectorDrawables.useSupportLibrary = true\n        multiDexEnabled true\n\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled true\n            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n        }\n        customDebugType {\n            debuggable true\n        }\n    }\n\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_1_8\n        targetCompatibility JavaVersion.VERSION_1_8\n    }\n    lintOptions {\n        abortOnError false\n    }\n\n}\n\ndependencies {\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\n    implementation project(':library')\n    implementation 'androidx.appcompat:appcompat:1.3.1'\n    implementation 'com.google.android.material:material:1.4.0'\n    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {\n        transitive = true\n    }\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\n    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'\n    implementation 'androidx.recyclerview:recyclerview:1.2.1'\n    implementation 'com.google.code.gson:gson:2.8.6'\n    implementation 'com.github.Tap-Payments:TapFontsKit-Android:1.0'\n    implementation 'com.github.Tap-Payments:TapDimensionsKit-Android:1.0'\n    implementation 'com.github.Tap-Payments:TapColorsKit-Android:1.0'\n    implementation 'androidx.recyclerview:recyclerview:1.2.1'\n    implementation 'androidx.cardview:cardview:1.0.0'\n    implementation 'com.google.android.gms:play-services-basement:18.1.0'\n    implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/goSellSDKSample/build.gradle b/goSellSDKSample/build.gradle
+--- a/goSellSDKSample/build.gradle	
++++ b/goSellSDKSample/build.gradle	
+@@ -70,4 +70,5 @@
+     implementation 'androidx.cardview:cardview:1.0.0'
+     implementation 'com.google.android.gms:play-services-basement:18.1.0'
+     implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
++
+ }
+Index: .gradle/buildOutputCleanup/cache.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Oct 06 13:16:27 AST 2022\ngradle.version=5.4.1\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/buildOutputCleanup/cache.properties b/.gradle/buildOutputCleanup/cache.properties
+--- a/.gradle/buildOutputCleanup/cache.properties	
++++ b/.gradle/buildOutputCleanup/cache.properties	
+@@ -1,2 +1,2 @@
+-#Thu Oct 06 13:16:27 AST 2022
+-gradle.version=5.4.1
++#Tue Nov 08 17:45:19 PKT 2022
++gradle.version=6.7

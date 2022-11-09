@@ -283,7 +283,6 @@ public class SettingsManager {
      * @return
      */
     public TransactionMode getTransactionsMode(String key){
-
         String trx_mode = pref.getString(key, TransactionMode.PURCHASE.name());
 
         if (trx_mode.equalsIgnoreCase(TransactionMode.PURCHASE.name()))
