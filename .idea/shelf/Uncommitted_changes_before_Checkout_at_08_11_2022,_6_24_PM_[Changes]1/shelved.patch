@@ -1,0 +1,26 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"GRADLE\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleHome\" value=\"/usr/local/Cellar/gradle/6.7.1/libexec\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/goSellSDKSample\" />\n            <option value=\"$PROJECT_DIR$/library\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	
++++ b/.idea/gradle.xml	
+@@ -8,6 +8,7 @@
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="gradleHome" value="/usr/local/Cellar/gradle/6.7.1/libexec" />
++        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+@@ -15,7 +16,6 @@
+             <option value="$PROJECT_DIR$/library" />
+           </set>
+         </option>
+-        <option name="resolveModulePerSourceSet" value="false" />
+       </GradleProjectSettings>
+     </option>
+   </component>

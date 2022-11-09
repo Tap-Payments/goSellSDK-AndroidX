@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]" date="1667912970175" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 08/11/2022, 6:09 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.7/fileHashes/fileHashes.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.7/fileHashes/fileHashes.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/fileHashes.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.7/fileHashes/resourceHashesCache.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.7/fileHashes/resourceHashesCache.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/resourceHashesCache.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.7/executionHistory/executionHistory.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.7/executionHistory/executionHistory.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/executionHistory.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.7/executionHistory/executionHistory.lock" />
+    <option name="AFTER_PATH" value=".gradle/6.7/executionHistory/executionHistory.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/executionHistory.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.7/fileHashes/fileHashes.lock" />
+    <option name="AFTER_PATH" value=".gradle/6.7/fileHashes/fileHashes.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_11_2022,_6_09_PM_[Changes]/fileHashes.lock" />
+  </binary>
+</changelist>

@@ -1,0 +1,57 @@
+Index: goSellSDKSample/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>buildscript {\n    repositories {\n        maven { url 'https://maven.fabric.io/public' }\n    }\n\n    dependencies {\n        classpath 'io.fabric.tools:gradle:1.+'\n    }\n}\napply plugin: 'com.android.application'\napply plugin: 'io.fabric'\n\nrepositories {\n    maven { url 'https://maven.fabric.io/public' }\n}\n\n\nandroid {\n    compileSdkVersion 30\n\n    defaultConfig {\n        applicationId \"company.tap.sample\"\n        minSdkVersion 17\n        targetSdkVersion 30\n        versionCode 2\n        versionName \"2.0\"\n\n        vectorDrawables.useSupportLibrary = true\n\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled true\n            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'\n        }\n        customDebugType {\n            debuggable true\n        }\n    }\n\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_1_8\n        targetCompatibility JavaVersion.VERSION_1_8\n    }\n    lintOptions {\n        abortOnError false\n    }\n\n}\n\ndependencies {\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\n    implementation project(':library')\n    implementation 'androidx.appcompat:appcompat:1.3.1'\n    implementation 'com.google.android.material:material:1.4.0'\n    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {\n        transitive = true\n    }\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\n    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'\n    implementation 'androidx.recyclerview:recyclerview:1.2.1'\n    implementation 'com.google.code.gson:gson:2.8.6'\n    implementation 'com.github.Tap-Payments:TapFontsKit-Android:1.0'\n    implementation 'com.github.Tap-Payments:TapDimensionsKit-Android:1.0'\n    implementation 'com.github.Tap-Payments:TapColorsKit-Android:1.0'\n    implementation 'androidx.recyclerview:recyclerview:1.2.1'\n    implementation 'androidx.cardview:cardview:1.0.0'\n    implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/goSellSDKSample/build.gradle b/goSellSDKSample/build.gradle
+--- a/goSellSDKSample/build.gradle	(revision 7643676bbaed803b4015bd39bb220885ab007d42)
++++ b/goSellSDKSample/build.gradle	(date 1667912970158)
+@@ -68,4 +68,5 @@
+     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+     implementation 'androidx.cardview:cardview:1.0.0'
+     implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
++
+ }
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"GRADLE\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleHome\" value=\"/usr/local/Cellar/gradle/6.7.1/libexec\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/goSellSDKSample\" />\n            <option value=\"$PROJECT_DIR$/library\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 7643676bbaed803b4015bd39bb220885ab007d42)
++++ b/.idea/gradle.xml	(date 1667912970160)
+@@ -8,6 +8,7 @@
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="gradleHome" value="/usr/local/Cellar/gradle/6.7.1/libexec" />
++        <option name="gradleJvm" value="Embedded JDK" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+@@ -15,7 +16,6 @@
+             <option value="$PROJECT_DIR$/library" />
+           </set>
+         </option>
+-        <option name="resolveModulePerSourceSet" value="false" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .gradle/buildOutputCleanup/cache.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Oct 06 13:16:27 AST 2022\ngradle.version=5.4.1\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/buildOutputCleanup/cache.properties b/.gradle/buildOutputCleanup/cache.properties
+--- a/.gradle/buildOutputCleanup/cache.properties	(revision 7643676bbaed803b4015bd39bb220885ab007d42)
++++ b/.gradle/buildOutputCleanup/cache.properties	(date 1667912970161)
+@@ -1,2 +1,2 @@
+-#Thu Oct 06 13:16:27 AST 2022
+-gradle.version=5.4.1
++#Tue Nov 08 17:45:19 PKT 2022
++gradle.version=6.7
