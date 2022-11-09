@@ -1,7 +1,9 @@
 package company.tap.gosellapi.internal.viewholders;
 
+import android.os.Build;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +55,11 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
         /**
          * Card view holder type.
          */
-        CARD(5);
+        CARD(5),
+        /**
+         * GooglePay view holder type.
+         */
+        GOOGLEPAY(6);
 
         private int viewType;
 
@@ -95,6 +101,7 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
      * @param viewHolderType the view holder type
      * @return the payment options base view holder
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static PaymentOptionsBaseViewHolder newInstance(ViewGroup parent, @NonNull ViewHolderType viewHolderType) {
         View view;
 
@@ -122,6 +129,11 @@ public abstract class PaymentOptionsBaseViewHolder<T, K extends PaymentOptionsBa
 
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_web_payment_option, parent, false);
                 return new WebPaymentViewHolder(view);
+
+            case GOOGLEPAY:
+
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gosellsdk_viewholder_google_payment, parent, false);
+                return new GooglePaymentViewHolder(view);
 
             case CARD:
 

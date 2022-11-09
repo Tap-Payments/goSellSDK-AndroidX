@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,7 +37,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
@@ -48,25 +47,21 @@ import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
 import company.tap.gosellapi.open.buttons.PayButtonView;
+import company.tap.gosellapi.open.models.GooglePay;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
-import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.delegate.SessionDelegate;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.CardType;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
+import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
-import company.tap.gosellapi.open.models.Destination;
-import company.tap.gosellapi.open.models.Destinations;
-import company.tap.gosellapi.open.models.MetaData;
 import company.tap.gosellapi.open.models.Receipt;
-import company.tap.gosellapi.open.models.Reference;
-import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.models.TopUpApplication;
-import company.tap.gosellapi.open.models.TopUpReference;
 import company.tap.gosellapi.open.models.TopupPost;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
@@ -112,13 +107,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     /**
      * Integrating SDK.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startSDK() {
         /**
          * Required step.
          * Configure SDK with your Secret API key and App Bundle name registered with tap company.
          */
         configureApp();
-
         /**
          * Optional step
          * Here you can configure your app theme (Look and Feel).
@@ -227,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
+       // sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
       sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
@@ -269,6 +265,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
         sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+
+        sdkSession.setOperationMode(OperationMode.SAND_BOX);
+
+        sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -502,6 +502,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("Token card : " + token.getCard().getId() + " ****** " + token.getCard().getName());
         System.out.println("Token card : " + token.getCard().getAddress() + " ****** " + token.getCard().getObject());
         System.out.println("Token card : " + token.getCard().getExpirationMonth() + " ****** " + token.getCard().getExpirationYear());
+        System.out.println("Token card : " + token.getType() + " ****** " + token.getType());
 
         showDialog(token.getId(), "Token", company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }
@@ -607,6 +608,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("Charge id:"+ charge.getId());
         System.out.println("Fawry reference:"+charge.getTransaction().getOrder().getReference());
     }
+    @Override
+    public void googlePayFailed(String error) {
+        System.out.println("googlePayFailed :  " + error);
+     //   System.out.println("googlePayFailed :  " + error);
+      //  showDialog(error, "googlePayFailed", company.tap.gosellapi.R.drawable.icon_failed);
+
+    }
 
 
 /////////////////////////////////////////////////////////  needed only for demo ////////////////////
@@ -649,9 +657,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
+       return new Customer.CustomerBuilder("cus_TS034920221213Om413108368").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
+
 
 
     }

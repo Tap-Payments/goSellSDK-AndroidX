@@ -26,6 +26,7 @@ android {
         versionName "2.0"
 
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
     }
 
@@ -68,4 +69,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.Tap-Payments:TapGLKit-Android:1.18'
+    implementation 'com.google.android.gms:play-services-basement:18.1.0'
 }

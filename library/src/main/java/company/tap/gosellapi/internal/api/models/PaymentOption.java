@@ -60,6 +60,40 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
     @SerializedName("asynchronous")
     @Expose
     private boolean asynchronous;
+
+
+    @SerializedName("cc_markup")
+    @Expose
+    private Double cc_markup;
+
+
+    @SerializedName("allowed_auth_methods")
+    @Expose
+    private ArrayList<String> allowed_auth_methods;
+
+    @SerializedName("api_version")
+    @Expose
+    private Integer apiVersion;
+
+    @SerializedName("api_version_minor")
+    @Expose
+    private Integer apiVersionMinor;
+
+    @SerializedName("gateway_name")
+    @Expose
+    private String gatewayName;
+
+    @SerializedName("gateway_merchant_id")
+    @Expose
+    private String gatewayMerchantId;
+
+
+
+    @SerializedName("acquirer_country")
+    @Expose
+    private String acquirerCountryCode;
+
+
     private CardBrand brand;
     /**
      * Gets id.
@@ -159,6 +193,32 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
         return threeDS;
     }
 
+
+    public Double getCc_markup() {
+        return cc_markup;
+    }
+
+    public ArrayList<String> getAllowed_auth_methods() {
+        return allowed_auth_methods;
+    }
+
+    public Integer getApiVersion() {
+        return apiVersion;
+    }
+
+    public Integer getApiVersionMinor() {
+        return apiVersionMinor;
+    }
+
+    public String getGatewayName() {
+        return gatewayName;
+    }
+
+    public String getGatewayMerchantId() {
+        return gatewayMerchantId;
+    }
+
+
     @Override
     public int compareTo(@NonNull PaymentOption o) {
         return orderBy - o.orderBy;
@@ -166,5 +226,9 @@ public final class PaymentOption implements Comparable<PaymentOption>, Currencie
 
     public boolean isAsynchronous() {
         return asynchronous;
+    }
+
+    public String getAcquirerCountryCode() {
+        return acquirerCountryCode;
     }
 }

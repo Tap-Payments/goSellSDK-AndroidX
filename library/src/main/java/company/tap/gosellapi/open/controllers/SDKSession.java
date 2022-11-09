@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
+import android.os.Build;
 import android.view.View;
 
 import java.math.BigDecimal;
@@ -21,6 +24,9 @@ import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.facade.GoSellAPI;
 import company.tap.gosellapi.internal.api.models.Address;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
+import company.tap.gosellapi.open.enums.OperationMode;
+import company.tap.gosellapi.open.models.GooglePay;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.internal.api.requests.PaymentOptionsRequest;
 import company.tap.gosellapi.internal.api.responses.PaymentOptionsResponse;
@@ -320,6 +326,24 @@ public class SDKSession implements View.OnClickListener{
   }
 
   /**
+   * set setOperationMode
+   *  @param operatioMode the cardType
+   */
+  public void setOperationMode(OperationMode operatioMode){
+    System.out.println("operatioMode ... "+operatioMode);
+    paymentDataSource.setOperationMode(operatioMode);
+  }
+
+
+  /**
+   * set googlePayWalletMode
+   *  @param googlePayWalletMode the
+   */
+  public void setGooglePayWalletMode(GPayWalletMode googlePayWalletMode){
+    System.out.println("googlePayWalletMode ... "+googlePayWalletMode);
+    paymentDataSource.setGooglePayWalletMode(googlePayWalletMode);
+  }
+  /**
    * enable or disable edit cardholdername.
    * @param enableCardHolderName
    */
@@ -507,6 +531,7 @@ public class SDKSession implements View.OnClickListener{
   /**
    * launch goSellSDK activity
    */
+  @RequiresApi(api = Build.VERSION_CODES.N)
   private void startMainActivity() {
 
     if(payButtonView!=null )

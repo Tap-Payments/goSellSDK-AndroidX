@@ -10,6 +10,10 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
+import company.tap.gosellapi.open.models.GooglePay;
+import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
@@ -145,6 +149,21 @@ public interface PaymentDataSource {
      */
     @Nullable
     TopUp getTopUp();
+
+    /**
+     * Defines the PaymentOption details. Optional. @return the default PaymentOption
+     */
+    @Nullable
+    ArrayList<PaymentOption> getGooglePaymentOptions();
+    /**
+     * Defines the OperationMode details. Optional. @return the default OperationMode
+     */
+    @Nullable
+    OperationMode getOperationMode();
+
+    @Nullable
+    GPayWalletMode getGooglePayWalletMode();
+
 
 
 }
