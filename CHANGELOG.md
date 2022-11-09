@@ -1,4 +1,12 @@
 # CHANGELOG
+[3.15.12] - 2022-11-09
+### Hot Fix:
+- Updated Tokenize Method
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
+# CHANGELOG
 [3.15.12] - 2022-10-06
 ### Hot Fix:
 - Minor Hot fix for dynamic card brand name
