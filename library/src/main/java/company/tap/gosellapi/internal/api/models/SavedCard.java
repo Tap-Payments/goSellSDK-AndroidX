@@ -16,80 +16,98 @@ import company.tap.tapcardvalidator_android.CardBrand;
 /**
  * The type Saved card.
  */
-public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Serializable {
+public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport, Serializable {
 
     @SerializedName("id")
     @Expose
-    @Nullable private String id;
+    @Nullable
+    private String id;
 
     @SerializedName("object")
     @Expose
-    @NonNull private String object;
+    @NonNull
+    private String object;
 
     @SerializedName("first_six")
     @Expose
-    @NonNull private String firstSix;
+    @NonNull
+    private String firstSix;
 
     @SerializedName("last_four")
     @Expose
-    @NonNull private String lastFour;
+    @NonNull
+    private String lastFour;
 
     @SerializedName("brand")
     @Expose
-    @NonNull private CardBrand brand;
+    @NonNull
+    private CardBrand brand;
 
     @SerializedName("payment_method_id")
     @Expose
-    @Nullable private String paymentOptionIdentifier;
+    @Nullable
+    private String paymentOptionIdentifier;
 
     @SerializedName("expiry")
     @Expose
-    @Nullable private ExpirationDate expiry;
+    @Nullable
+    private ExpirationDate expiry;
 
     @SerializedName("name")
     @Expose
-    @Nullable private String cardholderName;
+    @Nullable
+    private String cardholderName;
 
     @SerializedName("currency")
     @Expose
-    @Nullable private String currency;
+    @Nullable
+    private String currency;
 
     @SerializedName("scheme")
     @Expose
-    @Nullable private CardScheme scheme;
+    @Nullable
+    private CardScheme scheme;
 
     @SerializedName("supported_currencies")
     @Expose
-    @Nullable private ArrayList<String> supportedCurrencies;
+    @Nullable
+    private ArrayList<String> supportedCurrencies;
 
     @SerializedName("order_by")
     @Expose
-    @NonNull private int orderBy;
+    @NonNull
+    private int orderBy;
 
     @SerializedName("image")
-    @Nullable private String image;
+    @Nullable
+    private String image;
 
     @SerializedName("fingerprint")
-    @NonNull private String fingerprint;
+    @NonNull
+    private String fingerprint;
 
     // added for mapping Expiry month and Date in case of get list card API
 
     @SerializedName("exp_month")
     @Expose
-    @Nullable private String exp_month;
+    @Nullable
+    private String exp_month;
 
     @SerializedName("exp_year")
     @Expose
-    @Nullable private String exp_year;
+    @Nullable
+    private String exp_year;
 
 
     @SerializedName("funding")
     @Expose
-    @Nullable private String funding;
+    @Nullable
+    private String funding;
 
     @SerializedName("customer")
     @Expose
-    @Nullable private String customer;
+    @Nullable
+    private String customer;
 
 
     /**
@@ -107,7 +125,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Card identifier.
      */
-    @Nullable public String getId() {
+    @Nullable
+    public String getId() {
         return id;
     }
 
@@ -116,7 +135,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Object type.
      */
-    @NonNull public String getObject() {
+    @NonNull
+    public String getObject() {
         return object;
     }
 
@@ -125,7 +145,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Last 4 digits of the card.
      */
-    @NonNull public String getLastFour() {
+    @NonNull
+    public String getLastFour() {
         return lastFour;
     }
 
@@ -134,7 +155,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Expiration date.
      */
-    @Nullable public ExpirationDate getExpiry() {
+    @Nullable
+    public ExpirationDate getExpiry() {
         return expiry;
     }
 
@@ -143,31 +165,35 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Card brand.
      */
-    @NonNull public CardBrand getBrand() {
+    @NonNull
+    public CardBrand getBrand() {
         return brand;
     }
 
 
     /**
-     *  Gets Brand name as string
+     * Gets Brand name as string
+     *
      * @return
      */
-    @NonNull public String getBrandName() {
-        if(brand!=null && brand.name()!=null)
+    @NonNull
+    public String getBrandName() {
+        if (brand != null && brand.name() != null)
             return brand.name();
         return "UNKNOWN";
     }
 
     /**
-     *Gets Brand raw value as string
+     * Gets Brand raw value as string
+     *
      * @return
      */
-    @NonNull public String getBrandRawValue() {
-        if(brand!=null && brand.getRawValue()!=null)
+    @NonNull
+    public String getBrandRawValue() {
+        if (brand != null && brand.getRawValue() != null)
             return brand.getRawValue();
         return "UNKNOWN";
     }
-
 
 
     /**
@@ -175,7 +201,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Cardholder name.
      */
-    @Nullable public String getCardholderName() {
+    @Nullable
+    public String getCardholderName() {
         return cardholderName;
     }
 
@@ -184,7 +211,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Card BIN number.
      */
-    @NonNull public String getFirstSix() {
+    @NonNull
+    public String getFirstSix() {
         return firstSix;
     }
 
@@ -193,7 +221,8 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return Card currency.
      */
-    @Nullable public String getCurrency() {
+    @Nullable
+    public String getCurrency() {
         return currency;
     }
 
@@ -202,23 +231,33 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      *
      * @return the payment option identifier
      */
-    @Nullable public String getPaymentOptionIdentifier() { return paymentOptionIdentifier; }
+    @Nullable
+    public String getPaymentOptionIdentifier() {
+        return paymentOptionIdentifier;
+    }
 
     /**
      * Gets scheme.
      *
      * @return the scheme
      */
-    @Nullable public CardScheme getScheme() { return scheme; }
+    @Nullable
+    public CardScheme getScheme() {
+        return scheme;
+    }
 
-    @Nullable public ArrayList<String> getSupportedCurrencies() { return supportedCurrencies; }
+    @Nullable
+    public ArrayList<String> getSupportedCurrencies() {
+        return supportedCurrencies;
+    }
 
     /**
      * Get image string.
      *
      * @return the string
      */
-    @Nullable public String getImage(){
+    @Nullable
+    public String getImage() {
         return image;
     }
 
@@ -228,13 +267,13 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
      * @return Ordering field.
      */
 
-    @NonNull public int getOrderBy() {
+    @NonNull
+    public int getOrderBy() {
         return orderBy;
     }
 
 
     /**
-     *
      * @return expiration month as String
      */
     @Nullable
@@ -243,7 +282,6 @@ public class SavedCard implements Comparable<SavedCard>, CurrenciesSupport , Ser
     }
 
     /**
-     *
      * @return expiration year as String
      */
 

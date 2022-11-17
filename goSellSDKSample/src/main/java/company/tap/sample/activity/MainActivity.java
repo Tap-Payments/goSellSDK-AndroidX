@@ -71,6 +71,8 @@ import company.tap.gosellapi.open.models.TopupPost;
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
 import company.tap.sample.viewmodels.CustomerViewModel;
+import company.tap.tapcardvalidator_android.CardBrand;
+
 
 
 public class MainActivity extends AppCompatActivity implements SessionDelegate {
@@ -497,11 +499,15 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     @Override
     public void cardTokenizedSuccessfully(@NonNull Token token) {
         System.out.println("Card Tokenized Succeeded : ");
+        System.out.println("Tokenized Response : "+token);
+        System.out.println("Card Tokenized Response : "+token.getCard());
+
         System.out.println("Token card : " + token.getCard().getFirstSix() + " **** " + token.getCard().getLastFour());
         System.out.println("Token card : " + token.getCard().getFingerprint() + " **** " + token.getCard().getFunding());
         System.out.println("Token card : " + token.getCard().getId() + " ****** " + token.getCard().getName());
         System.out.println("Token card : " + token.getCard().getAddress() + " ****** " + token.getCard().getObject());
         System.out.println("Token card : " + token.getCard().getExpirationMonth() + " ****** " + token.getCard().getExpirationYear());
+        System.out.println("Token card brand : "+token.getCard().getBrand());
 
         showDialog(token.getId(), "Token", company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }
