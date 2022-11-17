@@ -36,8 +36,8 @@ public final class TokenizedCard implements Serializable {
     private String fingerprint;
 
     @SerializedName("brand")
+    @Expose
     private CardBrand brand;
-
 
     @SerializedName("exp_month")
     @Expose
@@ -74,6 +74,13 @@ public final class TokenizedCard implements Serializable {
         return firstSix;
     }
 
+    @Nullable
+    public String getBrand() {
+        if (brand==null) return "";
+        return brand.getRawValue();
+
+    }
+
     /**
      * Gets fingerprint.
      *
@@ -103,6 +110,7 @@ public final class TokenizedCard implements Serializable {
     public int getExpirationYear() {
         return expirationYear;
     }
+
 
 
 
