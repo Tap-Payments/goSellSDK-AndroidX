@@ -47,9 +47,9 @@ public class RecentSectionViewHolder
         linearLayoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recentPaymentsRecyclerView.setLayoutManager(linearLayoutManager);
         for(int i=0;  i<data.size();i++){
-            System.out.println("Datasource set val>>"+PaymentDataSource.getInstance().getCardType().toString());
-            System.out.println("Funding set val>>"+data.get(i).getFunding());
-            System.out.println("data set val>>"+data);
+           // System.out.println("Datasource set val>>"+PaymentDataSource.getInstance().getCardType().toString());
+          //  System.out.println("Funding set val>>"+data.get(i).getFunding());
+          //  System.out.println("data set val>>"+data);
            if ((data != null && PaymentDataSource.getInstance().getCardType() != null &&  !PaymentDataSource.getInstance().getCardType().toString().equals("ALL"))){
                   if( !PaymentDataSource.getInstance().getCardType().toString().equals(data.get(i).getFunding())) {
                       data.remove(i);
