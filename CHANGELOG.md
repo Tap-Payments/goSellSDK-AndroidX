@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.15.17] - 2022-12-08
+### Hot Fix:
+- Updated React-Native sdk
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 [3.15.12] - 2022-11-09
 ### Hot Fix:
 - Updated Tokenize Method
