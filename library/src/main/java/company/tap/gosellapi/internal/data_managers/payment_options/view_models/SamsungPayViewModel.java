@@ -11,7 +11,7 @@ public class SamsungPayViewModel extends PaymentOptionViewModel<SamsungPaymentVi
          *  @param parentDataManager the parent data manager
          * @param data              the data*/
         public SamsungPayViewModel(PaymentOptionsDataManager parentDataManager, SamsungPaymentViewModelData data) {
-                super(parentDataManager, data, PaymentOptionsBaseViewHolder.ViewHolderType.);
+                super(parentDataManager, data, PaymentOptionsBaseViewHolder.ViewHolderType.SAMSUNGPAY);
         }
 
 

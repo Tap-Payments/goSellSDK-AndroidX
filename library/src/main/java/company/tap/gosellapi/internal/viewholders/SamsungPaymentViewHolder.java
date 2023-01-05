@@ -2,9 +2,15 @@ package company.tap.gosellapi.internal.viewholders;
 
 import android.app.Activity;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
+
+import com.samsung.android.sdk.samsungpay.v2.PartnerInfo;
+import com.samsung.android.sdk.samsungpay.v2.SamsungPay;
+import com.samsung.android.sdk.samsungpay.v2.SpaySdk;
+import com.samsung.android.sdk.samsungpay.v2.StatusListener;
 
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.SamsungPayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.SamsungPaymentViewModelData;
@@ -13,6 +19,8 @@ import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 public class SamsungPaymentViewHolder extends PaymentOptionsBaseViewHolder<SamsungPaymentViewModelData, SamsungPaymentViewHolder, SamsungPayViewModel> {
     public static View googlePayButton;
 
+    private PartnerInfo partnerInfo;
+private SamsungPay samsungPay;
 
     SamsungPaymentViewModelData samsungPaymentViewModelData;
 
@@ -24,6 +32,7 @@ public class SamsungPaymentViewHolder extends PaymentOptionsBaseViewHolder<Samsu
      * @param view the view
      */
     Activity activity;
+    private String SERVICE_ID ="";
     @RequiresApi(api = Build.VERSION_CODES.N)
     SamsungPaymentViewHolder(View view) {
         super(view);
@@ -33,7 +42,9 @@ public class SamsungPaymentViewHolder extends PaymentOptionsBaseViewHolder<Samsu
 
         activity = (Activity) view.getContext();
         possiblyShowSamsungPayButton();
-
+        Bundle bundle =  new Bundle();
+        bundle.putString(SpaySdk.PARTNER_SERVICE_TYPE, SpaySdk.ServiceType.INAPP_PAYMENT.toString());
+        partnerInfo = new PartnerInfo(SERVICE_ID, bundle);
 
     }
 
@@ -111,7 +122,66 @@ public class SamsungPaymentViewHolder extends PaymentOptionsBaseViewHolder<Samsu
     }
 
 
+    private void   updateSamsungPayButton() {
+        samsungPay = new SamsungPay(itemView.getContext(), partnerInfo);
+
+        samsungPay.getSamsungPayStatus(new StatusListener() {
+            @Override
+            public void onSuccess(int status, Bundle bundle) {
+                switch (status) {
+                    case SpaySdk.SPAY_READY:
+                      //  dataBinding.samsungPayButton.visibility = View.VISIBLE;
+                        activateSamsungPay();
+                        // Perform your operation.
+                        break;
+                    case SpaySdk.SPAY_NOT_READY:
+                        // Samsung Pay is supported but not fully ready.
+
+                        // If EXTRA_ERROR_REASON is ERROR_SPAY_APP_NEED_TO_UPDATE,
+                        // Call goToUpdatePage().
+
+                        // If EXTRA_ERROR_REASON is ERROR_SPAY_SETUP_NOT_COMPLETED,
+                        // Call activateSamsungPay().
+
+                       // dataBinding.samsungPayButton.visibility = View.INVISIBLE;
+                        break;
+                 //   case SpaySdk.SPAY_NOT_ALLOWED_TEMPORALLY:
+                        // If EXTRA_ERROR_REASON is ERROR_SPAY_CONNECTED_WITH_EXTERNAL_DISPLAY,
+                        // guide user to disconnect it.
+
+                    //    dataBinding.samsungPayButton.visibility = View.INVISIBLE;
+                             //   break;
+
+                    case SpaySdk.SPAY_NOT_SUPPORTED:
+                      //  dataBinding.samsungPayButton.visibility = View.INVISIBLE;
+                        break;
+                    default:
+                        //dataBinding.samsungPayButton.visibility = View.INVISIBLE;
+
+
+                }
+            }
+            @Override
+            public void onFail(int status, Bundle bundle) {
+               // dataBinding.samsungPayButton.visibility = View.INVISIBLE;
+              //  Toast.makeText(applicationContext, "getSamsungPayStatus fail", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+    private void activateSamsungPay(){
+
+    }
+
+
+    }
 
 
 
-}
+
+
+
+
