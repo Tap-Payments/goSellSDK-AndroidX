@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-    compileOnly 'com.samsung.android.spay:sdk:2.5.01'
+    //compileOnly 'com.samsung.android.spay:sdk:2.5.01'
 }
 
 task sourcesJar(type: Jar) {
