@@ -12,12 +12,13 @@ import com.samsung.android.sdk.samsungpay.v2.SamsungPay;
 import com.samsung.android.sdk.samsungpay.v2.SpaySdk;
 import com.samsung.android.sdk.samsungpay.v2.StatusListener;
 
+import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.SamsungPayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.SamsungPaymentViewModelData;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 
 public class SamsungPaymentViewHolder extends PaymentOptionsBaseViewHolder<SamsungPaymentViewModelData, SamsungPaymentViewHolder, SamsungPayViewModel> {
-    public static View googlePayButton;
+    public  View samsungPayButton;
 
     private PartnerInfo partnerInfo;
 private SamsungPay samsungPay;
@@ -41,6 +42,7 @@ private SamsungPay samsungPay;
         // It's recommended to create the PaymentsClient object inside of the onCreate method.
 
         activity = (Activity) view.getContext();
+        samsungPayButton = view.findViewById(R.id.samsung_pay_button);
         possiblyShowSamsungPayButton();
         Bundle bundle =  new Bundle();
         bundle.putString(SpaySdk.PARTNER_SERVICE_TYPE, SpaySdk.ServiceType.INAPP_PAYMENT.toString());
@@ -66,7 +68,7 @@ private SamsungPay samsungPay;
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void possiblyShowSamsungPayButton() {
-
+        samsungPayButton.setVisibility(View.VISIBLE);
     }
 
 
