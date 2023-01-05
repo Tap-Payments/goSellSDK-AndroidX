@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="company.tap.gosellapi">
+    package="company.tap.gosellapi">
+
+
+  <queries>
+    <package android:name="company.tap.gosellapi" />
+    <package android:name="com.samsung.android.samsungpay.gear" />
+  </queries>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -37,12 +43,10 @@
     <activity
         android:name=".internal.activities.AsynchronousPaymentActivity"
         android:theme="@style/TransparentCompat"/>
-    <queries>
-      <package android:name="com.samsung.android.spay" />
-    </queries>
+
     <meta-data
         android:name="spay_sdk_api_level"
-        android:value="2.17" />
+        android:value="2.16" />
     <meta-data
         android:name="spay_debug_api_key"
         android:value="" />

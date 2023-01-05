@@ -126,6 +126,7 @@ private SamsungPay samsungPay;
         samsungPay = new SamsungPay(itemView.getContext(), partnerInfo);
 
         samsungPay.getSamsungPayStatus(new StatusListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onSuccess(int status, Bundle bundle) {
                 switch (status) {
@@ -172,12 +173,27 @@ private SamsungPay samsungPay;
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void activateSamsungPay(){
+        /*int extraError = Bundle(SamsungPay.EXTRA_ERROR_REASON);
+        if (extraError == SamsungPay.ERROR_SPAY_SETUP_NOT_COMPLETED) {
+            doActivateSamsungPay(SpaySdk.ServiceType.INAPP_PAYMENT.toString());
+        }*/
+    }
 
+    private void doActivateSamsungPay(String serviceType) {
+      // Service ID: 0915499788d6493aa3a038
+      //  Package Name: com.test.beta.pay
+      //  App Version: 1.0/ 1 (or higher)
+        Bundle bundle = new Bundle();
+        bundle.putString(SamsungPay.PARTNER_SERVICE_TYPE, serviceType);
+         partnerInfo = new PartnerInfo(SERVICE_ID, bundle);
+         samsungPay = new  SamsungPay(itemView.getContext(), partnerInfo);
+        samsungPay.activateSamsungPay();
     }
 
 
-    }
+}
 
 
 
