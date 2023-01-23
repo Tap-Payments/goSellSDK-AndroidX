@@ -930,6 +930,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             openOTPScreen(charge);
                             break;
                     }
+                    SDKSession.getListener().paymentInitiated(charge);
                 }
                 break;
             case CAPTURED:
@@ -1015,6 +1016,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             openOTPScreen(saveCard);
                             break;
                     }
+                  //  SDKSession.getListener().paymentInitiated(saveCard);
                 }
                 break;
             case CAPTURED:
@@ -1214,6 +1216,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             openOTPScreen((Authorize) authorize);
                             break;
                     }
+                  //  SDKSession.getListener().paymentInitiated((Authorize)authorize);
                 }
                 break;
             case CAPTURED:
