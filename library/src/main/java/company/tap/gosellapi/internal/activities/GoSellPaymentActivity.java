@@ -918,6 +918,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         switch (charge.getStatus()) {
             case INITIATED:
                 Authenticate authenticate = charge.getAuthenticate();
+                SDKSession.getListener().paymentInitiated(charge);
                 if (authenticate != null && authenticate.getStatus() == AuthenticationStatus.INITIATED) {
                     switch (authenticate.getType()) {
                         case BIOMETRICS:
@@ -930,7 +931,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                             openOTPScreen(charge);
                             break;
                     }
-                    SDKSession.getListener().paymentInitiated(charge);
+
                 }
                 break;
             case CAPTURED:
