@@ -31,6 +31,7 @@ import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
 import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
+import company.tap.gosellapi.open.controllers.SDKSession;
 
 
 /**
@@ -188,6 +189,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
       Log.d("didReceiveCharge"," web payment activity* * * " + charge.getStatus());
       switch (charge.getStatus()) {
         case INITIATED:
+          SDKSession.getListener().paymentInitiated(charge);
           break;
         case CAPTURED:
         case AUTHORIZED:
