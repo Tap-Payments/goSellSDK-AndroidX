@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "402853499734",
+    "firebase_url": "https://gosellandroidx.firebaseio.com",
+    "project_id": "gosellandroidx",
+    "storage_bucket": "gosellandroidx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402853499734:android:8b52fc63e4738fa287fcf7",
+        "android_client_info": {
+          "package_name": "company.tap.gosellapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402853499734-30fmnfe6fibl91pddct78u56op187kb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvjSRrOfVRjhc2k9KW0zG_rMvzQRHlLJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402853499734-30fmnfe6fibl91pddct78u56op187kb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402853499734:android:9aec5a81b31a2b4687fcf7",
+        "android_client_info": {
+          "package_name": "company.tap.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402853499734-30fmnfe6fibl91pddct78u56op187kb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvjSRrOfVRjhc2k9KW0zG_rMvzQRHlLJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402853499734-30fmnfe6fibl91pddct78u56op187kb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

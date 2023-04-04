@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.16.2] - 2023-04-04
+### Hot Fix:
+- Bug fix for NPE 
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 [3.16.1] - 2023-01-23
 ### Enhancement Feature:
 - New Callback added to get when a charge is initiated
