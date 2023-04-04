@@ -125,6 +125,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
         setupScreenMode();
+        if(ThemeObject.getInstance().getAppearanceMode()!=null)
         apperanceMode = ThemeObject.getInstance().getAppearanceMode();
 
         if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
@@ -265,7 +266,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         } else {
             String logoPath = "";
-            if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse() != null &&
+
+            if (PaymentDataManager.getInstance().getPaymentOptionsDataManager()!=null && PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse() != null &&
                     PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant() != null &&
                     PaymentDataManager.getInstance().getPaymentOptionsDataManager().getPaymentOptionsResponse().getMerchant().getLogo() != null
             ) {
@@ -289,6 +291,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             businessName.setTextSize(ThemeObject.getInstance().getHeaderTextSize());
         if (ThemeObject.getInstance().getHeaderBackgroundColor() != 0)
             toolbar.setBackgroundColor(ThemeObject.getInstance().getHeaderBackgroundColor());
+       
     }
 
     private void setupPayButton() {
@@ -477,19 +480,21 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     ///////////////////////////////////////////////////  start function that initiate payment by creating charge --------------------------
     private void getVisibleViewModels() {
-        for (int i = 0; i < PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize(); i++) {
-            if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof RecentSectionViewModel) {
-                recentSectionViewModel = (RecentSectionViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+        if(PaymentDataManager.getInstance().getPaymentOptionsDataManager()!=null && PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize()>0) {
+            for (int i = 0; i < PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize(); i++) {
+                if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof RecentSectionViewModel) {
+                    recentSectionViewModel = (RecentSectionViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
-            } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof GroupViewModel) {
-                groupViewModel = (GroupViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+                } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof GroupViewModel) {
+                    groupViewModel = (GroupViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
-            } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof WebPaymentViewModel) {
-                webPaymentViewModel = (WebPaymentViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+                } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof WebPaymentViewModel) {
+                    webPaymentViewModel = (WebPaymentViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
-            } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof CardCredentialsViewModel) {
-                cardCredentialsViewModel = (CardCredentialsViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+                } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof CardCredentialsViewModel) {
+                    cardCredentialsViewModel = (CardCredentialsViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
+                }
             }
         }
     }
