@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+
 group = 'com.github.Tap-Payments'
 def getVersionName = { ->
     try {
@@ -22,6 +23,7 @@ android {
         versionCode 2
         versionName getVersionName()
         consumerProguardFiles 'proguard-rules.pro'
+        multiDexEnabled true
 
     }
     buildTypes {
@@ -73,6 +75,11 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
+
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
 }
 
 task sourcesJar(type: Jar) {
