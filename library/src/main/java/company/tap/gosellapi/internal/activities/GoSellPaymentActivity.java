@@ -336,11 +336,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         }else {
 
-            if (dataSource.getSelectedCurrency() != null)
+            if (dataSource.getSelectedCurrency() != null && dataSource.getSelectedCurrency().getAmount()!=null && dataSource.getSelectedCurrency().getAmount()!=null ){
                 payButton.getPayButton().setText(String
                         .format("%s %s %s", getResources().getString(R.string.pay),
                                 dataSource.getSelectedCurrency().getSymbol(),
                                 dataSource.getSelectedCurrency().getAmount()));
+            }
         }
     }
 
