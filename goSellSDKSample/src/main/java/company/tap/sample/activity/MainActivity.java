@@ -193,7 +193,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
-                //.setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
+                .setPayButtonText("Tokenize Text value") // **Optional**
+
 
                 // setup dialog textcolor and textsize
                 .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
 
 
-      sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
+      sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType
 
         // Set Taxes array list
         sdkSession.setTaxes(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -270,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
 
-        sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
+      //  sdkSession.setCardType(CardType.CREDIT); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -337,7 +338,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 if (TransactionMode.SAVE_CARD == trx_mode ) {
                     payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.save_card));
                 } else if (TransactionMode.TOKENIZE_CARD == trx_mode ) {
-                    payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.tokenize));
+                    payButtonView.getPayButton().setText("Tokenize Test");
+
                 } else {
                     payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.pay));
                 }
@@ -662,7 +664,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder(null).email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("cus_TS02A0620231108Hk421705637").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 

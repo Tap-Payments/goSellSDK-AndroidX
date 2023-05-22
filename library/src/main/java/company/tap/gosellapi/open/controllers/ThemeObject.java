@@ -67,6 +67,7 @@ public class ThemeObject {
         private boolean                 payButtLoaderVisible=true;
         private int                     payButtonTextSize;
         private String                  payButtonText;
+        private boolean                  payButtonShowAmount;
 
         /**
          * Dialog Appearance
@@ -372,6 +373,16 @@ public class ThemeObject {
                 return this;
         }
 
+        /**
+         * show amount on Button
+         * @param payButtonShowAmount
+         */
+        public ThemeObject setShowAmountOnButton(boolean payButtonShowAmount) {
+                this.payButtonShowAmount = payButtonShowAmount;
+                return this;
+        }
+
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -568,6 +579,10 @@ public class ThemeObject {
          */
         public boolean isPayButtLoaderVisible() {
                 return this.payButtLoaderVisible;
+        }
+
+        public boolean getShowAmountOnButton() {
+                return this.payButtonShowAmount;
         }
 
         /**
