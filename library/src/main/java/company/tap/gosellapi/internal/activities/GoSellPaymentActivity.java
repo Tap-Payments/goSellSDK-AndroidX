@@ -314,7 +314,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (isTransactionModeSaveCard()) {
             setupSaveCardMode();
-        } else {
+        }else if (isTransactionModeTokenizeCard()){
+            setupTokenizeCardMode();
+        }else {
             setupChargeOrAuthorizeMode();
         }
     }
@@ -363,20 +365,37 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             }else
             payButton.getPayButton().setText(getResources().getString(R.string.save_card));
         }
-        //Removed as per Merchant 13/07/21
-       /* if (isTransactionModeTokenizeCard()){
+       /* //Removed as per Merchant 13/07/21
+        if (isTransactionModeTokenizeCard()){
 
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
 
             }else
                 payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
+        }*/
+
         }
-*/
+
+
+    private void setupTokenizeCardMode() {
+        if (ThemeObject.getInstance().getPayButtonResourceId() != 0)
+            payButton.setBackgroundSelector(ThemeObject.getInstance().getPayButtonResourceId());
+
+        if (ThemeObject.getInstance().getPayButtonFont() != null)
+            payButton.getPayButton().setTypeface(ThemeObject.getInstance().getPayButtonFont());
+
+        if (ThemeObject.getInstance().getPayButtonDisabledTitleColor() != 0)
+            payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
+
+        if (isTransactionModeTokenizeCard()){
+            if (ThemeObject.getInstance().getPayButtonText() != null) {
+                payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
+
+            }else payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
         }
 
-
-
+    }
 
     private boolean isTransactionModeSaveCard() {
         if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
@@ -473,9 +492,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
         if (recentSectionViewModel != null) recentSectionViewModel.disableRecentView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(true);
-        if (PaymentDataManager.getInstance().getExternalDataSource().getTransactionMode() == TransactionMode.TOKENIZE_CARD)
+        if (PaymentDataManager.getInstance().getExternalDataSource().getTransactionMode() == TransactionMode.TOKENIZE_CARD){
             initCardTokenization();
-        else
+        } else
             PaymentDataManager.getInstance().checkCardPaymentExtraFees(paymentOptionViewModel, this);
     }
 
@@ -522,7 +541,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private void initCardTokenization() {
         getVisibleViewModels();
-
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.disableCardScanView();
         PaymentDataManager.getInstance().initCardTokenizationPayment(cardCredentialsViewModel, this);
     }
@@ -567,8 +585,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 //        Log.d("GoSellPaymentActivity"," update pay button with : fees : " + feesAmount);
 
-        if (isTransactionModeSaveCard() ) return;
-       if( ThemeObject.getInstance().getPayButtonText() != null){
+        if (isTransactionModeSaveCard()||isTransactionModeTokenizeCard()) return;
+      //if(  ThemeObject.getInstance().getShowAmountOnButton()==false && isTransactionModeTokenizeCard()) return;
+        if( ThemeObject.getInstance().getPayButtonText() != null){
 
            payButton.getPayButton().setText(
                    String.format("%s %s", ThemeObject.getInstance().getPayButtonText(),

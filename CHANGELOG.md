@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.16.4] - 2023-05-22
+### Hot Fix:
+- bug fix for text
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 [3.16.3] - 2023-05-14
 ### Hot Fix:
 - Bug fix for UI 
