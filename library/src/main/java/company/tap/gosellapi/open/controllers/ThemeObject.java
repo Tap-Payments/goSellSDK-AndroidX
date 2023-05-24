@@ -48,7 +48,7 @@ public class ThemeObject {
         private int                     saveCardSwitchOffTrackTint;
         private int                     saveCardSwitchOnTrackTint;
         private Drawable                scanIconDrawable;
-
+        private boolean                 cardScannerIconVisible=true;
 
         /**
          *  Tap Button
@@ -347,6 +347,14 @@ public class ThemeObject {
         }
 
         /**
+         * pay button view or hide scanner
+         * @param cardScannerIconVisible
+         */
+        public ThemeObject setCardScannerIconVisible(boolean cardScannerIconVisible) {
+                this.cardScannerIconVisible = cardScannerIconVisible;
+                return this;
+        }
+        /**
          *
          * @param payButtLoaderVisible
          */
@@ -571,6 +579,13 @@ public class ThemeObject {
          */
         public boolean isPayButtSecurityIconVisible() {
                 return this.payButtSecurityIconVisible;
+        }
+
+        /**
+         * @return pay button security icon visible
+         */
+        public boolean isSetCardScannerIconVisible() {
+                return this.cardScannerIconVisible;
         }
 
         /**

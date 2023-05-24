@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setSaveCardSwitchOnTrackTint(getResources().getColor(R.color.vibrant_green_pressed))
 
                 .setScanIconDrawable(getResources().getDrawable(R.drawable.btn_card_scanner_normal))
+                .setCardScannerIconVisible(true) // **Optional**
 
                 .setPayButtonResourceId(R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
                 .setPayButtonFont(Typeface.createFromAsset(getAssets(), "fonts/roboto_light.ttf"))
@@ -193,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
-                .setPayButtonText("Tokenize Text value") // **Optional**
+               // .setPayButtonText("Tokenize Text value") // **Optional**
+
 
 
                 // setup dialog textcolor and textsize
