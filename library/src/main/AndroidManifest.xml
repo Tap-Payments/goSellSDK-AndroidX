@@ -16,6 +16,7 @@
         android:name=".internal.activities.GoSellPaymentActivity"
         android:windowSoftInputMode="adjustResize"
         android:theme="@style/TransparentCompat"
+        android:launchMode="singleTop"
         />
     <activity
         android:name=".internal.activities.GoSellCardAddressActivity"
