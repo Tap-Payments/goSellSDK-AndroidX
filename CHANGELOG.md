@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.17.1] - 2023-06-26
+### Enhancement Feature:
+- Updated blurry library
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- None.
 [3.17.0] - 2023-05-24
 ### Enhancement Feature:
 - The merchant can now configure the scanner to be shown or hide
