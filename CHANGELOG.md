@@ -1,5 +1,5 @@
 # CHANGELOG
-[3.17.1] - 2023-06-26
+[3.17.2] - 2023-06-26
 ### Enhancement Feature:
 - Updated blurry library
 ### Impact on existing integrations:
