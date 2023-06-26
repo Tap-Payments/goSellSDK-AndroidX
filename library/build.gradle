@@ -18,7 +18,7 @@ def getVersionName = { ->
 android {
     compileSdkVersion 30
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 2
         versionName getVersionName()
@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.github.Tap-Payments:TapCardValidator-Android:2.1.7'
 
 
-    implementation 'jp.wasabeef:blurry:2.1.1'
+    implementation 'jp.wasabeef:blurry:4.0.1'
     implementation 'io.card:android-sdk:5.5.1'
 
    // implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
