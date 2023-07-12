@@ -657,6 +657,7 @@ final class PaymentProcessManager {
             fee = AmountCalculator.calculateExtraFeesAmount(paymentOption.getExtraFees(), supportedCurrencies, amountedCurrency);
         Log.d("PaymentProcessManager", "fee : " + fee);
         Order order = new Order(orderID);
+
         TrackingURL redirect = new TrackingURL(Constants.RETURN_URL);
 //     Log.d("callChargeOrAuthorizeOr"," step 5 : callChargeOrAuthorizeOrSaveCardAPI : in class "+ "["+this.getClass().getName()+"] redirect=["+redirect+"]  ");
         String paymentDescription = provider.getPaymentDescription();
