@@ -660,6 +660,7 @@ final class PaymentProcessManager {
         TrackingURL redirect = new TrackingURL(Constants.RETURN_URL);
 //     Log.d("callChargeOrAuthorizeOr"," step 5 : callChargeOrAuthorizeOrSaveCardAPI : in class "+ "["+this.getClass().getName()+"] redirect=["+redirect+"]  ");
         String paymentDescription = provider.getPaymentDescription();
+
         HashMap<String, String> paymentMetadata = provider.getPaymentMetadata();
         Reference reference = provider.getPaymentReference();
         boolean shouldSaveCard = saveCard == null ? false : saveCard;
