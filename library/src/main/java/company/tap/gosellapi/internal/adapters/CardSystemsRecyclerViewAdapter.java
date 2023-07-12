@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,8 @@ import static android.os.Build.VERSION.SDK_INT;
  */
 public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSystemViewHolder> {
 
-  private ArrayList<PaymentOption> data;
-  private ArrayList<PaymentOption> initialData;
+    private ArrayList<PaymentOption> data;
+    private ArrayList<PaymentOption> initialData;
 
     /**
      * Instantiates a new Card systems recycler view adapter.
@@ -47,144 +48,148 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
      * @param _data the data
      */
     public CardSystemsRecyclerViewAdapter(ArrayList<PaymentOption> _data) {
-    data = new ArrayList<>(_data);
+        data = new ArrayList<>(_data);
 //    for (PaymentOption option : _data) {
 ////      System.out.println(" filter based on  currency inside card view holder : " + option
 ////          .getPaymentType() + " >> " + option.getName());
 //    }
-      filterPaymentOptions();
-      this.initialData = new ArrayList<>(filter(_data));
+        filterPaymentOptions();
+        this.initialData = new ArrayList<>(filter(_data));
 
     }
 
-  private ArrayList<PaymentOption> filter(ArrayList<PaymentOption> _data) {
-    ArrayList<PaymentOption> filteredData = new ArrayList<>(_data);
-    for (Iterator<PaymentOption> it = filteredData.iterator(); it.hasNext(); ) {
-      PaymentOption p = it.next();
-      if (p.getPaymentType() != PaymentType.CARD) {
-        it.remove();
-      } else if (p.getPaymentType() == PaymentType.CARD &&
-          !isCardSupportSelectedCurrency(p,
-              PaymentDataManager.getInstance().getPaymentOptionsDataManager())
-          ) {
-        it.remove();
-      }
+    private ArrayList<PaymentOption> filter(ArrayList<PaymentOption> _data) {
+        ArrayList<PaymentOption> filteredData = new ArrayList<>(_data);
+        for (Iterator<PaymentOption> it = filteredData.iterator(); it.hasNext(); ) {
+            PaymentOption p = it.next();
+            if (p.getPaymentType() != PaymentType.CARD) {
+                it.remove();
+            } else if (p.getPaymentType() == PaymentType.CARD &&
+                    !isCardSupportSelectedCurrency(p,
+                            PaymentDataManager.getInstance().getPaymentOptionsDataManager())
+            ) {
+                it.remove();
+            }
+        }
+        System.out.println("filteredData" + filteredData);
+        return filteredData;
     }
-    System.out.println("filteredData"+filteredData);
-    return filteredData;
-  }
 
-  @NonNull
-  @Override
-  public CardSystemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.gosellapi_viewholder_card_system, parent, false);
-    return new CardSystemViewHolder(view);
-  }
+    @NonNull
+    @Override
+    public CardSystemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.gosellapi_viewholder_card_system, parent, false);
+        return new CardSystemViewHolder(view);
+    }
 
-  @Override
-  public void onBindViewHolder(@NonNull CardSystemViewHolder holder, int position) {
-    PaymentOption option = data.get(position);
-    Glide.with(holder.itemView.getContext()).load(option.getImage()).into(holder.cardSystemIcon);
-  }
+    @Override
+    public void onBindViewHolder(@NonNull CardSystemViewHolder holder, int position) {
+        PaymentOption option = data.get(position);
+        Glide.with(holder.itemView.getContext()).load(option.getImage()).into(holder.cardSystemIcon);
+    }
 
-  @Override
-  public int getItemCount() {
-    return data.size();
-  }
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
 
-  private void filterPaymentOptions() {
-    for (Iterator<PaymentOption> it = data.iterator(); it.hasNext(); ) {
-      PaymentOption p = it.next();
+    private void filterPaymentOptions() {
+        for (Iterator<PaymentOption> it = data.iterator(); it.hasNext(); ) {
+            PaymentOption p = it.next();
 //      System.out.println("payment type : " + p.getName());
-      if (p.getPaymentType() != PaymentType.CARD) {
-        it.remove();
-      } else if (p.getPaymentType() == PaymentType.CARD &&
-          !isCardSupportSelectedCurrency(p,
-              PaymentDataManager.getInstance().getPaymentOptionsDataManager())
-          ) {
-        it.remove();
-      }
+            if (p.getPaymentType() != PaymentType.CARD) {
+                it.remove();
+            } else if (p.getPaymentType() == PaymentType.CARD &&
+                    !isCardSupportSelectedCurrency(p,
+                            PaymentDataManager.getInstance().getPaymentOptionsDataManager())
+            ) {
+                it.remove();
+            }
+        }
     }
-  }
 
-  private boolean isCardSupportSelectedCurrency(PaymentOption paymentOption, @NonNull
-      PaymentOptionsDataManager paymentOptionsDataManager) {
-    for (String s : paymentOption.getSupportedCurrencies()) {
-      if(paymentOptionsDataManager.getSelectedCurrency().getCurrency()!=null)
-      if (s.equalsIgnoreCase(paymentOptionsDataManager.getSelectedCurrency().getCurrency())) {
-        return true;
-      }
+    private boolean isCardSupportSelectedCurrency(PaymentOption paymentOption, @NonNull
+    PaymentOptionsDataManager paymentOptionsDataManager) {
+        for (String s : paymentOption.getSupportedCurrencies()) {
+            if (paymentOptionsDataManager.getSelectedCurrency().getCurrency() != null)
+                if (s.equalsIgnoreCase(paymentOptionsDataManager.getSelectedCurrency().getCurrency())) {
+                    return true;
+                }
+        }
+        return false;
     }
-    return false;
-  }
 
     /**
      * Update for card brand.
-     *  @param brand      the brand
-     * @param cardScheme the card scheme
+     *
+     * @param brand                     the brand
+     * @param cardScheme                the card scheme
      * @param cardCredentialsViewHolder
      */
     public void updateForCardBrand(CardBrand brand, CardScheme cardScheme, CardCredentialsViewHolder cardCredentialsViewHolder) {
         ArrayList<CardBrand> cardBrands = null;
-    if (brand == null) {
-      data = new ArrayList<>(initialData);
-      notifyDataSetChanged();
-      return;
-    }
-
-    data.clear();
-
-
- for (PaymentOption option : initialData) {
-
-      cardBrands = option.getSupportedCardBrands();
-
-      if (cardScheme != null) {
-        if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
-          data.add(option);
-          continue;
+        if (brand == null) {
+            data = new ArrayList<>(initialData);
+            notifyDataSetChanged();
+            return;
         }
-      }
-      else {
-        if (cardBrands.contains(brand)) {
-          data.add(option);
-          
+
+        data.clear();
+
+
+        for (PaymentOption option : initialData) {
+
+            cardBrands = option.getSupportedCardBrands();
+
+            if (cardScheme != null) {
+                if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
+                    data.add(option);
+                    continue;
+                }
+            } else {
+                if (cardBrands.contains(brand)) {
+                    data.add(option);
+
+                }
+            }
+
+
         }
-      }
 
+        if (data.isEmpty() && !cardBrands.contains(brand)) {
+            cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
 
+        }
+
+        if (data.size() == 0)
+            data = new ArrayList<>(initialData);
+
+        notifyDataSetChanged();
     }
 
- if(data.isEmpty() && !cardBrands.contains(brand)) {
-     cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
+    private boolean comparePaymentOptionWithCardScheme(@NonNull PaymentOption paymentOption,
+                                                       @NonNull CardScheme cardScheme) {
 
- }
+        if ((paymentOption.getName().equalsIgnoreCase(cardScheme.name())) || cardScheme.name().equals("MADA")) {
+            Log.e("payment option",paymentOption.getName().toString());
+            Log.e("card scheme",cardScheme.name().toString());
 
-    if (data.size() == 0)
-      data = new ArrayList<>(initialData);
+            return true;
 
-    notifyDataSetChanged();
-  }
-
-  private boolean comparePaymentOptionWithCardScheme(@NonNull PaymentOption paymentOption,
-                                                     @NonNull CardScheme cardScheme) {
-
-    if (paymentOption.getName().equalsIgnoreCase(cardScheme.name())) {
-      return true;
-    }
+        }
 
 
-    if (paymentOption.getName().compareTo(String.valueOf(cardScheme.getCardBrand())) == 0) {
-      return true;
-    }
+        if (paymentOption.getName().compareTo(String.valueOf(cardScheme.getCardBrand())) == 0) {
+            return true;
+        }
 // stop this check to avoid displaying mada with master in case of scheme is not mada
 //    if (paymentOption.getSupportedCardBrands().contains(cardScheme.getCardBrand())) {
 //      return true;
 //    }
 
-    return false;
-  }
+        return false;
+    }
 
 }
 
@@ -204,11 +209,10 @@ class CardSystemViewHolder extends RecyclerView.ViewHolder {
      * @param itemView the item view
      */
     CardSystemViewHolder(View itemView) {
-    super(itemView);
+        super(itemView);
 
-    cardSystemIcon = itemView.findViewById(R.id.cardSystemIcon);
-  }
-
+        cardSystemIcon = itemView.findViewById(R.id.cardSystemIcon);
+    }
 
 
 }
