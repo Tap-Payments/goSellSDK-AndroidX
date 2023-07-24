@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -826,7 +828,9 @@ final class PaymentProcessManager {
     private void handleChargeOrAuthorizeOrSaveCardResponse(@Nullable Charge chargeOrAuthorizeOrSave,
                                                            @Nullable GoSellError error) {
      Log.d("handleChargeOrAuthorize"," step 5 : handleChargeOrAuthorizeOrSaveCardResponse  >>> success : in class "+ "["+this.getClass().getName()+"] chargeOrAuthorizeOrSave> status=["+chargeOrAuthorizeOrSave+"]  ");
-
+        Gson gson = new Gson();
+        String jsonCharge = gson.toJson(chargeOrAuthorizeOrSave);
+        Log.e("Charge ",String.valueOf(jsonCharge));
         if (chargeOrAuthorizeOrSave != null) {
 
         Log.d("PaymentProcessManager","handleChargeOrAuthorizeResponse >>  chargeOrAuthorize : "+ chargeOrAuthorizeOrSave.getStatus());
@@ -843,6 +847,8 @@ final class PaymentProcessManager {
             }
         } else {
             Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
+            String errorReturned = gson.toJson(error);
+            Log.e("error ",String.valueOf(errorReturned));
             getProcessListener().didReceiveError(error);
         }
     }

@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.View;
 
 import java.math.BigDecimal;
@@ -41,6 +43,8 @@ import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
 
 import static android.app.Activity.RESULT_CANCELED;
+
+import com.google.gson.Gson;
 
 /**
  * The type Sdk session.
@@ -431,6 +435,9 @@ public class SDKSession implements View.OnClickListener{
       );
 
     System.out.println("request sdkSession:"+ request);
+    Gson gson = new Gson();
+    String json = gson.toJson(request);
+    Log.e("requestSession",String.valueOf(json));
 
       GoSellAPI.getInstance().getPaymentOptions(request,
               new APIRequestCallback<PaymentOptionsResponse>() {
