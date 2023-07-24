@@ -487,6 +487,8 @@ final class PaymentProcessManager {
             @Override
             public void onSuccess(int responseCode, Token serializedResponse) {
                 // stop alerting user with card saved before and make it save = false.
+                Log.e("dataRequestBody Response Success", String.valueOf(serializedResponse.toString()));
+
                 if (PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.SAVE_CARD
                         || saveCard) {
                     if (isCardSavedBefore(serializedResponse.getCard().getFingerprint())) {
@@ -505,6 +507,8 @@ final class PaymentProcessManager {
             @Override
             public void onFailure(GoSellError errorDetails) {
                 Log.d("PaymentProcessManager", "GoSellAPI.createToken : " + errorDetails.getErrorBody());
+                Log.e("dataRequestBody Response Error ", String.valueOf(errorDetails.getErrorBody()));
+
 //         Log.d("callTokenAPI"," step 4 : startPaymentProcessWithCard>error: in class "+ "["+this.getClass().getName()+"] with token type=["+errorDetails.getErrorBody()+"]  ");
                 closePaymentWithError(errorDetails);
             }

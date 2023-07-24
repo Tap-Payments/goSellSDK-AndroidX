@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.RestrictTo;
 
+import com.google.gson.Gson;
+
 import company.tap.gosellapi.internal.api.api_service.APIService;
 import company.tap.gosellapi.internal.api.api_service.RetrofitHelper;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
@@ -201,7 +203,9 @@ public final class GoSellAPI {
      * @param requestCallback    the request callback
      */
     public void createTokenWithEncryptedCard(CreateTokenWithCardDataRequest createTokenRequest, final APIRequestCallback<Token> requestCallback) {
-
+//        Gson gson = new Gson();
+//        String data = gson.toJson(createTokenRequest);
+//        Log.e("requestBody",String.valueOf(data));
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.createTokenWithEncryptedCard(createTokenRequest), requestCallback),true);
     }
 
@@ -212,6 +216,9 @@ public final class GoSellAPI {
      * @param requestCallback                        the request callback
      */
     public void createTokenWithExistingCard(final CreateTokenWithExistingCardDataRequest createTokenWithExistingCardDataRequest, final APIRequestCallback<Token> requestCallback) {
+//        Gson gson = new Gson();
+//        String data = gson.toJson(createTokenWithExistingCardDataRequest);
+//        Log.e("requestBody",String.valueOf(data));
         requestManager.request(new RequestManager.DelayedRequest<>(apiHelper.createTokenWithExistingCard(createTokenWithExistingCardDataRequest), requestCallback),true);
     }
 
