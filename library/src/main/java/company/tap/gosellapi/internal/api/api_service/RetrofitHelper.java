@@ -1,5 +1,7 @@
 package company.tap.gosellapi.internal.api.api_service;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -21,8 +23,10 @@ import company.tap.gosellapi.internal.interfaces.SecureSerializable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -53,6 +57,7 @@ public final class RetrofitHelper {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(API_Constants.BASE_URL)
+
                     .addConverterFactory(buildGsonConverter())
                     .client(okHttpClient)
                     .build();
@@ -88,12 +93,43 @@ public final class RetrofitHelper {
                     .newBuilder()
                     .addHeader(API_Constants.AUTH_TOKEN_KEY, API_Constants.AUTH_TOKEN_PREFIX + AppInfo.getAuthToken())
                     .addHeader(API_Constants.APPLICATION, AppInfo.getApplicationInfo())
-                    .addHeader(API_Constants.ACCEPT_KEY,API_Constants.ACCEPT_VALUE)
+                    .addHeader(API_Constants.ACCEPT_KEY, API_Constants.ACCEPT_VALUE)
                     .addHeader(API_Constants.CONTENT_TYPE_KEY, API_Constants.CONTENT_TYPE_VALUE).build();
+            Log.e("dataRequestBody Request", String.valueOf(request.toString()));
+            if (request.body() != null) {
+                Log.e("dataRequestBody body",bodyToString(request.body()));
+            }
+
+            Log.e("dataRequestBody Headers", String.valueOf(request.headers().toString()));
+            Response response = chain.proceed(request);
+            try {
+                Log.e("dataRequestBody response",response.toString());
+            }catch (Exception ex){
+                return response;
+            }
+
             return chain.proceed(request);
         });
+
         httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(!BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.BODY));
 
         return httpClientBuilder.build();
     }
+
+    private static String bodyToString(final RequestBody request){
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if(copy != null)
+                copy.writeTo(buffer);
+            else
+                return "body null";
+            return buffer.readUtf8();
+        }
+        catch (final IOException e) {
+            return "did not work";
+        }
+
+    }
+
 }

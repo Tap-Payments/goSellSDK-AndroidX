@@ -66,6 +66,8 @@ class RequestManager {
                     @Override
                     public void onSuccess(int responseCode, SDKSettings serializedResponse) {
                         initIsRunning = false;
+                        Log.e("dataRequestBody Response Success", String.valueOf(serializedResponse.getData()));
+
                         PaymentDataManager.getInstance().setSDKSettings(serializedResponse);
                         /**
                          * Checking added based on the param @Verified_application to check if application
@@ -82,6 +84,8 @@ class RequestManager {
                     @Override
                     public void onFailure(GoSellError errorDetails) {
                         initIsRunning = false;
+                        Log.e("dataRequestBody Response Error ", String.valueOf(errorDetails.getErrorBody()));
+
                         failDelayedRequests(errorDetails);
                     }
                 }));
@@ -163,6 +167,7 @@ class RequestManager {
          * @param errorDetails the error details
          */
         void fail(GoSellError errorDetails) {
+            Log.e("dataRequestBody Response Error ", String.valueOf(errorDetails.getErrorBody()));
             requestCallback.onFailure(errorDetails);
         }
 
