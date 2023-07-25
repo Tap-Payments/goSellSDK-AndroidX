@@ -27,7 +27,8 @@ public class GoSellSDK {
      * @param authToken the auth token
      */
     public static void init(Context context, String authToken, String packageId) {
-        AppInfo.setAuthToken(context, authToken,packageId);
+        AppInfo.setAuthToken(context, authToken, packageId);
+
         GoSellSDK.context = context;
     }
 
@@ -47,9 +48,9 @@ public class GoSellSDK {
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
 
-    public static String getLocaleString(){
-        if(getLocaleLang==null)return Locale.getDefault().getLanguage();
+    public static String getLocaleString() {
+        if (getLocaleLang == null) return Locale.getDefault().getLanguage();
         else
-        return getLocaleLang;
+            return getLocaleLang;
     }
 }
