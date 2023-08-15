@@ -437,7 +437,6 @@ public class SDKSession implements View.OnClickListener{
     System.out.println("request sdkSession:"+ request);
     Gson gson = new Gson();
     String json = gson.toJson(request);
-    Log.e("requestSession",String.valueOf(json));
 
       GoSellAPI.getInstance().getPaymentOptions(request,
               new APIRequestCallback<PaymentOptionsResponse>() {

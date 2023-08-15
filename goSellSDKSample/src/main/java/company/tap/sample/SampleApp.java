@@ -13,7 +13,7 @@ import java.util.Locale;
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.open.controllers.ThemeObject;
 
-public class SampleApp extends Application{
+public class SampleApp extends Application {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -21,11 +21,10 @@ public class SampleApp extends Application{
     public void onCreate() {
         super.onCreate();
 
-          GoSellSDK.init(this, "YOUR_SANDBOX_SECRET_KEY","company.tap.goSellSDKExample");                 // to be replaced by merchant
-          GoSellSDK.setLocale("en");
+        GoSellSDK.init(this, "YOUR_SANDBOX_SECRET_KEY", "company.tap.goSellSDKExample");                 // to be replaced by merchant
+        GoSellSDK.setLocale("en");
 
-        }
-
+    }
 
 
 }
