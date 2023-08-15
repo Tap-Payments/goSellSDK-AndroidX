@@ -47,6 +47,7 @@ import company.tap.gosellapi.internal.api.models.PhoneNumber;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
+import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
@@ -222,13 +223,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("kwd"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("USD"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
 
         // Set Total Amount. The Total amount will be recalculated according to provided Taxes and Shipping
-        sdkSession.setAmount(new BigDecimal(20));  //** Required **
+        sdkSession.setAmount(new BigDecimal(100));  //** Required **
 
         // Set Payment Items array list
         sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
@@ -416,6 +417,9 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         saveCustomerRefInSession(charge);
         configureSDKSession();
         showDialog(charge.getId(), charge.getResponse().getMessage(), company.tap.gosellapi.R.drawable.ic_checkmark_normal);
+        PaymentDataManager.getInstance().setSDKSettings(null);
+        sdkSession = null;
+
     }
 
     @Override
@@ -560,6 +564,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     @Override
     public void sessionCancelled() {
         Log.d("MainActivity", "Session Cancelled.........");
+        PaymentDataManager.getInstance().setSDKSettings(null);
+
     }
 
 

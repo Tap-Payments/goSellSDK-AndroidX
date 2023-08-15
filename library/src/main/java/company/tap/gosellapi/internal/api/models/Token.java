@@ -58,6 +58,11 @@ public final class Token implements BaseResponse , Serializable {
     @Expose
     private String name;
 
+    @SerializedName("issuer")
+    @Nullable
+    @Expose
+    private Issuer Issuer;
+
     /**
      * Gets id.
      *
@@ -161,6 +166,16 @@ public final class Token implements BaseResponse , Serializable {
                 "\n    used =  " + used +
                 "\n    currency =  '" + currency + '\'' +
                 "\n    name =  '" + name + '\'' +
+                "\n    issuer =  '" + Issuer + '\'' +
+
                 "\n}";
+    }
+
+    public company.tap.gosellapi.internal.api.models.Issuer getIssuer() {
+        return Issuer;
+    }
+
+    public void setIssuer(company.tap.gosellapi.internal.api.models.Issuer issuer) {
+        Issuer = issuer;
     }
 }
