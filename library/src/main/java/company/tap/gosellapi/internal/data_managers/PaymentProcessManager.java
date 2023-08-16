@@ -492,6 +492,7 @@ final class PaymentProcessManager {
                     if (isCardSavedBefore(serializedResponse.getCard().getFingerprint())) {
 //            fireCardSavedBeforeDialog();
 //            return;
+                        Log.e("success",serializedResponse.toString());
                         canUserSaveCard = false;
                     }
                 }

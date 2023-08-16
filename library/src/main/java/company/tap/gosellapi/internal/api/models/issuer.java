@@ -1,39 +1,31 @@
 package company.tap.gosellapi.internal.api.models;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Issuer implements Serializable {
+import company.tap.gosellapi.internal.interfaces.SecureSerializable;
+
+public final class issuer implements Serializable {
 
     @SerializedName("id")
-    @Nullable
     @Expose
     private String id;
 
 
     @SerializedName("bank")
-    @Nullable
     @Expose
     private String bank;
+
     @SerializedName("country")
-    @Nullable
     @Expose
     private String country;
-
-    public Issuer() {
-    }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getBank() {
         return bank;
@@ -43,7 +35,4 @@ public class Issuer implements Serializable {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }

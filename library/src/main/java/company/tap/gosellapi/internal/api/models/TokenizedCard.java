@@ -61,6 +61,11 @@ public final class TokenizedCard implements Serializable {
     @Expose
     private String name;
 
+    @SerializedName("issuer")
+    @Expose
+    private issuer issuer;
+
+
 
 
 
@@ -72,6 +77,9 @@ public final class TokenizedCard implements Serializable {
      */
     public String getFirstSix() {
         return firstSix;
+    }
+    public issuer getIssuer() {
+        return issuer;
     }
 
     @Nullable
