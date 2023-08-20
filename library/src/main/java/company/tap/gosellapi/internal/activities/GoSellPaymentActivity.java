@@ -159,7 +159,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     }
 
                 });
-        initViews();
+       // initViews();
+        updateDisplayedCards(dataSource.getSelectedCurrency());
         SDKSession.getListener().sessionHasStarted();
 
         saveCardChecked = false;
@@ -173,6 +174,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     }
 
     private void initViews() {
+
         GoSellPaymentOptionsFragment paymentOptionsFragment = GoSellPaymentOptionsFragment
                 .newInstance(dataSource);
 
