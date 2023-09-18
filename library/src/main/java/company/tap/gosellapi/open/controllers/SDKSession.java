@@ -443,18 +443,20 @@ public class SDKSession implements View.OnClickListener{
 
                 @Override
                 public void onSuccess(int responseCode, PaymentOptionsResponse serializedResponse) {
-                  if (payButtonView != null) {
-                    if (ThemeObject.getInstance().isPayButtLoaderVisible())
-                      payButtonView.getLoadingView()
-                              .setForceStop(true, () -> startSDK());
-                    else
-                      startSDK();
+                  startSDK();
 
-                  } else {
-                        startSDK();
-
-
-                  }
+//                  if (payButtonView != null) {
+//                    if (ThemeObject.getInstance().isPayButtLoaderVisible())
+//                      payButtonView.getLoadingView()
+//                              .setForceStop(true, () -> startSDK());
+//                    else
+//                      startSDK();
+//
+//                  } else {
+//                        startSDK();
+//
+//
+//                  }
 
                 }
 
