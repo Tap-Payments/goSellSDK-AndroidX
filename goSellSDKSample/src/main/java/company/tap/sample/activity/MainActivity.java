@@ -153,8 +153,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
-     // GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
-        GoSellSDK.init(this, "sk_test_8HwMpvq6V0FSC7s1mrIRBOEy", "com.theporter.android.customerapp");  // to be replaced by merchant
+      GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
 
         GoSellSDK.setLocale("en");//  language to be set by merchant
 
@@ -676,18 +675,24 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
     private Customer getCustomer() { // test customer id cus_Kh1b4220191939i1KP2506448
       //  cus_TS060420211633j3KO1606527
+        /**
+         * customerID for already sample app :
+         *  - cus_TS02A0620231108Hk421705637
+         *  - merchants : 1-cus_TS03A2320231606r1BK1408327
+         *
+         */
 
         Customer customer = (settingsManager != null) ? settingsManager.getCustomer() : null;
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-//        return new Customer.CustomerBuilder("cus_TS02A0620231108Hk421705637").email("abc@abc.com").firstName("firstname")
-//                .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
-//                .middleName("middlename").build();
-
-        return new Customer.CustomerBuilder("cus_TS03A2320231606r1BK1408327").email("nishantkumarnitjsr@gmail.com").firstName("Nishant Kumar")
-                .lastName("lastname").metadata("").phone(new PhoneNumber("965","51234567"))
+        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
+                .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
+
+//        return new Customer.CustomerBuilder("cus_TS03A2320231606r1BK1408327").email("nishantkumarnitjsr@gmail.com").firstName("Nishant Kumar")
+//                .lastName("lastname").metadata("").phone(new PhoneNumber("965","51234567"))
+//                .middleName("middlename").build();
 
 
     }
