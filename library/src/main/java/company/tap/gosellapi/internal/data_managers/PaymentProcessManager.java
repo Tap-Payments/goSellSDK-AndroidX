@@ -492,7 +492,7 @@ final class PaymentProcessManager {
                     if (isCardSavedBefore(serializedResponse.getCard().getFingerprint())) {
 //            fireCardSavedBeforeDialog();
 //            return;
-                        Log.e("success",serializedResponse.toString());
+                       // Log.e("success",serializedResponse.toString());
                         canUserSaveCard = false;
                     }
                 }
@@ -847,9 +847,9 @@ final class PaymentProcessManager {
                 getProcessListener().didReceiveCharge(chargeOrAuthorizeOrSave);
             }
         } else {
-            Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
+           // Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
             String errorReturned = gson.toJson(error);
-            Log.e("error ",String.valueOf(errorReturned));
+           // Log.e("error ",String.valueOf(errorReturned));
             getProcessListener().didReceiveError(error);
         }
     }
