@@ -1,5 +1,7 @@
 package company.tap.gosellapi.open.models;
 
+import static company.tap.gosellapi.internal.api.enums.measurements.Mass.KILOGRAMS;
+
 import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
@@ -8,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import company.tap.gosellapi.internal.api.enums.measurements.Measurement;
 import company.tap.gosellapi.internal.api.models.AmountModificator;
 import company.tap.gosellapi.internal.api.models.Quantity;
 import company.tap.gosellapi.internal.utils.AmountCalculator;
@@ -28,7 +31,7 @@ public class PaymentItem {
 
   @SerializedName("quantity")
   @Expose
-  private Quantity quantity;
+  @Nullable private Quantity quantity;
 
   @SerializedName("amount_per_unit")
   @Expose
@@ -51,14 +54,14 @@ public class PaymentItem {
    */
   private PaymentItem(String name,
                       @Nullable String description,
-                      Quantity quantity,
+                      @Nullable Quantity quantity,
                       BigDecimal amountPerUnit,
                       @Nullable AmountModificator discount,
                       @Nullable ArrayList<Tax> taxes) {
 
     this.name = name;
     this.description = description;
-    this.quantity = quantity;
+   this.quantity = quantity;
     this.amountPerUnit = amountPerUnit;
     this.discount = discount;
     this.taxes = taxes;
@@ -101,10 +104,15 @@ public class PaymentItem {
      */
     public BigDecimal getPlainAmount() {
     System.out.println("  #### getPlainAmount : " + this.getAmountPerUnit() );
+    if(getQuantity()!=null){
     System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
     System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
-    return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
-  }
+      return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
+
+    }
+    else return getAmountPerUnit();
+    }
+
 
     /**
      * Gets discount amount.
@@ -153,7 +161,7 @@ public class PaymentItem {
 
     private String nestedName;
     @Nullable private String nestedDescription;
-    private Quantity nestedQuantity;
+   @Nullable private Quantity nestedQuantity;
     private BigDecimal nestedAmountPerUnit;
     @Nullable private AmountModificator nestedDiscount;
     @Nullable private ArrayList<Tax> nestedTaxes;
@@ -167,8 +175,8 @@ public class PaymentItem {
          * @param amountPerUnit the amount per unit
          */
         public PaymentItemBuilder(String name,
-                              Quantity quantity,
-                              BigDecimal amountPerUnit) {
+                              @Nullable Quantity quantity,
+                              @Nullable BigDecimal amountPerUnit) {
       this.nestedName = name;
       this.nestedQuantity = quantity;
       this.nestedAmountPerUnit = amountPerUnit;
