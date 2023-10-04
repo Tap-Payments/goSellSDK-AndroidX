@@ -1,4 +1,7 @@
 # CHANGELOG
+[3.17.4] - 2023-10-04
+### Hot Fix:
+- Bug Fix for RN plugin
 [3.17.2] - 2023-06-26
 ### Enhancement Feature:
 - Updated blurry library
