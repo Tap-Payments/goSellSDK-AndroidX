@@ -108,7 +108,7 @@ public class PaymentItem {
     public BigDecimal getPlainAmount() {
     System.out.println("  #### getPlainAmount : " + this.getAmountPerUnit() );
 
-    System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
+   if(getQuantity()!=null) System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
 //    System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
 
       if(getAmountPerUnit()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
