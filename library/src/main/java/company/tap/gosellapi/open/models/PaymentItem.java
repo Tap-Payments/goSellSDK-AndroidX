@@ -31,7 +31,7 @@ public class PaymentItem {
 
   @SerializedName("quantity")
   @Expose
-  @Nullable private Quantity quantity;
+   private Quantity quantity;
 
   @SerializedName("amount_per_unit")
   @Expose
@@ -61,7 +61,10 @@ public class PaymentItem {
 
     this.name = name;
     this.description = description;
-   this.quantity = quantity;
+    if(quantity == null) {
+      this.quantity = new Quantity(Measurement.MASS, KILOGRAMS, BigDecimal.ONE);
+    } else{ this.quantity = quantity;
+    }
     this.amountPerUnit = amountPerUnit;
     this.discount = discount;
     this.taxes = taxes;
@@ -104,13 +107,12 @@ public class PaymentItem {
      */
     public BigDecimal getPlainAmount() {
     System.out.println("  #### getPlainAmount : " + this.getAmountPerUnit() );
-    if(getQuantity()!=null){
+
     System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
     System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
       return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
 
-    }
-    else return getAmountPerUnit();
+
     }
 
 
@@ -161,7 +163,7 @@ public class PaymentItem {
 
     private String nestedName;
     @Nullable private String nestedDescription;
-   @Nullable private Quantity nestedQuantity;
+    private Quantity nestedQuantity;
     private BigDecimal nestedAmountPerUnit;
     @Nullable private AmountModificator nestedDiscount;
     @Nullable private ArrayList<Tax> nestedTaxes;
