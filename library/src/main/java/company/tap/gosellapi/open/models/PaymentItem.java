@@ -111,8 +111,10 @@ public class PaymentItem {
    if(getQuantity()!=null) System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
 //    System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
 
-      if(getAmountPerUnit()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
-      else return this.getQuantity().getValue();
+      if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
+      else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
+      else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
+      else return getAmountPerUnit();
 
 
     }
