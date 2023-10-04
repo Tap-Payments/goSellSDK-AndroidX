@@ -233,8 +233,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setAmount(new BigDecimal(100));  //** Required **
 
         // Set Payment Items array list
-      //  sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
-        sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
+        sdkSession.setPaymentItems(new ArrayList<>());// ** Optional ** you can pass empty array list
+      //  sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
       sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType

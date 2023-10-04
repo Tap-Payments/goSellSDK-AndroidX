@@ -177,8 +177,9 @@ public class SettingsManager {
 
     public ArrayList<PaymentItem> getPaymentItems(){
         ArrayList<PaymentItem> items = new ArrayList<>();
+
         items.add(
-                new PaymentItem.PaymentItemBuilder("",null, BigDecimal.ONE)
+                new PaymentItem.PaymentItemBuilder("", new Quantity(Measurement.MASS,KILOGRAMS, BigDecimal.ONE), BigDecimal.ONE)
                         .description("Description for test item #1")
                         .discount(new AmountModificator(FIXED, BigDecimal.ZERO))
                         .taxes(null)
