@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("INR"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
