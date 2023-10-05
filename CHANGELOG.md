@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.18.0] - 2023-10-05
+### Enhancement Feature:
+- Updated to support android api33
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- Any one who uses this will need to update target and compile sdk version to 33 
 [3.17.18] - 2023-10-04
 ### Hot Fix:
 - Bug Fix for RN plugin
