@@ -492,7 +492,7 @@ final class PaymentProcessManager {
                     if (isCardSavedBefore(serializedResponse.getCard().getFingerprint())) {
 //            fireCardSavedBeforeDialog();
 //            return;
-                        Log.e("success",serializedResponse.toString());
+                       // Log.e("success",serializedResponse.toString());
                         canUserSaveCard = false;
                     }
                 }
@@ -828,10 +828,10 @@ final class PaymentProcessManager {
 
     private void handleChargeOrAuthorizeOrSaveCardResponse(@Nullable Charge chargeOrAuthorizeOrSave,
                                                            @Nullable GoSellError error) {
-     Log.d("handleChargeOrAuthorize"," step 5 : handleChargeOrAuthorizeOrSaveCardResponse  >>> success : in class "+ "["+this.getClass().getName()+"] chargeOrAuthorizeOrSave> status=["+chargeOrAuthorizeOrSave+"]  ");
+    // Log.d("handleChargeOrAuthorize"," step 5 : handleChargeOrAuthorizeOrSaveCardResponse  >>> success : in class "+ "["+this.getClass().getName()+"] chargeOrAuthorizeOrSave> status=["+chargeOrAuthorizeOrSave+"]  ");
         Gson gson = new Gson();
         String jsonCharge = gson.toJson(chargeOrAuthorizeOrSave);
-        Log.e("Charge ",String.valueOf(jsonCharge));
+       /// Log.e("Charge ",String.valueOf(jsonCharge));
         if (chargeOrAuthorizeOrSave != null) {
 
         Log.d("PaymentProcessManager","handleChargeOrAuthorizeResponse >>  chargeOrAuthorize : "+ chargeOrAuthorizeOrSave.getStatus());
@@ -847,9 +847,9 @@ final class PaymentProcessManager {
                 getProcessListener().didReceiveCharge(chargeOrAuthorizeOrSave);
             }
         } else {
-            Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
+           // Log.d("PaymentProcessManager", "handleChargeOrAuthorizeResponse >>  error : " + error);
             String errorReturned = gson.toJson(error);
-            Log.e("error ",String.valueOf(errorReturned));
+           // Log.e("error ",String.valueOf(errorReturned));
             getProcessListener().didReceiveError(error);
         }
     }

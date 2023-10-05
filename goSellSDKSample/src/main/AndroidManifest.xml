@@ -17,7 +17,8 @@
         <activity android:name=".activity.TaxesActivity">
 
         </activity>
-        <activity android:name=".activity.ShippingActivity">
+        <activity android:name=".activity.ShippingActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="SETTING_START_SHIPPING_ACTIVITY" />
             </intent-filter>
@@ -27,7 +28,8 @@
             android:theme="@style/tap" />
         <activity
             android:name=".activity.CustomerActivity"
-            android:theme="@style/tap">
+            android:theme="@style/tap"
+            android:exported="true">
             <intent-filter>
                 <action android:name="SETTING_START_CUSTOMER_ACTIVITY" />
             </intent-filter>
@@ -40,7 +42,7 @@
             android:name=".activity.MainActivity"
             android:theme="@style/tap"
             android:screenOrientation="portrait"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
