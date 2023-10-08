@@ -86,7 +86,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     String defaultCardHolderName;
 
     private @NonNull
-    boolean enableEditCardHolderName;
+    boolean enableEditCardHolderName = true;
 
     private @Nullable
     CardIssuer cardIssuer;

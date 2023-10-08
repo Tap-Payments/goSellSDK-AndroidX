@@ -41,6 +41,7 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.adapters.CardSystemsRecyclerViewAdapter;
@@ -528,13 +529,15 @@ public class CardCredentialsViewHolder
 // Added hide keyboard for disabled card name
         saveCardSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             viewModel.saveCardSwitchClicked(isChecked);
-            if(buttonView!=null &&  !PaymentDataSource.getInstance().getEnableEditCardHolderName()){
+            if(buttonView!=null && !PaymentDataSource.getInstance().getEnableEditCardHolderName()){
+                System.out.println("I am  re called"+PaymentDataSource.getInstance().getEnableEditCardHolderName());
                 Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
 
             } else {
                 nameOnCardField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            System.out.println("Youca re called");
                             // hide virtual keyboard
                             Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
                             return true;
