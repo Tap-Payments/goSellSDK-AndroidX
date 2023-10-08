@@ -172,8 +172,8 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
                                                        @NonNull CardScheme cardScheme) {
 
         if ((paymentOption.getName().equalsIgnoreCase(cardScheme.name())) || cardScheme.name().equals("MADA")) {
-            Log.e("payment option",paymentOption.getName().toString());
-            Log.e("card scheme",cardScheme.name().toString());
+           // Log.e("payment option",paymentOption.getName().toString());
+          //  Log.e("card scheme",cardScheme.name().toString());
 
             return true;
 
