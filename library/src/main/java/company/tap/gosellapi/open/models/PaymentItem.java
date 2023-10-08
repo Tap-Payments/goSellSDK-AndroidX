@@ -114,7 +114,7 @@ public class PaymentItem {
       if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
       else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
       else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
-      else return getAmountPerUnit();
+      else return BigDecimal.ZERO;
 
 
     }
@@ -229,7 +229,7 @@ public class PaymentItem {
          * @param innerTotalAmount the inner total amount
          * @return the payment item builder
          */
-        public PaymentItemBuilder totalAmount(BigDecimal innerTotalAmount) {
+        public PaymentItemBuilder x(BigDecimal innerTotalAmount) {
       this.nestedTotalAmount = innerTotalAmount;
       return this;
     }
