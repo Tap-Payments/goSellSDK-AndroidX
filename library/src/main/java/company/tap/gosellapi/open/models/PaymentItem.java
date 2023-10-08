@@ -63,9 +63,14 @@ public class PaymentItem {
     this.description = description;
     if(quantity == null) {
       this.quantity = new Quantity(Measurement.MASS, KILOGRAMS, BigDecimal.ONE);
-    } else{ this.quantity = quantity;
+        this.amountPerUnit = BigDecimal.ONE;
+    } else{
+        this.quantity = quantity;
+        this.amountPerUnit = amountPerUnit;
     }
-    this.amountPerUnit = amountPerUnit;
+
+
+
     this.discount = discount;
     this.taxes = taxes;
     this.totalAmount = AmountCalculator.calculateTotalAmountOf(this);
@@ -111,11 +116,11 @@ public class PaymentItem {
    if(getQuantity()!=null) System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
 //    System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
 
-      if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
-      else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
-      else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
-      else return BigDecimal.ZERO;
-
+     // if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
+     // else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
+     // else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
+     // else return getAmountPerUnit();
+        return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
 
     }
 
@@ -135,7 +140,7 @@ public class PaymentItem {
     switch (this.getDiscount().getType()) {
 
       case PERCENTAGE:
-        if(getPlainAmount()!=null)
+       // if(getPlainAmount()!=null)
         return this.getPlainAmount().multiply(this.getDiscount().getNormalizedValue());
 
       case FIXED:

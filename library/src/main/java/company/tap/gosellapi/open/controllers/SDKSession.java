@@ -171,6 +171,7 @@ public class SDKSession implements View.OnClickListener{
    * @param paymentItems the payment items
    */
   public void setPaymentItems(ArrayList<PaymentItem> paymentItems){
+   // if(paymentItems.get(0).getPlainAmount()==null)
     paymentDataSource.setPaymentItems(paymentItems);
   }
 
