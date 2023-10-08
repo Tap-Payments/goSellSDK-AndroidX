@@ -63,13 +63,17 @@ public class PaymentItem {
     this.description = description;
     if(quantity == null  && amountPerUnit != null) {
       this.quantity = new Quantity(Measurement.MASS, KILOGRAMS, BigDecimal.ONE);
-        this.amountPerUnit = amountPerUnit;
-    } else{
+
+    } else if( quantity!=null && amountPerUnit == null){
+        this.quantity =null;
+        this.amountPerUnit =null;
+
+    }else {
         this.quantity = quantity;
         this.amountPerUnit = amountPerUnit;
     }
 
-
+   // this.amountPerUnit = amountPerUnit;
 
     this.discount = discount;
     this.taxes = taxes;
