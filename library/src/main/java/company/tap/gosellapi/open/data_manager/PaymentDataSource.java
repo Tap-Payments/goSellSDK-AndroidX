@@ -154,7 +154,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
      * @param paymentItems the payment items
      */
     public void setPaymentItems(@Nullable ArrayList<PaymentItem> paymentItems){
-     this.items = paymentItems;
+        if(paymentItems!=null && paymentItems.size()>0) {
+           if(paymentItems.get(0).getQuantity()!=null && paymentItems.get(0).getAmountPerUnit()!=null)
+               this.items = paymentItems;
+        }
+      //  this.items = paymentItems;
+
     }
 
     /**

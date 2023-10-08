@@ -61,9 +61,9 @@ public class PaymentItem {
 
     this.name = name;
     this.description = description;
-    if(quantity == null) {
+    if(quantity == null  && amountPerUnit != null) {
       this.quantity = new Quantity(Measurement.MASS, KILOGRAMS, BigDecimal.ONE);
-        this.amountPerUnit = BigDecimal.ONE;
+        this.amountPerUnit = amountPerUnit;
     } else{
         this.quantity = quantity;
         this.amountPerUnit = amountPerUnit;
@@ -73,7 +73,7 @@ public class PaymentItem {
 
     this.discount = discount;
     this.taxes = taxes;
-    this.totalAmount = AmountCalculator.calculateTotalAmountOf(this);
+    if(quantity!=null && amountPerUnit!=null)this.totalAmount = AmountCalculator.calculateTotalAmountOf(this);
 
     System.out.println("calculated total amount : " + this.totalAmount);
   }
@@ -116,11 +116,11 @@ public class PaymentItem {
    if(getQuantity()!=null) System.out.println("  #### this.getQuantity().getValue() : " + this.getQuantity().getValue() );
 //    System.out.println("  #### result : " + this.getAmountPerUnit().multiply(this.getQuantity().getValue()) );
 
-     // if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
-     // else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
-     // else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
-     // else return getAmountPerUnit();
-        return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
+      if(getAmountPerUnit()!=null && getQuantity()!=null) return this.getAmountPerUnit().multiply(this.getQuantity().getValue());
+      else if(getAmountPerUnit()!=null && getQuantity() == null) return getAmountPerUnit();
+      else if(getAmountPerUnit()==null && getQuantity()!=null) return this.getQuantity().getValue();
+      else return getAmountPerUnit();
+
 
     }
 
