@@ -45,7 +45,8 @@ public abstract class AmountCalculator {
 
         for (PaymentItem item : items) {
 
-           if(item.getPlainAmount()!=null) itemsPlainAmount    = itemsPlainAmount.add(item.getPlainAmount());
+           //if(item.getPlainAmount()!=null) itemsPlainAmount    = itemsPlainAmount.add(item.getPlainAmount());
+               itemsPlainAmount    = itemsPlainAmount.add(item.getPlainAmount());
             itemsDiscountAmount = itemsDiscountAmount.add(item.getDiscountAmount());
             itemsTaxesAmount    = itemsTaxesAmount.add(item.getTaxesAmount());
         }
