@@ -44,6 +44,7 @@ public abstract class AmountCalculator {
         BigDecimal itemsTaxesAmount     = BigDecimal.ZERO;
 
         for (PaymentItem item : items) {
+
            if(item.getPlainAmount()!=null) itemsPlainAmount    = itemsPlainAmount.add(item.getPlainAmount());
             itemsDiscountAmount = itemsDiscountAmount.add(item.getDiscountAmount());
             itemsTaxesAmount    = itemsTaxesAmount.add(item.getTaxesAmount());

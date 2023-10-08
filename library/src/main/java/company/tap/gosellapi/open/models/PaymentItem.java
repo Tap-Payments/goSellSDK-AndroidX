@@ -135,7 +135,7 @@ public class PaymentItem {
     switch (this.getDiscount().getType()) {
 
       case PERCENTAGE:
-
+        if(getPlainAmount()!=null)
         return this.getPlainAmount().multiply(this.getDiscount().getNormalizedValue());
 
       case FIXED:
@@ -153,8 +153,10 @@ public class PaymentItem {
      * @return the taxes amount
      */
     public BigDecimal getTaxesAmount() {
+        BigDecimal taxationAmount = BigDecimal.ZERO;
 
-    BigDecimal taxationAmount = this.getPlainAmount().subtract(this.getDiscountAmount());
+    if(getPlainAmount()!=null)  taxationAmount= this.getPlainAmount().subtract(this.getDiscountAmount());
+
 
     return AmountCalculator.calculateTaxesOn(taxationAmount, this.taxes);
   }
