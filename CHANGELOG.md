@@ -1,4 +1,11 @@
 # CHANGELOG
+[3.18.5] - 2023-10-08
+### Hot Fix:
+- Bug Fix for RN plugin
+### Impact on existing integrations:
+- The update does not impact existing integrations.
+### Recommended changes for existing integrations before updating:
+- Any one who uses this will need to update target and compile sdk version to 33
 [3.18.1] - 2023-10-08
 ### Hot Fix:
 - Bug Fix in HolderName
