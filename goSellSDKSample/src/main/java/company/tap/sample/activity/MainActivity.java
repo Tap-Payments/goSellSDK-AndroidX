@@ -520,12 +520,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("Token card brand : "+token.getCard().getBrand());
 //        System.out.println("Token issuer : "+token.getIssuer());
 //        System.out.println("Token issuer : "+token.getIssuer().getBank());
-        System.out.println("Token issuer : "+token.getCard().getIssuer().getBank());
-        System.out.println("Token issuer : "+token.getCard().getIssuer());
+        if(token.getCard().getIssuer()!=null) {
+            System.out.println("Token issuer : " + token.getCard().getIssuer().getBank());
+            System.out.println("Token issuer : " + token.getCard().getIssuer());
 
-        System.out.println("Token issuer : "+token.getCard().getIssuer().getId());
-        System.out.println("Token issuer : "+token.getCard().getIssuer().getCountry());
-
+            System.out.println("Token issuer : " + token.getCard().getIssuer().getId());
+            System.out.println("Token issuer : " + token.getCard().getIssuer().getCountry());
+        }
         showDialog(token.getId(), "Token", company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }
 
