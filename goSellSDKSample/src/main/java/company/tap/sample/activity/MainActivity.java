@@ -196,7 +196,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
-               // .setPayButtonText("Tokenize Text value") // **Optional**
+
+                .setPayButtonText("PAY") // **Optional**
 
 
 
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
       //  sdkSession.setPaymentItems(settingsManager.getPaymentItems());// ** Optional ** you can pass empty array list
 
 
-      sdkSession.setPaymentType("CARD");   //** Merchant can pass paymentType
+      sdkSession.setPaymentType("ALL");   //** Merchant can pass paymentType
 
         // Set Taxes array list
         sdkSession.setTaxes(new ArrayList<>());// ** Optional ** you can pass empty array list
