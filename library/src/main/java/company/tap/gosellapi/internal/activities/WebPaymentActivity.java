@@ -179,7 +179,9 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
 
   @Override
   public void onBackPressed() {
-    setResult(RESULT_CANCELED);
+   // setResult(RESULT_CANCELED);
+    setResult(RESULT_CANCELED, new Intent());
+    finish();
     super.onBackPressed();
   }
 

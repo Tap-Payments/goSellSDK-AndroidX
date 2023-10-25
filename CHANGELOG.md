@@ -1,4 +1,9 @@
 # CHANGELOG
+[3.18.6] - 2023-10-25
+### Enhancement Feature:
+- Back button functionality enhancement
+### Impact on existing integrations:
+- The update does not impact existing integrations.
 [3.18.5] - 2023-10-08
 ### Hot Fix:
 - Bug Fix for RN plugin
