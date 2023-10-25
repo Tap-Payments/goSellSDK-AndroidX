@@ -1,5 +1,5 @@
 # CHANGELOG
-[3.18.6] - 2023-10-25
+[3.18.7] - 2023-10-25
 ### Enhancement Feature:
 - Back button functionality enhancement
 ### Impact on existing integrations:
