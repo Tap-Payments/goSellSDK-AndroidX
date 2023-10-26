@@ -14,6 +14,10 @@ import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.api.models.PaymentOption;
+import company.tap.gosellapi.open.enums.GPayWalletMode;
+import company.tap.gosellapi.open.models.GooglePay;
+import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.enums.CardType;
 import company.tap.gosellapi.open.enums.TransactionMode;
@@ -94,6 +98,15 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     private @Nullable
     TopUp topUp;
 
+    private @Nullable
+    ArrayList<PaymentOption> cardPaymentOptions;
+
+    private @Nullable
+   OperationMode operationMode;
+
+    private @Nullable
+    GPayWalletMode gPayWalletMode;
+
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
     /**
@@ -112,6 +125,8 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public static PaymentDataSource getInstance(){
         return  SingletonCreationAdmin.INSTANCE;
     }
+
+
 
 
     private static class SingletonCreationAdmin {
@@ -326,6 +341,17 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
         this.topUp = topUp;
     }
 
+    public void setCardPay(@Nullable ArrayList<PaymentOption> cardPaymentOptions) {
+        this.cardPaymentOptions =cardPaymentOptions;
+    }
+
+    public void setOperationMode(@Nullable OperationMode operationMode) {
+        this.operationMode =operationMode;
+    }
+    public void setGooglePayWalletMode(@Nullable GPayWalletMode googlePayWalletMode) {
+        this.gPayWalletMode =googlePayWalletMode;
+    }
+
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
     @Override
     public @NonNull
@@ -469,6 +495,25 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public TopUp getTopUp() {
         return topUp;
+    }
+
+    @Nullable
+
+    @Override
+    public ArrayList<PaymentOption> getGooglePaymentOptions() {
+        return cardPaymentOptions;
+    }
+
+    @Nullable
+    @Override
+    public OperationMode getOperationMode() {
+        return operationMode;
+    }
+
+    @Nullable
+    @Override
+    public GPayWalletMode getGooglePayWalletMode() {
+        return gPayWalletMode;
     }
 
 
