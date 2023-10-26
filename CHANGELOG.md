@@ -1,4 +1,9 @@
 # CHANGELOG
+[3.18.8] - 2023-10-26
+### Hot Fix:
+- Fix for googlePay
+### Impact on existing integrations:
+- The update does not impact existing integrations.
 [3.18.7] - 2023-10-25
 ### Enhancement Feature:
 - Back button functionality enhancement

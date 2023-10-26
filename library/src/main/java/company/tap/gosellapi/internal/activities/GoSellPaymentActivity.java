@@ -1,5 +1,9 @@
 package company.tap.gosellapi.internal.activities;
 
+
+import static company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder.googlePayButton;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,8 +34,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -39,9 +45,21 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.IsReadyToPayRequest;
+import com.google.android.gms.wallet.PaymentData;
+import com.google.android.gms.wallet.PaymentsClient;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
@@ -58,14 +76,15 @@ import company.tap.gosellapi.internal.api.models.PaymentOption;
 import company.tap.gosellapi.internal.api.models.SaveCard;
 import company.tap.gosellapi.internal.api.models.SavedCard;
 import company.tap.gosellapi.internal.api.models.Token;
+import company.tap.gosellapi.internal.api.requests.CreateTokenGPayRequest;
 import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.api.responses.DeleteCardResponse;
-
 import company.tap.gosellapi.internal.custom_views.OTPFullScreenDialog;
 import company.tap.gosellapi.internal.data_managers.LoadingScreenManager;
 import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.CardCredentialsViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GooglePayViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
@@ -73,10 +92,13 @@ import company.tap.gosellapi.internal.fragments.GoSellPaymentOptionsFragment;
 import company.tap.gosellapi.internal.interfaces.ICardDeleteListener;
 import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
+import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
+
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
+import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import io.card.payment.CardIOActivity;
@@ -103,6 +125,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private Charge chargeOrAuthorizeOrSaveCard;
     private SavedCard savedCard;
     private WebPaymentViewModel webPaymentViewModel;
+    private GooglePayViewModel googlePayViewModel;
 
     private AppearanceMode apperanceMode;
 
@@ -118,6 +141,13 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private ScrollView main_windowed_scrollview;
     private static final String TAG = "GoSellPaymentActivity";
 
+    // Arbitrarily-picked constant integer you define to track a request for payment data activity.
+    private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
+
+    // A client for interacting with the Google Pay API.
+    private PaymentsClient paymentsClient;
+
+    public static boolean gPayFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -126,6 +156,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
         setupScreenMode();
         if(ThemeObject.getInstance().getAppearanceMode()!=null)
+
         apperanceMode = ThemeObject.getInstance().getAppearanceMode();
 
         if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
@@ -141,6 +172,15 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
          *  PaymentOptionsDataManager >> is the main actor who decide layout content
          */
         dataSource = PaymentDataManager.getInstance().getPaymentOptionsDataManager(this);
+       if(PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE){
+            paymentsClient = PaymentsUtil.createPaymentsClient(this);
+            if(PaymentDataSource.getInstance().getGooglePaymentOptions().size()!=0){
+                possiblyShowGooglePayButton();
+            }
+
+
+        }
+
 
         final FrameLayout fragmentContainer = findViewById(R.id.paymentActivityFragmentContainer);
 
@@ -171,6 +211,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
+
     }
 
     private void initViews() {
@@ -364,8 +405,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
 
-            }else
-            payButton.getPayButton().setText(getResources().getString(R.string.save_card));
+            }else{
+                payButton.getPayButton().setText(getResources().getString(R.string.save_card));
+            }
+
         }
        /* //Removed as per Merchant 13/07/21
         if (isTransactionModeTokenizeCard()){
@@ -373,7 +416,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             if (ThemeObject.getInstance().getPayButtonText() != null) {
                 payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
 
-            }else
+            }else{
                 payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
         }*/
 
@@ -502,7 +545,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     ///////////////////////////////////////////////////  start function that initiate payment by creating charge --------------------------
     private void getVisibleViewModels() {
-        if(PaymentDataManager.getInstance().getPaymentOptionsDataManager()!=null && PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize()>0) {
+        if (PaymentDataManager.getInstance().getPaymentOptionsDataManager() != null && PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize() > 0) {
             for (int i = 0; i < PaymentDataManager.getInstance().getPaymentOptionsDataManager().getSize(); i++) {
                 if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof RecentSectionViewModel) {
                     recentSectionViewModel = (RecentSectionViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
@@ -515,6 +558,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                 } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof CardCredentialsViewModel) {
                     cardCredentialsViewModel = (CardCredentialsViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
+
+                } else if (PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i) instanceof GooglePayViewModel) {
+                    googlePayViewModel = (GooglePayViewModel) PaymentDataManager.getInstance().getPaymentOptionsDataManager().getViewModel(i);
 
                 }
             }
@@ -817,6 +863,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                    }
                    updateDisplayedCards(userChoiceCurrency);
                 }
+
                 break;
 
             case WEB_PAYMENT_REQUEST_CODE:
@@ -864,6 +911,42 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     }
                 }, 1000);
 
+                break;
+            /**
+            *** Handling of received GooglePayLoad
+            **/
+            case LOAD_PAYMENT_DATA_REQUEST_CODE:
+                switch (resultCode) {
+
+                    case Activity.RESULT_OK:
+                        PaymentData paymentData = PaymentData.getFromIntent(data);
+                        if(paymentData!=null){
+                            handlePaymentSuccess(paymentData);
+
+                        }
+                        break;
+
+                    case Activity.RESULT_CANCELED:
+                        // The user cancelled the payment attempt
+                        try {
+                            //closePaymentActivity();
+                            SDKSession.getListener().sessionCancelled();
+                        } catch (Exception e) {
+                            closePaymentActivity();
+                        }
+                        break;
+
+                    case AutoResolveHelper.RESULT_ERROR:
+                        Status status = AutoResolveHelper.getStatusFromIntent(data);
+                        if(status!=null){
+                         //   System.out.println("status values are>>"+status!=null ?status.getStatusMessage():status + " >> code "+status.getStatusCode());
+                            handleError(status);
+                        }
+                        break;
+                }
+
+                // Re-enables the Google Pay payment button.
+              //  googlePayButton.setClickable(true);
                 break;
 
         }
@@ -1397,7 +1480,121 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             }
         }.start();
     }
+    private void handlePaymentSuccess(PaymentData paymentData) {
+        // Token will be null if PaymentDataRequest was not constructed using fromJson(String).
+        final String paymentInfo = paymentData.toJson();
+        if (paymentInfo == null) {
+            return;
+        }
+        LoadingScreenManager.getInstance().showLoadingScreen(this);
+        try {
+            JSONObject paymentMethodData = new JSONObject(paymentInfo).getJSONObject("paymentMethodData");
+         //   System.out.println("paymentMethodData"+paymentMethodData);
+            // If the gateway is set to "example", no payment information is returned - instead, the
+            // token will only consist of "examplePaymentMethodToken".
+            final JSONObject tokenizationData = paymentMethodData.getJSONObject("tokenizationData");
+           // System.out.println("tokenizationData>>>"+tokenizationData);
+            final String tokenizationType = tokenizationData.getString("type");
+          //  System.out.println("tokenizationType is"+tokenizationType);
+            final String token = tokenizationData.getString("token");
+          //  System.out.println("token is"+token);
+            Gson gson = new Gson();
+            JsonObject jsonToken = gson.fromJson(token, JsonObject.class);
+            /**
+             * At this stage, Passing the googlePaylaod to Tap Backend TokenAPI call followed by chargeAPI.
+             * ***/
+            CreateTokenGPayRequest createTokenGPayRequest = new CreateTokenGPayRequest("googlepay",jsonToken);
+            initiateGooglePayProcess(createTokenGPayRequest);
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * At this stage, the user has already seen a popup informing them an error occurred. Normally,
+     * only logging is required.
+     *
+     * @param status object
+     * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
+     * WalletConstants#constant-summary">Wallet Constants Library</a>
+     */
+    private void handleError(Status status) {
+        Log.e("loadPaymentData failed", String.format("Error code: %d", status.getStatusCode()));
+        try {
+            closePaymentActivity();
+            SDKSession.getListener().googlePayFailed(status.getStatusMessage());
+        } catch (Exception e) {
+            closePaymentActivity();
+        }
+
+    }
+
+
+    public void initiateGooglePayProcess(CreateTokenGPayRequest createTokenGPayRequest){
+        getVisibleViewModels();
+        PaymentDataManager.getInstance().initiateGooglePayTokenPayment(googlePayViewModel, this,createTokenGPayRequest);
+    }
+
+
+    /**
+     * Determine the viewer's ability to pay with a payment method supported by your app and display a
+     * Google Pay payment button.
+     *
+     * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/wallet/
+     * PaymentsClient.html#isReadyToPay(com.google.android.gms.wallet.
+     * IsReadyToPayRequest)">PaymentsClient#IsReadyToPay</a>
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void possiblyShowGooglePayButton() {
+
+        final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+      //  System.out.println("isReadyToPayJson"+isReadyToPayJson);
+        if (!isReadyToPayJson.isPresent()) {
+            return;
+        }
+
+        // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+        // OnCompleteListener to be triggered when the result of the call is known.
+        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+        Task<Boolean> task = paymentsClient.isReadyToPay(request);
+        task.addOnCompleteListener(this , task1 -> {
+            if (task1.isSuccessful()) {
+              //  System.out.println("do we reach"+task1.getResult());
+                setGooglePayAvailable(task1.getResult());
+                gPayFlag = task1.getResult();
+            } else {
+                SDKSession.getListener().googlePayFailed(task.getException().toString());
+                gPayFlag = false;
+               PaymentDataManager.getInstance().getPaymentOptionsDataManager().removeview();
+                Log.w("isReadyToPay failed", task1.getException());
+            }
+
+            //System.out.println("task1 is"+task1.getResult());
+        });
+    }
+
+    /**
+     * If isReadyToPay returned {@code true}, show the button and hide the "checking" text. Otherwise,
+     * notify the user that Google Pay is not available. Please adjust to fit in with your current
+     * user flow. You are not required to explicitly let the user know if isReadyToPay returns {@code
+     * false}.
+     *
+     * @param available isReadyToPay API response.
+     */
+    private void setGooglePayAvailable(boolean available) {
+       // System.out.println("available"+available);
+        googlePayButton = findViewById(R.id.googlePayButton);
+        if (available) {
+            if(googlePayButton!=null)
+            googlePayButton.setVisibility(View.VISIBLE);
+
+        } else {
+            googlePayButton.setVisibility(View.GONE);
+            Toast.makeText(this,R.string.googlepay_button_not_supported, Toast.LENGTH_LONG).show();
+        }
+    }
 }
+
 
 

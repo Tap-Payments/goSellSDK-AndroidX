@@ -48,8 +48,16 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
     16. [Session Cancel Callback](#session_cancel_callback)
     17. [User Enabled Save CARD](#user_enabled_save_card_option)
     18. [Asynch_Payment_Callback](#asyncPaymentStarted_callback)
-    18. [Payment_Initiated_Callback](#paymentInitiated_callback)
-6. [Documentation](#docs)
+    19. [Payment_Initiated_Callback](#paymentInitiated_callback)
+    20. [GooglePayFailed](#google_pay_failed_callback)
+6. [Google Pay™](#google_pay) 
+  
+   1. [Requirements And SetUp](#requirements_googlepay)
+   2. [Integrate Google Pay™ Directly in your App](#google_pay_integrate_direct)
+   3. [Tokenize the Google Pay™ payment data with Tap](#google_pay_tokenize_tap)
+   4. [Test Google Pay™](#google_pay_test)
+
+7. [Documentation](#docs)
 
 
 <a name="requirements"></a>
@@ -98,7 +106,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.7'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.8'
 	}
 ```
 
@@ -695,6 +703,8 @@ import company.tap.gosellapi.GoSellSDK
             
              sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
+             sdkSession.setGooglePay(getGooglePay());//** Required ** For setting GooglePAY Environment
+
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -775,6 +785,7 @@ import company.tap.gosellapi.GoSellSDK
 
          sdkSession.setDefaultCardHolderName("TEST TAP") // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
          sdkSession.isUserAllowedToEnableCardHolderName(false) // ** Optional ** you can enable/ disable  default CardHolderName .
+         sdkSession.setGooglePay(googlePay)
 	  /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -973,6 +984,25 @@ import company.tap.gosellapi.GoSellSDK
                     .middleName("middlename").build()
         }
  ```	
+**To populate GooglePay object**
+
+*Java:*
+
+```java
+     private GooglePay getGooglePay() {
+         return  new GooglePay.GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build();
+
+     }
+```
+
+*Kotlin*:
+```kotlin
+  private val googlePay: GooglePay
+        private get() { 
+          
+            return GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build()
+        }
+ ```	
 
 <a name="sdkSession_data_source"></a>
 ### SDKSession Payment Data Source
@@ -1128,6 +1158,8 @@ The following table describes its structure and specifies which fields are requi
                       void cardTokenizedSuccessfully(@NonNull Token token,boolean saveCardEnabled);
                      
                       void asyncPaymentStarted(@NonNull Charge charge);      
+                      
+                      void googlePayFailed(Status error);
       }
  ```
  2. PaymentDataSource
@@ -1306,6 +1338,36 @@ The following table describes its structure and specifies which fields are requi
          @SerializedName("ALL")  ALL
       }
   ```
+ 4. OperationMode
+   ```java
+       public enum OperationMode {
+        /**
+         * Sandbox is for testing purposes
+         */
+         @SerializedName("SAND_BOX")              SAND_BOX,
+
+        /**
+          * Production is for live
+         ***/
+        @SerializedName("PRODUCTION")            PRODUCTION
+
+       }
+ ```
+ 5. GPayWalletMode
+   ```java
+        public  enum GPayWalletMode {
+        /**
+         * Sandbox is for testing purposes
+        */
+        @SerializedName("ENVIRONMENT_TEST")  ENVIRONMENT_TEST,
+
+        /**
+        *  Production is for live
+        */
+        @SerializedName("ENVIRONMENT_PRODUCTION")            ENVIRONMENT_PRODUCTION
+     }
+  ```   
+
 
  <a name="sdk_open_models"></a>
  ## SDK Open Models
@@ -2051,6 +2113,55 @@ The following table describes its structure and specifies which fields are requi
             }
         }
        ```
+      9.GooglePay
+        ```java
+        public class GooglePay implements Serializable {
+        private String merchantName;
+        private GPayWalletMode walletTestMode;
+        private String merchantGatewayId;
+        
+        public String getMerchantName() {
+        return merchantName;
+        }
+
+        public GPayWalletMode getWalletTestMode() {
+        return walletTestMode;
+        }
+
+        public String getMerchantGatewayId() {
+        return merchantGatewayId;
+        }
+      //Constructor is private to prevent access from client app, it must be through inner Builder class only
+        private GooglePay(String merchantName, GPayWalletMode walletTestMode,String merchantGatewayId) {
+        this.merchantName = merchantName;
+        this.walletTestMode = walletTestMode;
+        this.merchantGatewayId = merchantGatewayId;
+       }
+
+       public static class GooglePayBuilder {
+        private String merchantName;
+        private GPayWalletMode walletTestMode;
+        private String merchantGatewayId;
+
+        public GooglePayBuilder(String merchantName, GPayWalletMode walletTestMode, String merchantGatewayId) {
+            this.merchantName =merchantName;
+            this.walletTestMode =walletTestMode;
+            this.merchantGatewayId =merchantGatewayId;
+        }
+
+        /**
+         * Build GooglePay.
+         *
+         * @return the GooglePay
+         */
+        public GooglePay build() {
+            return new GooglePay(merchantGatewayId, walletTestMode, merchantName);
+        }
+        }
+        ////////////////////////// ############################ End of Builder Region ########################### ///////////////////////
+        }
+       ```
+      
 <a name="sdk_delegate"></a>
 ## SDKSession Delegate
 
@@ -2418,7 +2529,7 @@ Notifies the receiver (Merchant Activity) that the user cancelled payment proces
 ```java
 - void sessionCancelled();
 ```
-*Java:*
+*Kotlin:*
 
 ```kotlin
 - fun sessionCancelled()
@@ -2458,6 +2569,463 @@ Notifies the receiver (Merchant Activity) that the payment of charge has started
 ```kotlin
 - fun paymentInitiated(charge:Charge)
 ```
+<a name="g"></a>
+### GooglePay Failed Callback
+
+Notifies the receiver (Merchant Activity) that error occured or transaction failed using GooglePay.
+
+#### Declaration
+
+*Java:*
+
+```java
+- void googlePayFailed(Status error);
+```
+*Kotlin:*
+
+```kotlin
+- fun googlePayFailed(error:Status)
+```
+
+-----
+<a name="google_pay"></a>
+# Google Pay™
+Google Pay™ is fully compatible with Tap’s goSellSDK Android , allowing you to use it in place of a traditional payment form whenever possible.
+
+<a name="requirements_googlepay"></a>
+## Requirements And SetUp
+
+1. Make sure, your current goSellSDK version is >= 3.16.0
+
+2. To use Google Pay™, first ensure your device supports GooglePay and is above api version 22
+
+3. Ask for Enabling googlePay as payment option from Tap team.
+
+4. Please setup your Mode of Test as below in Tap's SDK Configuration:
+   
+*Java:*
+   
+```java
+ sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
+```
+*Kotlin:*
+
+```kotlin
+ sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST)//** Required ** For setting GooglePAY Environment
+```
+
+5. In Manifest file of your app enable gms wallet:
+   
+   ```java
+   <meta-data
+   android:name="com.google.android.gsm.wallet.api.enabled"
+   android:value="true"
+   />
+   ```
+
+4. Tap Google Pay™ button will appear if:
+  
+   i. You did all the previous steps.
+   
+   ii. If your device supports Google Pay™ .
+   
+   iii. The customer is paying with a currency that has Google Pay™ option enabled from our side.
+   
+   iv. The customer paying has already added at least one valid card in his Google Wallet with one our Google Pay™ payment networks.
+
+5. Going live with Google Pay™
+
+   i. Build your app using GooglePayEnvironment.Test 
+   
+   ii. Reach  out to Google support. 
+  
+   iii.Send the APK using GooglePayEnvironment.Test to Google support when requested.
+  
+   iv. Google assesses the app against their integration checklist and provides feedback if needed.
+  
+   v. Google provides instructions on how to agree to their Terms of Service and ensure production access is granted.
+   
+   vi. Send your final production APK using GooglePayEnvironment.Production to Google for a real-world test which includes a few transactions.
+   
+   vii. If all tests pass, Google clears you to publish the APK.
+   
+   viii. Notify Google support when your APK is 100% visible to users.
+
+6. Additional Note:
+
+   Register with the [Google Pay™ and Wallet Console](https://pay.google.com/business/console)  and receive a Google merchant ID. 
+   All merchants must adhere to the [Google Pay™ APIS](https://payments.developers.google.com/terms/aup)  and accept the terms that the 
+   [Google Pay™ API Terms of Service](https://payments.developers.google.com/terms/sellertos) defines.
+
+
+<a name="google_pay_integrate_direct"></a>
+## Integrate Google Pay™ Directly in your App
+
+Accept a payment using Google Pay™ in your Android app and Tap Payment as your PSP.
+
+1. Set up your integration
+
+To use Google Pay™, first enable the Google Pay™ API by adding the following to the <application> tag of your AndroidManifest.xml:
+```java
+<application>
+  ...
+  <meta-data
+    android:name="com.google.android.gms.wallet.api.enabled"
+    android:value="true" />
+</application>
+```
+Include the GooglePay button as per Google Branding standards
+
+Step 1: Define your Google Pay™ API version
+```java
+  private static JSONObject getBaseRequest() throws JSONException {
+    return new JSONObject().put("apiVersion", 2).put("apiVersionMinor", 0);
+  }
+```
+Step 2: Request a payment token for your payment provider --Here it will be TapPayments
+
+```java
+  private static JSONObject getGatewayTokenizationSpecification() throws JSONException {
+    return new JSONObject() {{
+      put("type", "PAYMENT_GATEWAY");
+      put("parameters", new JSONObject() {{
+        put("gateway", *"tappayments"*);
+        put("gatewayMerchantId", "Here pass your Merchant Id with Tap");
+      }});
+    }};
+  }
+```
+Step 3: Define supported payment card networks 
+Here you can pass the cardNetworks Tap has enabled for you or your choice if Networks
+```java
+private static JSONArray getAllowedCardNetworks() {
+  return new JSONArray()
+      .put("AMEX")
+      .put("DISCOVER")
+      .put("INTERAC")
+      .put("JCB")
+      .put("MASTERCARD")
+      .put("MIR")
+      .put("VISA");
+}
+```
+Allowed Card Methods
+```java
+private static JSONArray getAllowedCardAuthMethods() {
+  return new JSONArray()
+      .put("PAN_ONLY")
+      .put("CRYPTOGRAM_3DS");
+}
+```
+Step 4: Describe your allowed payment method
+```java
+  private static JSONObject getBaseCardPaymentMethod() throws JSONException {
+    JSONObject cardPaymentMethod = new JSONObject();
+    cardPaymentMethod.put("type", "CARD");
+
+    JSONObject parameters = new JSONObject();
+    parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
+    parameters.put("allowedCardNetworks", getAllowedCardNetworks());
+   
+    cardPaymentMethod.put("parameters", parameters);
+
+    return cardPaymentMethod;
+  }
+```
+**If you wish to add a billing address then you can modify the request as below: (optional)**
+```java
+    private fun baseCardPaymentMethod(): JSONObject {
+        return JSONObject().apply {
+
+        val parameters = JSONObject().apply {
+        put("allowedAuthMethods", allowedCardAuthMethods)
+        put("allowedCardNetworks", allowedCardNetworks)
+        put("billingAddressRequired", true)
+        put("billingAddressParameters", JSONObject().apply {
+        put("format", "FULL")
+        })
+        }
+
+        put("type", "CARD")
+        put("parameters", parameters)
+        }
+        }
+```
+
+Step 5: Create a PaymentsClient instance
+Create a PaymentsClient instance in the onCreate method in your Activity. The PaymentsClient is used for interaction with the Google Pay™ API.
+
+```java
+  public static PaymentsClient createPaymentsClient(Activity activity) {
+    Wallet.WalletOptions walletOptions =
+        new Wallet.WalletOptions.Builder().setEnvironment(Constants.PAYMENTS_ENVIRONMENT).build();
+    return Wallet.getPaymentsClient(activity, walletOptions);
+  }
+```
+
+Step 6: Determine readiness to pay with the Google Pay™ API
+
+Before you display the Google Pay™ button, call the isReadyToPay API to determine if the user can make payments with the Google Pay™ API.
+
+```java
+  public static Optional<JSONObject> getIsReadyToPayRequest() {
+    try {
+      JSONObject isReadyToPayRequest = getBaseRequest();
+      isReadyToPayRequest.put(
+          "allowedPaymentMethods", new JSONArray().put(getBaseCardPaymentMethod()));
+
+      return Optional.of(isReadyToPayRequest);
+
+    } catch (JSONException e) {
+      return Optional.empty();
+    }
+  }
+  ```
+Show Google Pay™ Button based on the above
+```java
+  private void possiblyShowGooglePayButton() {
+
+    final Optional<JSONObject> isReadyToPayJson = PaymentsUtil.getIsReadyToPayRequest();
+    if (!isReadyToPayJson.isPresent()) {
+      return;
+    }
+
+    // The call to isReadyToPay is asynchronous and returns a Task. We need to provide an
+    // OnCompleteListener to be triggered when the result of the call is known.
+    IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+    Task<Boolean> task = paymentsClient.isReadyToPay(request);
+    task.addOnCompleteListener(this,
+        new OnCompleteListener<Boolean>() {
+          @Override
+          public void onComplete(@NonNull Task<Boolean> task) {
+            if (task.isSuccessful()) {
+              setGooglePayAvailable(task.getResult());
+            } else {
+              Log.w("isReadyToPay failed", task.getException());
+            }
+          }
+        });
+  }
+```
+Step 7: Create a PaymentDataRequest object
+
+A PaymentDataRequest JSON object describes the information that you request from a payer in a Google Pay™ payment sheet.
+
+```java
+  private static JSONObject getTransactionInfo(String price) throws JSONException {
+    JSONObject transactionInfo = new JSONObject();
+    transactionInfo.put("totalPrice", price);
+    transactionInfo.put("totalPriceStatus", "FINAL");
+    transactionInfo.put("countryCode", Constants.COUNTRY_CODE);
+    transactionInfo.put("currencyCode", Constants.CURRENCY_CODE);
+    transactionInfo.put("checkoutOption", "COMPLETE_IMMEDIATE_PURCHASE");
+
+    return transactionInfo;
+  }
+  ```
+The following example shows how to request payment data:
+
+```java
+
+  public static Optional<JSONObject> getPaymentDataRequest(long priceCents) {
+
+    final String price = PaymentsUtil.centsToString(priceCents);
+
+    try {
+      JSONObject paymentDataRequest = PaymentsUtil.getBaseRequest();
+      paymentDataRequest.put(
+          "allowedPaymentMethods", new JSONArray().put(PaymentsUtil.getCardPaymentMethod()));
+      paymentDataRequest.put("transactionInfo", PaymentsUtil.getTransactionInfo(price));
+      paymentDataRequest.put("merchantInfo", PaymentsUtil.getMerchantInfo());
+
+    
+      return Optional.of(paymentDataRequest);
+
+    } catch (JSONException e) {
+      return Optional.empty();
+    }
+  }
+```
+Step 9: Handle the response object
+After a payer successfully provides the requested information in the Google Pay™ payment sheet, a PaymentData object is returned to onActivityResult.
+
+To pass payment information to your processor and to present the user with a confirmation of their purchase, convert a successful response to JSON.
+
+```java
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      // value passed in AutoResolveHelper
+      case LOAD_PAYMENT_DATA_REQUEST_CODE:
+        switch (resultCode) {
+
+          case Activity.RESULT_OK:
+            PaymentData paymentData = PaymentData.getFromIntent(data);
+            handlePaymentSuccess(paymentData);
+            break;
+
+          case Activity.RESULT_CANCELED:
+            // The user cancelled the payment attempt
+            break;
+
+          case AutoResolveHelper.RESULT_ERROR:
+            Status status = AutoResolveHelper.getStatusFromIntent(data);
+            handleError(status.getStatusCode());
+            break;
+        }
+
+        // Re-enables the Google Pay™ payment button.
+        googlePayButton.setClickable(true);
+    }
+  }
+```
+For more details you can check the following [Google Pay™ Android developer documentation](https://developers.google.com/pay/api/android/overview), [Google Pay™ Android integration checklist](https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist) and
+[Google Pay™ Android brand guidelines](https://developers.google.com/pay/api/android/guides/brand-guidelines).
+
+<a name="google_pay_tokenize_tap"></a>
+## Step 10: Tokenize the Google Pay™ payment data with Tap
+
+Once you have received the payment data from Google, you then need to call TapPayments’s endpoint for tokenizing the encrypted payment data;
+you can find this payment data in the paymentMethodToken property of the Google Pay™ payment data request's response.
+
+# Endpoints
+You can find the full list, as well as complete request and response examples, in our [API reference](https://www.tap.company/kw/en/developers).
+
+1. **Sample Tokenize Request**
+ 
+   POST https://api.tap.company/v2/tokens 
+
+```java
+ {
+"token_data":{
+"signature":"MEUCIQCgAIHrd65KhLQR4KMDqwfSYyjdF/rKUQG7eVPAP2NIuAIgWcA02MjvXAD9Xo4u2O6gl6PBjNNJeLTNy++paOGE3nE=",
+"intermediateSigningKey":{
+"signedKey":"{\"keyValue\":\"/uCLf1SqYc4feUicYPJSIu1djT3RQXe/71W50TegMLcs94OScACGtOPaiJmZwUPxCA\\u003d\\u003d\",\"keyExpiration\":\"1663134862361\"}",
+"signatures":[
+"MEYCIQDf7b5O3xatEfZu9aK1+IebTs1N2otF++MtdgwitZK6iUf2hNdb4XXut+k5H8tHj"
+]
+},
+"protocolVersion":"ECv2",
+"signedMessage":"{\"encryptedMessage\":\"8tW8iQuL8dOyZ1+OhZMMzVXFggBsE2dKobOsNw00nOQI7JuY7Zfqq4kbae+o48HoXDayEHkjFlnXW/QZBIHBqWgrMce9LJj+jnYTN7WcAAxLNbwf3leZs+zV7GMV+0aMAsOOdvKdurCg7LBIDJZeNbMyomtp9HqQ+paLjgxqtvOGnZ5jJoYMTQqOR+qdFmxvsOqhHZHtiRvdTQi8Z9p9+jvbn28M0DRle1COyQOrhnOVZ7RUu1kYaMm7cOxeXbXP4CuuCb2EQZ\",\"ephemeralPublicKey\":\"BPYdAC923D/jRypCseOUA9bersY0i\\u003d\",\"tag\":\"UcPrx3j4NzXy38/pKZ4nXEViVSKacXEQpxeRxqdkZPU\\u003d\"}"
+},
+"type":"googlepay"
+}
+```
+Sample Response
+
+```java
+{
+"id":"tok_zMMQ40227330XHU6SH88276",
+"created":1662449620276,
+"object":"token",
+"live_mode":false,
+"type":"GOOGLEPAY",
+"used":false,
+"card":{
+"id":"card_3snF4022733eqh56yL8E279",
+"object":"card",
+"funding":"CREDIT",
+"fingerprint":"FEAWi7M8%2BpIXbsraeWsHfuMOg2AeIpG5Pp2wkf4LHPU%3D",
+"brand":"VISA",
+"scheme":"VISA",
+"exp_month":12,
+"exp_year":2027,
+"last_four":"3478",
+"first_six":"489537"
+}
+}
+```
+2. **Request a 3D Secure payment using Google Pay™** 
+
+Google Pay™ offers **two authentication modes**:
+ 
+*PAN_ONLY*
+- The card is stored on file with your customer's Google account. Thus, the payment credentials are not linked to an Android device.
+- PAN_ONLY - A PAN that requires 3D Secure 2.0 for SCA.
+
+*CRYPTOGRAM_3DS*
+- Google Pay offers SCA compliance by binding payment credentials to an Android device and allowing issuers to delegate the authentication to
+  Google for all subsequent payments on that device.
+   
+
+After receiving your token, you can authenticate the transaction as follows:
+   To process this transaction as a 3D Secure payment, set the ```threeDSecure``` field to```true``` as in the request example below.
+   
+
+Example: Request body
+   
+```java
+{
+  "amount": 10,
+  "currency": "USD",
+  "threeDSecure": true,
+  "save_card": false,
+  "description": "Test Description",
+  "statement_descriptor": "Sample",
+  "metadata": {
+    "udf1": "test 1",
+    "udf2": "test 2"
+  },
+  "reference": {
+    "transaction": "txn_0001",
+    "order": "ord_0001"
+  },
+  "receipt": {
+    "email": false,
+    "sms": true
+  },
+  "customer": {
+    "first_name": "test",
+    "middle_name": "test",
+    "last_name": "test",
+    "email": "test@test.com",
+    "phone": {
+      "country_code": "965",
+      "number": "50000000"
+    }
+  },
+  "merchant": {
+    "id": ""
+  },
+  "source": {
+    "id": "src_google_pay"
+  },
+  "destinations": {
+    "destination": [
+      {
+        "id": "480593",
+        "amount": 2,
+        "currency": "USD"
+      },
+      {
+        "id": "486374",
+        "amount": 3,
+        "currency": "USD"
+      }
+    ]
+  },
+  "post": {
+    "url": "http://your_website.com/post_url"
+  },
+  "redirect": {
+    "url": "http://your_website.com/redirect_url"
+  }
+}
+```
+
+3. You can further use the **charge API** and pass the token further as [Charges API](https://www.tap.company/kw/en/developers)
+
+
+<a name="google_pay_test"></a>
+## Test Google Pay™
+
+Google Pay™ does not allow the configuration of test cards within its online wallet. However, when using Google's test environment,
+if a real card is selected when making the online purchase, Google Pay™ provides a test card in the encrypted payment data; ensuring 
+that no actual transaction takes place.
+
+You can also join the [Google Test Suite](https://groups.google.com/forum/#!forum/googlepay-test-mode-stub-data) , Make sure your account is 
+whitelisted and so sample cards will be available from google to test in TEST enviroment.
+
+
 -----
 <a name="docs"></a>
 # Documentation

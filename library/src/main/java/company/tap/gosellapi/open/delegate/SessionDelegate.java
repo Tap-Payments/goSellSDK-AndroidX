@@ -3,6 +3,8 @@ package company.tap.gosellapi.open.delegate;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.common.api.Status;
+
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
@@ -48,4 +50,5 @@ public interface SessionDelegate {
 
         void paymentInitiated(@Nullable Charge charge);
 
+        void googlePayFailed(String error);
 }
