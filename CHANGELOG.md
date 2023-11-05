@@ -1,4 +1,9 @@
 # CHANGELOG
+[3.18.9] - 2023-11-05
+### Hot Fix:
+- Fix for googlePay
+### Impact on existing integrations:
+- The update does not impact existing integrations.
 [3.18.8] - 2023-10-26
 ### Hot Fix:
 - Fix for googlePay
