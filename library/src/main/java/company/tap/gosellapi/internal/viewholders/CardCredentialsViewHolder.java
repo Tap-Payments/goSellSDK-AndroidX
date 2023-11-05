@@ -76,7 +76,7 @@ import static company.tap.gosellapi.open.enums.CardType.ALL;
  * The type Card credentials view holder.
  */
 public class CardCredentialsViewHolder
-    extends PaymentOptionsBaseViewHolder<CardCredentialsViewModelData, CardCredentialsViewHolder, CardCredentialsViewModel> {
+        extends PaymentOptionsBaseViewHolder<CardCredentialsViewModelData, CardCredentialsViewHolder, CardCredentialsViewModel> {
 
 
     /**
@@ -85,8 +85,8 @@ public class CardCredentialsViewHolder
      * @param color the color
      */
     public void setCardNumberColor(int color) {
-    cardNumberField.setTextColor(color);
-  }
+        cardNumberField.setTextColor(color);
+    }
 
     /**
      * The interface Data.
@@ -179,16 +179,16 @@ public class CardCredentialsViewHolder
 /////////////////////////////////////////////////// CARD NUMBER START ///////////////////////////////////////////////////////
         cardNumberField = itemView.findViewById(R.id.cardNumberField);
 
-         viewModel.ViewHolderReference(this);
+        viewModel.ViewHolderReference(this);
 
-         cardNumberField.addTextChangedListener(new TextWatcher() {
+        cardNumberField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-              PaymentDataManager.getInstance().getPaymentOptionsDataManager().clearFocus();
+                PaymentDataManager.getInstance().getPaymentOptionsDataManager().clearFocus();
                 String str =s.toString();
 
                 DefinedCardBrand brand = validateCardNumber(str);
@@ -249,27 +249,27 @@ public class CardCredentialsViewHolder
                 }
 
                 if(text.length() < BIN_NUMBER_LENGTH || text.length() == 0){
-                  PaymentDataManager.getInstance().setBinLookupResponse(null);
+                    PaymentDataManager.getInstance().setBinLookupResponse(null);
                 }
 
                 BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
                 viewModel.setPaymentOption(cardBrand,binLookupResponse==null?null:binLookupResponse.getScheme());
             }
 
-           @Override
+            @Override
             public void afterTextChanged(Editable s) {
-             viewModel.cardDetailsFilled(validateCardFields(),viewModel);
-             viewModel.checkShakingStatus();
+                viewModel.cardDetailsFilled(validateCardFields(),viewModel);
+                viewModel.checkShakingStatus();
             }
         });
 
-         if(view!=null)
-         setupRTL(view.getContext());
+        if(view!=null)
+            setupRTL(view.getContext());
 
 /////////////////////////////////////////////////// CARD SCANNER START ///////////////////////////////////////////////////////
 //        viewModel.bindCardNumberFieldWithWatcher(cardNumberField);
 
-          cardScannerButton = itemView.findViewById(R.id.cardScannerButton);
+        cardScannerButton = itemView.findViewById(R.id.cardScannerButton);
 
         if(ThemeObject.getInstance().isSetCardScannerIconVisible()) cardScannerButton.setVisibility(View.VISIBLE);
         else cardScannerButton.setVisibility(View.GONE);
@@ -294,46 +294,46 @@ public class CardCredentialsViewHolder
         nameOnCardField = itemView.findViewById(R.id.cardholderNameField);
 
         nameOnCardField.setFilters(new InputFilter[] {new InputFilter.AllCaps(), new InputFilter.LengthFilter(NAME_ON_CARD_MAX_LENGTH),
-            new InputFilter() {
+                new InputFilter() {
 
-                @Override
-                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dest_start, int dest_end) {
+                    @Override
+                    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dest_start, int dest_end) {
 
-                    boolean keepOriginal = true;
+                        boolean keepOriginal = true;
 
-                    StringBuilder sb = new StringBuilder(end - start);
+                        StringBuilder sb = new StringBuilder(end - start);
 
-                    for (int i = start; i < end; i++) {
-                        char c = source.charAt(i);
+                        for (int i = start; i < end; i++) {
+                            char c = source.charAt(i);
 
-                        if (isCharAllowed(c)) // put your condition here
-                            sb.append(c);
-                        else
-                            keepOriginal = false;
-                    }
+                            if (isCharAllowed(c)) // put your condition here
+                                sb.append(c);
+                            else
+                                keepOriginal = false;
+                        }
 
-                    if (keepOriginal)
-                        return null;
-                    else {
-                        if (source instanceof Spanned) {
-                            SpannableString sp = new SpannableString(sb);
-                            TextUtils.copySpansFrom((Spanned) source, start, sb.length(), null, sp, 0);
-                            return sp;
-                        } else {
-                            return sb;
+                        if (keepOriginal)
+                            return null;
+                        else {
+                            if (source instanceof Spanned) {
+                                SpannableString sp = new SpannableString(sb);
+                                TextUtils.copySpansFrom((Spanned) source, start, sb.length(), null, sp, 0);
+                                return sp;
+                            } else {
+                                return sb;
+                            }
                         }
                     }
-                }
 
-                private boolean isCharAllowed(char c) {
-                    return Character.isLetterOrDigit(c) || Character.isSpaceChar(c) || isDotChar(c);
-                }
+                    private boolean isCharAllowed(char c) {
+                        return Character.isLetterOrDigit(c) || Character.isSpaceChar(c) || isDotChar(c);
+                    }
 
-                private boolean isDotChar(char c){
-                    return c == '.';
-                }
+                    private boolean isDotChar(char c){
+                        return c == '.';
+                    }
 
-            } });
+                } });
 
 /////////////////////////////////////////////////// ADDRESS ON CARD START ///////////////////////////////////////////////////////
         addressOnCardLayout = itemView.findViewById(R.id.addressOnCardContainer);
@@ -364,14 +364,14 @@ public class CardCredentialsViewHolder
             saveCardDescriptionTextView.setText("");
 
         }else if(PaymentDataManager.getInstance().getSDKSettings() != null &&
-           PaymentDataManager.getInstance().getSDKSettings().getData() != null){
-           if(PaymentDataManager.getInstance().getSDKSettings().getData().getPermissions() == null){
-               saveCardSwitch.setVisibility(View.GONE);
-               saveCardDescriptionTextView.setText("");
-           }else if(!PaymentDataManager.getInstance().getSDKSettings().getData().getPermissions().contains(Permission.MERCHANT_CHECKOUT)){
-               saveCardSwitch.setVisibility(View.GONE);
-               saveCardDescriptionTextView.setText("");
-           }
+                PaymentDataManager.getInstance().getSDKSettings().getData() != null){
+            if(PaymentDataManager.getInstance().getSDKSettings().getData().getPermissions() == null){
+                saveCardSwitch.setVisibility(View.GONE);
+                saveCardDescriptionTextView.setText("");
+            }else if(!PaymentDataManager.getInstance().getSDKSettings().getData().getPermissions().contains(Permission.MERCHANT_CHECKOUT)){
+                saveCardSwitch.setVisibility(View.GONE);
+                saveCardDescriptionTextView.setText("");
+            }
         }
 
 /////////////////////////////////////////////////// SETUP CARD PAYMENT OPTIONS START ///////////////////////////////////////////////////////
@@ -380,10 +380,10 @@ public class CardCredentialsViewHolder
 
 
         setupCardTheme();
-}
+    }
 
 
-        private void setupCardTheme(){
+    private void setupCardTheme(){
 
         if(ThemeObject.getInstance().getCardInputFontTypeFace()!=null) {
             cardNumberField.setTypeface(ThemeObject.getInstance().getCardInputFontTypeFace());
@@ -393,11 +393,11 @@ public class CardCredentialsViewHolder
             saveCardDescriptionTextView.setTypeface(ThemeObject.getInstance().getCardInputFontTypeFace());
         }
         if(ThemeObject.getInstance().getCardInputTextColor()!=0) {
-                cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-                expirationDateField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-                cvvField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-                nameOnCardField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-                saveCardDescriptionTextView.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+            cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+            expirationDateField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+            cvvField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+            nameOnCardField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+            saveCardDescriptionTextView.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
         }
         if(ThemeObject.getInstance().getCardInputPlaceholderTextColor()!=0) {
 
@@ -407,53 +407,53 @@ public class CardCredentialsViewHolder
             setHintTextColor(nameOnCardFieldTextInputLayout, ThemeObject.getInstance().getCardInputPlaceholderTextColor());
         }
         if(ThemeObject.getInstance().getSaveCardSwitchOffThumbTint()!=0 && ThemeObject.getInstance().getSaveCardSwitchOnThumbTint()!=0&&ThemeObject.getInstance().getSaveCardSwitchOffTrackTint()!=0&&
-                    ThemeObject.getInstance().getSaveCardSwitchOnTrackTint()!=0 ){
-                configureSaveCardSwitch();
-
-            }
-
-        if(itemView!=null && itemView.getContext()!=null)
-                if(ThemeObject.getInstance().getScanIconDrawable(itemView.getContext())!=null)
-                    cardScannerButton.setImageDrawable(ThemeObject.getInstance().getScanIconDrawable(itemView.getContext()));
+                ThemeObject.getInstance().getSaveCardSwitchOnTrackTint()!=0 ){
+            configureSaveCardSwitch();
 
         }
 
-        private void configureSaveCardSwitch(){
-            ColorStateList thumbStates = new ColorStateList(
+        if(itemView!=null && itemView.getContext()!=null)
+            if(ThemeObject.getInstance().getScanIconDrawable(itemView.getContext())!=null)
+                cardScannerButton.setImageDrawable(ThemeObject.getInstance().getScanIconDrawable(itemView.getContext()));
+
+    }
+
+    private void configureSaveCardSwitch(){
+        ColorStateList thumbStates = new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{}
+                },
+                new int[]{
+                        ThemeObject.getInstance().getSaveCardSwitchOffThumbTint(),
+                        ThemeObject.getInstance().getSaveCardSwitchOnThumbTint(),
+                        Color.GRAY
+                }
+        );
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            saveCardSwitch.setThumbTintList(thumbStates);
+        }
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            ColorStateList trackStates = new ColorStateList(
                     new int[][]{
                             new int[]{-android.R.attr.state_checked},
                             new int[]{android.R.attr.state_checked},
                             new int[]{}
                     },
                     new int[]{
-                            ThemeObject.getInstance().getSaveCardSwitchOffThumbTint(),
-                            ThemeObject.getInstance().getSaveCardSwitchOnThumbTint(),
-                            Color.GRAY
+                            ThemeObject.getInstance().getSaveCardSwitchOffTrackTint(),
+                            ThemeObject.getInstance().getSaveCardSwitchOnTrackTint(),
+                            Color.LTGRAY,
                     }
             );
-
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                saveCardSwitch.setThumbTintList(thumbStates);
-            }
-
-            if (Build.VERSION.SDK_INT >= 24) {
-                ColorStateList trackStates = new ColorStateList(
-                        new int[][]{
-                                new int[]{-android.R.attr.state_checked},
-                                new int[]{android.R.attr.state_checked},
-                                new int[]{}
-                        },
-                        new int[]{
-                                ThemeObject.getInstance().getSaveCardSwitchOffTrackTint(),
-                                ThemeObject.getInstance().getSaveCardSwitchOnTrackTint(),
-                                Color.LTGRAY,
-                        }
-                );
-                saveCardSwitch.setTrackTintList(trackStates);
-                saveCardSwitch.setTrackTintMode(PorterDuff.Mode.OVERLAY);
-            }
+            saveCardSwitch.setTrackTintList(trackStates);
+            saveCardSwitch.setTrackTintMode(PorterDuff.Mode.OVERLAY);
         }
+    }
 
     private void setHintTextColor(TextInputLayout textInputLayout,int color) {
         if(textInputLayout==null)return;
@@ -499,7 +499,7 @@ public class CardCredentialsViewHolder
         }
 
         if (!viewModel.getExpirationMonth().isEmpty() && !viewModel.getExpirationYear().isEmpty()) {
-           // String expirationDate = viewModel.getExpirationMonth() + "/" + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
+            // String expirationDate = viewModel.getExpirationMonth() + "/" + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
             String expirationDate = viewModel.getExpirationMonth() + String.format("%02d", Integer.valueOf(viewModel.getExpirationYear()) % 100);
             expirationDateField.setText(expirationDate);
         }
@@ -507,7 +507,7 @@ public class CardCredentialsViewHolder
             nameOnCardField.setText(viewModel.getNameOnCard());
         } else if(PaymentDataSource.getInstance().getDefaultCardHolderName()!=null){
             if(!PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty())
-            nameOnCardField.setText(PaymentDataSource.getInstance().getDefaultCardHolderName());
+                nameOnCardField.setText(PaymentDataSource.getInstance().getDefaultCardHolderName());
         }
 
         if (!viewModel.getNameOnCard().isEmpty()&&PaymentDataSource.getInstance().getEnableEditCardHolderName()) {
@@ -561,75 +561,75 @@ public class CardCredentialsViewHolder
      */
     class CardCredentialsTextWatcher implements TextWatcher{
 
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-      }
+        }
 
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        viewModel.cardDetailsFilled(validateCardFields(), viewModel);
-      }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            viewModel.cardDetailsFilled(validateCardFields(), viewModel);
+        }
 
-      @Override
-      public void afterTextChanged(Editable s) {
+        @Override
+        public void afterTextChanged(Editable s) {
 
-      }
+        }
     }
 
 
-  private boolean validateCardFields() {
+    private boolean validateCardFields() {
         boolean status=false;
-      if(
+        if(
 
-          cardNumberField.getText()!= null
-          && !"".equalsIgnoreCase(cardNumberField.getText().toString().trim())
-          && expirationDateField.getText()!=null
-          && cvvField.getText()!=null && nameOnCardField.getText()!=null)
+                cardNumberField.getText()!= null
+                        && !"".equalsIgnoreCase(cardNumberField.getText().toString().trim())
+                        && expirationDateField.getText()!=null
+                        && cvvField.getText()!=null && nameOnCardField.getText()!=null)
 
 
-      { if(validateCardNumber(cardNumberField.getText().toString())
-              .getValidationState() == CardValidationState.valid
+        { if(validateCardNumber(cardNumberField.getText().toString())
+                .getValidationState() == CardValidationState.valid
                 &&
                 validateCVV()
                 &&
                 validateEXPDate()
                 &&
                 validateCardHolderName()){
-                status= true;
+            status= true;
 
-                viewModel.setCardNumber(cardNumberField.getText().toString());
-                viewModel.setExpirationMonth(expirationDateField.getMonth());
-                viewModel.setExpirationYear(expirationDateField.getYear());
-                viewModel.setCVVnumber(cvvField.getText().toString());
-                viewModel.setNameOnCard(nameOnCardField.getText().toString().trim());
-              }
-      }
+            viewModel.setCardNumber(cardNumberField.getText().toString());
+            viewModel.setExpirationMonth(expirationDateField.getMonth());
+            viewModel.setExpirationYear(expirationDateField.getYear());
+            viewModel.setCVVnumber(cvvField.getText().toString());
+            viewModel.setNameOnCard(nameOnCardField.getText().toString().trim());
+        }
+        }
 
-      if (status
-          && PaymentDataManager.getInstance().getExternalDataSource() != null
-          && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard())
-          saveCardSwitch.setChecked(true);
+        if (status
+                && PaymentDataManager.getInstance().getExternalDataSource() != null
+                && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard())
+            saveCardSwitch.setChecked(true);
 
-      else saveCardSwitch.setChecked(false);
+        else saveCardSwitch.setChecked(false);
 
-      return status;
+        return status;
 
-  }
+    }
 
-  private boolean validateCVV(){
-    return cvvField.getmCardType().getSecurityCodeLength()== cvvField.getText().toString().length();
-  }
+    private boolean validateCVV(){
+        return cvvField.getmCardType().getSecurityCodeLength()== cvvField.getText().toString().length();
+    }
 
-  private boolean validateEXPDate(){
+    private boolean validateEXPDate(){
         return expirationDateField.isValid();
-  }
+    }
 
-  private boolean validateCardHolderName(){
-      return nameOnCardField.getText().toString().trim().length() >= 3;
-  }
+    private boolean validateCardHolderName(){
+        return nameOnCardField.getText().toString().trim().length() >= 3;
+    }
 
-  @Override
+    @Override
     public void setFocused(boolean isFocused) {
         itemView.setSelected(isFocused);
     }
@@ -666,19 +666,19 @@ public class CardCredentialsViewHolder
         ArrayList<CardBrand> paymentOptionsCardBrands = PaymentDataManager.getInstance().getAvailablePaymentOptionsCardBrands();
         DefinedCardBrand brand = CardValidator.validate(cardNumber,paymentOptionsCardBrands);
 
-      //  System.out.println("paymentOptionsCardBrands in validation "+getPaymentOption());
+        //  System.out.println("paymentOptionsCardBrands in validation "+getPaymentOption());
 
         // update CCVEditText CardType: to set CCV Length according to CardType
         updateCCVEditTextCardType(brand.getCardBrand());
         // update card types
         BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
-       // System.out.println("brand.getCardBrand() in validation "+brand.getCardBrand());
+        // System.out.println("brand.getCardBrand() in validation "+brand.getCardBrand());
         updateCardSystemsRecyclerView( brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
-      //  if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null){
+        //  if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null){
 
-         if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {
-             if (brand.getValidationState().equals(CardValidationState.invalid)) {
-             //   saveCardSwitch.setChecked(false);
+        if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {
+            if (brand.getValidationState().equals(CardValidationState.invalid)) {
+                //   saveCardSwitch.setChecked(false);
                 viewModel.saveCardSwitchClicked(false);
                 if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
                     cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
@@ -688,10 +688,10 @@ public class CardCredentialsViewHolder
             } else {
                 if (PaymentDataManager.getInstance().getExternalDataSource() != null
                         && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
-                 //   saveCardSwitch.setChecked(true);
+                    //   saveCardSwitch.setChecked(true);
                     viewModel.saveCardSwitchClicked(true);
                 } else {
-                //    saveCardSwitch.setChecked(false);
+                    //    saveCardSwitch.setChecked(false);
                     viewModel.saveCardSwitchClicked(false);
                 }
                 if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
@@ -702,42 +702,42 @@ public class CardCredentialsViewHolder
 
 
         }else if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null? !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
-             if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
-                 cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+            if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
+                cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
 
-             }else{ cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
-                showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
-           // System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
+            }else{ cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
+            showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
+            // System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
 
-          //  }
+            //  }
         }  else {
-             if (brand.getValidationState().equals(CardValidationState.invalid)) {
-                 //   saveCardSwitch.setChecked(false);
-                    viewModel.saveCardSwitchClicked(false);
-                    if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
-                        cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
-                    }else {
-                        cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
-                    }
-
-                } else {
-                    if (PaymentDataManager.getInstance().getExternalDataSource() != null
-                            && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
-                   //     saveCardSwitch.setChecked(true);
-                        viewModel.saveCardSwitchClicked(true);
-                    } else {
-                   //     saveCardSwitch.setChecked(false);
-                        viewModel.saveCardSwitchClicked(false);
-                    }
-                    if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
-                        cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
-                    }
-                    else { cardNumberField.setTextColor(itemView.getResources().getColor(R.color.black));}
+            if (brand.getValidationState().equals(CardValidationState.invalid)) {
+                //   saveCardSwitch.setChecked(false);
+                viewModel.saveCardSwitchClicked(false);
+                if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                }else {
+                    cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));
                 }
-         //   if(binLookupResponse!=null){
-         //   System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
-//}
+
+            } else {
+                if (PaymentDataManager.getInstance().getExternalDataSource() != null
+                        && PaymentDataManager.getInstance().getExternalDataSource().getAllowedToSaveCard()) {
+                    //     saveCardSwitch.setChecked(true);
+                    viewModel.saveCardSwitchClicked(true);
+                } else {
+                    //     saveCardSwitch.setChecked(false);
+                    viewModel.saveCardSwitchClicked(false);
+                }
+                if (ThemeObject.getInstance().getCardInputTextColor() != 0) {
+                    cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputTextColor());
+                }
+                else { cardNumberField.setTextColor(itemView.getResources().getColor(R.color.black));}
             }
+            //   if(binLookupResponse!=null){
+            //   System.out.println("binLookupResponse.getCardType()"+binLookupResponse.getCardType());
+//}
+        }
         return brand;
     }
 
@@ -749,12 +749,12 @@ public class CardCredentialsViewHolder
      */
     public void updateCCVEditTextCardType(CardBrand cardBrand){
 //      System.out.println("updateCCVEditTextCardType : " + cardBrand);
-      if (cardBrand == null) return;
+        if (cardBrand == null) return;
 
 //      System.out.println("updateCCVEditTextCardType : " + cardBrand.getRawValue());
 
-      if (cardBrand.getRawValue().contains("AMEX") || cardBrand.getRawValue().contains("AMERICAN_EXPRESS"))
-        cvvField.setCardType(CardType.AMEX);
+        if (cardBrand.getRawValue().contains("AMEX") || cardBrand.getRawValue().contains("AMERICAN_EXPRESS"))
+            cvvField.setCardType(CardType.AMEX);
 
         else if (cardBrand.getRawValue().contains("VISA"))
             cvvField.setCardType(CardType.VISA);
@@ -777,7 +777,7 @@ public class CardCredentialsViewHolder
         else if (cardBrand.getRawValue().contains("UNION_PAY") || cardBrand.getRawValue().contains("UNIONPAY"))
             cvvField.setCardType(CardType.UNIONPAY);
         else
-        cvvField.setCardType(CardType.UNKNOWN);
+            cvvField.setCardType(CardType.UNKNOWN);
     }
 
     private void setupAddressOnCardField() {
@@ -813,12 +813,12 @@ public class CardCredentialsViewHolder
      * @param isShow the is show
      */
     public void updateAddressOnCardView(boolean isShow) {
-    if (isShow) {
-      addressOnCardLayout.setVisibility(View.VISIBLE);
-    } else {
-      addressOnCardLayout.setVisibility(View.GONE);
+        if (isShow) {
+            addressOnCardLayout.setVisibility(View.VISIBLE);
+        } else {
+            addressOnCardLayout.setVisibility(View.GONE);
+        }
     }
-  }
 
     private static class TrackingSpan extends ReplacementSpan {
 
@@ -852,53 +852,53 @@ public class CardCredentialsViewHolder
         }
     }
 
-     private String validateLength(String cardNumber) {
+    private String validateLength(String cardNumber) {
 
-                cardNumber = cardNumber.replace(" ", "");
+        cardNumber = cardNumber.replace(" ", "");
 //                System.out.println("brand >>  card number : replaced card no = " + cardNumber);
-                DefinedCardBrand brand = CardValidator.validate(cardNumber);
+        DefinedCardBrand brand = CardValidator.validate(cardNumber);
 //                System.out.println("brand >>  card number :" + cardNumber + " brand:"+brand.getCardBrand());
 
-                String str = cardNumberField.getText().toString();
-                String newStr = str;
-                if (brand.getValidationState().equals(CardValidationState.invalid)) {
-                    newStr =  str.substring(0,str.length()-1);
-                }
-                return newStr;
-}
+        String str = cardNumberField.getText().toString();
+        String newStr = str;
+        if (brand.getValidationState().equals(CardValidationState.invalid)) {
+            newStr =  str.substring(0,str.length()-1);
+        }
+        return newStr;
+    }
 
     private EditText getAddressOnCardField() {
 
         return addressOnCardField;
     }
 
-  @Override
-  public Parcelable saveState() {
-    return linearLayoutManager.onSaveInstanceState();
-  }
-
-  @Override
-  public void restoreState(Parcelable state) {
-    if (state != null) {
-      linearLayoutManager.onRestoreInstanceState(state);
+    @Override
+    public Parcelable saveState() {
+        return linearLayoutManager.onSaveInstanceState();
     }
-  }
+
+    @Override
+    public void restoreState(Parcelable state) {
+        if (state != null) {
+            linearLayoutManager.onRestoreInstanceState(state);
+        }
+    }
 
     private void setupRTL(Context context) {
-       if(context!=null){
+        if(context!=null){
 
-           if (SDK_INT >= JELLY_BEAN_MR1) {
-               if (context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-                   cardNumberField.setTextDirection(View.TEXT_DIRECTION_LTR);
-                   cardNumberField.setGravity(Gravity.START);
-               }
-           }
+            if (SDK_INT >= JELLY_BEAN_MR1) {
+                if (context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                    cardNumberField.setTextDirection(View.TEXT_DIRECTION_LTR);
+                    cardNumberField.setGravity(Gravity.START);
+                }
+            }
 
-       }
+        }
     }
 
     public void disableCardScanView() {
-       // System.out.println("cardscaniscalled");
+        // System.out.println("cardscaniscalled");
         cardScannerButton.setEnabled(false);
         cardScannerButton.setFocusableInTouchMode(false);
         cardScannerButton.setClickable(false);
@@ -933,7 +933,7 @@ public class CardCredentialsViewHolder
         });
 
         PaymentDataManager.getInstance().setBinLookupResponse(null);
-       // cardNumberField.setText(null);
+        // cardNumberField.setText(null);
         AlertDialog dialog = dialogBuilder.create();
 
         // Finally, display the alert dialog
@@ -979,23 +979,23 @@ public class CardCredentialsViewHolder
                 // do something after 1s = 1000 miliseconds since set response takes time
                 BINLookupResponse binLookupResponse  =  PaymentDataManager.getInstance().getBinLookupResponse();
                 viewModel.setPaymentOption(cardBrand, binLookupResponse ==null?null: binLookupResponse.getScheme());
-               // System.out.println("card = " + viewModel.getCardNumber() +"binlookup "+ PaymentDataManager.getInstance().getBinLookupResponse().getCardType());
-              //  if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
-               if(binLookupResponse!=null){
-                   if(PaymentDataSource.getInstance().getCardType() != null && !PaymentDataSource.getInstance().getCardType().equals(company.tap.gosellapi.open.enums.CardType.ALL)){
+                // System.out.println("card = " + viewModel.getCardNumber() +"binlookup "+ PaymentDataManager.getInstance().getBinLookupResponse().getCardType());
+                //  if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
+                if(binLookupResponse!=null){
+                    if(PaymentDataSource.getInstance().getCardType() != null && !PaymentDataSource.getInstance().getCardType().equals(company.tap.gosellapi.open.enums.CardType.ALL)){
 
-                       if ( !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()))
-                       {
-                           if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
-                               cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
+                        if ( !PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()))
+                        {
+                            if (ThemeObject.getInstance().getCardInputInvalidTextColor() != 0){
+                                cardNumberField.setTextColor(ThemeObject.getInstance().getCardInputInvalidTextColor());
 
-                           }else {
-                               cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
-                           showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
-                       }
-                   }
+                            }else {
+                                cardNumberField.setTextColor(itemView.getResources().getColor(R.color.red));}
+                            showDialog(itemView.getResources().getString(R.string.alert_un_supported_card_title), itemView.getResources().getString(R.string.alert_un_supported_card_message));
+                        }
+                    }
 
-               }
+                }
 
             }
         }, 3000); //Time in mis
