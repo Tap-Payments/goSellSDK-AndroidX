@@ -79,12 +79,10 @@ public class PaymentsUtil {
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_PRODUCTION).build();
             }else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
         }
+        else walletOptions= new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST).build();
 
-       // assert walletOptions != null;
-        if (walletOptions != null) {
-            return Wallet.getPaymentsClient(activity, walletOptions);
-        }
-        else return null;
+
+        return Wallet.getPaymentsClient(activity, walletOptions);
     }
 
     /**
