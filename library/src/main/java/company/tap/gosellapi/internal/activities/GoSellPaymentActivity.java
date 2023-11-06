@@ -173,8 +173,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
          */
         dataSource = PaymentDataManager.getInstance().getPaymentOptionsDataManager(this);
        if(PaymentDataSource.getInstance().getTransactionMode() == TransactionMode.PURCHASE){
-            paymentsClient = PaymentsUtil.createPaymentsClient(this);
-            if(PaymentDataSource.getInstance().getGooglePaymentOptions().size()!=0){
+
+            if(PaymentDataSource.getInstance().getGooglePaymentOptions()!=null && PaymentDataSource.getInstance().getGooglePaymentOptions().size()!=0){
+                paymentsClient = PaymentsUtil.createPaymentsClient(this);
                 possiblyShowGooglePayButton();
             }
 
