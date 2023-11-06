@@ -1,4 +1,9 @@
 # CHANGELOG
+[3.18.12] - 2023-11-06
+### Hot Fix:
+- Fix for  issue for Flutter sdk
+### Impact on existing integrations:
+- The update does not impact existing integrations.
 [3.18.10] - 2023-11-05
 ### Hot Fix:
 - Fix for UI issue for Flutter sdk

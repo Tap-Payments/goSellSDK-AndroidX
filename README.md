@@ -106,7 +106,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.10'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.12'
 	}
 ```
 
@@ -702,8 +702,8 @@ import company.tap.gosellapi.GoSellSDK
             sdkSession.isUserAllowedToEnableCardHolderName(false); //** Optional ** you can enable/ disable  default CardHolderName .
             
              sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
-
-             sdkSession.setGooglePay(getGooglePay());//** Required ** For setting GooglePAY Environment
+                  
+             sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
@@ -983,26 +983,7 @@ import company.tap.gosellapi.GoSellSDK
                     .lastName("lastname").metadata("").phone(PhoneNumber(phoneNumber?.countryCode, phoneNumber.number))
                     .middleName("middlename").build()
         }
- ```	
-**To populate GooglePay object**
-
-*Java:*
-
-```java
-     private GooglePay getGooglePay() {
-         return  new GooglePay.GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build();
-
-     }
-```
-
-*Kotlin*:
-```kotlin
-  private val googlePay: GooglePay
-        private get() { 
-          
-            return GooglePayBuilder("who is the merchant using sdk", GPayWalletMode.ENVIRONMENT_TEST,"to come from backend").build()
-        }
- ```	
+ ```
 
 <a name="sdkSession_data_source"></a>
 ### SDKSession Payment Data Source
