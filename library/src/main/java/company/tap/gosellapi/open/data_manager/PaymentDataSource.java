@@ -5,12 +5,15 @@ package company.tap.gosellapi.open.data_manager;
  */
 
 import android.content.Context;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
@@ -109,7 +112,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     GPayWalletMode gPayWalletMode;
 
     private @Nullable
-    ArrayList<CardBrand> supportedPaymentMethods;
+    ArrayList<String> supportedPaymentMethods;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
@@ -363,8 +366,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
      *
      * @param supportedPaymentMethods the allowed user methods
      */
-    public void setSupportedPaymentMethods(@Nullable ArrayList<CardBrand> supportedPaymentMethods){
-        this.supportedPaymentMethods = supportedPaymentMethods;
+    public void setSupportedPaymentMethods(@Nullable ArrayList<String> supportedPaymentMethods){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (supportedPaymentMethods != null) {
+                this.supportedPaymentMethods = (ArrayList<String>) supportedPaymentMethods.stream().map(String::toUpperCase).collect(Collectors.toList());
+            }
+        }
     }
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
@@ -533,7 +540,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     @Nullable
     @Override
-    public ArrayList<CardBrand> getSupportedPaymentMethods() {
+    public ArrayList<String> getSupportedPaymentMethods() {
         return supportedPaymentMethods;
     }
 
