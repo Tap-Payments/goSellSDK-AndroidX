@@ -16,6 +16,7 @@ import company.tap.gosellapi.open.models.PaymentItem;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.Tax;
 import company.tap.gosellapi.open.models.TopUp;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * The type Payment options request.
@@ -63,6 +64,11 @@ public final class PaymentOptionsRequest {
     @Expose
     @Nullable private TopUp topup;
 
+    @SerializedName("supported_payment_methods")
+    @Expose
+    @Nullable private ArrayList<CardBrand> supportedPaymentMethods;
+
+
 
     /**
      * Instantiates a new Payment options request.
@@ -74,6 +80,7 @@ public final class PaymentOptionsRequest {
      * @param taxes           the taxes
      * @param currency        the currency
      * @param topUp        the topup
+     * @param supportedPaymentMethods        the suuportedPaymentMethods
      */
     public PaymentOptionsRequest(@Nullable TransactionMode transactionMode,
                                  @Nullable BigDecimal amount,
@@ -84,7 +91,7 @@ public final class PaymentOptionsRequest {
                                  @Nullable String customer,
                                  @Nullable String merchant_id,
                                  @NonNull  String payment_type,
-                                 @Nullable TopUp topUp
+                                 @Nullable TopUp topUp,  @Nullable ArrayList<CardBrand> supportedPaymentMethods
 
     ) {
 
@@ -96,6 +103,7 @@ public final class PaymentOptionsRequest {
         this.merchant_id        = merchant_id;
         this.payment_type        = payment_type;
         this.topup               = topUp;
+        this.supportedPaymentMethods   = supportedPaymentMethods;
         if (items != null && items.size() > 0) {
 
             this.items          = items;

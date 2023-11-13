@@ -39,6 +39,8 @@ import java.util.List;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
+import company.tap.gosellapi.internal.api.enums.measurements.Measurement;
+import company.tap.gosellapi.internal.api.models.AmountModificator;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
@@ -58,6 +60,7 @@ import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
+import company.tap.gosellapi.open.models.PaymentItem;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
@@ -276,6 +279,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setOperationMode(OperationMode.SAND_BOX);
 
         sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
+
+        ArrayList<CardBrand> cardBrands = new ArrayList<>();
+        cardBrands.add(CardBrand.visa);
+        cardBrands.add(CardBrand.masterCard);
+        sdkSession.setSupportedPaymentMethods(cardBrands);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -869,6 +877,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
 
-    }
 
+
+
+    }
 
