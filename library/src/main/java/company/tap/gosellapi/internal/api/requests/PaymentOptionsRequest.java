@@ -66,7 +66,7 @@ public final class PaymentOptionsRequest {
 
     @SerializedName("supported_payment_methods")
     @Expose
-    @Nullable private ArrayList<CardBrand> supportedPaymentMethods;
+    @Nullable private ArrayList<String> supportedPaymentMethods;
 
 
 
@@ -91,7 +91,7 @@ public final class PaymentOptionsRequest {
                                  @Nullable String customer,
                                  @Nullable String merchant_id,
                                  @NonNull  String payment_type,
-                                 @Nullable TopUp topUp,  @Nullable ArrayList<CardBrand> supportedPaymentMethods
+                                 @Nullable TopUp topUp,  @Nullable ArrayList<String> supportedPaymentMethods
 
     ) {
 

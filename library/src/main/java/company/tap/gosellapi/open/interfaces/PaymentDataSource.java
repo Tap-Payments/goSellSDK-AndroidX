@@ -166,7 +166,7 @@ public interface PaymentDataSource {
     GPayWalletMode getGooglePayWalletMode();
 
     @Nullable
-    ArrayList<CardBrand> getSupportedPaymentMethods();
+    ArrayList<String> getSupportedPaymentMethods();
 
 
 

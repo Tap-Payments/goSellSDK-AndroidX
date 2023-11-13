@@ -39,6 +39,7 @@ import java.util.List;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
+import company.tap.gosellapi.internal.api.enums.CardScheme;
 import company.tap.gosellapi.internal.api.enums.measurements.Measurement;
 import company.tap.gosellapi.internal.api.models.AmountModificator;
 import company.tap.gosellapi.internal.api.models.Authorize;
@@ -280,10 +281,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
-        ArrayList<CardBrand> cardBrands = new ArrayList<>();
-        cardBrands.add(CardBrand.visa);
-        cardBrands.add(CardBrand.masterCard);
-        sdkSession.setSupportedPaymentMethods(cardBrands);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
+
+        ArrayList<String> supportedPayMethods = new ArrayList<>();
+      //  supportedPayMethods.add("KNET");
+        supportedPayMethods.add("GOOGLE_PAY");
+
+       // cardBrands.add(CardBrand.masterCard);
+        sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 

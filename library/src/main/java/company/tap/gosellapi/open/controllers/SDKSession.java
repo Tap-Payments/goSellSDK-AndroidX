@@ -362,7 +362,7 @@ public class SDKSession implements View.OnClickListener{
    * supported payment methods by usre.
    * @param supportedPaymentMethods
    */
-  public void setSupportedPaymentMethods(ArrayList<CardBrand>  supportedPaymentMethods){
+  public void setSupportedPaymentMethods(ArrayList<String>  supportedPaymentMethods){
     System.out.println("supportedPaymentMethods >>> "+supportedPaymentMethods);
     paymentDataSource.setSupportedPaymentMethods(supportedPaymentMethods);
   }
