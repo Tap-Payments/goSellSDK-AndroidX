@@ -26,6 +26,7 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * The interface Payment data source.
@@ -163,6 +164,9 @@ public interface PaymentDataSource {
 
     @Nullable
     GPayWalletMode getGooglePayWalletMode();
+
+    @Nullable
+    ArrayList<CardBrand> getSupportedPaymentMethods();
 
 
 

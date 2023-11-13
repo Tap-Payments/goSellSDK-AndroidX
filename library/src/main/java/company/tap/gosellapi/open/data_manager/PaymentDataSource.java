@@ -30,6 +30,7 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * The type Payment data source.
@@ -106,6 +107,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     private @Nullable
     GPayWalletMode gPayWalletMode;
+
+    private @Nullable
+    ArrayList<CardBrand> supportedPaymentMethods;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
@@ -203,6 +207,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public void setShipping(@Nullable ArrayList<Shipping> shippingList){
      this.shipping = shippingList;
     }
+
 
     /**
      * Set post url.
@@ -350,6 +355,16 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     }
     public void setGooglePayWalletMode(@Nullable GPayWalletMode googlePayWalletMode) {
         this.gPayWalletMode =googlePayWalletMode;
+
+    }
+
+    /**
+     * Set supportedPaymentMethods.
+     *
+     * @param supportedPaymentMethods the allowed user methods
+     */
+    public void setSupportedPaymentMethods(@Nullable ArrayList<CardBrand> supportedPaymentMethods){
+        this.supportedPaymentMethods = supportedPaymentMethods;
     }
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
@@ -514,6 +529,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public GPayWalletMode getGooglePayWalletMode() {
         return gPayWalletMode;
+    }
+
+    @Nullable
+    @Override
+    public ArrayList<CardBrand> getSupportedPaymentMethods() {
+        return supportedPaymentMethods;
     }
 
 

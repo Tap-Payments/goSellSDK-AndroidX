@@ -106,7 +106,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.12'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.0'
 	}
 ```
 
@@ -705,6 +705,11 @@ import company.tap.gosellapi.GoSellSDK
                   
              sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
+              ArrayList<CardBrand> cardBrands = new ArrayList<>();
+              cardBrands.add(CardBrand.visa);
+              cardBrands.add(CardBrand.masterCard);
+              sdkSession.setSupportedPaymentMethods(cardBrands);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]     
+                  
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
