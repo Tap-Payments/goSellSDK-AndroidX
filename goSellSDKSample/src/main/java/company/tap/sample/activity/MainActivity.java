@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         supportedPayMethods.add("GOOGLE_PAY");
 
        // cardBrands.add(CardBrand.masterCard);
-        sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
+        //sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         if (sdkSession != null) {
             TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.PURCHASE;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
-            sdkSession.setTransactionMode( TransactionMode.PURCHASE);    //** Required **
+            sdkSession.setTransactionMode(trx_mode);    //** Required **
             // if you are not using tap button then start SDK using the following call
             //sdkSession.start(this);
         }
