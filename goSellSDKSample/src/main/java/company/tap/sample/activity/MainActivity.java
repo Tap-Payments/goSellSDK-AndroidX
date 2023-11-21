@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Required step.
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
       GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
 
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK Theme
      */
     private void configureSDKThemeObject() {
-
+        System.out.println("modee>>>"+settingsManager.getAppearanceMode("key_sdk_appearance_mode"));
         ThemeObject.getInstance()
                 .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
                 .setSdkLanguage("en")
@@ -284,9 +283,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         ArrayList<String> supportedPayMethods = new ArrayList<>();
       //  supportedPayMethods.add("KNET");
-        supportedPayMethods.add("GOOGLE_PAY");
-
-       // cardBrands.add(CardBrand.masterCard);
         //sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
@@ -393,6 +389,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : last four: " + charge.getCard().getLast4());
             System.out.println("Payment Succeeded : card object : " + charge.getCard().getObject());
             System.out.println("Payment Succeeded : brand : " + charge.getCard().getBrand());
+            System.out.println("Payment Succeeded : isSaveCard : " +   charge.isSaveCard());
+
           //  System.out.println("Payment Succeeded : expiry : " + charge.getCard().getExpiry().getMonth()+"\n"+charge.getCard().getExpiry().getYear());
         }
 
