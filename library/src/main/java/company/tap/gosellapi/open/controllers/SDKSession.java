@@ -466,7 +466,7 @@ public class SDKSession implements View.OnClickListener{
               (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
               (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
                (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL",
-               this.paymentDataSource.getTopUp(), this.paymentDataSource.getSupportedPaymentMethods()
+               this.paymentDataSource.getTopUp(), (this.paymentDataSource.getSupportedPaymentMethods() != null) ? this.paymentDataSource.getSupportedPaymentMethods():null
       );
 
     System.out.println("request sdkSession:"+ request);
