@@ -107,7 +107,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.18.12'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.0'
 	}
 ```
 
@@ -706,6 +706,12 @@ import company.tap.gosellapi.GoSellSDK
                   
              sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
+              ArrayList<String> supportedPayMethods = new ArrayList<>();
+                  supportedPayMethods.add("VISA");
+                  supportedPayMethods.add("KNET");
+                 /// VISA, MASTERCARD,KNET,OMAN_NET,MADA,GOOGLE_PAY, MEEZA,SAMSUNG_PAY,AMERICAN_EXPRESS,FAWRY,BENEFIT
+                  sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]     
+                  
              /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
@@ -786,8 +792,13 @@ import company.tap.gosellapi.GoSellSDK
 
          sdkSession.setDefaultCardHolderName("TEST TAP") // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
          sdkSession.isUserAllowedToEnableCardHolderName(false) // ** Optional ** you can enable/ disable  default CardHolderName .
-         sdkSession.setGooglePay(googlePay)
-	  /**
+    sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST)//** Required ** For setting GooglePAY Environment
+
+    val supportedPayMethods = arrayListOf("VISA", "KNET")
+    /// VISA, MASTERCARD,KNET,OMAN_NET,MADA,GOOGLE_PAY, MEEZA,SAMSUNG_PAY,AMERICAN_EXPRESS,FAWRY,BENEFIT
+    sdkSession.setSupportedPaymentMethods(supportedPayMethods)//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA/etc]     
+
+    /**
              * Use this method where ever you want to show TAP SDK Main Screen.
              * This method must be called after you configured SDK as above
              * This method will be used in case of you are not using TAP PayButton in your activity.

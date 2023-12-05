@@ -39,6 +39,9 @@ import java.util.List;
 
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
+import company.tap.gosellapi.internal.api.enums.CardScheme;
+import company.tap.gosellapi.internal.api.enums.measurements.Measurement;
+import company.tap.gosellapi.internal.api.models.AmountModificator;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
 import company.tap.gosellapi.internal.api.models.PhoneNumber;
@@ -58,6 +61,7 @@ import company.tap.gosellapi.open.enums.OperationMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
 import company.tap.gosellapi.open.models.CardsList;
 import company.tap.gosellapi.open.models.Customer;
+import company.tap.gosellapi.open.models.PaymentItem;
 import company.tap.gosellapi.open.models.Receipt;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
@@ -145,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Required step.
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
       GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
 
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK Theme
      */
     private void configureSDKThemeObject() {
-
+        System.out.println("modee>>>"+settingsManager.getAppearanceMode("key_sdk_appearance_mode"));
         ThemeObject.getInstance()
                 .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
                 .setSdkLanguage("en")
@@ -277,6 +280,11 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
+
+       // ArrayList<String> supportedPayMethods = new ArrayList<>();
+      //  supportedPayMethods.add("VISA");
+      //  sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA etc]
+
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 
        // sdkSession.setDefaultCardHolderName("TEST TAP"); // ** Optional ** you can pass default CardHolderName of the user .So you don't need to type it.
@@ -310,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         if (sdkSession != null) {
             TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.PURCHASE;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
-            sdkSession.setTransactionMode( TransactionMode.PURCHASE);    //** Required **
+            sdkSession.setTransactionMode(trx_mode);    //** Required **
             // if you are not using tap button then start SDK using the following call
             //sdkSession.start(this);
         }
@@ -381,6 +389,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : last four: " + charge.getCard().getLast4());
             System.out.println("Payment Succeeded : card object : " + charge.getCard().getObject());
             System.out.println("Payment Succeeded : brand : " + charge.getCard().getBrand());
+            System.out.println("Payment Succeeded : isSaveCard : " +   charge.isSaveCard());
+
           //  System.out.println("Payment Succeeded : expiry : " + charge.getCard().getExpiry().getMonth()+"\n"+charge.getCard().getExpiry().getYear());
         }
 
@@ -684,13 +694,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
     }
 
     private Customer getCustomer() { // test customer id cus_Kh1b4220191939i1KP2506448
-      //  cus_TS060420211633j3KO1606527
+      //  cus_TS04A1220231224Hi4y2611346
 
         Customer customer = (settingsManager != null) ? settingsManager.getCustomer() : null;
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("cus_TS04A1220231224Hi4y2611346").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
@@ -869,6 +879,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
 
-    }
 
+
+
+    }
 

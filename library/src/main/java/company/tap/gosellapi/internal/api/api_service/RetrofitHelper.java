@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class RetrofitHelper {
     private static Retrofit retrofit;
     private static APIService helper;
-    private static final Boolean showDebug = false;
+    private static final Boolean showDebug = true;
 
     /**
      * Gets api helper.
@@ -97,7 +97,7 @@ public final class RetrofitHelper {
             /**
              * this will be used for debugging
              */
-            if (showDebug) {
+          /*  if (showDebug) {
                 Log.e("dataRequestBody Request", String.valueOf(request.toString()));
                 if (request.body() != null) {
                     Log.e("dataRequestBody body", bodyToString(request.body()));
@@ -110,7 +110,7 @@ public final class RetrofitHelper {
                 } catch (Exception ex) {
                     return response;
                 }
-            }
+            }*/
 
             return chain.proceed(request);
         });
