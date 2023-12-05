@@ -155,16 +155,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
         setupScreenMode();
-        if(ThemeObject.getInstance().getAppearanceMode()!=null)
-
-        apperanceMode = ThemeObject.getInstance().getAppearanceMode();
-
-        if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
-            setContentView(R.layout.gosellapi_activity_main_windowed);
-            main_windowed_scrollview = findViewById(R.id.main_windowed_scrollview);
-        } else {
-            setContentView(R.layout.gosellapi_activity_main);
-        }
 
 
         fragmentManager = getSupportFragmentManager();
@@ -257,6 +247,17 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         if(isTransactionModeTokenizeCard()|| isTransactionModeSaveCard()) {
             ThemeObject.getInstance().setAppearanceMode(AppearanceMode.WINDOWED_MODE);
         }
+            if(ThemeObject.getInstance().getAppearanceMode()!=null)
+                apperanceMode = ThemeObject.getInstance().getAppearanceMode();
+
+            if (apperanceMode == AppearanceMode.WINDOWED_MODE) {
+                setContentView(R.layout.gosellapi_activity_main_windowed);
+                main_windowed_scrollview = findViewById(R.id.main_windowed_scrollview);
+            } else {
+                setContentView(R.layout.gosellapi_activity_main);
+            }
+
+
     }
 
 
@@ -445,14 +446,16 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     private boolean isTransactionModeSaveCard() {
         if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
-            ThemeObject.getInstance().setAppearanceMode(AppearanceMode.WINDOWED_MODE);
+           //ThemeObject.getInstance().setAppearanceMode(AppearanceMode.WINDOWED_MODE);
             return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.SAVE_CARD;
         }else return false;
     }
 
     private boolean isTransactionModeTokenizeCard() {
         if(PaymentDataManager.getInstance().getPaymentOptionsRequest()!=null){
-        return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.TOKENIZE_CARD;
+
+                return PaymentDataManager.getInstance().getPaymentOptionsRequest().getTransactionMode() == TransactionMode.TOKENIZE_CARD;
+
         }else return false;
     }
 
