@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class RetrofitHelper {
     private static Retrofit retrofit;
     private static APIService helper;
-    private static final Boolean showDebug = true;
+    private static final Boolean showDebug = false;
 
     /**
      * Gets api helper.
