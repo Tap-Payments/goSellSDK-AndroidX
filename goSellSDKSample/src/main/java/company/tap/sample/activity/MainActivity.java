@@ -281,9 +281,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.setGooglePayWalletMode(GPayWalletMode.ENVIRONMENT_TEST);//** Required ** For setting GooglePAY Environment
 
 
-       // ArrayList<String> supportedPayMethods = new ArrayList<>();
-      //  supportedPayMethods.add("VISA");
-      //  sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA etc]
+       ArrayList<String> supportedPayMethods = new ArrayList<>();
+        //supportedPayMethods.add("VISA");
+        supportedPayMethods.add("");
+        sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
 

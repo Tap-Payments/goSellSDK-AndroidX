@@ -1,10 +1,11 @@
 # CHANGELOG
-[3.19.0] - 2023-11-
+[3.19.0] - 2023-12-05
 ### Enhancement Feature:
-- Now merchants can pass allowed payment methods like only visa mastercard etc
+- Now merchants can pass allowed payment methods like only visa mastercard , mada , knet etc
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
-[3.18.12] - 2023-11-06
+
+- [3.18.12] - 2023-11-06
 ### Hot Fix:
 - Fix for  issue for Flutter sdk
 ### Impact on existing integrations:
