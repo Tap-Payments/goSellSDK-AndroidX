@@ -370,6 +370,8 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (supportedPaymentMethods != null && !supportedPaymentMethods.contains("")) {
                 this.supportedPaymentMethods = (ArrayList<String>) supportedPaymentMethods.stream().map(String::toUpperCase).collect(Collectors.toList());
+            }else {
+                this.supportedPaymentMethods = new ArrayList<>();
             }
         }
     }

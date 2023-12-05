@@ -1,5 +1,5 @@
 # CHANGELOG
-[3.19.0] - 2023-12-05
+[3.19.1] - 2023-12-05
 ### Enhancement Feature:
 - Now merchants can pass allowed payment methods like only visa mastercard , mada , knet etc
 ### Impact on existing integrations:
