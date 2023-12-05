@@ -5,12 +5,15 @@ package company.tap.gosellapi.open.data_manager;
  */
 
 import android.content.Context;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
 import company.tap.gosellapi.internal.api.models.Merchant;
@@ -30,6 +33,7 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 /**
  * The type Payment data source.
@@ -106,6 +110,9 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
 
     private @Nullable
     GPayWalletMode gPayWalletMode;
+
+    private @Nullable
+    ArrayList<String> supportedPaymentMethods;
 
     //////////////////////// Instantiation Using Singleton  ///////////////////////////////////////
 
@@ -203,6 +210,7 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     public void setShipping(@Nullable ArrayList<Shipping> shippingList){
      this.shipping = shippingList;
     }
+
 
     /**
      * Set post url.
@@ -350,6 +358,20 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     }
     public void setGooglePayWalletMode(@Nullable GPayWalletMode googlePayWalletMode) {
         this.gPayWalletMode =googlePayWalletMode;
+
+    }
+
+    /**
+     * Set supportedPaymentMethods.
+     *
+     * @param supportedPaymentMethods the allowed user methods
+     */
+    public void setSupportedPaymentMethods(@Nullable ArrayList<String> supportedPaymentMethods){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (supportedPaymentMethods != null && !supportedPaymentMethods.contains("")) {
+                this.supportedPaymentMethods = (ArrayList<String>) supportedPaymentMethods.stream().map(String::toUpperCase).collect(Collectors.toList());
+            }
+        }
     }
 
     /////////////////   Getter's Area  /////////////////////////////////////////////////////////////////
@@ -514,6 +536,12 @@ public class PaymentDataSource implements company.tap.gosellapi.open.interfaces.
     @Override
     public GPayWalletMode getGooglePayWalletMode() {
         return gPayWalletMode;
+    }
+
+    @Nullable
+    @Override
+    public ArrayList<String> getSupportedPaymentMethods() {
+        return supportedPaymentMethods;
     }
 
 

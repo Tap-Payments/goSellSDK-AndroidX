@@ -47,6 +47,7 @@ import company.tap.gosellapi.open.models.Reference;
 import company.tap.gosellapi.open.models.Shipping;
 import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.Tax;
+import company.tap.tapcardvalidator_android.CardBrand;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -358,6 +359,15 @@ public class SDKSession implements View.OnClickListener{
   }
 
   /**
+   * supported payment methods by usre.
+   * @param supportedPaymentMethods
+   */
+  public void setSupportedPaymentMethods(ArrayList<String>  supportedPaymentMethods){
+    System.out.println("supportedPaymentMethods >>> "+supportedPaymentMethods);
+    paymentDataSource.setSupportedPaymentMethods(supportedPaymentMethods);
+  }
+
+  /**
    * Handle pay button click event
    * @param v
    */
@@ -456,7 +466,7 @@ public class SDKSession implements View.OnClickListener{
               (this.paymentDataSource.getCustomer() != null) ? this.paymentDataSource.getCustomer().getIdentifier() : null,
               (this.paymentDataSource.getMerchant() != null) ? this.paymentDataSource.getMerchant().getId() : null,
                (this.paymentDataSource.getPaymentDataType() != null) ? this.paymentDataSource.getPaymentDataType() : "ALL",
-               this.paymentDataSource.getTopUp()
+               this.paymentDataSource.getTopUp(), (this.paymentDataSource.getSupportedPaymentMethods() != null) ? this.paymentDataSource.getSupportedPaymentMethods():null
       );
 
     System.out.println("request sdkSession:"+ request);

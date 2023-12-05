@@ -688,8 +688,8 @@ final class PaymentProcessManager {
         @Nullable TrackingURL post = postURL == null ? null : new TrackingURL(postURL);
 
         AmountedCurrency amountedCurrency = provider.getSelectedCurrency();
-        Log.e("selectedCurrency currency ", "CALL CHARGE API " + amountedCurrency.getCurrency());
-        Log.e("selectedCurrency Amount", "CALL CHARGE API " + amountedCurrency.getAmount());
+       // Log.e("selectedCurrency currency ", "CALL CHARGE API " + amountedCurrency.getCurrency());
+       // Log.e("selectedCurrency Amount", "CALL CHARGE API " + amountedCurrency.getAmount());
 
 //     Log.d("callChargeOrAuthorizeOr"," step 5 : callChargeOrAuthorizeOrSaveCardAPI : in class "+ "["+this.getClass().getName()+"] with amountedCurrency=["+amountedCurrency.getAmount()+"]  ");
 
