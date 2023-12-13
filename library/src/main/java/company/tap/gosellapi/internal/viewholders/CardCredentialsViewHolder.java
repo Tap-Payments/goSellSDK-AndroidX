@@ -70,6 +70,7 @@ import company.tap.tapcardvalidator_android.DefinedCardBrand;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+import static company.tap.gosellapi.internal.activities.GoSellPaymentActivity.isOpenedFromApp;
 import static company.tap.gosellapi.open.enums.CardType.ALL;
 
 /**
@@ -143,7 +144,7 @@ public class CardCredentialsViewHolder
     private CvvEditText cvvField;
 
     private TextInputLayout nameOnCardFieldTextInputLayout;
-    private EditText nameOnCardField;
+    public EditText nameOnCardField;
 
 
     private TextInputLayout addressOnCardLayout;
@@ -334,6 +335,14 @@ public class CardCredentialsViewHolder
                     }
 
                 } });
+
+        nameOnCardField.setOnFocusChangeListener((v, hasFocus) -> {
+            if(hasFocus && isOpenedFromApp ){
+                isOpenedFromApp= false;
+                Utils.hideKeyboardFrom(view.getContext(),v);
+//                    isFirstTimeGetFocused = false;
+            }
+        }) ;
 
 /////////////////////////////////////////////////// ADDRESS ON CARD START ///////////////////////////////////////////////////////
         addressOnCardLayout = itemView.findViewById(R.id.addressOnCardContainer);
@@ -537,9 +546,10 @@ public class CardCredentialsViewHolder
                 nameOnCardField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            System.out.println("Youca re called");
+                            System.out.println("You re called");
+                            nameOnCardField.removeTextChangedListener(cardCredentialsTextWatcher);
                             // hide virtual keyboard
-                            Utils.hideKeyboardFrom(itemView.getContext(),buttonView);
+                            Utils.hideKeyboardFrom(itemView.getContext(),v);
                             return true;
                         }
                         return false;

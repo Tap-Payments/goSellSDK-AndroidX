@@ -163,7 +163,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textAlignment">viewStart</item>
         <item name="android:textDirection" >ltr</item>
-    <item name="android:imeOptions">actionNext</item>
+
 
     </style>
 

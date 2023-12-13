@@ -156,8 +156,8 @@ public class LoadingScreenManager {
 
                         // Configure loading view
                         loadingView = loadingLayout.findViewById(R.id.loadingView);
-                        if(loadingView!=null)
-                        loadingView.start();
+                        if(loadingView!=null) loadingView.start();
+
                     }
                 });
 

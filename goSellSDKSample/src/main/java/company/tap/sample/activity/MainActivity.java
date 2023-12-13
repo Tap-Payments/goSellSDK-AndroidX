@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : last four: " + charge.getCard().getLast4());
             System.out.println("Payment Succeeded : card object : " + charge.getCard().getObject());
             System.out.println("Payment Succeeded : brand : " + charge.getCard().getBrand());
-            System.out.println("Payment Succeeded : isSaveCard : " +   charge.isSaveCard());
+           // System.out.println("Payment Succeeded : isSaveCard : " +   charge.isSaveCard());
 
           //  System.out.println("Payment Succeeded : expiry : " + charge.getCard().getExpiry().getMonth()+"\n"+charge.getCard().getExpiry().getYear());
         }
