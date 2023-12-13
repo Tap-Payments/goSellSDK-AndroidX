@@ -5,6 +5,7 @@ import static company.tap.gosellapi.internal.viewholders.GooglePaymentViewHolder
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -95,6 +96,7 @@ import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
 
+import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;
@@ -148,6 +150,8 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     private PaymentsClient paymentsClient;
 
     public static boolean gPayFlag = false;
+
+    public static boolean isOpenedFromApp = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -182,10 +186,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     public void onGlobalLayout() {
                         dataSource.setAvailableHeight(fragmentContainer.getHeight());
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                            fragmentContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        else
-                            fragmentContainer.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        fragmentContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                     }
 
@@ -232,7 +233,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                 SDKSession.getListener().userEnabledSaveCardOption(cardCredentialsViewModel.shouldSaveCard());
 
 
-
+            Utils.hideKeyboard(GoSellPaymentActivity.this);
             boolean keyBoardHidden =  Utils.hideKeyboard(GoSellPaymentActivity.this);
             Log.d(TAG, "sKeyboard hidden .... after click pay button : "+keyBoardHidden );
             startPaymentWithTimer();
@@ -1112,10 +1113,11 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void didReceiveSaveCard(SaveCard saveCard) {
+        LoadingScreenManager.getInstance().closeLoadingScreen();
         // Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * " + saveCard);
         if (saveCard == null) return;
         //   Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * status :" + saveCard.getStatus());
-
+        Utils.hideKeyboard(GoSellPaymentActivity.this);
         switch (saveCard.getStatus()) {
             case INITIATED:
                 Authenticate authenticate = saveCard.getAuthenticate();
@@ -1173,8 +1175,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     public void fireCardTokenizationProcessCompleted(Token token) {
         closePaymentActivity();
-        if(cardCredentialsViewModel!=null)
-        SDKSession.getListener().cardTokenizedSuccessfully(token,cardCredentialsViewModel.shouldSaveCard());
+        if(cardCredentialsViewModel!=null) SDKSession.getListener().cardTokenizedSuccessfully(token,cardCredentialsViewModel.shouldSaveCard());
 
         SDKSession.getListener().cardTokenizedSuccessfully(token);
     }
@@ -1403,6 +1404,10 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
     @Override
     protected void onResume() {
         super.onResume();
+         if(cardCredentialsViewModel!=null && apperanceMode!=null && apperanceMode == AppearanceMode.WINDOWED_MODE ) {
+             cardCredentialsViewModel.removeFocus();
+         }
+        Utils.hideKeyboard(GoSellPaymentActivity.this);
         setupPayButton();
         if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
@@ -1413,8 +1418,25 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        // Handle countdown stop here
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0)
+        {
+            Log.i("******** BaseActivity", "******** BaseActivity onStart if launch from history ... "+Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+        }
+        else
+        {
+            isOpenedFromApp = true;
+          //  LoadingScreenManager.getInstance().closeLoadingScreen();
+            Log.i("******** BaseActivity", "******** BaseActivity onStart if not launch from history");
+        }
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
+        Utils.hideKeyboard(GoSellPaymentActivity.this);
         setupPayButton();
         if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
         if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
@@ -1590,8 +1612,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
        // System.out.println("available"+available);
         googlePayButton = findViewById(R.id.googlePayButton);
         if (available) {
-            if(googlePayButton!=null)
-            googlePayButton.setVisibility(View.VISIBLE);
+            if(googlePayButton!=null) googlePayButton.setVisibility(View.VISIBLE);
 
         } else {
             googlePayButton.setVisibility(View.GONE);

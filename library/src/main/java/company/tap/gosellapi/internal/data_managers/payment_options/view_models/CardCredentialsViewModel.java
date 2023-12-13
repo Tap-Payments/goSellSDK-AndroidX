@@ -14,6 +14,7 @@ import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.card_input_fields_text_handlers.CardNumberTextHandler;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CardCredentialsViewModelData;
+import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
 import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
 import company.tap.tapcardvalidator_android.CardBrand;
@@ -507,5 +508,13 @@ public class CardCredentialsViewModel
     public void enableCardScanView(){
         if(this.cardCredentialsViewHolder!=null)
             this.cardCredentialsViewHolder.enableCardScanView();
+    }
+
+    public void removeFocus(){
+        if(this.cardCredentialsViewHolder!=null){
+            this.cardCredentialsViewHolder.nameOnCardField.clearFocus();
+            this.cardCredentialsViewHolder.nameOnCardField.removeTextChangedListener(null);
+            Utils.hideKeyboardFrom(cardCredentialsViewHolder.itemView.getContext(),cardCredentialsViewHolder.nameOnCardField);
+        }
     }
 }

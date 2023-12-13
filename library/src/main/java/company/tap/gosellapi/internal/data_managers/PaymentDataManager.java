@@ -723,8 +723,9 @@ public final class PaymentDataManager {
     @Override
     public void didReceiveSaveCard(SaveCard saveCard) {
       //  Log.d("PaymentDataManager","didReceiveSaveCard started................");
-        if(getListeners()!=null)
-          //  Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
+        //
+
+        if(getListeners()!=null) //Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
         for (Iterator i = getListeners().iterator(); i.hasNext();) {
           try{
             //  Log.d("PaymentDataManager","try to cast listener......  ");

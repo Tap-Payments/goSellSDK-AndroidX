@@ -152,6 +152,7 @@
         app:hintTextAppearance="@style/TextInputLayout.Hint"
         android:hint="@string/edittext_hint_expiration_date"
         android:gravity="start"
+        android:imeOptions="actionNext"
         android:paddingStart="3dp"
         android:paddingLeft="3dp"
         >
@@ -165,6 +166,7 @@
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:backgroundTint="@color/separator"
+          android:imeOptions="actionNext"
           android:textDirection="ltr"
           android:paddingStart="3dp"
           android:paddingLeft="3dp"
@@ -204,6 +206,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
+          android:imeOptions="actionNext"
 
 
           android:backgroundTint="@color/separator"
