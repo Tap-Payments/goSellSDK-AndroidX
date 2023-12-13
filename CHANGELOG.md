@@ -1,5 +1,5 @@
 # CHANGELOG
-- [3.19.3] - 2023-12-13
+- [3.19.4] - 2023-12-13
 ### Hot Fix:
 - Fix for  issue loading screen opened from app overview
 ### Impact on existing integrations:
