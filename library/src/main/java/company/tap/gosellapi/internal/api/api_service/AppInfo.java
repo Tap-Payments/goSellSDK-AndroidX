@@ -83,7 +83,7 @@ public class AppInfo {
         String encodeddevice=null;
         applicationInfo.put("app_id", applicationId);
         applicationInfo.put("requirer", "SDK");
-        applicationInfo.put("requirer_version", BuildConfig.VERSION_NAME);
+        applicationInfo.put("requirer_version", Build.VERSION.SDK_INT);
         applicationInfo.put("requirer_os", "Android");
         applicationInfo.put("requirer_os_version", Build.VERSION.RELEASE);
         if(localeString==null){
@@ -102,7 +102,7 @@ public class AppInfo {
         }
         applicationInfo.put("requirer_device_type",Build.BRAND);
         applicationInfo.put("requirer_device_model",Build.MODEL);
-        applicationInfo.put("sdk_version",BuildConfig.VERSION_NAME);
+        applicationInfo.put("sdk_version",Build.VERSION.SDK_INT);
         if(manager!=null) {
             applicationInfo.put("requirer_sim_network_name", manager.getSimOperatorName());
             applicationInfo.put("requirer_sim_country_iso", manager.getSimCountryIso());
