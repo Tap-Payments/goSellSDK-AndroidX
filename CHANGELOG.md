@@ -1,5 +1,10 @@
 # CHANGELOG
-- [3.19.4] - 2023-12-13
+[3.19.5] - 2024-02-04
+### Enhancement Feature:
+- Update for androidx lib for supporting api34
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+[3.19.4] - 2023-12-13
 ### Hot Fix:
 - Fix for  issue loading screen opened from app overview
 ### Impact on existing integrations:
@@ -9,7 +14,7 @@
 - Now merchants can pass allowed payment methods like only visa mastercard , mada , knet etc
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
-- [3.18.12] - 2023-11-06
+[3.18.12] - 2023-11-06
 ### Hot Fix:
 - Fix for  issue for Flutter sdk
 ### Impact on existing integrations:
