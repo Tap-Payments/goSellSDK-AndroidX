@@ -1,5 +1,5 @@
 # CHANGELOG
-[3.19.5] - 2024-02-04
+[3.19.7] - 2024-02-04
 ### Enhancement Feature:
 - Update for androidx lib for supporting api34
 ### Impact on existing integrations:
