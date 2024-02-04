@@ -44,7 +44,7 @@
   <string name="textview_disclaimer_otp_sent_number">Bitte geben Sie das Passwort ein, das an Sie versendet wurde </string>
   <string name="textview_disclaimer_go_pay_checkouts">Wenn Sie goPay aktivieren, werden Ihre Kartendaten mit Tap Payments gespeichert, damit Sie in mehreren Apps und Websites schneller und sicherer auschecken können</string>
 
-  <string name="textview_placeholder_last_four_digits">••••%s</string>
+  <string name="textview_placeholder_last_four_digits">•••• </string>
 
   <string name="btn_title_confirm">Bestätigen</string>
   <string name="btn_title_save">Speichern</string>
