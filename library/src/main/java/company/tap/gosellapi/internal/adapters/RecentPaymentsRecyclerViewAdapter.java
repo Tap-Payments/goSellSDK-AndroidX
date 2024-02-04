@@ -241,7 +241,8 @@ public class RecentPaymentsRecyclerViewAdapter extends RecyclerView.Adapter<Rece
                     }
             );
 
-            String cardNumber = String.format(itemView.getResources().getString(R.string.textview_placeholder_last_four_digits), card.getLastFour());
+           // String cardNumber = String.format(itemView.getResources().getString(R.string.textview_placeholder_last_four_digits), card.getLastFour());
+            String cardNumber = itemView.getResources().getString(R.string.textview_placeholder_last_four_digits)+ card.getLastFour();
             TextView cardLastDigits = itemView.findViewById(R.id.cardLastDigits);
             cardLastDigits.setText(cardNumber);
 //            cardView = itemView.findViewById(R.id.parent_card);

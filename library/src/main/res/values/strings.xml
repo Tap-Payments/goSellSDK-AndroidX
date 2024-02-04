@@ -44,7 +44,8 @@
   <string name="textview_disclaimer_otp_sent_number">Please enter the OTP that has been sent to </string>
   <string name="textview_disclaimer_go_pay_checkouts">By enabling goPay, your card details will be saved with Tap Payments in order for you to get faster and more secure checkouts in multiple apps and websites</string>
 
-  <string name="textview_placeholder_last_four_digits">••••%s</string>
+<!--  <string name="textview_placeholder_last_four_digits">••••%s</string>-->
+  <string name="textview_placeholder_last_four_digits">•••• </string>
 
   <string name="btn_title_confirm">Confirm</string>
   <string name="btn_title_save">Save</string>

@@ -44,7 +44,7 @@
   <string name="textview_disclaimer_otp_sent_number">Lütfen gönderdiğimiz tek kullanımlık şifreyi giriniz </string>
   <string name="textview_disclaimer_go_pay_checkouts">goPay\'i etkinleştirdiğinizde, birden fazla uygulamada ve web sitesinde daha hızlı ve daha güvenli alışveriş yapabilmeniz için kart bilgileriniz Tap Payments tarafından kaydedilecektir</string>
 
-  <string name="textview_placeholder_last_four_digits">••••%s</string>
+  <string name="textview_placeholder_last_four_digits">•••• </string>
 
   <string name="btn_title_confirm">Onayla</string>
   <string name="btn_title_save">Kaydet</string>
