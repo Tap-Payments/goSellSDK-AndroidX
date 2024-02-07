@@ -185,82 +185,113 @@ public class CardCredentialsViewHolder
         cardNumberField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                PaymentDataManager.getInstance().getPaymentOptionsDataManager().clearFocus();
-                String str =s.toString();
+                CardBrand cardBrand = null;
 
-                DefinedCardBrand brand = validateCardNumber(str);
+                /**Note if condition was added because of copy-paste issue otherwise it started with else only**/
+                if(s.toString().trim().length()== 16){
+                    System.out.println("onTextChanged"+s.length());
+                    viewModel.binNumberEntered(s.toString().trim().substring(0,6));
 
-                CardBrand cardBrand = brand.getCardBrand();
 
-                int[] spacings;
-                if (cardBrand != CardBrand.americanExpress) {
-                    spacings = new int[]{4, 8, 12};
-                } else {
-                    spacings = new int[]{4, 10};
+                }else {
+
+                    PaymentDataManager.getInstance().getPaymentOptionsDataManager().clearFocus();
+                    String str = s.toString();
+
+                    DefinedCardBrand brand = validateCardNumber(str);
+
+                     cardBrand = brand.getCardBrand();
+
+                    int[] spacings;
+                    if (cardBrand != CardBrand.americanExpress) {
+                        spacings = new int[]{4, 8, 12};
+                    } else {
+                        spacings = new int[]{4, 10};
 //                    spacings = new int[]{4, 8,13};
-                }
+                    }
 
-                String text = str;
-                text = text.replace(" ", "");
-                SpannableStringBuilder cardNumber = new SpannableStringBuilder(text);
+                    String text = str;
+                    text = text.replace(" ", "");
+                    SpannableStringBuilder cardNumber = new SpannableStringBuilder(text);
 
-                for (int i = spacings.length - 1; i >= 0; i--) {
+                    for (int i = spacings.length - 1; i >= 0; i--) {
 
-                    int space = spacings[i];
+                        int space = spacings[i];
 
-                    if (space < text.length()) {
-                        cardNumber.insert(space, " ");
+                        if (space < text.length()) {
+                            cardNumber.insert(space, " ");
+                        }
+                    }
+
+                    cardNumberField.removeTextChangedListener(this);
+                    cardNumberField.setText(cardNumber.toString());
+
+                    int selectionIndex = start + count;
+
+                    for (int i = 0; i < spacings.length; i++) {
+
+                        int space = spacings[i];
+
+                        int incrementedSpace = space + i;
+
+                        if (start <= incrementedSpace && incrementedSpace < start + count) {
+                            selectionIndex++;
+                        }
+
+                        if (start - 1 == incrementedSpace && count == 0) {
+                            selectionIndex--;
+                        }
+                    }
+
+                    try {
+                        cardNumberField.setSelection(selectionIndex);
+                    } catch (Exception e) {
+                        cardNumberField.setSelection(cardNumber.length());
+                    }
+
+                    cardNumberField.addTextChangedListener(this);
+
+                    if (text.length() == BIN_NUMBER_LENGTH) {
+                        viewModel.binNumberEntered(text);
+                    }
+
+                    if (text.length() < BIN_NUMBER_LENGTH || text.length() == 0) {
+                        PaymentDataManager.getInstance().setBinLookupResponse(null);
                     }
                 }
 
-                cardNumberField.removeTextChangedListener(this);
-                cardNumberField.setText(cardNumber.toString());
+                CardBrand finalCardBrand = cardBrand;
 
-                int selectionIndex = start + count;
-
-                for (int i = 0; i < spacings.length; i++) {
-
-                    int space = spacings[i];
-
-                    int incrementedSpace = space + i;
-
-                    if (start <= incrementedSpace && incrementedSpace < start + count) {
-                        selectionIndex++;
+                /**Note Handler added to get binlookup response from api **/
+               Handler handler = new Handler();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // do your work
+                        BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
+                        if(binLookupResponse==null){
+                            viewModel.setPaymentOption(finalCardBrand,null);
+                        }else
+                        { viewModel.setPaymentOption(finalCardBrand,binLookupResponse.getScheme());
+                        }
+                        handler.postDelayed(this, 1000);
                     }
-
-                    if (start - 1 == incrementedSpace && count == 0) {
-                        selectionIndex--;
-                    }
+                };
+                handler.postDelayed(runnable, 1000);
                 }
 
-                try {
-                    cardNumberField.setSelection(selectionIndex);
-                } catch (Exception e) {
-                    cardNumberField.setSelection(cardNumber.length());
-                }
-
-                cardNumberField.addTextChangedListener(this);
-
-                if(text.length()== BIN_NUMBER_LENGTH){
-                    viewModel.binNumberEntered(text);
-                }
-
-                if(text.length() < BIN_NUMBER_LENGTH || text.length() == 0){
-                    PaymentDataManager.getInstance().setBinLookupResponse(null);
-                }
-
-                BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
-                viewModel.setPaymentOption(cardBrand,binLookupResponse==null?null:binLookupResponse.getScheme());
-            }
 
             @Override
             public void afterTextChanged(Editable s) {
-                viewModel.cardDetailsFilled(validateCardFields(),viewModel);
-                viewModel.checkShakingStatus();
+                if(PaymentDataManager.getInstance().getBinLookupResponse()!=null) {
+                    viewModel.cardDetailsFilled(validateCardFields(), viewModel);
+                    viewModel.checkShakingStatus();
+                }
             }
         });
 
@@ -290,6 +321,17 @@ public class CardCredentialsViewHolder
 //                    isFirstTimeGetFocused = false;
             }
         }) ;
+        /**Note setOnEditorActionListener because autofocus on cardfield was not working **/
+       cvvField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    nameOnCardField.setFocusable(true);
+                    return true;
+                }
+                return false;
+            }
+        });
 /////////////////////////////////////////////////// NAME ON CARD START ///////////////////////////////////////////////////////
         // Name on card
         nameOnCardField = itemView.findViewById(R.id.cardholderNameField);
@@ -988,7 +1030,13 @@ public class CardCredentialsViewHolder
             public void run() {
                 // do something after 1s = 1000 miliseconds since set response takes time
                 BINLookupResponse binLookupResponse  =  PaymentDataManager.getInstance().getBinLookupResponse();
-                viewModel.setPaymentOption(cardBrand, binLookupResponse ==null?null: binLookupResponse.getScheme());
+                if(binLookupResponse==null){
+                    viewModel.setPaymentOption(cardBrand, null);
+
+                }else{
+                    viewModel.setPaymentOption(cardBrand, binLookupResponse.getScheme());
+                }
+
                 // System.out.println("card = " + viewModel.getCardNumber() +"binlookup "+ PaymentDataManager.getInstance().getBinLookupResponse().getCardType());
                 //  if (binLookupResponse!=null && PaymentDataSource.getInstance().getCardType() != null?!PaymentDataSource.getInstance().getCardType().toString().equals(binLookupResponse.getCardType()):false) {
                 if(binLookupResponse!=null){

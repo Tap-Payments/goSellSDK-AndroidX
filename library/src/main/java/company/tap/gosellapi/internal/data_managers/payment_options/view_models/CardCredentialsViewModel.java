@@ -107,8 +107,9 @@ public class CardCredentialsViewModel
     public void setCurrentBINData(
         company.tap.gosellapi.internal.api.responses.BINLookupResponse _currentBINData){
         currentBINData = _currentBINData;
-        if(getCardCredentialsViewHolder()!=null)
+        if(getCardCredentialsViewHolder()!=null){
         getCardCredentialsViewHolder().updateCardSystemsRecyclerView(getRecognizedCardType().getBrand(),getRecognizedCardType().getScheme());
+        }
     }
 
     @NonNull private ArrayList<CardBrand> availableCardBrands;
@@ -202,7 +203,8 @@ public class CardCredentialsViewModel
      *
      * @param binNumber the bin number
      */
-    public void binNumberEntered(String binNumber) { parentDataManager.binNumberEntered(binNumber);}
+    public void binNumberEntered(String binNumber) {
+        parentDataManager.binNumberEntered(binNumber);}
 
     /**
      * Gets card number.
