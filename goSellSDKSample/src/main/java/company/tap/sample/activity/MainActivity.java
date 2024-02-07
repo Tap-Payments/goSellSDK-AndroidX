@@ -151,8 +151,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp() {
       GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
-
-        GoSellSDK.setLocale("en");//  language to be set by merchant
+       GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
 
@@ -222,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.instantiatePaymentDataSource();    //** Required **
 
         // set transaction currency associated to your account
-        sdkSession.setTransactionCurrency(new TapCurrency("KWD"));    //** Required **
+        sdkSession.setTransactionCurrency(new TapCurrency("kwd"));    //** Required **
 
         // Using static CustomerBuilder method available inside TAP Customer Class you can populate TAP Customer object and pass it to SDK
         sdkSession.setCustomer(getCustomer());    //** Required **
@@ -282,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
        ArrayList<String> supportedPayMethods = new ArrayList<>();
-        //supportedPayMethods.add("VISA");
+       // supportedPayMethods.add("VISA");
         supportedPayMethods.add("");
         sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA etc]
 
