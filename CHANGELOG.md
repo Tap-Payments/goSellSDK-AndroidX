@@ -11,38 +11,42 @@
 ### Impact on existing integrations:
 - May need to update gradles to support latest apis.
 
-- [3.19.4] - 2023-12-13
+ [3.19.4] - 2023-12-13
 ### Hot Fix:
 - Fix for  issue loading screen opened from app overview
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 
-- [3.19.1] - 2023-12-05
+ [3.19.1] - 2023-12-05
 ### Enhancement Feature:
 - Now merchants can pass allowed payment methods like only visa mastercard , mada , knet etc
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 
-- [3.18.12] - 2023-11-06
+ [3.18.12] - 2023-11-06
 ### Hot Fix:
 - Fix for  issue for Flutter sdk
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+
 [3.18.10] - 2023-11-05
 ### Hot Fix:
 - Fix for UI issue for Flutter sdk
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+
 [3.18.8] - 2023-10-26
 ### Hot Fix:
 - Fix for googlePay
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+
 [3.18.7] - 2023-10-25
 ### Enhancement Feature:
 - Back button functionality enhancement
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+
 [3.18.5] - 2023-10-08
 ### Hot Fix:
 - Bug Fix for RN plugin
@@ -50,6 +54,7 @@
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - Any one who uses this will need to update target and compile sdk version to 33
+
 [3.18.1] - 2023-10-08
 ### Hot Fix:
 - Bug Fix in HolderName
@@ -57,13 +62,15 @@
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - Any one who uses this will need to update target and compile sdk version to 33
-  [3.18.0] - 2023-10-05
+  
+[3.18.0] - 2023-10-05
 ### Enhancement Feature:
 - Updated to support android api33
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
-- Any one who uses this will need to update target and compile sdk version to 33 
+- Any one who uses this will need to update target and compile sdk version to 33
+  
 [3.17.18] - 2023-10-04
 ### Hot Fix:
 - Bug Fix for RN plugin
