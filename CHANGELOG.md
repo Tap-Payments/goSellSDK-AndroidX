@@ -1,4 +1,15 @@
 # CHANGELOG
+
+[3.19.9] - 2024-03-12
+### Hot Fix:
+- Update for RN module
+### Impact on existing integrations:
+- May need to update gradles to support latest apis support sdk 34
+- compileSdkVersion 34
+- targetSdkVersion 34
+- Project build.gradle classpath 'com.android.tools.build:gradle:7.3.1'
+- Gradle wrapper.properties distributionUrl=https\://services.gradle.org/distributions/gradle-7.4.2-bin.zip
+  
 [3.19.8] - 2024-02-07
 ### Hot Fix:
 - Update for copy-paste feature in cardnumber fields
