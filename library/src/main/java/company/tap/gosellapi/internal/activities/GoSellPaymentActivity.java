@@ -160,6 +160,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
                 });
        // initViews();
+        if(dataSource!=null && dataSource.getSelectedCurrency()!=null)
         updateDisplayedCards(dataSource.getSelectedCurrency());
         SDKSession.getListener().sessionHasStarted();
 
