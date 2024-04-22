@@ -232,8 +232,12 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
             if (cardCredentialsViewModel != null)
                 SDKSession.getListener().userEnabledSaveCardOption(cardCredentialsViewModel.shouldSaveCard());
-
-
+// Added to disable click event 22april2024
+            if (recentSectionViewModel != null) recentSectionViewModel.disableRecentView();
+            if (googlePayButton != null && googlePayButton.getVisibility() == View.VISIBLE)
+                googlePayButton.setEnabled(false);
+            if (cardCredentialsViewModel != null) cardCredentialsViewModel.disableCardScanView();
+            if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
             Utils.hideKeyboard(GoSellPaymentActivity.this);
             boolean keyBoardHidden =  Utils.hideKeyboard(GoSellPaymentActivity.this);
             Log.d(TAG, "sKeyboard hidden .... after click pay button : "+keyBoardHidden );
