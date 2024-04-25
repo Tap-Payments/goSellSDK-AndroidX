@@ -931,6 +931,9 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     case Activity.RESULT_OK:
                         PaymentData paymentData = PaymentData.getFromIntent(data);
                         if(paymentData!=null){
+                            if (recentSectionViewModel != null) recentSectionViewModel.disableRecentView();
+                            if (cardCredentialsViewModel != null) cardCredentialsViewModel.disableCardScanView();
+                            if (webPaymentViewModel != null) webPaymentViewModel.disableWebView();
                             handlePaymentSuccess(paymentData);
 
                         }
