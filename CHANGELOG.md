@@ -1,5 +1,11 @@
 # CHANGELOG
 
+[3.19.10] - 2024-04-25
+### Hot Fix:
+- Disable Mutilple click on screen when payment starts
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 [3.19.9] - 2024-03-12
 ### Hot Fix:
 - Update for RN module
