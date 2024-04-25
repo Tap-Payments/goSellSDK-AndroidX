@@ -645,13 +645,19 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (isTransactionModeSaveCard()||isTransactionModeTokenizeCard()) return;
       //if(  ThemeObject.getInstance().getShowAmountOnButton()==false && isTransactionModeTokenizeCard()) return;
-        if( ThemeObject.getInstance().getPayButtonText() != null){
+
+        //Purchase mode if user chooses show or hide the amount on the button
+        if( ThemeObject.getInstance().getPayButtonText() != null && ThemeObject.getInstance().getShowAmountOnButton()){
 
            payButton.getPayButton().setText(
                    String.format("%s %s", ThemeObject.getInstance().getPayButtonText(),
                            PaymentDataManager.getInstance()
                                    .calculateTotalAmount(feesAmount)));
-       }else
+       }else if( ThemeObject.getInstance().getPayButtonText() != null && !ThemeObject.getInstance().getShowAmountOnButton()){
+
+            payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
+        }
+        else
         payButton.getPayButton().setText(
                 String.format("%s %s", getResources().getString(R.string.pay),
                         PaymentDataManager.getInstance()

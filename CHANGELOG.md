@@ -1,5 +1,11 @@
 # CHANGELOG
 
+[3.19.11] - 2024-04-25
+### Hot Fix:
+- Hot fix for show amount on the button
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 [3.19.10] - 2024-04-25
 ### Hot Fix:
 - Disable Mutilple click on screen when payment starts
