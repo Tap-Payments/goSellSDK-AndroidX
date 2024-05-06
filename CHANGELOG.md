@@ -1,18 +1,18 @@
 # CHANGELOG
 
-[3.19.11] - 2024-04-25
+## [3.19.11] - 2024-04-25
 ### Hot Fix:
 - Hot fix for show amount on the button
 ### Impact on existing integrations:
 - May need to update gradles to support latest apis.
 
-[3.19.10] - 2024-04-25
+## [3.19.10] - 2024-04-25
 ### Hot Fix:
 - Disable Mutilple click on screen when payment starts
 ### Impact on existing integrations:
 - May need to update gradles to support latest apis.
 
-[3.19.9] - 2024-03-12
+## [3.19.9] - 2024-03-12
 ### Hot Fix:
 - Update for RN module
 ### Impact on existing integrations:
@@ -22,7 +22,7 @@
 - Project build.gradle classpath 'com.android.tools.build:gradle:7.3.1'
 - Gradle wrapper.properties distributionUrl=https\://services.gradle.org/distributions/gradle-7.4.2-bin.zip
   
-[3.19.8] - 2024-02-07
+## [3.19.8] - 2024-02-07
 ### Hot Fix:
 - Update for copy-paste feature in cardnumber fields
 ### Impact on existing integrations:
