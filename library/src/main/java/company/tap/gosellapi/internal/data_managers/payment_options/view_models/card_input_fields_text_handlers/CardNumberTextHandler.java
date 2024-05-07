@@ -17,7 +17,7 @@ import company.tap.tapcardvalidator_android.DefinedCardBrand;
  * The type Card number text handler.
  */
 public class CardNumberTextHandler extends TextHandler {
-  private static final int BIN_NUMBER_LENGTH = 6;
+  private static final int BIN_NUMBER_LENGTH = 10;
   private boolean justRemovedWhitespace = false;
   @NonNull private CardNumberTextHandler.DataProvider dataProvider;
   @NonNull private CardNumberTextHandler.DataListener dataListener;

@@ -129,7 +129,7 @@ public class CardCredentialsViewHolder
         String getCardholderNameText();
     }
 
-    private final static int BIN_NUMBER_LENGTH = 6;
+    private final static int BIN_NUMBER_LENGTH = 10;
     private final static int NAME_ON_CARD_MAX_LENGTH = 26;
 
     private TextInputLayout cardNumberFieldTextInputLayout;
@@ -194,8 +194,8 @@ public class CardCredentialsViewHolder
 
                 /**Note if condition was added because of copy-paste issue otherwise it started with else only**/
                 if(s.toString().trim().length()== 16){
-                    System.out.println("onTextChanged"+s.length());
-                    viewModel.binNumberEntered(s.toString().trim().substring(0,6));
+                    System.out.println("onTextChanged"+s);
+                    viewModel.binNumberEntered(s.toString().replace(" ","").substring(0,10));
 
 
                 }else {
@@ -707,7 +707,9 @@ public class CardCredentialsViewHolder
         RecyclerView cardSystemsRecyclerView = itemView.findViewById(R.id.cardSystemsRecyclerView);
         cardSystemsRecyclerView.invalidate();
         CardSystemsRecyclerViewAdapter adapter = (CardSystemsRecyclerViewAdapter) cardSystemsRecyclerView.getAdapter();
-        adapter.updateForCardBrand(brand,cardScheme,this);
+        if (adapter != null) {
+            adapter.updateForCardBrand(brand,cardScheme,this);
+        }
     }
 
     private DefinedCardBrand validateCardNumber(String cardNumber) {
