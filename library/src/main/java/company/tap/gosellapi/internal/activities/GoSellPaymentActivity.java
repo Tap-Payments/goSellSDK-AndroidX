@@ -89,6 +89,7 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models.
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.GroupViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.RecentSectionViewModel;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.WebPaymentViewModel;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CurrencyViewModelData;
 import company.tap.gosellapi.internal.fragments.GoSellPaymentOptionsFragment;
 import company.tap.gosellapi.internal.interfaces.ICardDeleteListener;
 import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
@@ -96,7 +97,6 @@ import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
 
-import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
 import company.tap.gosellapi.open.buttons.PayButtonView;
 import company.tap.gosellapi.open.controllers.SDKSession;
 import company.tap.gosellapi.open.controllers.ThemeObject;

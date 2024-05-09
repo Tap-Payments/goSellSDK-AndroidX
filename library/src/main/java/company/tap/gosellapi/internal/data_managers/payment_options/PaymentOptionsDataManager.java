@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import company.tap.gosellapi.internal.Constants;
-import company.tap.gosellapi.internal.activities.GoSellPaymentActivity;
 import company.tap.gosellapi.internal.api.enums.ExtraFeesStatus;
 import company.tap.gosellapi.internal.api.enums.PaymentType;
 import company.tap.gosellapi.internal.api.enums.Permission;
@@ -40,7 +39,6 @@ import company.tap.gosellapi.internal.data_managers.payment_options.view_models_
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.GooglePaymentViewModelData;
 import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.CompoundFilter;
-import company.tap.gosellapi.internal.utils.PaymentsUtil;
 import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.GroupViewHolder;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
