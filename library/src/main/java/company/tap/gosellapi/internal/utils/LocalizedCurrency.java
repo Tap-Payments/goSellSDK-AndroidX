@@ -11,8 +11,9 @@ import company.tap.gosellapi.internal.api.models.AmountedCurrency;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 public class LocalizedCurrency implements Comparable<LocalizedCurrency> {
 
-  private AmountedCurrency currency;
+   AmountedCurrency currency;
   private String localizedDisplayName;
+
 
   @Override
   public int compareTo(@NonNull LocalizedCurrency o) {

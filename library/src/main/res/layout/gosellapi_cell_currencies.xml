@@ -12,10 +12,18 @@
         style="@style/TextView.Title.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true" />
 
+    <TextView
+        android:id="@+id/tvAmountCurrencyName"
+        style="@style/TextView.Title.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivCurrencyChecked"
+        android:layout_centerVertical="true" />
     <ImageView
         android:id="@+id/ivCurrencyChecked"
         android:layout_width="wrap_content"

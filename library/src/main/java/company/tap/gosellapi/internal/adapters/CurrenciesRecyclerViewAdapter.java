@@ -2,6 +2,8 @@ package company.tap.gosellapi.internal.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
@@ -16,9 +19,12 @@ import java.util.regex.Pattern;
 
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.models.AmountedCurrency;
+import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CurrencyViewModelData;
 import company.tap.gosellapi.internal.interfaces.CurrenciesAdapterCallback;
 import company.tap.gosellapi.internal.utils.LocalizedCurrency;
 import company.tap.gosellapi.internal.utils.Utils;
+import company.tap.gosellapi.internal.viewholders.CurrencyViewHolder;
+import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
 
 /**
  * The type Currencies recycler view adapter.
@@ -35,8 +41,8 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
     private ArrayList<LocalizedCurrency> getFilteredCurrencies() { return filteredCurrencies; }
     private LocalizedCurrency getSelectedCurrency() { return selectedCurrency; }
     private String getSearchQuery() { return searchQuery; }
-
-    private int selectedPosition = NO_SELECTION;
+    private TextView tvAmountCurrencyName;
+    private int selectedPosition;
 
     /**
      * Instantiates a new Currencies recycler view adapter.
@@ -45,7 +51,7 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
      * @param selectedCurrency the selected currency
      * @param callback         the callback
      */
-    public CurrenciesRecyclerViewAdapter(ArrayList<AmountedCurrency> allCurrencies, AmountedCurrency selectedCurrency, CurrenciesAdapterCallback callback) {
+    public CurrenciesRecyclerViewAdapter(ArrayList<AmountedCurrency> allCurrencies, AmountedCurrency selectedCurrency, CurrenciesAdapterCallback callback,int selectedPosition) {
 
         this.allCurrencies = new ArrayList<>();
 
@@ -64,10 +70,18 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
 
         if ( selected == null ) {
 
-            selected = this.allCurrencies.get(0);
+            for (int i = 0; i < allCurrencies.size() ; i++) {
+                if(selectedCurrency.getCurrency().equalsIgnoreCase(allCurrencies.get(i).getCurrency())){
+                    selected = this.allCurrencies.get(i);
+                }
+
+            }
+
+
         }
         this.selectedCurrency   = selected;
         this.callback           = callback;
+        this.selectedPosition           = selectedPosition;
         prepareDataSources();
     }
 
@@ -91,7 +105,7 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
                                getFilteredCurrencies().get(position).getCurrency().getCurrency()
                                :
                                getAllCurrencies().get(position).getCurrency().getCurrency();
-        holder.bind(bindedCurrency);
+        holder.bind(bindedCurrency,position);
     }
 
     @Override
@@ -100,7 +114,7 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
 
     }
 
-    private void setSelection(int newSelection) {
+   private   void setSelection(int newSelection) {
 
         selectedCurrency = getFilteredCurrencies()!=null ?getFilteredCurrencies().get(newSelection)
                            : getAllCurrencies().get(newSelection);
@@ -158,44 +172,53 @@ public class CurrenciesRecyclerViewAdapter extends RecyclerView.Adapter<Currenci
     class CurrencyCellViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvCurrencyName;
+
         private ImageView ivCurrencyChecked;
 
         private CurrencyCellViewHolder(View itemView) {
 
             super(itemView);
             tvCurrencyName = itemView.findViewById(R.id.tvCurrencyName);
+            tvAmountCurrencyName = itemView.findViewById(R.id.tvAmountCurrencyName);
             ivCurrencyChecked = itemView.findViewById(R.id.ivCurrencyChecked);
             ivCurrencyChecked.setImageDrawable(Utils.setImageTint(itemView.getContext(), R.drawable.ic_checkmark_normal, R.color.black));
-
+            ivCurrencyChecked.setVisibility(View.INVISIBLE);
             itemView.setOnClickListener(this);
         }
 
-        private void bind(String currencyCode) {
+        private void bind(String currencyCode,int _position) {
 
             tvCurrencyName.setText(getCurrencySelectionString(currencyCode));
-
-            if (currencyCode.equals(selectedCurrency)) {
-                ivCurrencyChecked.setVisibility(View.VISIBLE);
+            System.out.println("currencyCode"+currencyCode);
+            if (currencyCode.equalsIgnoreCase(String.valueOf(selectedCurrency.getCurrency().getCurrency()))) {
+               // ivCurrencyChecked.setVisibility(View.VISIBLE);
                 selectedPosition = getAdapterPosition();
+                tvAmountCurrencyName.setText(selectedCurrency.getCurrency().getSymbol()+selectedCurrency.getCurrency().getAmount());
+
             } else {
-                ivCurrencyChecked.setVisibility(View.INVISIBLE);
+               ivCurrencyChecked.setVisibility(View.INVISIBLE);
+
+                tvAmountCurrencyName.setText("");
             }
+
+
         }
 
 
 
-
+        @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
 
             int position = getAdapterPosition();
-//            System.out.println(" get selected adapter position : " + position);
+          // System.out.println(" get selected adapter position : " + position);
             setSelection(position);
 
-            AmountedCurrency selectedCurrency = getFilteredCurrencies()!=null ? getFilteredCurrencies().get(position).getCurrency()
+            AmountedCurrency selectedCurrencys = getFilteredCurrencies()!=null ? getFilteredCurrencies().get(position).getCurrency()
                                                 : getAllCurrencies().get(position).getCurrency();
            // System.out.println("get user selected currency : " + selectedCurrency.getCurrency());
-            callback.itemSelected(selectedCurrency);
+           //  tvAmountCurrencyName.setText(selectedCurrency.getCurrency().getSymbol()+selectedCurrency.getCurrency().getAmount());
+            callback.itemSelected(selectedCurrencys , position);
         }
 
         //with highlight on search text logic
