@@ -36,7 +36,7 @@
             android:padding="@dimen/margin_basic_20dp"
             android:text="@string/payment_in_progress"
             android:textColor="@color/graymedium"
-            android:fontFamily="@font/roboto_regular"
+
             android:textAlignment="center"
             android:textSize="22sp"
             android:layout_centerHorizontal="true"
@@ -100,7 +100,7 @@
             android:textColor="@color/graymedium"
             android:textSize="17sp"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/roboto_medium"
+
 
             />
 
@@ -116,7 +116,7 @@
             android:textAlignment="center"
             android:text=""
             android:textSize="45sp"
-            android:fontFamily="@font/roboto_regular"
+
 
             />
 
@@ -132,7 +132,7 @@
             android:textColor="@color/graymedium"
             android:textAlignment="center"
             android:textSize="17sp"
-            android:fontFamily="@font/roboto_medium"
+
 
             />
 
@@ -148,7 +148,7 @@
             android:text=""
             android:textAlignment="center"
             android:textSize="17sp"
-            android:fontFamily="@font/roboto_medium"
+
             />
 
         <TextView

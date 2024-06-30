@@ -5,7 +5,7 @@
     <item name="android:textColor">@color/greyish_brown</item>
     <item name="android:textSize">@dimen/font_size_20sp</item>
     <item name="android:textStyle">normal</item>
-    <item name="android:fontFamily">@font/roboto_regular</item>
+
 
   </style>
 </resources>
