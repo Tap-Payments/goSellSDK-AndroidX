@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [3.19.13] - 2024-06-30
+### Hot Fix:
+- Hot fix for removing licensed fonts like roboto.
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+
 ## [3.19.12] - 2024-05-13
 ### Hot Fix:
 - Hot fix for add clear buttons for fields.
