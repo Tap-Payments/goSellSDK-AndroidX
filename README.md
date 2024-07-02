@@ -67,9 +67,9 @@ AndroidX compatible version of goSellSDK library that fully covers payment/autho
 To use the SDK the following requirements must be met:
 
 1. **Android Studio 3.3** or newer
-2. **Android SDK Tools 33** or newer
-3. **Android Platform Version: API 33: Android 12 (Pie) revision 6** or later
-4. **Android targetSdkVersion: 33
+2. **Android SDK Tools 34** or newer
+3. **Android Platform Version: API 34: Android 12 (Pie) revision 6** or later
+4. **Android targetSdkVersion: 34
 
 <a name="installation"></a>
 # Installation
@@ -107,7 +107,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.13'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.14'
 	}
 ```
 
