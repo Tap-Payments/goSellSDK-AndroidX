@@ -323,7 +323,7 @@ import company.tap.gosellapi.GoSellSDK
           .setSdkLanguage("ar") //if you dont pass locale then default locale EN will be used
 
           // Setup header font type face **Make sure that you already have asset folder with required fonts**
-          .setHeaderFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+        .setHeaderFont(Typeface.SANS_SERIF)//**Optional**
 
           //Setup header text color
           .setHeaderTextColor(getResources().getColor(R.color.black1))  // **Optional**
@@ -335,7 +335,7 @@ import company.tap.gosellapi.GoSellSDK
           .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))//**Optional**
 
           // setup card form input font type
-          .setCardInputFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+        .setCardInputFont(Typeface.SANS_SERIF)//**Optional**
 
           // setup card input field text color
           .setCardInputTextColor(getResources().getColor(R.color.black))//**Optional**
@@ -367,7 +367,7 @@ import company.tap.gosellapi.GoSellSDK
           .setPayButtonResourceId(R.drawable.btn_pay_selector)
 
           // setup pay button font type face
-          .setPayButtonFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf")) // **Optional**
+        .setPayButtonFont(Typeface.SANS_SERIF) // **Optional**
 
           // setup pay button disable title color
           .setPayButtonDisabledTitleColor(getResources().getColor(R.color.black)) // **Optional**
@@ -409,7 +409,7 @@ import company.tap.gosellapi.GoSellSDK
           .setSdkLanguage("ar") //if you dont pass locale then default locale EN will be used
 
           // Setup header font type face **Make sure that you already have asset folder with required fonts**
-          .setHeaderFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+              .setHeaderFont(Typeface.SANS_SERIF)//**Optional**
 
           //Setup header text color
           .setHeaderTextColor(getResources().getColor(R.color.black1))  // **Optional**
@@ -421,7 +421,7 @@ import company.tap.gosellapi.GoSellSDK
           .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))//**Optional**
 
           // setup card form input font type
-          .setCardInputFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf"))//**Optional**
+              .setCardInputFont(Typeface.SANS_SERIF)//**Optional**
 
           // setup card input field text color
           .setCardInputTextColor(getResources().getColor(R.color.black))//**Optional**
@@ -453,7 +453,7 @@ import company.tap.gosellapi.GoSellSDK
           .setPayButtonResourceId(R.drawable.btn_pay_selector)
 
           // setup pay button font type face
-          .setPayButtonFont(Typeface.createFromAsset(getAssets(),"fonts/roboto_light.ttf")) // **Optional**
+              .setPayButtonFont(Typeface.SANS_SERIF)// **Optional**
 
           // setup pay button disable title color
           .setPayButtonDisabledTitleColor(getResources().getColor(R.color.black)) // **Optional**
