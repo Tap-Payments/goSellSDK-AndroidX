@@ -1,5 +1,12 @@
 # CHANGELOG
 
+
+## [3.19.14] - 2024-07-02
+### Hot Fix:
+- Hot fix for removing licensed fonts caching.
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 ## [3.19.13] - 2024-06-30
 ### Hot Fix:
 - Hot fix for removing licensed fonts like roboto.
