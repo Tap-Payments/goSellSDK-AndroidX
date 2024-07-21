@@ -1,20 +1,83 @@
 # CHANGELOG
+<<<<<<< HEAD
 - [3.19.3] - 2023-12-13
+=======
+
+## [3.19.12] - 2024-05-13
+### Hot Fix:
+- Hot fix for add clear buttons for fields.
+- Fix error for AMEX card.
+- Limit card length to 16 or max based on card type.
+- show amount next to  selected currency .
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+## [3.19.11] - 2024-04-25
+### Hot Fix:
+- Hot fix for show amount on the button
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+## [3.19.10] - 2024-04-25
+### Hot Fix:
+- Disable Mutilple click on screen when payment starts
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+## [3.19.9] - 2024-03-12
+### Hot Fix:
+- Update for RN module
+### Impact on existing integrations:
+- May need to update gradles to support latest apis support sdk 34
+- compileSdkVersion 34
+- targetSdkVersion 34
+- Project build.gradle classpath 'com.android.tools.build:gradle:7.3.1'
+- Gradle wrapper.properties distributionUrl=https\://services.gradle.org/distributions/gradle-7.4.2-bin.zip
+  
+## [3.19.8] - 2024-02-07
+### Hot Fix:
+- Update for copy-paste feature in cardnumber fields
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+## [3.19.7] - 2024-02-04
+### Enhancement Feature:
+- Update for androidx lib for supporting api34
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
+## [3.19.4] - 2023-12-13
+>>>>>>> f848fec (fix for limit card length)
 ### Hot Fix:
 - Fix for  issue loading screen opened from app overview
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+<<<<<<< HEAD
 [3.19.1] - 2023-12-05
+=======
+
+## [3.19.1] - 2023-12-05
+>>>>>>> f848fec (fix for limit card length)
 ### Enhancement Feature:
 - Now merchants can pass allowed payment methods like only visa mastercard , mada , knet etc
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+<<<<<<< HEAD
 - [3.18.12] - 2023-11-06
+=======
+
+## [3.18.12] - 2023-11-06
+>>>>>>> f848fec (fix for limit card length)
 ### Hot Fix:
 - Fix for  issue for Flutter sdk
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+<<<<<<< HEAD
 [3.18.10] - 2023-11-05
+=======
+
+## [3.18.10] - 2023-11-05
+>>>>>>> f848fec (fix for limit card length)
 ### Hot Fix:
 - Fix for UI issue for Flutter sdk
 ### Impact on existing integrations:
@@ -24,7 +87,12 @@
 - Fix for googlePay
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
+<<<<<<< HEAD
 [3.18.7] - 2023-10-25
+=======
+
+## [3.18.7] - 2023-10-25
+>>>>>>> f848fec (fix for limit card length)
 ### Enhancement Feature:
 - Back button functionality enhancement
 ### Impact on existing integrations:
@@ -36,80 +104,96 @@
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - Any one who uses this will need to update target and compile sdk version to 33
+<<<<<<< HEAD
 [3.18.1] - 2023-10-08
+=======
+
+## [3.18.1] - 2023-10-08
+>>>>>>> f848fec (fix for limit card length)
 ### Hot Fix:
 - Bug Fix in HolderName
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - Any one who uses this will need to update target and compile sdk version to 33
+<<<<<<< HEAD
   [3.18.0] - 2023-10-05
+=======
+  
+## [3.18.0] - 2023-10-05
+>>>>>>> f848fec (fix for limit card length)
 ### Enhancement Feature:
 - Updated to support android api33
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
+<<<<<<< HEAD
 - Any one who uses this will need to update target and compile sdk version to 33 
 [3.17.18] - 2023-10-04
+=======
+- Any one who uses this will need to update target and compile sdk version to 33
+  
+## [3.17.18] - 2023-10-04
+>>>>>>> f848fec (fix for limit card length)
 ### Hot Fix:
 - Bug Fix for RN plugin
-[3.17.2] - 2023-06-26
+## [3.17.2] - 2023-06-26
 ### Enhancement Feature:
 - Updated blurry library
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.17.0] - 2023-05-24
+## [3.17.0] - 2023-05-24
 ### Enhancement Feature:
 - The merchant can now configure the scanner to be shown or hide
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.16.4] - 2023-05-22
+## [3.16.4] - 2023-05-22
 ### Hot Fix:
 - bug fix for text
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.16.3] - 2023-05-14
+## [3.16.3] - 2023-05-14
 ### Hot Fix:
 - Bug fix for UI 
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.16.2] - 2023-04-04
+## [3.16.2] - 2023-04-04
 ### Hot Fix:
 - Bug fix for NPE 
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.16.1] - 2023-01-23
+## [3.16.1] - 2023-01-23
 ### Enhancement Feature:
 - New Callback added to get when a charge is initiated
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.15.18] - 2022-12-29
+## [3.15.18] - 2022-12-29
 ### Hot Fix:
 - Hot fix issues for cardbrand
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.15.17] - 2022-12-08
+## [3.15.17] - 2022-12-08
 ### Hot Fix:
 - Updated React-Native sdk
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.15.12] - 2022-11-09
+## [3.15.12] - 2022-11-09
 ### Hot Fix:
 - Updated Tokenize Method
 ### Impact on existing integrations:
@@ -117,21 +201,21 @@
 ### Recommended changes for existing integrations before updating:
 - None.
 # CHANGELOG
-[3.15.12] - 2022-10-06
+## [3.15.12] - 2022-10-06
 ### Hot Fix:
 - Minor Hot fix for dynamic card brand name
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.15.11] - 2022-08-28
+## [3.15.11] - 2022-08-28
 ### Hot Fix:
 - Minor Hot fix for callback added
 ### Impact on existing integrations:
 - The update does not impact existing integrations.
 ### Recommended changes for existing integrations before updating:
 - None.
-[3.15.10] - 2022-08-25
+## [3.15.10] - 2022-08-25
 ### Minor version release for Feature update:
 - Added new callback for Asynchronous Payment
 ### Impact on existing integrations:
