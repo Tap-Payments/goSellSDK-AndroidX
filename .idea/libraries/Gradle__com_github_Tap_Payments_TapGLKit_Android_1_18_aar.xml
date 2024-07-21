@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Tap-Payments:TapGLKit-Android:1.18@aar">
     <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/906355710c2fd07b4755d78389886932/jetified-TapGLKit-Android-1.18/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/906355710c2fd07b4755d78389886932/jetified-TapGLKit-Android-1.18/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/906355710c2fd07b4755d78389886932/jetified-TapGLKit-Android-1.18/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/906355710c2fd07b4755d78389886932/jetified-TapGLKit-Android-1.18/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
