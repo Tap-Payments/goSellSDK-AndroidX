@@ -50,6 +50,7 @@ public class CurrenciesActivity extends BaseActionBarActivity implements Currenc
     private AmountedCurrency selectedCurrency;
 
     private CurrenciesRecyclerViewAdapter adapter;
+    int lastPosition = -1 ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,18 +83,30 @@ public class CurrenciesActivity extends BaseActionBarActivity implements Currenc
         //noinspection unchecked
         currencies = (ArrayList<AmountedCurrency>) getIntent().getSerializableExtra(CURRENCIES_ACTIVITY_DATA);
         selectedCurrency = (AmountedCurrency) getIntent().getSerializableExtra(CURRENCIES_ACTIVITY_INITIAL_SELECTED_CURRENCY);
+
+
     }
 
     private void initRecycler() {
 
         RecyclerView recycler = findViewById(R.id.recyclerCurrencies);
+        for (int i = 0;  i< currencies.size() ; i++) {
+            if(selectedCurrency.getCurrency().equalsIgnoreCase(currencies.get(i).getCurrency())){
+                lastPosition = i;
+            }
 
-        adapter = new CurrenciesRecyclerViewAdapter(currencies, selectedCurrency, this);
+        }
+
+        System.out.println("lastPosition>>"+lastPosition);
+
+
+        adapter = new CurrenciesRecyclerViewAdapter(currencies, selectedCurrency, this,lastPosition);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recycler.setLayoutManager(layoutManager);
         recycler.setAdapter(adapter);
+
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
         Drawable divider = ContextCompat.getDrawable(this, R.drawable.recycler_divider);
@@ -101,6 +114,9 @@ public class CurrenciesActivity extends BaseActionBarActivity implements Currenc
             dividerItemDecoration.setDrawable(divider);
         }
         recycler.addItemDecoration(dividerItemDecoration);
+
+
+
     }
 
     private void setTitle() {
@@ -145,11 +161,14 @@ public class CurrenciesActivity extends BaseActionBarActivity implements Currenc
     }
 
     @Override
-    public void itemSelected(AmountedCurrency currency) {
+    public void itemSelected(AmountedCurrency currency , int position) {
 
         //if ( this.selectedCurrency.equals(currency) ) { return; }
 
         this.selectedCurrency = currency;
+        this.lastPosition = position;
+        System.out.println("lastPosition>>"+lastPosition);
+        adapter.notifyItemChanged(lastPosition);
         setTitle();
         setResult(RESULT_OK, new Intent().putExtra(CURRENCIES_ACTIVITY_USER_CHOICE_CURRENCY, selectedCurrency));
         super.onBackPressed();
