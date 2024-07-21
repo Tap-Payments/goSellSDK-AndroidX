@@ -55,10 +55,10 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/cards1"
+                android:src="@drawable/baseline_add_card_24"
                 android:visibility="visible"
 
-                />
+                android:contentDescription="sdsd" />
         </LinearLayout>
 
 

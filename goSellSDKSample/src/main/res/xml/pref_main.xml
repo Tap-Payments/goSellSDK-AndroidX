@@ -115,7 +115,7 @@
     <PreferenceCategory android:title="@string/appearance_header">
 
         <com.tap.tapfontskit.FontPreferences
-            android:defaultValue="@string/font_face_default_value"
+
             android:key="@string/appearance_header_preference_font_key"
             android:title="@string/appearance_header_preference_font_title"
             tapfontlistpreference:tap_fontPreviewString="@string/font_preview_string"
@@ -164,7 +164,7 @@
     <PreferenceCategory android:title="@string/appearance_card_input_fields">
 
         <com.tap.tapfontskit.FontPreferences
-            android:defaultValue="@string/font_face_default_value"
+
             android:key="@string/appearance_card_input_fields_font_key"
             android:title="@string/appearance_card_input_fields_font_title"
             tapfontlistpreference:tap_fontPreviewString="@string/font_preview_string"
@@ -275,7 +275,7 @@
             <!--/>-->
 
         <com.tap.tapfontskit.FontPreferences
-            android:defaultValue="@string/font_face_default_value"
+
             android:key="@string/appearance_tap_button_font_key"
             android:title="@string/appearance_tap_button_font_title"
             tapfontlistpreference:tap_fontPreviewString="@string/font_preview_string"

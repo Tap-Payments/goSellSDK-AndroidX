@@ -58,7 +58,7 @@
         <item name="android:textColor">@color/greyish_brown</item>
         <item name="android:textSize">@dimen/font_size_20sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/roboto_regular</item>
+
         <item name="android:lineSpacingExtra">@dimen/title_lineSpacingExtra_0</item>
 
     </style>
@@ -67,7 +67,7 @@
         <item name="android:textColor">@color/greyish_brown</item>
         <item name="android:textSize">@dimen/font_size_13sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/roboto_light</item>
+
         <item name="android:lineSpacingExtra">@dimen/title_lineSpacingExtra_11</item>
 
     </style>
@@ -279,7 +279,7 @@
         <item name="android:textColor">@color/security_text_color</item>
         <item name="android:textSize">@dimen/font_size_13sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/avenir_next_regular</item>
+
         <item name="android:lineSpacingExtra">@dimen/title_lineSpacingExtra_0</item>
     </style>
 
