@@ -158,7 +158,7 @@ public class CardCredentialsViewHolder
     private LinearLayoutManager linearLayoutManager;
     private CardCredentialsViewModel viewModel;
     private CardCredentialsTextWatcher cardCredentialsTextWatcher;
-
+    int cardValidLength =  0;
 
     /**
      * Instantiates a new Card credentials view holder.
@@ -191,6 +191,7 @@ public class CardCredentialsViewHolder
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 CardBrand cardBrand = null;
+                cardValidLength =0;
 
                 /**Note if condition was added because of copy-paste issue otherwise it started with else only**/
                 if(s.toString().trim().length()== 16){
@@ -229,6 +230,44 @@ public class CardCredentialsViewHolder
                     }
 
                     cardNumberField.removeTextChangedListener(this);
+                    if(cardBrand!=null){
+
+                        cardValidLength =   CardValidator.getCardLength(cardBrand);
+                        InputFilter[] FilterArray = new InputFilter[1];
+                        System.out.println("cardValidLength before>>"+cardValidLength);
+                        if (cardBrand != CardBrand.americanExpress && cardValidLength!= 19) {
+                            cardValidLength =cardValidLength+3; //added because of spacings
+                        }else if (cardValidLength == 19){
+                          //  dumm = dumm ; //not adding because of spacings
+
+                        } else {
+                            cardValidLength = cardValidLength+2; //adding two spacings
+//
+                        }
+                        FilterArray[0] = new InputFilter.LengthFilter(cardValidLength);
+                       // cardNumberField.getText().toString().replace(" ","");
+                        cardNumberField.setFilters(FilterArray);
+                        System.out.println("cardValidLength after>>"+cardValidLength);
+
+                      /*  InputFilter filter = (source, start1, end, dest, dstart, dend) -> {
+                            for (int i = start1; i < end; i++) {
+                                if (Character.isWhitespace(source.charAt(i))) {
+                                    return "";
+
+                                }
+                            }
+                            return null;
+                        };
+                        cardNumberField.setFilters(new InputFilter[] { filter, new InputFilter.LengthFilter(dumm) });
+
+*/
+                           cardNumberField.setFilters(FilterArray);
+
+                        System.out.println("cardValidLength"+cardValidLength);
+                        System.out.println("cardNumber"+cardNumber.length());
+
+                    }
+
                     cardNumberField.setText(cardNumber.toString());
 
                     int selectionIndex = start + count;
