@@ -118,7 +118,7 @@
     <string name="appearance_card_input_fields">Appearance: Card Input Fields</string>
 
     <!--  font section -->
-    <string name="font_face_default_value">fonts/NicksFont.ttf</string>
+
 
     <string name="appearance_header_preference_font_key">appearance_header_preference_font_key</string>
     <string name="appearance_header_preference_color_key">appearance_header_preference_color_key</string>
