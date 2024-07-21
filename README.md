@@ -107,7 +107,11 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
+<<<<<<< HEAD
 	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.3'
+=======
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.12'
+>>>>>>> f848fec (fix for limit card length)
 	}
 ```
 

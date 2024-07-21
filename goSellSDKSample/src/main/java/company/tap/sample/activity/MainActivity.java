@@ -150,7 +150,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
     private void configureApp() {
-      GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+     // GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+      GoSellSDK.init(this, "sk_test_M14b2agDxK7ueNZl6fcULqBP", "com.lulu.commerce");  // to be replaced by merchant
        GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -272,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         sdkSession.setDestination(null); // ** Optional ** you can pass Destinations object or null
 
-        sdkSession.setMerchantID(null); // ** Optional ** you can pass merchant id or null
+        sdkSession.setMerchantID("8995549"); // ** Optional ** you can pass merchant id or null
 
         sdkSession.setCardType(CardType.ALL); // ** Optional ** you can pass which cardType[CREDIT/DEBIT] you want.By default it loads all available cards for Merchant.
 
@@ -701,7 +702,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder("cus_TS04A1220231224Hi4y2611346").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
