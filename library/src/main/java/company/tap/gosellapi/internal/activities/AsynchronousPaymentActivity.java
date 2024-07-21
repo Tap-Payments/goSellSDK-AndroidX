@@ -103,7 +103,7 @@ public class AsynchronousPaymentActivity extends BaseActivity implements View.On
         textView_codeexp = findViewById(R.id.tv_codeexp);
         textView_fawrytext = findViewById(R.id.tv_fawrytext);
         textView_fawry_payreference = findViewById(R.id.tv_fawry_payreference);
-        Typeface fontstyle = Typeface.createFromAsset(getAssets(),"fonts/roboto_regular.ttf");
+        Typeface fontstyle = Typeface.SANS_SERIF;
         textView_codeexp_datetime.setTypeface(fontstyle);
         textView_emailPhone_sent.setTypeface(fontstyle);
         textView_emailphone.setTypeface(fontstyle);
