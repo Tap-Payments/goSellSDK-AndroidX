@@ -67,7 +67,7 @@ public class ThemeObject {
         private boolean                 payButtLoaderVisible=true;
         private int                     payButtonTextSize;
         private String                  payButtonText;
-        private boolean                  payButtonShowAmount;
+        private boolean                  payButtonShowAmount= true;
 
         /**
          * Dialog Appearance
