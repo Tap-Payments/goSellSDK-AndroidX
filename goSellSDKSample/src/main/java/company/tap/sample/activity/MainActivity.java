@@ -164,16 +164,17 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
                 .setSdkLanguage("en")
 
-                .setHeaderFont(Typeface.createFromAsset(getAssets(), "fonts/roboto_light.ttf"))
+
                 .setHeaderTextColor(getResources().getColor(R.color.black1))
+                .setHeaderFont(Typeface.SANS_SERIF)
                 .setHeaderTextSize(17)
                 .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))
 
 
-                .setCardInputFont(Typeface.createFromAsset(getAssets(), "fonts/roboto_light.ttf"))
                 .setCardInputTextColor(getResources().getColor(R.color.black))
                 .setCardInputInvalidTextColor(getResources().getColor(R.color.red))
                 .setCardInputPlaceholderTextColor(getResources().getColor(R.color.gray))
+                .setCardInputFont(Typeface.SANS_SERIF)
 
 
                 .setSaveCardSwitchOffThumbTint(getResources().getColor(R.color.french_gray_new))
@@ -185,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setCardScannerIconVisible(true) // **Optional**
 
                 .setPayButtonResourceId(R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
-                .setPayButtonFont(Typeface.createFromAsset(getAssets(), "fonts/roboto_light.ttf"))
+                .setPayButtonFont(Typeface.SANS_SERIF)
 
                 .setPayButtonDisabledTitleColor(getResources().getColor(R.color.white))
                 .setPayButtonEnabledTitleColor(getResources().getColor(R.color.white))
