@@ -85,6 +85,7 @@
         android:gravity="center_vertical"
         style="@style/Widget.Design.TextInputLayout"
         app:hintTextAppearance="@style/TextInputLayout.Hint"
+        app:endIconMode="clear_text"
         >
 
       <androidx.appcompat.widget.AppCompatEditText
@@ -107,6 +108,7 @@
           android:paddingRight="4dp"
           android:paddingLeft="4dp"
           android:imeOptions="actionNext"
+
           />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -192,6 +194,7 @@
         app:hintTextAppearance="@style/TextInputLayout.Hint"
         android:hint="@string/bt_form_hint_cvv"
         android:gravity="start"
+        app:endIconMode="clear_text"
         >
 
 
@@ -207,7 +210,6 @@
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           android:imeOptions="actionNext"
-
 
           android:backgroundTint="@color/separator"
 
@@ -229,6 +231,7 @@
       app:layout_constraintTop_toBottomOf="@id/expirationDateAndCVVContainer"
       app:layout_constraintEnd_toEndOf="parent"
       app:hintTextAppearance="@style/TextInputLayout.Hint"
+      app:endIconMode="clear_text"
       >
 
     <androidx.appcompat.widget.AppCompatEditText

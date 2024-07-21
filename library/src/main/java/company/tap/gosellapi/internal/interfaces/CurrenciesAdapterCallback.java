@@ -12,5 +12,5 @@ public interface CurrenciesAdapterCallback {
      *
      * @param currency the currency
      */
-    void itemSelected(AmountedCurrency currency);
+    void itemSelected(AmountedCurrency currency,  int position);
 }
