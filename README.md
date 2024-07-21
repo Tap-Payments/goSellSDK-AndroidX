@@ -387,6 +387,7 @@ import company.tap.gosellapi.GoSellSDK
            // set the text on pay button
           .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
 
+           .setShowAmountOnButton(true) // **Optional**  Show amount on the button
         
            // setup dialog textcolor and textsize
            .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
@@ -472,6 +473,7 @@ import company.tap.gosellapi.GoSellSDK
            // set the text on pay button
           .setPayButtonText("PAY BTN CAN BE VERY VERY VERY  LONGGGG LONGGGGG") // **Optional**
 
+          .setShowAmountOnButton(true) // **Optional**  Show amount on the button
 
            // setup dialog textcolor and textsize
            .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**

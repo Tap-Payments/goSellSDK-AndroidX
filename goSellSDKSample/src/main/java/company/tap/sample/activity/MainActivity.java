@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonSecurityIconVisible(true)
 
                 .setPayButtonText("PAY") // **Optional**
+                .setShowAmountOnButton(true) // **Optional**
 
 
 
