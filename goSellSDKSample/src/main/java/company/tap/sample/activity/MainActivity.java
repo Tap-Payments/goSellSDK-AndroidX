@@ -427,6 +427,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
             System.out.println("Payment Succeeded : expiry type :" + charge.getExpiry().getType());
             System.out.println("Payment Succeeded : expiry period :" + charge.getExpiry().getPeriod());
         }
+
         saveCustomerRefInSession(charge);
         configureSDKSession();
         showDialog(charge.getId(), charge.getResponse().getMessage(), company.tap.gosellapi.R.drawable.ic_checkmark_normal);
@@ -498,13 +499,14 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         // Cast charge object to SaveCard first to get all the Card info.
         if (charge instanceof SaveCard) {
             System.out.println("Card Saved Succeeded : first six digits : " + ((SaveCard) charge).getCard().getFirstSix() + "  last four :" + ((SaveCard) charge).getCard().getLast4());
+
+            System.out.println("Card Saved Succeeded : " + charge.getStatus());
+            System.out.println("Card Saved Succeeded : " + charge.getCard().getBrand());
+            System.out.println("Card Saved Succeeded : " + charge.getDescription());
+            System.out.println("Card Saved Succeeded : " + charge.getResponse().getMessage());
+            System.out.println("Card Saved Succeeded ID : " + ((SaveCard) charge).getPaymentAgreement().getId());
+            System.out.println("Card Saved Succeeded Contract: " + ((SaveCard) charge).getPaymentAgreement().getContract().getType());
         }
-        System.out.println("Card Saved Succeeded : " + charge.getStatus());
-        System.out.println("Card Saved Succeeded : " + charge.getCard().getBrand());
-        System.out.println("Card Saved Succeeded : " + charge.getDescription());
-        System.out.println("Card Saved Succeeded : " + charge.getResponse().getMessage());
-        System.out.println("Card Saved Succeeded : " +  ((SaveCard) charge).getCardIssuer().getName());
-        System.out.println("Card Saved Succeeded : " +  ((SaveCard) charge).getCardIssuer().getId());
         saveCustomerRefInSession(charge);
         showDialog(charge.getId(), charge.getStatus().toString(), company.tap.gosellapi.R.drawable.ic_checkmark_normal);
     }

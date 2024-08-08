@@ -39,7 +39,9 @@ public final class SaveCard extends Charge{
     @Expose
     @Nullable private CardIssuer  card_issuer;
 
-
+    @SerializedName("payment_agreement")
+    @Expose
+    @Nullable private PaymentAgreement paymentAgreement;
     /**
      * Is save card boolean.
      *
@@ -103,6 +105,13 @@ public final class SaveCard extends Charge{
         return card_issuer;
     }
 
-
+    /**
+     * Gets topup
+     * @return
+     */
+    @Nullable
+    public PaymentAgreement getPaymentAgreement() {
+        return paymentAgreement;
+    }
 
 }

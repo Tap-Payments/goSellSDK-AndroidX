@@ -84,6 +84,11 @@ public class Charge implements BaseResponse, Serializable {
     @SerializedName("threeDSecure")
     @Expose
     private boolean threeDSecure;
+
+
+
+
+
  /*   @SerializedName("save_card")
     @Expose
     private boolean saveCard;*/
@@ -138,6 +143,7 @@ public class Charge implements BaseResponse, Serializable {
     @SerializedName("topup")
     @Expose
     @Nullable private TopUp topup;
+
 
 
     @Nullable
@@ -374,4 +380,6 @@ public class Charge implements BaseResponse, Serializable {
     public TopUp getTopup() {
         return topup;
     }
+
+
 }

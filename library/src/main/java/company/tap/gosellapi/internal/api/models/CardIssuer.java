@@ -1,6 +1,7 @@
 package company.tap.gosellapi.internal.api.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,16 +18,16 @@ public final class CardIssuer implements Serializable {
 
     @SerializedName("id")
     @Expose
-    @NonNull
+    @Nullable
     private String id;
 
     @SerializedName("name")
     @Expose
-    @NonNull private String name;
+    @Nullable private String name;
 
     @SerializedName("country")
     @Expose
-    @NonNull private String country;
+    @Nullable  private String country;
 
     public String getName() {
         return name;
