@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.19.17] - 2024-08-08
+### Hot Fix:
+- Hot fix for updating paymentagreement model.
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 
 ## [3.19.14] - 2024-07-02
 ### Hot Fix:

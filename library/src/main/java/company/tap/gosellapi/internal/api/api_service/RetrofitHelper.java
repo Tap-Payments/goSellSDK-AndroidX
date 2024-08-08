@@ -115,7 +115,7 @@ public final class RetrofitHelper {
             return chain.proceed(request);
         });
 
-        httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(showDebug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE));
+        httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(showDebug ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.BODY));
 
         return httpClientBuilder.build();
     }
