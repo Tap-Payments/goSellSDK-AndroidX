@@ -77,7 +77,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
     webView.setWebViewClient(new WebPaymentWebViewClient());
     WebSettings settings = webView.getSettings();
     settings.setJavaScriptEnabled(true);
-
+    settings.setDomStorageEnabled(true);
     setTitle(getPaymentOption().getName());
     setImage(getPaymentOption().getImage());
     //Get the view which you added by activity setContentView() method

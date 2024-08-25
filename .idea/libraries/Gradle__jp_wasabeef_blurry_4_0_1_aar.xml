@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: jp.wasabeef:blurry:4.0.1@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a9546d5d0641b4a1105d5d2eee50bc78/transformed/jetified-blurry-4.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a9546d5d0641b4a1105d5d2eee50bc78/transformed/jetified-blurry-4.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jp.wasabeef/blurry/4.0.1/25824c09c82cc4ff9f44795bc526302f976b84c/blurry-4.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jp.wasabeef/blurry/4.0.1/c47ea9c3942a271d39ea0ec054ab92ca08d27113/blurry-4.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
