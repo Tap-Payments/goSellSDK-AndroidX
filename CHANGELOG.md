@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.19.19] - 2024-08-26
+### Hot Fix:
+- Hot fix for callback session cancelled.
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 ## [3.19.18] - 2024-08-25
 ### Hot Fix:
 - Hot fix for enable settings for webview.

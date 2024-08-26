@@ -911,7 +911,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                         }
                     } else {
                         closePaymentActivity();
-                        SDKSession.getListener().sdkError(null);
+                        SDKSession.getListener().sessionCancelled();
                     }
                 }
                 break;
