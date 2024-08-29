@@ -39,4 +39,12 @@ public class TrackingURL implements Serializable {
         this.url = url;
         this.status = URLStatus.PENDING;
     }
+    /**
+     * get Merchant ID
+     * @return id
+     */
+    @Nullable
+    public String getUrl() {
+        return url;
+    }
 }
