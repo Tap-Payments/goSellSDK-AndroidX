@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.19.19] - 2024-08-29
+### Hot Fix:
+- Hot fix for making url in tracking url public
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 ## [3.19.19] - 2024-08-26
 ### Hot Fix:
 - Hot fix for callback session cancelled.
