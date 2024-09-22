@@ -301,6 +301,7 @@ public class CardCredentialsViewHolder
 
                     if (text.length() < BIN_NUMBER_LENGTH || text.length() == 0) {
                         PaymentDataManager.getInstance().setBinLookupResponse(null);
+                        viewModel.setCurrentBINData(null);
                     }
                 }
 
@@ -312,13 +313,15 @@ public class CardCredentialsViewHolder
                     @Override
                     public void run() {
                         // do your work
-                        BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
+                       // BINLookupResponse binLookupResponse =  PaymentDataManager.getInstance().getBinLookupResponse();
+                        BINLookupResponse binLookupResponse =  viewModel.getCurrentBINData();
                         if(binLookupResponse==null){
                             viewModel.setPaymentOption(finalCardBrand,null);
                         }else
-                        { viewModel.setPaymentOption(finalCardBrand,binLookupResponse.getScheme());
+                        {
+                            viewModel.setPaymentOption(binLookupResponse.getCardBrand(),binLookupResponse.getScheme());
                         }
-                        handler.postDelayed(this, 1000);
+                      //  handler.postDelayed(this, 1000);
                     }
                 };
                 handler.postDelayed(runnable, 1000);
@@ -327,7 +330,8 @@ public class CardCredentialsViewHolder
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(PaymentDataManager.getInstance().getBinLookupResponse()!=null) {
+               // if(PaymentDataManager.getInstance().getBinLookupResponse()!=null
+                if( viewModel.getCurrentBINData()!=null) {
                     viewModel.cardDetailsFilled(validateCardFields(), viewModel);
                     viewModel.checkShakingStatus();
                 }
@@ -751,6 +755,7 @@ public class CardCredentialsViewHolder
         }
     }
 
+
     private DefinedCardBrand validateCardNumber(String cardNumber) {
 
         cardNumber = cardNumber.replace(" ", "");
@@ -764,9 +769,17 @@ public class CardCredentialsViewHolder
         // update CCVEditText CardType: to set CCV Length according to CardType
         updateCCVEditTextCardType(brand.getCardBrand());
         // update card types
-        BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
+       // BINLookupResponse binLookupResponse = PaymentDataManager.getInstance().getBinLookupResponse();
+        BINLookupResponse binLookupResponse = viewModel.getCurrentBINData();
         // System.out.println("brand.getCardBrand() in validation "+brand.getCardBrand());
-        updateCardSystemsRecyclerView( brand.getCardBrand(), binLookupResponse == null ? null : binLookupResponse.getScheme());
+
+        if(binLookupResponse==null){
+            updateCardSystemsRecyclerView( brand.getCardBrand(), null);
+
+        }else{
+            updateCardSystemsRecyclerView(binLookupResponse.getCardBrand(), binLookupResponse.getScheme());
+
+        }
         //  if (binLookupResponse != null && PaymentDataSource.getInstance().getCardType() != null){
 
         if(binLookupResponse != null && PaymentDataSource.getInstance().getCardType()!=null && PaymentDataSource.getInstance().getCardType() == ALL) {
@@ -1026,6 +1039,7 @@ public class CardCredentialsViewHolder
         });
 
         PaymentDataManager.getInstance().setBinLookupResponse(null);
+       viewModel.setCurrentBINData(null);
         // cardNumberField.setText(null);
         AlertDialog dialog = dialogBuilder.create();
 
@@ -1070,7 +1084,8 @@ public class CardCredentialsViewHolder
             @Override
             public void run() {
                 // do something after 1s = 1000 miliseconds since set response takes time
-                BINLookupResponse binLookupResponse  =  PaymentDataManager.getInstance().getBinLookupResponse();
+              //  BINLookupResponse binLookupResponse  =  PaymentDataManager.getInstance().getBinLookupResponse();
+                BINLookupResponse binLookupResponse  =  viewModel.getCurrentBINData();
                 if(binLookupResponse==null){
                     viewModel.setPaymentOption(cardBrand, null);
 
@@ -1097,7 +1112,7 @@ public class CardCredentialsViewHolder
                 }
 
             }
-        }, 3000); //Time in mis
+        }, 1000); //Time in mis
 
 
     }

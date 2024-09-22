@@ -14,6 +14,7 @@ import company.tap.gosellapi.internal.api.responses.BINLookupResponse;
 import company.tap.gosellapi.internal.data_managers.payment_options.PaymentOptionsDataManager;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models.card_input_fields_text_handlers.CardNumberTextHandler;
 import company.tap.gosellapi.internal.data_managers.payment_options.view_models_data.CardCredentialsViewModelData;
+import company.tap.gosellapi.internal.utils.ActivityDataExchanger;
 import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.CardCredentialsViewHolder;
 import company.tap.gosellapi.internal.viewholders.PaymentOptionsBaseViewHolder;
@@ -97,7 +98,7 @@ public class CardCredentialsViewModel
     private boolean shouldSaveCard;
 
     @Nullable private BINLookupResponse currentBINData;
-    @Nullable private BINLookupResponse getCurrentBINData() { return currentBINData; }
+    @Nullable public BINLookupResponse getCurrentBINData() { return currentBINData; }
 
     /**
      * Set current bin data.
@@ -429,7 +430,7 @@ public class CardCredentialsViewModel
           if(cardBrand!=null){
               for(PaymentOption paymentOption:  data.getPaymentOptions()){
                //Fix added for cases where cardscheme is empty (toLowecase() added)
-                  if(paymentOption.getName().toLowerCase().compareTo(String.valueOf(cardBrand))==0){
+                  if(paymentOption.getName().toLowerCase().compareTo(String.valueOf(cardBrand).toLowerCase())==0){
                       this.selectedCardPaymentOption = paymentOption;
                       updatePayButtonWithExtraFees(paymentOption);
                   }

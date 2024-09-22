@@ -140,38 +140,40 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
 
         for (PaymentOption option : initialData) {
 
-            cardBrands = option.getSupportedCardBrands();
 
             if (cardScheme != null) {
-                if(cardBrands.contains(cardScheme.getCardBrand()) || cardScheme.name().equalsIgnoreCase("MADA")){
-                    if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
-                        data.add(option);
-                        continue;
-                    }
-                }else{
-                    if (cardBrands.contains(brand)) {
-                        data.add(option);
 
-                    }
+                if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
+                    data.add(option);
+                    break;
                 }
-               /* if (comparePaymentOptionWithCardScheme(option, cardScheme)) {
-                    data.add(option);
-                    continue;
-                }*/
-            } else {
-                if (cardBrands.contains(brand)) {
-                    data.add(option);
 
-                }
+
             }
 
+        }
 
+        if(data.size()==0) {
+
+            for (PaymentOption option : initialData) {
+
+                cardBrands = option.getSupportedCardBrands();
+
+                if (cardBrands.contains(brand)) {
+                    data.add(option);
+                    break;
+
+
+                }
+
+
+            }
         }
        // &&!cardBrands.contains(brand)
-        if (data.isEmpty() ) {
+        /*if (data.isEmpty() ) {
             cardCredentialsViewHolder.showDialog(cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_title), cardCredentialsViewHolder.itemView.getResources().getString(R.string.alert_un_supported_card_message));
 
-        }
+        }*/
 
         if (data.size() == 0)
             data = new ArrayList<>(initialData);
@@ -179,10 +181,11 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
         notifyDataSetChanged();
     }
 
+
     private boolean comparePaymentOptionWithCardScheme(@NonNull PaymentOption paymentOption,
                                                        @NonNull CardScheme cardScheme) {
 
-        if ((paymentOption.getName().equalsIgnoreCase(cardScheme.name()))) {
+        if ((paymentOption.getName().equalsIgnoreCase(cardScheme.name()))||cardScheme.name().equalsIgnoreCase("MADA")) {
             // Log.e("payment option",paymentOption.getName().toString());
             //  Log.e("card scheme",cardScheme.name().toString());
 
@@ -191,13 +194,13 @@ public class CardSystemsRecyclerViewAdapter extends RecyclerView.Adapter<CardSys
         }
 
 
-        if (paymentOption.getName().compareTo(String.valueOf(cardScheme.getCardBrand())) == 0) {
+        if (paymentOption.getName().toLowerCase().compareTo(String.valueOf(cardScheme.getCardBrand()).toLowerCase()) == 0) {
             return true;
         }
 // stop this check to avoid displaying mada with master in case of scheme is not mada
-    if (paymentOption.getSupportedCardBrands().contains(cardScheme.getCardBrand())) {
+   /* if (paymentOption.getSupportedCardBrands().contains(cardScheme.getCardBrand())) {
       return true;
-   }
+   }*/
 
         return false;
     }
