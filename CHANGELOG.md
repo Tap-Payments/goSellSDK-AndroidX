@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.19.22] - 2024-09-22
+### Hot Fix:
+- Hot fix for cardbrand-scheme check
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 ## [3.19.21] - 2024-09-19
 ### Hot Fix:
 - Hot fix for cardbrand-scheme check
