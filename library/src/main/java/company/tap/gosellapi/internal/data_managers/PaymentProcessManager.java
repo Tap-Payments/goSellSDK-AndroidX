@@ -488,7 +488,7 @@ final class PaymentProcessManager {
                                              PaymentOption paymentOption, boolean saveCard) {
 //     Log.d("startPaymentProcessWith"," step 4 : startPaymentProcessWithCard : in class "+ "["+this.getClass().getName()+"] with card=["+card+"]  ");
 
-        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card);
+        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card,PaymentDataManager.getInstance().getExternalDataSource().getMerchant());
 //     Log.d("startPaymentProcessWith"," step 4 : startPaymentProcessWithCard>CreateTokenWithCardDataRequest : in class "+ "["+this.getClass().getName()+"] with request=["+request.toString()+"]  ");
 
         callTokenAPI(request, paymentOption, saveCard);
@@ -533,7 +533,7 @@ final class PaymentProcessManager {
     private void startCardTokenizationPaymentProcessWithCard(@NonNull CreateTokenCard card,
                                                              PaymentOption paymentOption, boolean saveCard) {
 
-        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card);
+        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card,PaymentDataManager.getInstance().getExternalDataSource().getMerchant());
 
         callCardTokenizationTokenAPI(request, paymentOption, saveCard);
     }
@@ -720,6 +720,7 @@ final class PaymentProcessManager {
         @Nullable Merchant merchant = provider.getMerchant();
         @Nullable CardIssuer cardIssuer = provider.getCardIssuer();
         @Nullable TopUp topUp = provider.getTopUp();
+
         TransactionMode transactionMode = provider.getTransactionMode();
         Log.d("PaymentProcessManager", "transactionMode : " + transactionMode);
 //        Log.d("PaymentProcessManager", "topUp : " + topUp.toString());
@@ -848,7 +849,7 @@ final class PaymentProcessManager {
                         true,
                         true,
                         true,
-                       cardIssuer
+                       cardIssuer , merchant
                 );
 
                 GoSellAPI.getInstance().createSaveCard(saveCardRequest, new APIRequestCallback<SaveCard>() {
