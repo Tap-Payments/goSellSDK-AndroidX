@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 
 import company.tap.gosellapi.internal.api.models.CardIssuer;
+import company.tap.gosellapi.internal.api.models.Merchant;
 import company.tap.gosellapi.internal.api.models.Order;
 import company.tap.gosellapi.internal.api.models.SourceRequest;
 import company.tap.gosellapi.internal.api.models.TrackingURL;
@@ -99,6 +100,11 @@ public class CreateSaveCardRequest {
     @Expose
     @Nullable private CardIssuer cardIssuer;
 
+    @SerializedName("merchant")
+    @Expose
+    @Nullable private Merchant merchantId;
+
+
     /**
      * Instantiates a new Create save card request.
      *
@@ -140,7 +146,9 @@ public class CreateSaveCardRequest {
                                  @Nullable    boolean                 issuer,
                                  @Nullable    boolean                 promo,
                                  @Nullable    boolean                 loyalty ,
-                                 @Nullable   CardIssuer                 cardIssuer) {
+                                 @Nullable   CardIssuer                 cardIssuer,
+                                 @Nullable   Merchant                merchantId
+    ) {
 
         this.currency               = currency;
         this.customer               = customer;
@@ -161,5 +169,6 @@ public class CreateSaveCardRequest {
         this.promo                  = promo;
         this.loyalty                = loyalty;
         this.cardIssuer             = cardIssuer;
+        this.merchantId             = merchantId;
     }
 }

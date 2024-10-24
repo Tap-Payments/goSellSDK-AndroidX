@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [3.19.23] - 2024-10-24
+### Hot Fix:
+- Hot fix passing merchant id in token and card verify api
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
+
 ## [3.19.22] - 2024-09-22
 ### Hot Fix:
 - Hot fix for cardbrand-scheme check

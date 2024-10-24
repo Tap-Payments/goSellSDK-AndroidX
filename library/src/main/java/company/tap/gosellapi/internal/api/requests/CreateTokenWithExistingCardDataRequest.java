@@ -1,9 +1,13 @@
 package company.tap.gosellapi.internal.api.requests;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import company.tap.gosellapi.internal.api.models.CreateTokenSavedCard;
+import company.tap.gosellapi.internal.api.models.Merchant;
+import company.tap.gosellapi.internal.data_managers.PaymentDataManager;
 
 /**
  * The type Create token with existing card data request.
@@ -14,8 +18,14 @@ public final class CreateTokenWithExistingCardDataRequest {
     @Expose
     private CreateTokenSavedCard savedCard;
 
-    private CreateTokenWithExistingCardDataRequest(CreateTokenSavedCard savedCard) {
+    @SerializedName("merchant")
+    @Expose
+    @Nullable
+    private Merchant merchantId;
+
+    private CreateTokenWithExistingCardDataRequest(CreateTokenSavedCard savedCard, @Nullable Merchant merchantId) {
         this.savedCard = savedCard;
+        this.merchantId = merchantId;
     }
 
     /**
@@ -30,7 +40,7 @@ public final class CreateTokenWithExistingCardDataRequest {
          * @param card the card
          */
         public Builder(CreateTokenSavedCard card) {
-            createTokenWithExistingCardDataRequest = new CreateTokenWithExistingCardDataRequest(card);
+            createTokenWithExistingCardDataRequest = new CreateTokenWithExistingCardDataRequest(card, PaymentDataManager.getInstance().getExternalDataSource().getMerchant());
         }
 
         /**

@@ -88,7 +88,7 @@ public class APIsExposer {
 
         CreateTokenCard card = createCard(cardNumber, expirationMonth, expirationYear, cvc, cardholderName, address);
 
-        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card);
+        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card,PaymentDataManager.getInstance().getExternalDataSource().getMerchant());
 
         GoSellAPI.getInstance().createTokenWithEncryptedCard(request, new APIRequestCallback<Token>() {
 
@@ -143,7 +143,7 @@ public class APIsExposer {
 
         CreateTokenCard card = createCard(cardNumber, expirationMonth, expirationYear, cvc, cardholderName, address);
 
-        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card);
+        CreateTokenWithCardDataRequest request = new CreateTokenWithCardDataRequest(card,PaymentDataManager.getInstance().getExternalDataSource().getMerchant());
 
         GoSellAPI.getInstance().createTokenWithEncryptedCard(request, new APIRequestCallback<Token>() {
             @Override
@@ -193,6 +193,7 @@ public class APIsExposer {
                 .getRequires3DSecure();
         Receipt receipt = provider.getReceiptSettings();
 
+
         CreateSaveCardRequest saveCardRequest = new CreateSaveCardRequest(
                 amountedCurrency.getCurrency(),
                 customer,
@@ -212,7 +213,8 @@ public class APIsExposer {
                 true,
                 true,
                 true,
-                cardIssuer
+                cardIssuer,
+                provider.getMerchant()
 
         );
 
