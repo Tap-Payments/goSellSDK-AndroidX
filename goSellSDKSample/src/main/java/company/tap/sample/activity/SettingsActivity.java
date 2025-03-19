@@ -1,7 +1,10 @@
 package company.tap.sample.activity;
 
 
+import static java.security.AccessController.getContext;
+
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -10,11 +13,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import company.tap.sample.CustomTypefaceSpan;
 import company.tap.sample.R;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
@@ -71,9 +77,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // transaction mode
                bindPreferenceSummaryToValue(findPreference(getString(R.string.key_sdk_transaction_mode)));
 
-            // transaction currency listener
-               bindPreferenceSummaryToValue(findPreference(getString(R.string.key_sdk_transaction_currency)));
 
+            ListPreference currencyPreference = (ListPreference) findPreference(getString(R.string.key_sdk_transaction_currency));
+
+            if (currencyPreference != null) {
+                // Set Typeface for the selected currency in the summary
+                applyCustomFontToPreference(currencyPreference);
+
+                // Update the summary when a new value is selected
+                currencyPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                    applyCustomFontToPreference(currencyPreference);
+                    return true;
+                });
+            }
+
+            // transaction currency listener
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_sdk_transaction_currency)));
 //            // appearance header text color listener
 //               bindPreferenceSummaryToValue(findPreference(getString(R.string.appearance_header_preference_color_key)));
 //
@@ -91,6 +110,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 //            bindPreferenceSummaryToValue(findPreference(getString(R.string.appearance_tap_button_disabled_titled_color_key)));
 //            bindPreferenceSummaryToValue(findPreference(getString(R.string.appearance_tap_button_enabled_titled_color_key)));
         }
+        private void applyCustomFontToPreference(ListPreference preference) {
+            // Get selected currency
+            String selectedCurrency = preference.getValue();
+
+            // Load custom font
+            Typeface customFont = Typeface.createFromAsset(getResources().getAssets(), "fonts/sar-Regular.otf");
+
+            // Check if it's SAR currency
+            if (selectedCurrency.equalsIgnoreCase("SR") ||
+                    selectedCurrency.equalsIgnoreCase("SAR") ||
+                    selectedCurrency.equals("ر.س")) {
+
+                // Create a SpannableString with the custom font
+                SpannableString spannable = new SpannableString("R");
+                spannable.setSpan(new CustomTypefaceSpan("", customFont), 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                // Delay the update using a Handler
+                new android.os.Handler().postDelayed(() -> preference.setSummary(spannable), 1000);
+            } else {
+                // Default summary if not SAR
+                new android.os.Handler().postDelayed(() -> preference.setSummary(preference.getEntry()), 1000);
+            }
+        }
+
     }
 
     @Override
@@ -108,6 +151,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+
     }
 
     /**
@@ -164,4 +208,5 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         startActivity(new Intent(this,MainActivity.class));
         finish();
     }
+
 }

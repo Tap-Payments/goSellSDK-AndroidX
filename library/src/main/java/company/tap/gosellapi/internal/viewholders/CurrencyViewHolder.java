@@ -1,5 +1,6 @@
 package company.tap.gosellapi.internal.viewholders;
 
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,9 +73,27 @@ public class CurrencyViewHolder extends PaymentOptionsBaseViewHolder<CurrencyVie
                currencySecondaryText.setText("");
            }
            else {
-               String transactionCurrencyText =   transactionCurrency.getSymbol() + " " + transactionCurrency.getAmount();  //  Utils.getFormattedCurrency(transactionCurrency);
-               currencySecondaryText.setVisibility(View.VISIBLE);
+
+// Format currency text
+               String transactionCurrencyText = transactionCurrency.getSymbol() + " " + transactionCurrency.getAmount();
+
+// Check if the currency is SAR (Saudi Riyal)
+
+                    transactionCurrencyText = transactionCurrency.getSymbol() + " " + transactionCurrency.getAmount();  //  Utils.getFormattedCurrency(transactionCurrency);
+
+   currencySecondaryText.setVisibility(View.VISIBLE);
                currencySecondaryText.setText(transactionCurrencyText);
+           }
+           if (selectedCurrency.getSymbol().equalsIgnoreCase("SR") ||
+                   selectedCurrency.getSymbol().equalsIgnoreCase("SAR") ||
+                   selectedCurrency.getSymbol().equals("ر.س")) {
+               Typeface customFont = Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/sar-Regular.otf");
+
+               // Replace currency symbol with "R"
+               selectedCurrencyText = "R " + selectedCurrency.getAmount();
+
+               // Apply custom font
+               currencyMainText.setTypeface(customFont);
            }
            currencyMainText.setText(selectedCurrencyText);
        }
