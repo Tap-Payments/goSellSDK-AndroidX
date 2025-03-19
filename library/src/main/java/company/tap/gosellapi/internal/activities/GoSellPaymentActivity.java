@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.http.SslError;
@@ -382,10 +383,33 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
             payButton.getPayButton().setTextColor(ThemeObject.getInstance().getPayButtonDisabledTitleColor());
 
         if (ThemeObject.getInstance().getPayButtonText() != null){
-            payButton.getPayButton().setText(String
+            Typeface customFont = Typeface.createFromAsset(getResources().getAssets(), "fonts/sar-Regular.otf");
+
+            if (dataSource.getSelectedCurrency().getSymbol().equalsIgnoreCase("SR") ||
+                    dataSource.getSelectedCurrency().getSymbol().equalsIgnoreCase("SAR") ||
+                    dataSource.getSelectedCurrency().getSymbol().equals("ر.س")) {
+
+                // Set text using concatenation
+                String payText = getResources().getString(R.string.pay) + " R " + dataSource.getSelectedCurrency().getAmount();
+                payButton.getPayButton().setText(payText);
+
+                // Apply custom font
+                payButton.getPayButton().setTypeface(customFont);
+
+                // Force refresh
+                payButton.getPayButton().requestLayout();
+                payButton.getPayButton().invalidate();
+            } else {
+                // Default behavior
+                payButton.getPayButton().setText(String.format("%s %s %s",
+                        getResources().getString(R.string.pay),
+                        dataSource.getSelectedCurrency().getSymbol(),
+                        dataSource.getSelectedCurrency().getAmount()));
+            }
+            /*payButton.getPayButton().setText(String
                     .format("%s %s %s", getResources().getString(R.string.pay),
                             dataSource.getSelectedCurrency().getSymbol(),
-                            dataSource.getSelectedCurrency().getAmount()));
+                            dataSource.getSelectedCurrency().getAmount()));*/
 
         }else {
 
