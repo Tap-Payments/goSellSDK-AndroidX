@@ -16,6 +16,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -63,6 +66,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import company.tap.gosellapi.CustomTypefaceSpan;
 import company.tap.gosellapi.R;
 import company.tap.gosellapi.internal.api.callbacks.APIRequestCallback;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
@@ -389,12 +393,25 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
                     dataSource.getSelectedCurrency().getSymbol().equalsIgnoreCase("SAR") ||
                     dataSource.getSelectedCurrency().getSymbol().equals("ر.س")) {
 
-                // Set text using concatenation
-                String payText = getResources().getString(R.string.pay) + " R " + dataSource.getSelectedCurrency().getAmount();
+                // Get the full text
+                String amountText = " R " + dataSource.getSelectedCurrency().getAmount();
+                String fullText = getResources().getString(R.string.pay) + amountText;
+
+// Create a SpannableString from the full text
+                SpannableString payText = new SpannableString(fullText);
+
+// Apply the custom font only to the amount part
+                payText.setSpan(new CustomTypefaceSpan(customFont),
+                        getResources().getString(R.string.pay).length(),
+                        fullText.length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// Set the text to the pay button
                 payButton.getPayButton().setText(payText);
 
-                // Apply custom font
-                payButton.getPayButton().setTypeface(customFont);
+
+
+
 
                 // Force refresh
                 payButton.getPayButton().requestLayout();
@@ -672,12 +689,49 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         //Purchase mode if user chooses show or hide the amount on the button
         if( ThemeObject.getInstance().getPayButtonText() != null && ThemeObject.getInstance().getShowAmountOnButton()){
+            // Load the custom font from assets
+            Typeface customFont = Typeface.createFromAsset(getResources().getAssets(), "fonts/sar-Regular.otf");
 
-           payButton.getPayButton().setText(
-                   String.format("%s %s", ThemeObject.getInstance().getPayButtonText(),
-                           PaymentDataManager.getInstance()
-                                   .calculateTotalAmount(feesAmount)));
-       }else if( ThemeObject.getInstance().getPayButtonText() != null && !ThemeObject.getInstance().getShowAmountOnButton()){
+            String currencySymbol = dataSource.getSelectedCurrency().getSymbol();
+
+// Check if the currency symbol is one of the specified symbols
+            if (currencySymbol.equalsIgnoreCase("SR") ||
+                    currencySymbol.equalsIgnoreCase("SAR") ||
+                    currencySymbol.equals("ر.س")) {
+
+                // Use String.format for formatted text
+                String formattedText = String.format("%s %s",
+                        ThemeObject.getInstance().getPayButtonText(),
+                        PaymentDataManager.getInstance().calculateTotalAmount(feesAmount));
+
+                // Create a SpannableString from the formatted text
+                SpannableString payText = new SpannableString(formattedText);
+
+                // Apply the custom font only to the amount part (the formatted amount)
+                int payTextLength = ThemeObject.getInstance().getPayButtonText().length();
+                payText.setSpan(new CustomTypefaceSpan(customFont),
+                        payTextLength,
+                        formattedText.length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                // Set the text to the pay button
+                payButton.getPayButton().setText(payText);
+
+                // Force refresh of the button's layout
+                payButton.getPayButton().requestLayout();
+                payButton.getPayButton().invalidate();
+
+            } else {
+                // For other currency symbols, use String.format for the text
+                String formattedText = String.format("%s %s",
+                        ThemeObject.getInstance().getPayButtonText(),
+                        PaymentDataManager.getInstance().calculateTotalAmount(feesAmount));
+
+                // Set the formatted text to the pay button without custom font
+                payButton.getPayButton().setText(formattedText);
+            }
+
+        }else if( ThemeObject.getInstance().getPayButtonText() != null && !ThemeObject.getInstance().getShowAmountOnButton()){
 
             payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
         }
