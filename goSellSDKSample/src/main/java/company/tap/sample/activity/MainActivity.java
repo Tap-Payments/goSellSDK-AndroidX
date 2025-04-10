@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import company.tap.gosellapi.CustomTypefaceSpan;
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.enums.CardScheme;
@@ -150,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
     private void configureApp() {
-     GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+   //  GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+               GoSellSDK.init(this, "sk_live_QglH8V7Fw6NPAom4qRcynDK2","company.tap.goSellSDKExample");
        GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
 
-                .setPayButtonText("PAY") // **Optional**
+                .setPayButtonText("Custom Pay Text") // **Optional**
                 .setShowAmountOnButton(true) // **Optional**
 
 
@@ -352,7 +356,42 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 if (TransactionMode.SAVE_CARD == trx_mode ) {
                     payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.save_card));
                 } else if (TransactionMode.TOKENIZE_CARD == trx_mode ) {
-                    payButtonView.getPayButton().setText("Tokenize Test");
+                   String buttonText = "Custom Pay Text";
+
+                    String[] currencyMarkers = {"SAR", "SR", "ر.س","sar"};
+                    String replacedText = buttonText;
+                    int startIndex = -1;
+
+                    for (String currency : currencyMarkers) {
+                        if (buttonText.contains(currency)) {
+                            replacedText = buttonText.replace(currency, "R");
+                            startIndex = replacedText.indexOf("R");
+                            break;
+                        }else{
+                            payButtonView.getPayButton().setText(buttonText);
+                        }
+                    }
+
+                    if (startIndex != -1) {
+                        Typeface customFont = Typeface.createFromAsset(getResources().getAssets(), "fonts/sar-Regular.otf");
+
+                        SpannableString styledText = new SpannableString(replacedText);
+                        styledText.setSpan(
+                                new CustomTypefaceSpan(customFont),
+                                startIndex,
+                                startIndex + 1,
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                        );
+
+                        if (styledText != null && styledText.length() > 0) {
+                            payButtonView.getPayButton().setText(styledText);
+                        } else {
+                            payButtonView.getPayButton().setText(buttonText);
+                        }
+
+
+
+                    }
 
                 } else {
                     payButtonView.getPayButton().setText(getString(company.tap.gosellapi.R.string.pay));
@@ -708,7 +747,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
         PhoneNumber phoneNumber = customer != null ? customer.getPhone() : new PhoneNumber("965", "69045932");
 
-        return new Customer.CustomerBuilder("cus_TS04A1220231224Hi4y2611346").email("abc@abc.com").firstName("firstname")
+        return new Customer.CustomerBuilder("").email("abc@abc.com").firstName("firstname")
                 .lastName("lastname").metadata("").phone(new PhoneNumber(phoneNumber.getCountryCode(), phoneNumber.getNumber()))
                 .middleName("middlename").build();
 
