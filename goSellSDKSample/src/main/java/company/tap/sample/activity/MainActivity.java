@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
     private void configureApp() {
-     GoSellSDK.init(this, "sk_XXXX", "XXXXXe");  // to be replaced by merchant
+     GoSellSDK.init(this, "sk_XXXX", "XXXXXXX");  // to be replaced by merchant
        GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
