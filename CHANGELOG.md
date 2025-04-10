@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.27] - 2024-04-10
+### Enhancement Feature:
+- Updating the SAR symbol
+### Impact on existing integrations:
+- May need to update gradles to support latest apis.
 
 ## [3.19.24] - 2024-12-02
 ### Hot Fix:
