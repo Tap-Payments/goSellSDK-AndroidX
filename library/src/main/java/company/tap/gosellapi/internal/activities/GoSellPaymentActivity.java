@@ -484,7 +484,41 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         if (isTransactionModeTokenizeCard()){
             if (ThemeObject.getInstance().getPayButtonText() != null) {
-                payButton.getPayButton().setText(ThemeObject.getInstance().getPayButtonText());
+                Typeface customFont = Typeface.createFromAsset(getResources().getAssets(), "fonts/sar-Regular.otf");
+
+// Get original text from ThemeObject
+                String originalPayText = ThemeObject.getInstance().getPayButtonText();
+
+// Define patterns to search
+                String[] currencies = {"SAR", "SR", "ر.س","sar"};
+
+                for (String currency : currencies) {
+                    if (originalPayText.contains(currency)) {
+                        // Replace the currency with a placeholder (R)
+                        String replacedText = originalPayText.replace(currency, "R");
+
+                        // Create a SpannableString with replaced text
+                        SpannableString styledText = new SpannableString(replacedText);
+
+                        // Get start and end of "R" after replacement
+                        int startIndex = replacedText.indexOf("R");
+                        int endIndex = startIndex + 1;
+
+                        // Apply custom font span only to "R"
+                        styledText.setSpan(new CustomTypefaceSpan(customFont), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        // Set styled text to button
+                        payButton.getPayButton().setText(styledText);
+
+                        // Optional refresh
+                        payButton.getPayButton().requestLayout();
+                        payButton.getPayButton().invalidate();
+                        break; // Done, no need to check other patterns
+                    }else{
+                        // Set original text to button
+                        payButton.getPayButton().setText(originalPayText);
+                    }
+                }
 
             }else payButton.getPayButton().setText(getResources().getString(R.string.tokenize));
         }
