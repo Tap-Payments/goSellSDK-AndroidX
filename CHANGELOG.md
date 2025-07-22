@@ -1,4 +1,14 @@
 # CHANGELOG
+## [3.19.28] - 2025-07-23
+### Enhancement Feature:
+- Updating to support latest android api 35
+### Impact on existing integrations:
+- May need to update gradles to support latest apis support sdk 35
+- compileSdkVersion 35
+- targetSdkVersion 35
+- Project build.gradle classpath 'com.android.tools.build:gradle:8.4.0'
+- Gradle wrapper.properties distributionUrl=https\://services.gradle.org/distributions/gradle-8.6-bin.zip
+
 ## [3.19.27] - 2024-04-10
 ### Enhancement Feature:
 - Updating the SAR symbol
