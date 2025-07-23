@@ -106,6 +106,10 @@ afterEvaluate {
                 artifactId = 'gosellapi'
                 version = android.defaultConfig.versionName ?: "1.0.0"
 
+                // Attach compiled .aar
+                artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+
+                // Optionally attach sources
                 artifact sourcesJar
             }
         }
