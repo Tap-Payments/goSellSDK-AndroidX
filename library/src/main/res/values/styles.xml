@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="GoSellSDKAppTheme" parent="Theme.MaterialComponents.DayNight.Bridge">
+    <style name="GoSellSDKAppTheme" parent="Theme.MaterialComponents.DayNight">
         <item name="actionBarStyle">@style/GoSellSDKActionBar</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@color/french_gray</item>
     </style>
