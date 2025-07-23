@@ -1,4 +1,8 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
 
 group = 'com.github.Tap-Payments'
 def getVersionName = { ->
@@ -91,3 +95,20 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives sourcesJar
 }
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // This must be inside afterEvaluate
+                from components.findByName("release")
+
+                groupId = 'com.github.Tap-Payments'
+                artifactId = 'gosellapi'
+                version = android.defaultConfig.versionName ?: "1.0.0"
+
+                artifact sourcesJar
+            }
+        }
+    }
+}
+
