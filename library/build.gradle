@@ -104,7 +104,7 @@ afterEvaluate {
 
                 groupId = 'com.github.Tap-Payments'
                 artifactId = 'gosellapi'
-                version = android.defaultConfig.versionName ?: "1.0.0"
+                version = android.defaultConfig.versionName ?: "3.19.31"
 
                 // Declare dependency on AAR task
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar") {
