@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -848,6 +849,16 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
     public void cancelSession(View view) {
         sdkSession.cancelSession(this);
+    }
+
+    @Override
+    public void addMenuProvider(@org.jspecify.annotations.NonNull MenuProvider provider, androidx.lifecycle.@org.jspecify.annotations.NonNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void addMenuProvider(@org.jspecify.annotations.NonNull MenuProvider provider, androidx.lifecycle.@org.jspecify.annotations.NonNull LifecycleOwner owner, androidx.lifecycle.Lifecycle.@org.jspecify.annotations.NonNull State state) {
+
     }
 
 
