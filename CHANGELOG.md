@@ -9,15 +9,14 @@
 - Project build.gradle  classpath 'com.android.tools.build:gradle:8.6.0'
 - Gradle wrapper.properties distributionUrl=https\://services.gradle.org/distributions/gradle-8.10.2-bin.zip
 - May need to add proguard rules# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
+ You can control the set of applied configuration files using the
+ proguardFiles setting in build.gradle.
+ For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
+If your project uses WebView with JS, uncomment the following
+ and specify the fully qualified class name to the JavaScript interface
+ class:
+```
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
@@ -103,8 +102,9 @@ public <init>(android.content.Context, android.util.AttributeSet, int);
 # Gson TypeToken
 -keep class com.google.gson.reflect.TypeToken { *; }
 -keep class * extends com.google.gson.reflect.TypeToken
-
--Might be need to add additional libs (If use face issues for class not found etc then add below)
+```
+- Might be need to add additional libs (If use face issues for class not found etc then add below)
+```
 implementation 'com.google.android.material:material:1.14.0-alpha03'
 implementation 'com.github.Tap-Payments:TapGLKit-Android:1.19.1'
 implementation 'com.github.Tap-Payments:TapCardValidator-Android:2.16.2.1'
@@ -119,7 +119,7 @@ implementation 'com.google.android.gms:play-services-wallet:19.4.0'
 implementation 'jp.wasabeef:blurry:4.0.1'
 implementation 'io.card:android-sdk:5.5.1'
 
-
+```
 
 ## [3.19.28] - 2025-07-23
 ### Enhancement Feature:
