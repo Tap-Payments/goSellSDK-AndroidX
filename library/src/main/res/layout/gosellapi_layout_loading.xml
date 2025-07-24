@@ -16,6 +16,6 @@ android:focusable="true">
     android:layout_width="64dp"
     android:layout_height="64dp"
     android:layout_centerInParent="true"
-    />
+   />
 
 </RelativeLayout>
