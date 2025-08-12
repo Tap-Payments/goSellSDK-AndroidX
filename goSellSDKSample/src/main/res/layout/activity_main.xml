@@ -7,6 +7,7 @@
     android:background="@color/white"
     tools:context=".activity.MainActivity"
     android:id="@+id/samplelayout"
+    android:fitsSystemWindows="true"
     >
 
     <include layout="@layout/activity_toolbar"/>
@@ -35,7 +36,7 @@
     <company.tap.gosellapi.open.buttons.PayButtonView
         android:id="@+id/payButtonId"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
 

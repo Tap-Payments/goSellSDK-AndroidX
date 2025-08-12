@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import company.tap.gosellapi.BuildConfig;
+
 import company.tap.gosellapi.GoSellSDK;
 import company.tap.gosellapi.internal.logger.lo;
 

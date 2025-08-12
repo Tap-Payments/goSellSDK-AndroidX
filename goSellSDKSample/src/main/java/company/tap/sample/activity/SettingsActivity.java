@@ -38,7 +38,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 
     private void setupActionBar() {
-            ViewGroup rootView = (ViewGroup)findViewById(R.id.action_bar_root); //id from appcompat
+            ViewGroup rootView = (ViewGroup)findViewById(androidx.appcompat.R.id.action_bar_root); //id from appcompat
 
         if (rootView != null) {
             View view = getLayoutInflater().inflate(R.layout.settings_toolbar, rootView, false);

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height= "@dimen/toolbar_height_basic"
     android:background="@color/french_gray_new"
+    android:fitsSystemWindows="true"
 
     >
 

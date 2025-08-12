@@ -4,6 +4,7 @@
     android:id="@+id/tilNumberInput"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
     android:background="@drawable/layout_main_section_background_shape"
     app:hintTextAppearance="@style/TextInputLayout.Hint">
 
