@@ -11,6 +11,7 @@
     android:paddingRight="@dimen/margin_basic_16dp"
     android:paddingStart="@dimen/margin_basic_23dp"
     android:paddingLeft="@dimen/margin_basic_23dp"
+    android:fitsSystemWindows="true"
     android:paddingTop="@dimen/margin_basic_15dp">
 
     <TextView

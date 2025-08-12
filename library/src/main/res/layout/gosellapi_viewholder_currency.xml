@@ -4,6 +4,7 @@
               android:layout_height="wrap_content"
               android:background="@drawable/selector_payment_options_viewholder"
               android:orientation="horizontal"
+    android:fitsSystemWindows="true"
     >
 
 

@@ -9,6 +9,7 @@
     android:paddingStart="@dimen/margin_basic_25dp"
     android:paddingEnd="@dimen/margin_basic_25dp"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     app:hintTextAppearance="@style/TextInputLayout.Hint">
 
     <EditText

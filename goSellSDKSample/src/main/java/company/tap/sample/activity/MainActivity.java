@@ -70,6 +70,7 @@ import company.tap.gosellapi.open.models.TapCurrency;
 import company.tap.gosellapi.open.models.TopUp;
 import company.tap.gosellapi.open.models.TopUpApplication;
 import company.tap.gosellapi.open.models.TopupPost;
+
 import company.tap.sample.R;
 import company.tap.sample.managers.SettingsManager;
 import company.tap.sample.viewmodels.CustomerViewModel;
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
     private void configureApp() {
-     GoSellSDK.init(this, "sk_XXXX", "XXXXXXX");  // to be replaced by merchant
+    // GoSellSDK.init(this, "sk_XXXX", "XXXXXXX");  // to be replaced by merchant
+        GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
        GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
@@ -168,31 +170,31 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
                 .setSdkLanguage("en")
 
 
-                .setHeaderTextColor(getResources().getColor(R.color.black1))
+                .setHeaderTextColor(getResources().getColor(company.tap.gosellapi.R.color.black1))
                 .setHeaderFont(Typeface.SANS_SERIF)
                 .setHeaderTextSize(17)
-                .setHeaderBackgroundColor(getResources().getColor(R.color.french_gray_new))
+                .setHeaderBackgroundColor(getResources().getColor(company.tap.gosellapi.R.color.french_gray_new))
 
 
-                .setCardInputTextColor(getResources().getColor(R.color.black))
-                .setCardInputInvalidTextColor(getResources().getColor(R.color.red))
-                .setCardInputPlaceholderTextColor(getResources().getColor(R.color.gray))
+                .setCardInputTextColor(getResources().getColor(company.tap.gosellapi.R.color.black))
+                .setCardInputInvalidTextColor(getResources().getColor(company.tap.gosellapi.R.color.red))
+                .setCardInputPlaceholderTextColor(getResources().getColor(company.tap.gosellapi.R.color.gray))
                 .setCardInputFont(Typeface.SANS_SERIF)
 
 
-                .setSaveCardSwitchOffThumbTint(getResources().getColor(R.color.french_gray_new))
-                .setSaveCardSwitchOnThumbTint(getResources().getColor(R.color.vibrant_green))
-                .setSaveCardSwitchOffTrackTint(getResources().getColor(R.color.french_gray))
-                .setSaveCardSwitchOnTrackTint(getResources().getColor(R.color.vibrant_green_pressed))
+                .setSaveCardSwitchOffThumbTint(getResources().getColor(company.tap.gosellapi.R.color.french_gray_new))
+                .setSaveCardSwitchOnThumbTint(getResources().getColor(company.tap.gosellapi.R.color.vibrant_green))
+                .setSaveCardSwitchOffTrackTint(getResources().getColor(company.tap.gosellapi.R.color.french_gray))
+                .setSaveCardSwitchOnTrackTint(getResources().getColor(company.tap.gosellapi.R.color.vibrant_green_pressed))
 
-                .setScanIconDrawable(getResources().getDrawable(R.drawable.btn_card_scanner_normal))
+                .setScanIconDrawable(getResources().getDrawable(company.tap.gosellapi.R.drawable.btn_card_scanner_normal))
                 .setCardScannerIconVisible(true) // **Optional**
 
-                .setPayButtonResourceId(R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
+                .setPayButtonResourceId(company.tap.gosellapi.R.drawable.btn_pay_selector)  //btn_pay_merchant_selector
                 .setPayButtonFont(Typeface.SANS_SERIF)
 
-                .setPayButtonDisabledTitleColor(getResources().getColor(R.color.white))
-                .setPayButtonEnabledTitleColor(getResources().getColor(R.color.white))
+                .setPayButtonDisabledTitleColor(getResources().getColor(company.tap.gosellapi.R.color.white))
+                .setPayButtonEnabledTitleColor(getResources().getColor(company.tap.gosellapi.R.color.white))
                 .setPayButtonTextSize(14)
                 .setPayButtonLoaderVisible(true)
                 .setPayButtonSecurityIconVisible(true)
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
                 // setup dialog textcolor and textsize
-                .setDialogTextColor(getResources().getColor(R.color.black1))     // **Optional**
+                .setDialogTextColor(getResources().getColor(company.tap.gosellapi.R.color.black1))     // **Optional**
                 .setDialogTextSize(17)                // **Optional**
 
         ;
@@ -778,7 +780,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
                 popupWindow.showAtLocation(layout, Gravity.TOP, 0, 50);
-                popupWindow.getContentView().startAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_show));
+                popupWindow.getContentView().startAnimation(AnimationUtils.loadAnimation(this, company.tap.gosellapi.R.anim.popup_show));
 
                 setupTimer(popupWindow);
             }

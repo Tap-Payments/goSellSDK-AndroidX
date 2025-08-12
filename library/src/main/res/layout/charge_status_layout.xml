@@ -6,6 +6,7 @@
     android:background="@color/white"
     android:layout_height="60dp"
     android:padding="10dp"
+    android:fitsSystemWindows="true"
     >
 
 

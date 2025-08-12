@@ -6,6 +6,7 @@
     android:layout_height="50sp"
     android:background="@drawable/googlepay_button_no_shadow_background"
     android:paddingTop="2sp"
+    android:fitsSystemWindows="true"
     android:contentDescription="@string/googlepay_button_content_description">
     <LinearLayout
         android:duplicateParentState="true"

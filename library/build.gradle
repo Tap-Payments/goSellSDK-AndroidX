@@ -15,10 +15,11 @@ def getVersionName = { ->
     }
 }
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
+    namespace "company.tap.gosellapi"
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 2
         versionName getVersionName()
         consumerProguardFiles 'proguard-rules.pro'
@@ -38,7 +39,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
 
 }
 
@@ -81,10 +84,9 @@ dependencies {
 }
 
 task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
     from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
 }
-
 artifacts {
     archives sourcesJar
 }

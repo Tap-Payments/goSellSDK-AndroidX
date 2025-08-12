@@ -4,6 +4,7 @@
     android:id="@+id/paymentSystemsViewHolderLayout"
     android:layout_width="match_parent"
     android:layout_height="48dp"
+    android:fitsSystemWindows="true"
     android:background="@drawable/selector_payment_options_viewholder">
 
     <ImageView

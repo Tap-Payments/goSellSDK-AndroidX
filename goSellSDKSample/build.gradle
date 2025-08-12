@@ -16,12 +16,13 @@ repositories {
 
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "company.tap.sample"
+        namespace "company.tap.sample"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 2
         versionName "2.0"
 

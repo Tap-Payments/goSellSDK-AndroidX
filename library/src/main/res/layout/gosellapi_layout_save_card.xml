@@ -5,6 +5,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/margin_basic_19dp"
+    android:fitsSystemWindows="true"
                 android:paddingBottom="@dimen/margin_basic_19dp"
                 android:layout_marginStart="@dimen/margin_basic_4dp"
                 android:orientation="horizontal"
