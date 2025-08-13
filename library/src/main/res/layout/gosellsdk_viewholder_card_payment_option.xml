@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:textDirection="locale"
-
+    android:fitsSystemWindows="true"
     tools:targetApi="jelly_bean_mr1">
 
   <!-- TOP SEPARATOR -->

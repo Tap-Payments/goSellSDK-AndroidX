@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#C0000000"
+    android:fitsSystemWindows="true"
     >
 
     <ScrollView
