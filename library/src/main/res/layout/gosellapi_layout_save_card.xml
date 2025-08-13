@@ -8,6 +8,7 @@
                 android:paddingBottom="@dimen/margin_basic_19dp"
                 android:layout_marginStart="@dimen/margin_basic_4dp"
                 android:orientation="horizontal"
+    android:fitsSystemWindows="true"
                 android:layout_marginLeft="@dimen/margin_basic_4dp"
     >
 

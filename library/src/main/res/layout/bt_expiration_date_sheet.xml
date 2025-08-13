@@ -8,6 +8,7 @@
     android:orientation="horizontal"
     android:layout_gravity="bottom|center"
     android:weightSum="10"
+    android:fitsSystemWindows="true"
     android:background="?attr/bt_expiration_date_sheet_background"
     android:layoutDirection="ltr">
 

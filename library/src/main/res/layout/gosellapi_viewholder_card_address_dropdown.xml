@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_basic_29dp"
     android:layout_marginTop="@dimen/margin_basic_29dp"
+    android:fitsSystemWindows="true"
     android:background="@drawable/layout_main_section_background_shape"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_basic_15dp"
