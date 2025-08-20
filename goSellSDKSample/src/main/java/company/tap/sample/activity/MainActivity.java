@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp() {
     // GoSellSDK.init(this, "sk_XXXX", "XXXXXXX");  // to be replaced by merchant
-        GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample");  // to be replaced by merchant
+        GoSellSDK.init(this, "sk_live_QglH8V7Fw6NPAom4qRcynDK2","company.tap.goSellSDKExample");  // to be replaced by merchant
        GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
