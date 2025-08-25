@@ -851,15 +851,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         sdkSession.cancelSession(this);
     }
 
-    @Override
-    public void addMenuProvider(@org.jspecify.annotations.NonNull MenuProvider provider, androidx.lifecycle.@org.jspecify.annotations.NonNull LifecycleOwner owner) {
 
-    }
-
-    @Override
-    public void addMenuProvider(@org.jspecify.annotations.NonNull MenuProvider provider, androidx.lifecycle.@org.jspecify.annotations.NonNull LifecycleOwner owner, androidx.lifecycle.Lifecycle.@org.jspecify.annotations.NonNull State state) {
-
-    }
 
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
