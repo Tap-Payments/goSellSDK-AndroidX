@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 
 import java.util.Locale;
 
@@ -37,7 +39,7 @@ public class GoSellSDK {
      * @param localeString the locale string
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setLocale(String localeString) {
+   /* public static void setLocale(String localeString) {
         AppInfo.setLocale(localeString);
         Locale locale = new Locale(localeString);
         getLocaleLang = localeString;
@@ -45,6 +47,16 @@ public class GoSellSDK {
         Configuration config = new Configuration();
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+    }*/
+    public static void setLocale(String localeString) {
+        AppInfo.setLocale(localeString);
+        getLocaleLang = localeString;
+
+        // Create a LocaleList with the desired locale
+        LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(localeString);
+
+        // Apply it to the whole app
+        AppCompatDelegate.setApplicationLocales(appLocale);
     }
 
     public static String getLocaleString(){
