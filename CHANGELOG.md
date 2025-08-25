@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.36] - 2025-08-25
+### Enhancement Feature:
+- Fix to handle locale cases
+### Impact on existing integrations:
+- Please follow notes from previous release for updating to 35
 ## [3.19.36] - 2025-08-20
 ### Enhancement Feature:
 - Fix to handle dark ui cases
