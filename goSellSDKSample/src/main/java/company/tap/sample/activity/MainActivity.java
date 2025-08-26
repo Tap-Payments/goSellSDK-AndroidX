@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp() {
         GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
-       GoSellSDK.setLocale("en");//  language to be set by merchant
+       GoSellSDK.setLocale(this,"ar");//  language to be set by merchant
 
     }
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("modee>>>"+settingsManager.getAppearanceMode("key_sdk_appearance_mode"));
         ThemeObject.getInstance()
                 .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
-                .setSdkLanguage("en")
+                .setSdkLanguage("ar")
 
 
                 .setHeaderTextColor(getResources().getColor(company.tap.gosellapi.R.color.black1))
