@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     private void configureApp() {
         GoSellSDK.init(this, "YOUR_SANDBOX_SECRET_KEY", "company.tap.goSellSDKExample");  // to be replaced by merchant
-       GoSellSDK.setLocale(this,"ar");//  language to be set by merchant
+      // GoSellSDK.setLocale(this,"ar");//  language to be set by merchant
 
     }
 
