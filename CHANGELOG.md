@@ -1,5 +1,5 @@
 # CHANGELOG
-## [3.19.38] - 2025-09-18
+## [3.19.38.1] - 2025-09-18
 ### Enhancement Feature:
 - Update to handle 16KB android
 ### Impact on existing integrations:
