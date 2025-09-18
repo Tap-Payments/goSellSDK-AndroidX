@@ -43,7 +43,7 @@ import company.tap.gosellapi.internal.utils.Utils;
 import company.tap.gosellapi.internal.viewholders.GroupViewHolder;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.TransactionMode;
-import io.card.payment.CreditCard;
+
 
 /**
  * The type Payment options data manager.
@@ -621,42 +621,7 @@ public class PaymentOptionsDataManager {
      *
      * @param card the card
      */
-    public void cardScanned(CreditCard card) {
 
-        CardCredentialsViewModel cardCredentialsViewModel = getModelsHandler().findCardPaymentModel();
-        if (cardCredentialsViewModel == null) return;
-
-        String cardNumber = card.cardNumber;
-        if (cardNumber != null && !cardNumber.isEmpty()) {
-
-            cardCredentialsViewModel.setCardNumber(cardNumber);
-        }
-
-        int expirationMonth = card.expiryMonth;
-        int expirationYear = card.expiryYear;
-        if (expirationMonth != 0 && expirationYear != 0) {
-
-            cardCredentialsViewModel.setExpirationYear(String.valueOf(expirationYear));
-            cardCredentialsViewModel.setExpirationMonth(String.valueOf(expirationMonth));
-        }
-
-        String cvv = card.cvv;
-        if (cvv != null && !cvv.isEmpty()) {
-
-            cardCredentialsViewModel.setCVVnumber(cvv);
-        }
-
-        String cardholderName = card.cardholderName;
-
-        if (cardholderName != null && !cardholderName.isEmpty()) {
-            cardCredentialsViewModel.setNameOnCard(card.cardholderName);
-        } else if(PaymentDataSource.getInstance().getDefaultCardHolderName()!=null){
-            if (!PaymentDataSource.getInstance().getDefaultCardHolderName().isEmpty())
-            cardCredentialsViewModel.setNameOnCard(PaymentDataSource.getInstance().getDefaultCardHolderName());
-        }
-
-        cardCredentialsViewModel.updateData();
-    }
 
 
     /**

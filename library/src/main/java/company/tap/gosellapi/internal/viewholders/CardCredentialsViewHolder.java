@@ -346,8 +346,9 @@ public class CardCredentialsViewHolder
 
         cardScannerButton = itemView.findViewById(R.id.cardScannerButton);
 
-        if(ThemeObject.getInstance().isSetCardScannerIconVisible()) cardScannerButton.setVisibility(View.VISIBLE);
-        else cardScannerButton.setVisibility(View.GONE);
+     //   if(ThemeObject.getInstance().isSetCardScannerIconVisible()) cardScannerButton.setVisibility(View.VISIBLE);
+   //     else cardScannerButton.setVisibility(View.GONE);
+         cardScannerButton.setVisibility(View.GONE);
 
 
 
