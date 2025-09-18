@@ -48,16 +48,35 @@ public class GoSellSDK {
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }*/
-    public static void setLocale(String localeString) {
+    public static void setLocale(Context context, String localeString) {
         AppInfo.setLocale(localeString);
         getLocaleLang = localeString;
 
-        // Create a LocaleList with the desired locale
-        LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(localeString);
+        Locale locale = new Locale(localeString);
+        Locale.setDefault(locale);
 
-        // Apply it to the whole app
-        AppCompatDelegate.setApplicationLocales(appLocale);
+        // ✅ Try AppCompatDelegate.setApplicationLocales (AppCompat 1.6.0+)
+        try {
+            LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(localeString);
+            AppCompatDelegate.setApplicationLocales(appLocale);
+            return; // success, no need to fallback
+        } catch (NoSuchMethodError | NoClassDefFoundError e) {
+            // ❌ Not available on older AppCompat
+        }
+
+        // ✅ Fallback for API 24+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Configuration config = new Configuration(context.getResources().getConfiguration());
+            config.setLocale(locale);
+            context.createConfigurationContext(config);
+        } else {
+            // ✅ Legacy fallback for pre-N (shouldn’t hit since you want API ≥ 24)
+            Configuration config = new Configuration();
+            config.locale = locale;
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        }
     }
+
 
     public static String getLocaleString(){
         if(getLocaleLang==null)return Locale.getDefault().getLanguage();
