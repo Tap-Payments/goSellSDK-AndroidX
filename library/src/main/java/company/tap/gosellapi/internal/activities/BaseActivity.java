@@ -1,6 +1,9 @@
 package company.tap.gosellapi.internal.activities;
 
+
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -8,11 +11,18 @@ import android.os.PersistableBundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
+import company.tap.gosellapi.GoSellSDK;
+import company.tap.gosellapi.internal.api.api_service.AppInfo;
+import company.tap.gosellapi.open.controllers.ThemeObject;
+
 /**
  * The type Base activity.
  */
 public class BaseActivity extends AppCompatActivity {
-
+    private static String getLocaleLang;
+    private  Context _context;
     /**
      * Gets current.
      *
@@ -35,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState, persistentState);
 
 
+        _context=  this;
         /**
          * Google throws this exception on Activity's onCreate method after v27, their meaning is :
          * if an Activity is translucent or floating, its orientation should be relied on parent(background) Activity,
@@ -65,6 +76,39 @@ public class BaseActivity extends AppCompatActivity {
 
         BaseActivity.setCurrent(this);
     }
+  /*  @Override
+    protected void attachBaseContext(Context context) {
+        context =_context;
+        System.out.println("getSdkLanguage"+ThemeObject.getInstance().getSdkLanguage());
+        System.out.println("context"+context);
+        AppInfo.setLocale(ThemeObject.getInstance().getSdkLanguage());
+        Locale locale = new Locale(ThemeObject.getInstance().getSdkLanguage());
+        getLocaleLang =ThemeObject.getInstance().getSdkLanguage();
+        Locale.setDefault(Locale.forLanguageTag(ThemeObject.getInstance().getSdkLanguage()));
+        Configuration config = new Configuration();
+        config.locale = locale;
+        _context.getResources().updateConfiguration(config, _context.getResources().getDisplayMetrics());
+
+
+    }*/
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        String lang = ThemeObject.getInstance().getSdkLanguage(); // your SDK language
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        getLocaleLang = ThemeObject.getInstance().getSdkLanguage();
+        Configuration config = new Configuration();
+        config.locale = locale;
+        config.setLocale(locale);
+        config.setLayoutDirection(locale);
+
+        newBase.getResources().updateConfiguration(config, newBase.getResources().getDisplayMetrics());
+        System.out.println("getSdkLanguage: " + lang);
+      //  System.out.println("localizedContext: " + localizedContext);
+        AppInfo.setLocale(ThemeObject.getInstance().getSdkLanguage());
+        super.attachBaseContext(newBase);
+    }
+
 
     @Override
     protected void onPause() {

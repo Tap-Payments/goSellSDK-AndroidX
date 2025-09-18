@@ -22,7 +22,7 @@ public class SampleApp extends Application {
         super.onCreate();
 
         GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");                 // to be replaced by merchant
-        GoSellSDK.setLocale("en");
+       // GoSellSDK.setLocale(this,"en");
 
     }
 
