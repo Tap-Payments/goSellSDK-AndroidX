@@ -350,10 +350,10 @@ public class ThemeObject {
          * pay button view or hide scanner
          * @param cardScannerIconVisible
          */
-        public ThemeObject setCardScannerIconVisible(boolean cardScannerIconVisible) {
+      /*  public ThemeObject setCardScannerIconVisible(boolean cardScannerIconVisible) {
                 this.cardScannerIconVisible = cardScannerIconVisible;
                 return this;
-        }
+        }*/
         /**
          *
          * @param payButtLoaderVisible

@@ -68,7 +68,7 @@ dependencies {
 
 
     implementation 'jp.wasabeef:blurry:4.0.1'
-    implementation 'io.card:android-sdk:5.5.1'
+
 
    // implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 

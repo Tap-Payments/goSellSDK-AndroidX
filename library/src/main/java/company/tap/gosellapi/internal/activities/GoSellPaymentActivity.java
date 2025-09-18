@@ -108,8 +108,6 @@ import company.tap.gosellapi.open.controllers.ThemeObject;
 import company.tap.gosellapi.open.data_manager.PaymentDataSource;
 import company.tap.gosellapi.open.enums.AppearanceMode;
 import company.tap.gosellapi.open.enums.TransactionMode;
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
 
 /**
  * The type Go sell payment activity.
@@ -599,17 +597,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
     @Override
     public void startScanCard() {
-        Intent scanCard = new Intent(this, CardIOActivity.class);
-        scanCard.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
-        scanCard.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, true); // default: false
-        scanCard.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
-        scanCard.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true);
-        scanCard.putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, true);
-        scanCard.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
-        scanCard.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
-        scanCard.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true);
 
-        startActivityForResult(scanCard, SCAN_REQUEST_CODE);
     }
 
     private void startSavedCardPaymentProcess() {
@@ -968,10 +956,6 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
         switch (requestCode) {
             case SCAN_REQUEST_CODE:
-                if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-                    CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-                    dataSource.cardScanned(scanResult);
-                }
                 break;
 
             case CURRENCIES_REQUEST_CODE:
