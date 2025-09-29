@@ -623,7 +623,10 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
     @Override
     public void sessionHasStarted() {
+
         System.out.println(" Session Has Started .......");
+
+
     }
 
 
