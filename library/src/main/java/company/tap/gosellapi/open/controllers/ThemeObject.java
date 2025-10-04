@@ -13,7 +13,7 @@ import company.tap.gosellapi.open.enums.AppearanceMode;
 public class ThemeObject {
 
 
-        private String sdkLanguage="ar";
+        private String sdkLanguage="en";
 
         /**
          * Appearance Mode
