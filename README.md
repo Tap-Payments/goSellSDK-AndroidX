@@ -107,7 +107,7 @@ To integrate goSellSDK into your project add it in your **root** `build.gradle` 
 Step 2. Add the dependency
 ```java
 	dependencies {
-	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.40'
+	        implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.19.42'
 	}
 ```
 
@@ -276,7 +276,7 @@ If you wish to localize the sdk following languages are available **English, Ara
          */
         private void configureApp(){
             GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample");  // to be replaced by merchant, you can contact tap support team to get you credentials
-            GoSellSDK.setLocale("ar");//  if you dont pass locale then default locale EN will be used
+        
         }
 ```
 *Kotlin:*
@@ -287,7 +287,7 @@ If you wish to localize the sdk following languages are available **English, Ara
          */
         private fun configureApp(){
             GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample")  // to be replaced by merchant, you can contact tap support team to get you credentials
-            GoSellSDK.setLocale("ar")//  if you dont pass locale then default locale EN will be used
+           
         }
 ```
 1. **`authToken`** - to authorize your requests.// Secret key (format: "sk_XXXXXXXXXXXXXXXXXXXXXXXX")

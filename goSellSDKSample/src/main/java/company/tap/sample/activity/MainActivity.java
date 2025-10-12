@@ -154,8 +154,9 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      * Configure SDK with your Secret API key and App Bundle name registered with tap company.
      */
     private void configureApp() {
-        GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
-      // GoSellSDK.setLocale(this,"ar");//  language to be set by merchant
+      //  GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y", "company.tap.goSellSDKExample");  // to be replaced by merchant
+        GoSellSDK.init(this, "sk_live_8Bo2kTt46lSEMx3dUpncKui0", "com.si.fitplayapp");  // to be replaced by merchant
+      // GoSellSDK.setLocale(this,"en");//  language to be set by merchant
 
     }
 
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         System.out.println("modee>>>"+settingsManager.getAppearanceMode("key_sdk_appearance_mode"));
         ThemeObject.getInstance()
                 .setAppearanceMode(AppearanceMode.WINDOWED_MODE)
-                .setSdkLanguage("ar")
+                .setSdkLanguage("en")
 
 
                 .setHeaderTextColor(getResources().getColor(company.tap.gosellapi.R.color.black1))
@@ -287,8 +288,13 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
 
 
        ArrayList<String> supportedPayMethods = new ArrayList<>();
-       // supportedPayMethods.add("VISA");
-        supportedPayMethods.add("");
+       supportedPayMethods.add("VISA");
+        supportedPayMethods.add("MASTERCARD");
+        supportedPayMethods.add("KNET");
+        supportedPayMethods.add("GOOGLE_PAY");
+        supportedPayMethods.add("SAMSUNG_PAY");
+        supportedPayMethods.add("AMERICAN_EXPRESS");
+
         sdkSession.setSupportedPaymentMethods(supportedPayMethods);//** Optional ** you can pass which SupportedPaymentMethods[VISA/MASTERCARD/MADA etc]
 
        // sdkSession.setTopUp(getTopUp()); // ** Optional ** you can pass TopUp object for Merchant.
@@ -324,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
         if (sdkSession != null) {
             TransactionMode trx_mode = (settingsManager != null) ? settingsManager.getTransactionsMode("key_sdk_transaction_mode") : TransactionMode.PURCHASE;
             // set transaction mode [TransactionMode.PURCHASE - TransactionMode.AUTHORIZE_CAPTURE - TransactionMode.SAVE_CARD - TransactionMode.TOKENIZE_CARD ]
-            sdkSession.setTransactionMode(trx_mode);    //** Required **
+            sdkSession.setTransactionMode(TransactionMode.PURCHASE);    //** Required **
             // if you are not using tap button then start SDK using the following call
             //sdkSession.start(this);
         }
