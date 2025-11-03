@@ -120,7 +120,7 @@ afterEvaluate {
 
                 groupId = "com.github.Tap-Payments"
                 artifactId = "goSellSDK-AndroidX"
-                version = "3.19.42"
+                version = "3.19.43"
 
                 // Variant-aware: ensure dependencies are included in POM
                 pom.withXml {
