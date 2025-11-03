@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.43] - 2025-11-03
+### Enhancement Feature:
+- Update to handle Deprecated 
+- ### Impact on existing integrations:
+- No Need to add any additional libs from previous builds only tap lib
 ## [3.19.40] - 2025-09-23
 ### Enhancement Feature:
 - Update to handle 16KB android
