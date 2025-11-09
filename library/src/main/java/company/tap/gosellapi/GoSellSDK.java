@@ -48,7 +48,7 @@ public class GoSellSDK {
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }*/
-    public static void setLocale(Context context, String localeString) {
+  /*  public static void setLocale(Context context, String localeString) {
         AppInfo.setLocale(localeString);
         getLocaleLang = localeString;
 
@@ -75,7 +75,7 @@ public class GoSellSDK {
             config.locale = locale;
             context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
         }
-    }
+    }*/
 
 
     public static String getLocaleString(){
