@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.44] - 2025-11-09
+### Enhancement Feature:
+- Remove Locale
+- ### Impact on existing integrations:
+- No Need to add any additional libs from previous builds only tap lib
 ## [3.19.43] - 2025-11-03
 ### Enhancement Feature:
 - Update to handle Deprecated 
