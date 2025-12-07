@@ -104,7 +104,7 @@ public class AppInfo {
         applicationInfo.put("requirer_device_model",Build.MODEL);
         applicationInfo.put("sdk_version",Build.VERSION.SDK_INT);
         if(manager!=null) {
-            applicationInfo.put("requirer_sim_network_name", manager.getSimOperatorName());
+            applicationInfo.put("requirer_sim_network_name", manager.getSimOperatorName().replaceAll("[^\\x20-\\x7E]", ""));
             applicationInfo.put("requirer_sim_country_iso", manager.getSimCountryIso());
         }
     }
