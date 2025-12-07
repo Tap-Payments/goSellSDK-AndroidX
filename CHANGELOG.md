@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.46] - 2025-12-07
+### Enhancement Feature:
+- Handling for app headers ascii charcs
+- ### Impact on existing integrations:
+- No Need to add any additional libs from previous builds only tap lib
 ## [3.19.44] - 2025-11-09
 ### Enhancement Feature:
 - Remove Locale
