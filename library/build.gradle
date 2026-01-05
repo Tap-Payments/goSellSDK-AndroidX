@@ -39,8 +39,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         buildConfig = true
@@ -120,7 +120,7 @@ afterEvaluate {
 
                 groupId = "com.github.Tap-Payments"
                 artifactId = "goSellSDK-AndroidX"
-                version = "3.19.47"
+                version = "3.19.47.1"
 
                 // Variant-aware: ensure dependencies are included in POM
                 pom.withXml {
