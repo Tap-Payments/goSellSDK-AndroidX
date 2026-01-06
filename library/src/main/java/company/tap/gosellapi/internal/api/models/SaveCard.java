@@ -6,10 +6,12 @@ import androidx.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * The type Save card.
  */
-public final class SaveCard extends Charge{
+public  class SaveCard extends Charge implements Serializable {
 
     @SerializedName("save_card")
     @Expose
