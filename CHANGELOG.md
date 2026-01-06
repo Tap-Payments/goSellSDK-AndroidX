@@ -1,4 +1,9 @@
 # CHANGELOG
+## [3.19.48] - 2026-01-06
+### Enhancement Feature:
+- Handling for back button on api 16 devices
+- ### Impact on existing integrations:
+- No Need to add any additional libs from previous builds only tap lib
 ## [3.19.46] - 2025-12-07
 ### Enhancement Feature:
 - Handling for app headers ascii charcs
