@@ -1,5 +1,7 @@
 package company.tap.gosellapi.internal.interfaces;
 
+import androidx.annotation.NonNull;
+
 import company.tap.gosellapi.internal.api.callbacks.GoSellError;
 import company.tap.gosellapi.internal.api.models.Authorize;
 import company.tap.gosellapi.internal.api.models.Charge;
@@ -15,28 +17,28 @@ public interface IPaymentProcessListener {
      *
      * @param charge the charge
      */
-    void didReceiveCharge(Charge charge);
+    void didReceiveCharge(@NonNull  Charge charge);
 
     /**
      * Did receive authorize.
      *
      * @param authorize the authorize
      */
-    void didReceiveAuthorize(Authorize authorize);
+    void didReceiveAuthorize(@NonNull Authorize authorize);
 
     /**
      * Did receive error.
      *
      * @param error the error
      */
-    void didReceiveError(GoSellError error);
+    void didReceiveError(@NonNull GoSellError error);
 
     /**
      * Did receive save card.
      *
      * @param saveCard the save card
      */
-    void didReceiveSaveCard(SaveCard saveCard);
+    void didReceiveSaveCard(@NonNull SaveCard saveCard);
 
     /**
      * Did card saved before.
@@ -47,7 +49,7 @@ public interface IPaymentProcessListener {
      * Card Tokenization process completed
      * @param token
      */
-    void fireCardTokenizationProcessCompleted(Token token);
+    void fireCardTokenizationProcessCompleted(@NonNull Token token);
 
 
 }
