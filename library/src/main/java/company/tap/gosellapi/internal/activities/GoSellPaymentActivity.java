@@ -41,6 +41,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
@@ -208,6 +209,19 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
         if (cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                SDKSession.getListener().sessionCancelled();
+                if (recentSectionViewModel != null) recentSectionViewModel.EnableRecentView();
+                if (webPaymentViewModel != null) webPaymentViewModel.enableWebView();
+                PaymentDataManager.getInstance().setCardPaymentProcessStatus(false);
+                if (cardCredentialsViewModel != null) cardCredentialsViewModel.enableCardScanView();
+                // ✅ FINISH ACTIVITY MANUALLY
+                finish();
+            }
+        });
+
     }
 
     private void initViews() {
@@ -280,6 +294,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
         super.onBackPressed();
 
     }
+
 
     private void setupHeader() {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
