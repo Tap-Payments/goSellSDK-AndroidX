@@ -18,7 +18,7 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
  class PaymentProcessListener implements IPaymentProcessListener {
 
     @Override
-    public void didReceiveCharge(Charge charge) {
+    public void didReceiveCharge( @NonNull Charge charge) {
         Log.d("PaymentDataManager","didReceiveCharge started................");
         if(getListeners()!=null)
             Log.d("PaymentDataManager","come to didReceiveCharge................"+getListeners().size());
@@ -41,7 +41,7 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
     }
 
     @Override
-    public void didReceiveAuthorize(Authorize authorize) {
+    public void didReceiveAuthorize( @NonNull Authorize authorize) {
         //  Log.d("PaymentDataManager","didReceiveAuthorize started................");
         if(getListeners()!=null)
             //  Log.d("PaymentDataManager","come to didReceiveAuthorize................"+getListeners().size());
@@ -62,7 +62,7 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
     }
 
     @Override
-    public void didReceiveSaveCard(SaveCard saveCard) {
+    public void didReceiveSaveCard( @NonNull SaveCard saveCard) {
         //  Log.d("PaymentDataManager","didReceiveSaveCard started................");
         //
 
@@ -85,7 +85,7 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
     }
 
     @Override
-    public void didReceiveError(GoSellError error) {
+    public void didReceiveError(@NonNull GoSellError error) {
         Log.d("PaymentDataManager","didReceiveError started................");
         if(getListeners()!=null)
             Log.d("PaymentDataManager","come to didReceiveSaveCard................"+getListeners().size());
@@ -129,7 +129,7 @@ import company.tap.gosellapi.internal.interfaces.IPaymentProcessListener;
     }
 
     @Override
-    public void fireCardTokenizationProcessCompleted(Token token) {
+    public void fireCardTokenizationProcessCompleted(@NonNull Token token) {
         Log.d("PaymentDataManager","fireCardTokenizationProcessCompleted started................");
         if(getListeners()!=null)
             Log.d("PaymentDataManager","come to fireCardTokenizationProcessCompleted................"+getListeners().size());
