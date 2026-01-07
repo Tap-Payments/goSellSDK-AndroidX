@@ -255,7 +255,7 @@ public class WebPaymentActivity extends BaseActionBarActivity implements IPaymen
   }
 
   @Override
-  public void didReceiveAuthorize(Authorize authorize) {
+  public void didReceiveAuthorize(@NonNull Authorize authorize) {
 
     obtainPaymentURLFromChargeOrAuthorize(authorize);
   }

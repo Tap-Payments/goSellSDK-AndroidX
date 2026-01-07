@@ -1222,7 +1222,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 
 
     @Override
-    public void didReceiveSaveCard(SaveCard saveCard) {
+    public void didReceiveSaveCard(@NonNull SaveCard saveCard) {
         LoadingScreenManager.getInstance().closeLoadingScreen();
         // Log.d("GoSellPaymentActivity"," Cards >> didReceiveSaveCard * * * " + saveCard);
         if (saveCard == null) return;
@@ -1424,7 +1424,7 @@ public class GoSellPaymentActivity extends BaseActivity implements PaymentOption
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public void didReceiveAuthorize(Authorize authorize) {
+    public void didReceiveAuthorize(@NonNull Authorize authorize) {
         Log.d("GoSellPaymentActivity", " Cards >> didReceiveAuthorize * * * ");
         if (authorize == null) return;
         //  Log.d("GoSellPaymentActivity"," Cards >> didReceiveAuthorize * * * " + authorize.getStatus());
