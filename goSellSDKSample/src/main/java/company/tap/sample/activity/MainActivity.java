@@ -153,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements SessionDelegate {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void configureApp() {
-     // GoSellSDK.init(this, "YOUR_SANDBOX_SECRET_KEY", "company.tap.goSellSDKExample");  // to be replaced by merchant
-      GoSellSDK.init(this, "YOUR_SANDBOX_SECRET_KEY", "com.cleantimeـco.customer");  // to be replaced by merchant
+     // GoSellSDK.init(this, "sk_XXXXXXXXXXXXXXXXXXXXXXXX", "company.tap.goSellSDKExample");  // to be replaced by merchant
+      GoSellSDK.init(this, "sk_XXXXXXXXXXXXXXXXXXXXXXXX", "com.cleantimeـco.customer");  // to be replaced by merchant
       GoSellSDK.setLocale("en");//  language to be set by merchant
 
     }
