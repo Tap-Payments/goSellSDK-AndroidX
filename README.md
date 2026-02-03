@@ -266,7 +266,7 @@ If you wish to localize the sdk following languages are available **English, Ara
          * Configure SDK with your Secret API key and App Bundle name registered with tap company.
          */
         private void configureApp(){
-            GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample");  // to be replaced by merchant, you can contact tap support team to get you credentials
+            GoSellSDK.init(this, "sk_XXXXXXXXXXXXXXXXXXXXXXXX","company.tap.goSellSDKExample");  // to be replaced by merchant, you can contact tap support team to get you credentials
             GoSellSDK.setLocale("ar");//  if you dont pass locale then default locale EN will be used
         }
 ```
@@ -277,7 +277,7 @@ If you wish to localize the sdk following languages are available **English, Ara
          * Configure SDK with your Secret API key and App Bundle name registered with tap company.
          */
         private fun configureApp(){
-            GoSellSDK.init(this, "sk_test_kovrMB0mupFJXfNZWx6Etg5y","company.tap.goSellSDKExample")  // to be replaced by merchant, you can contact tap support team to get you credentials
+            GoSellSDK.init(this, "sk_XXXXXXXXXXXXXXXXXXXXXXXX","company.tap.goSellSDKExample")  // to be replaced by merchant, you can contact tap support team to get you credentials
             GoSellSDK.setLocale("ar")//  if you dont pass locale then default locale EN will be used
         }
 ```
