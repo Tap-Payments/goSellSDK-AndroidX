@@ -80,32 +80,46 @@ public class AppInfo {
 
     private static void initApplicationInfo(String applicationId) {
         applicationInfo = new LinkedHashMap<>();
-        String encodeddevice=null;
+        String encodeddevice = null;
+
         applicationInfo.put("app_id", applicationId);
         applicationInfo.put("requirer", "SDK");
         applicationInfo.put("requirer_version", Build.VERSION.SDK_INT);
         applicationInfo.put("requirer_os", "Android");
         applicationInfo.put("requirer_os_version", Build.VERSION.RELEASE);
-        if(localeString==null){
-            applicationInfo.put("app_locale", getLocaleString());
 
-        }else{
-            applicationInfo.put("app_locale", SupportedLocales.findByString(localeString).language);
+        // Determine locale
+        String locale = localeString;
 
+        if (locale == null || locale.trim().isEmpty()) {
+            locale = getLocaleString();
         }
-        if(deviceName!=null){
-            encodeddevice= Base64.encodeToString(deviceName.getBytes(),Base64.NO_WRAP);
-            applicationInfo.put("requirer_device_name",encodeddevice);
 
-        }else{
-            applicationInfo.put("requirer_device_name","deviceName");
+        if (locale == null || locale.trim().isEmpty()) {
+            locale = SupportedLocales.EN.language;
         }
-        applicationInfo.put("requirer_device_type",Build.BRAND);
-        applicationInfo.put("requirer_device_model",Build.MODEL);
-        applicationInfo.put("sdk_version",Build.VERSION.SDK_INT);
-        if(manager!=null) {
-            applicationInfo.put("requirer_sim_network_name", manager.getSimOperatorName().replaceAll("[^\\x20-\\x7E]", ""));
-            applicationInfo.put("requirer_sim_country_iso", manager.getSimCountryIso());
+
+        locale = locale.length() < 2 ? locale : locale.substring(0, 2);
+
+        applicationInfo.put("app_locale",
+                SupportedLocales.findByString(locale).language);
+
+        if (deviceName != null) {
+            encodeddevice = Base64.encodeToString(deviceName.getBytes(), Base64.NO_WRAP);
+            applicationInfo.put("requirer_device_name", encodeddevice);
+        } else {
+            applicationInfo.put("requirer_device_name", "deviceName");
+        }
+
+        applicationInfo.put("requirer_device_type", Build.BRAND);
+        applicationInfo.put("requirer_device_model", Build.MODEL);
+        applicationInfo.put("sdk_version", Build.VERSION.SDK_INT);
+
+        if (manager != null) {
+            applicationInfo.put("requirer_sim_network_name",
+                    manager.getSimOperatorName().replaceAll("[^\\x20-\\x7E]", ""));
+            applicationInfo.put("requirer_sim_country_iso",
+                    manager.getSimCountryIso());
         }
     }
 

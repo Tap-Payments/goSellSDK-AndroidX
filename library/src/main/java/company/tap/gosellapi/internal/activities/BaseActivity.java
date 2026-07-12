@@ -91,23 +91,76 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }*/
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        String lang = ThemeObject.getInstance().getSdkLanguage(); // your SDK language
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        getLocaleLang = ThemeObject.getInstance().getSdkLanguage();
-        Configuration config = new Configuration();
-        config.locale = locale;
-        config.setLocale(locale);
-        config.setLayoutDirection(locale);
+  @Override
+  protected void attachBaseContext(Context newBase) {
 
-        newBase.getResources().updateConfiguration(config, newBase.getResources().getDisplayMetrics());
-        System.out.println("getSdkLanguage: " + lang);
-      //  System.out.println("localizedContext: " + localizedContext);
-        AppInfo.setLocale(ThemeObject.getInstance().getSdkLanguage());
-        super.attachBaseContext(newBase);
-    }
+      String lang = null;
+
+      // Safely get SDK language
+      if (ThemeObject.getInstance() != null) {
+          lang = ThemeObject.getInstance().getSdkLanguage();
+      }
+
+      // If SDK language is null/empty, use device locale
+      if (lang == null || lang.trim().isEmpty()) {
+
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+              if (newBase != null
+                      && newBase.getResources() != null
+                      && newBase.getResources().getConfiguration() != null
+                      && !newBase.getResources().getConfiguration().getLocales().isEmpty()) {
+
+                  lang = newBase.getResources()
+                          .getConfiguration()
+                          .getLocales()
+                          .get(0)
+                          .getLanguage();
+              }
+          } else {
+              if (newBase != null
+                      && newBase.getResources() != null
+                      && newBase.getResources().getConfiguration() != null
+                      && newBase.getResources().getConfiguration().locale != null) {
+
+                  lang = newBase.getResources()
+                          .getConfiguration()
+                          .locale
+                          .getLanguage();
+              }
+          }
+      }
+
+      // Final fallback
+      if (lang == null || lang.trim().isEmpty()) {
+          lang = "en";
+      }
+
+      Locale locale = new Locale(lang);
+      Locale.setDefault(locale);
+
+      getLocaleLang = lang;
+
+      Configuration config = new Configuration(newBase.getResources().getConfiguration());
+      config.setLocale(locale);
+      config.setLayoutDirection(locale);
+
+      Context localizedContext;
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+          localizedContext = newBase.createConfigurationContext(config);
+      } else {
+          newBase.getResources().updateConfiguration(
+                  config,
+                  newBase.getResources().getDisplayMetrics()
+          );
+          localizedContext = newBase;
+      }
+      System.out.println("Sdk language: " + lang);
+
+      AppInfo.setLocale(lang);
+
+      super.attachBaseContext(localizedContext);
+  }
 
 
     @Override
