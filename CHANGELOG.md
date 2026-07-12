@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.19.49] - 2026-07-12
+### Hot Fix:
+- Handling for NPE app language
 ## [3.19.48] - 2026-01-06
 ### Enhancement Feature:
 - Handling for back button on api 16 devices
